@@ -14,20 +14,20 @@ export interface ProgressEntry {
 
 type ProgressMap = Record<string, ProgressEntry>;
 
-const store = createLocalStore<ProgressMap>("kl_progress", {});
+export const progressStore = createLocalStore<ProgressMap>("kl_progress", {});
 
 /** Treat the last 5% as finished so a session does not resume at the credits. */
 const COMPLETE_RATIO = 0.95;
 
 export function useProgress() {
-  const all = store.useStore();
+  const all = progressStore.useStore();
 
   const get = useCallback((id: string): ProgressEntry | undefined => all[id], [all]);
 
   const update = useCallback((id: string, position: number, duration: number) => {
     const completed = duration > 0 && position / duration >= COMPLETE_RATIO;
-    const current = store.read();
-    store.write({
+    const current = progressStore.read();
+    progressStore.write({
       ...current,
       [id]: { position, duration, completed, updatedAt: new Date().toISOString() },
     });
@@ -38,7 +38,7 @@ export function useProgress() {
 
 /** Most recently touched, unfinished session. */
 export function useLastInProgress(): { id: string; entry: ProgressEntry } | null {
-  const all = store.useStore();
+  const all = progressStore.useStore();
   let best: { id: string; entry: ProgressEntry } | null = null;
   for (const [id, entry] of Object.entries(all)) {
     if (entry.completed || entry.position < 5) continue;

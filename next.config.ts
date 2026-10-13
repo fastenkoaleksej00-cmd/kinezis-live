@@ -3,11 +3,13 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 const isDev = process.env.NODE_ENV === "development";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+const supabaseWs = supabaseUrl?.replace(/^http/, "ws");
 
 /**
  * Content Security Policy. Next.js injects inline scripts (RSC payload) and
  * inline styles (motion), so 'unsafe-inline' is needed without a nonce setup.
- * Stage 5 will extend connect-src / media-src for Supabase and the video host.
+ * connect-src includes the Supabase project when configured; the video host is added with stage 7.
  */
 const csp = [
   "default-src 'self'",
@@ -15,7 +17,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self'${supabaseUrl ? ` ${supabaseUrl} ${supabaseWs}` : ""}`,
   "media-src 'self' blob:",
   "worker-src 'self' blob:",
   "frame-src 'none'",

@@ -10,7 +10,8 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
   petrol `ink` #10242B → icy `ice` #F5F8F8, glow `#8EDCF0`, accent `#2A86B4`. App-only `mint` tones for beauty directions.
   Glass surfaces `.glass` / `.glass-dark`, dark `.section-deep`, cover placeholders `.cover`, `.cover-mint`, `.cover-light`.
 - `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de).
-- `motion` for animation, `lucide-react` for icons. No shadcn/ui, no Supabase yet (stage 5).
+- `motion` for animation, `lucide-react` for icons. No shadcn/ui.
+- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/`. Public env in `.env.local` (gitignored); never store the service_role key in the repo.
 - Package manager: npm (pnpm cannot lock its store in the sandboxed shell). Fonts: Manrope + Caveat via `next/font`.
 
 ## Commands
@@ -31,6 +32,9 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `components/home/ContinueCard.tsx` — last unfinished session from local progress
 - `lib/content/` — `types.ts` (Workout, VideoSource, filters), `workouts.ts` (repository: sample data now, Supabase in stage 5), `localize.ts`
 - `lib/store/` — localStorage stores for favourites (`kl_favorites`, keys from `keys.ts`: `workout:<id>`, `post:<id>`, `course:<id>`), watch progress (`kl_progress`) and completed lessons (`kl_lessons`); same API will sync to accounts later
+- `lib/supabase/` — `env.ts` (null when not configured), `client.ts` (browser), `server.ts` (cookies + `getSessionUser()`), `middleware.ts` (session refresh, wired in root `middleware.ts`)
+- `lib/auth/actions.ts` — server actions signIn / signUp / signOut; pages `app/(app)/auth/sign-in|sign-up`, callback `app/auth/callback/route.ts`
+- `components/auth/` — AuthForm (useActionState), UserDataSync (pulls account rows on sign-in, merges with local stores, pushes every local change)
 - `i18n/` — locale config and request config; `lib/locale.ts` — server action that sets the cookie
 - `design/`, `fotkiinfo/` — reference material from the owner, not part of the build (gitignored)
 
@@ -42,6 +46,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Interface language ≠ content language: videos, posts and courses carry their own `language` field.
 - Never invent facts: no made-up videos, lessons, products, ingredients, prices, reviews or medical claims.
   Wording: "prevention", "recovery through movement". Never "diagnosis", "treatment", "medical centre".
+- The app must keep working with Supabase unconfigured: stores stay local, auth pages show an honest notice.
 - No fake backends: a feature without a real data source shows an honest empty state, never a pretend success.
 - Skincare never ships invented products, brands, ingredients or claims: the repositories stay empty until the trainer enters real items. No shop, no checkout.
 - The sample Face Fitness course has placeholder names only (Module 1, Lesson 1.1); do not write lesson content.

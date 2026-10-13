@@ -11,14 +11,14 @@ interface LessonState {
 type LessonMap = Record<string, LessonState>;
 
 /** Completed lessons, locally for now. Keyed by lesson id. */
-const store = createLocalStore<LessonMap>("kl_lessons", {});
+export const lessonsStore = createLocalStore<LessonMap>("kl_lessons", {});
 
 export function useLessons() {
-  const all = store.useStore();
+  const all = lessonsStore.useStore();
   const isDone = useCallback((id: string) => Boolean(all[id]?.completed), [all]);
   const setDone = useCallback((id: string, completed: boolean) => {
-    const current = store.read();
-    store.write({ ...current, [id]: { completed, at: new Date().toISOString() } });
+    const current = lessonsStore.read();
+    lessonsStore.write({ ...current, [id]: { completed, at: new Date().toISOString() } });
   }, []);
   const doneCount = useCallback((ids: string[]) => ids.filter((id) => all[id]?.completed).length, [all]);
   return { all, isDone, setDone, doneCount };

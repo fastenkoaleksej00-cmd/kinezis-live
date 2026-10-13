@@ -58,5 +58,5 @@ export function createLocalStore<T>(key: string, fallback: T) {
     return useSyncExternalStore(subscribe, read, () => fallback);
   }
 
-  return { read, write, useStore };
+  return { read, write, subscribe, useStore };
 }

@@ -116,7 +116,14 @@
     "subscription": "Zugang",
     "subscriptionFree": "Kostenlose Inhalte",
     "support": "Trainerin fragen",
-    "supportHint": "Fragen und Online-Einheiten werden später verfügbar sein."
+    "supportHint": "Fragen und Online-Einheiten werden später verfügbar sein.",
+    "guestSignInHint": "Melde dich an, um Gespeichertes und Fortschritt im Konto zu behalten.",
+    "roles": {
+      "user": "Mitglied",
+      "trainer": "Trainerin",
+      "admin": "Admin"
+    },
+    "syncNote": "Gespeichertes, Wiedergabefortschritt und abgeschlossene Lektionen werden mit deinem Konto synchronisiert."
   },
   "settings": {
     "title": "Einstellungen",
@@ -196,6 +203,34 @@
       "body": "Beschreibung, Inhaltsstoffe, Anwendung und Bezugsquelle.",
       "emptyTitle": "Noch keine Produkte",
       "emptyBody": "Produktführer erscheinen hier, sobald die Trainerin sie hinzufügt. Die App hat keinen Shop und keine Kasse."
+    }
+  },
+  "auth": {
+    "signInTitle": "Anmelden",
+    "signInLead": "Gespeichertes und Fortschritt begleiten dich auf jedem Gerät.",
+    "signUpTitle": "Konto erstellen",
+    "signUpLead": "Kostenlos. E-Mail und Passwort genügen.",
+    "displayName": "Name",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordHint": "Mindestens 8 Zeichen.",
+    "signIn": "Anmelden",
+    "createAccount": "Konto erstellen",
+    "signOut": "Abmelden",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Schon ein Konto?",
+    "checkEmailTitle": "Prüfe deine E-Mails",
+    "checkEmailBody": "Wir haben einen Bestätigungslink gesendet. Öffne ihn, um dein Konto fertigzustellen.",
+    "notConfiguredBody": "In diesem Build sind Konten nicht verbunden. Gespeichertes und Fortschritt bleiben auf diesem Gerät.",
+    "errors": {
+      "notConfigured": "Konten nicht verfügbar",
+      "invalid": "Falsche E-Mail oder falsches Passwort.",
+      "unconfirmed": "Bestätige zuerst deine E-Mail: öffne den zugesandten Link.",
+      "exists": "Diese E-Mail ist bereits registriert. Melde dich an.",
+      "weakPassword": "Das Passwort ist zu kurz. Mindestens 8 Zeichen.",
+      "missing": "Gib E-Mail und Passwort ein.",
+      "generic": "Etwas ist schiefgelaufen. Versuche es gleich noch einmal.",
+      "callback": "Der Bestätigungslink ist ungültig oder abgelaufen. Melde dich an oder fordere einen neuen an."
     }
   }
 }
