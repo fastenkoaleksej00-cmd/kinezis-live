@@ -8,14 +8,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const directions = [
   { key: "workouts", href: "/library", tone: "deep" },
-  { key: "faceFitness", href: "/explore", tone: "mint" },
-  { key: "skincare", href: "/explore", tone: "light" },
+  { key: "faceFitness", href: "/face-fitness", tone: "mint" },
+  { key: "skincare", href: "/skincare", tone: "light" },
 ] as const;
 
-/** Explore: the three directions of the platform. Workouts open the Library; the other two arrive in stage 4. */
+/** Explore: the three directions of the platform. */
 export default async function ExplorePage() {
   const t = await getTranslations("explore");
-  const tc = await getTranslations("common");
 
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
@@ -25,11 +24,10 @@ export default async function ExplorePage() {
       <div className="grid gap-4 sm:grid-cols-3">
         {directions.map(({ key, href, tone }, i) => {
           const light = tone === "light";
-          const ready = key === "workouts";
           return (
             <Reveal key={key} delay={0.06 * (i + 1)}>
-              <Link href={href} className="group block" aria-disabled={!ready}>
-                <Cover tone={tone} ratio="aspect-[16/10] sm:aspect-[4/5]" label={ready ? undefined : tc("comingSoon")}>
+              <Link href={href} className="group block">
+                <Cover tone={tone} ratio="aspect-[16/10] sm:aspect-[4/5]">
                   <div className="flex h-full flex-col justify-end p-5">
                     <div className="flex items-end justify-between gap-3">
                       <div>

@@ -104,7 +104,8 @@
     "empty": "Noch nichts gespeichert. Tippe auf das Lesezeichen bei einem Video oder Beitrag.",
     "goToLibrary": "Bibliothek öffnen",
     "sectionWorkouts": "Workouts",
-    "sectionPosts": "Beiträge"
+    "sectionPosts": "Beiträge",
+    "sectionCourses": "Kurse"
   },
   "profile": {
     "title": "Profil",
@@ -151,5 +152,50 @@
     "open": "Öffnen",
     "videoPending": "Video folgt",
     "socialLater": "Reaktionen und Kommentare kommen in einer späteren Phase."
+  },
+  "faceFitness": {
+    "eyebrow": "Beauty",
+    "title": "Face Fitness",
+    "lead": "Strukturierte Kurse mit Modulen und Lektionen.",
+    "sample": "Beispiel",
+    "sampleNote": "Dieses Beispiel zeigt nur den Aufbau eines Kurses. Echte Lektionen fügt die Trainerin hinzu.",
+    "modules": "{count, plural, one {# Modul} other {# Module}}",
+    "lessons": "{count, plural, one {# Lektion} other {# Lektionen}}",
+    "progress": "{done} von {total} Lektionen abgeschlossen",
+    "lesson": "Lektion",
+    "hasVideo": "Video",
+    "videoPending": "Video folgt",
+    "routine": "Routine",
+    "recommendations": "Empfehlungen",
+    "markDone": "Als erledigt markieren",
+    "markUndone": "Erledigt · rückgängig",
+    "prevLesson": "Zurück",
+    "nextLesson": "Nächste Lektion"
+  },
+  "skincare": {
+    "eyebrow": "Beauty",
+    "title": "Hautpflege",
+    "lead": "Routinen, Wissen und Produktführer.",
+    "intro": "Tägliche Pflege einfach erklärt. Hier erscheint nur, was die Trainerin geschrieben und geprüft hat.",
+    "count": "{count, plural, =0 {Noch nichts veröffentlicht} one {# Eintrag} other {# Einträge}}",
+    "note": "Die App erfindet keine Produkte, Marken oder Inhaltsstoffe. Alles hier trägt die Trainerin ein.",
+    "routines": {
+      "title": "Routinen",
+      "body": "Schritte für morgens, abends und wöchentlich.",
+      "emptyTitle": "Noch keine Routinen",
+      "emptyBody": "Schritt-für-Schritt-Routinen erscheinen hier, sobald die Trainerin sie veröffentlicht."
+    },
+    "articles": {
+      "title": "Wissen",
+      "body": "Kurze Artikel zu den Grundlagen der Hautpflege.",
+      "emptyTitle": "Noch keine Artikel",
+      "emptyBody": "Lernartikel erscheinen hier, sobald die Trainerin sie veröffentlicht."
+    },
+    "products": {
+      "title": "Produkte",
+      "body": "Beschreibung, Inhaltsstoffe, Anwendung und Bezugsquelle.",
+      "emptyTitle": "Noch keine Produkte",
+      "emptyBody": "Produktführer erscheinen hier, sobald die Trainerin sie hinzufügt. Die App hat keinen Shop und keine Kasse."
+    }
   }
 }

@@ -108,3 +108,88 @@ export interface Post {
   commentsEnabled: boolean;
   sample?: boolean;
 }
+
+/* ----------------------------------------------------------------------------
+   Face Fitness courses
+---------------------------------------------------------------------------- */
+
+export interface Lesson {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  summary?: LocalizedText;
+  durationMin?: number;
+  video: VideoSource;
+  /** Step-by-step routine shown under the video */
+  routine?: LocalizedText[];
+  /** Free-text recommendations from the author */
+  recommendations?: LocalizedText;
+  access: Access;
+}
+
+export interface CourseModule {
+  id: string;
+  title: LocalizedText;
+  lessons: Lesson[];
+}
+
+export interface Course {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  coverTone: CoverTone;
+  level: Level;
+  access: Access;
+  language: ContentLanguage;
+  authorId: string;
+  modules: CourseModule[];
+  publishedAt: string;
+  sample?: boolean;
+}
+
+/* ----------------------------------------------------------------------------
+   Cosmetics & Skincare
+---------------------------------------------------------------------------- */
+
+export type RoutineTime = "morning" | "evening" | "weekly";
+
+export interface SkinRoutine {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  time: RoutineTime;
+  steps: LocalizedText[];
+  language: ContentLanguage;
+  access: Access;
+  publishedAt: string;
+}
+
+export interface SkinArticle {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  body: LocalizedText;
+  language: ContentLanguage;
+  access: Access;
+  publishedAt: string;
+}
+
+export type ProductCategory = "cleanser" | "toner" | "serum" | "moisturizer" | "spf" | "mask" | "tool" | "other";
+
+/** A real product entered by the trainer. Nothing here is invented by the app. */
+export interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  brand: string;
+  category: ProductCategory;
+  description: LocalizedText;
+  ingredients: string[];
+  usage: LocalizedText;
+  purchaseUrl?: string;
+  imageSrc?: string;
+  language: ContentLanguage;
+  access: Access;
+  publishedAt: string;
+}

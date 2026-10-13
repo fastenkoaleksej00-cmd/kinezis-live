@@ -6,3 +6,7 @@ export function workoutKey(id: string): string {
 export function postKey(id: string): string {
   return `post:${id}`;
 }
+
+export function courseKey(id: string): string {
+  return `course:${id}`;
+}

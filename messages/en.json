@@ -104,7 +104,8 @@
     "empty": "Nothing saved yet. Tap the bookmark on any video or post to keep it here.",
     "goToLibrary": "Open the Library",
     "sectionWorkouts": "Workouts",
-    "sectionPosts": "Posts"
+    "sectionPosts": "Posts",
+    "sectionCourses": "Courses"
   },
   "profile": {
     "title": "Profile",
@@ -151,5 +152,50 @@
     "open": "Open",
     "videoPending": "Video pending",
     "socialLater": "Reactions and comments open in a later stage."
+  },
+  "faceFitness": {
+    "eyebrow": "Beauty",
+    "title": "Face Fitness",
+    "lead": "Structured courses with modules and lessons.",
+    "sample": "Sample",
+    "sampleNote": "This sample only shows how a course is organised. Real lessons are added by the trainer.",
+    "modules": "{count, plural, one {# module} other {# modules}}",
+    "lessons": "{count, plural, one {# lesson} other {# lessons}}",
+    "progress": "{done} of {total} lessons done",
+    "lesson": "Lesson",
+    "hasVideo": "Video",
+    "videoPending": "Video pending",
+    "routine": "Routine",
+    "recommendations": "Recommendations",
+    "markDone": "Mark as done",
+    "markUndone": "Done · undo",
+    "prevLesson": "Previous",
+    "nextLesson": "Next lesson"
+  },
+  "skincare": {
+    "eyebrow": "Beauty",
+    "title": "Skincare",
+    "lead": "Routines, education and product guides.",
+    "intro": "Everyday care explained simply. Only what the trainer has written and checked appears here.",
+    "count": "{count, plural, =0 {Nothing published yet} one {# item} other {# items}}",
+    "note": "No products, brands or ingredients are invented by the app. Everything here is entered by the trainer.",
+    "routines": {
+      "title": "Routines",
+      "body": "Morning, evening and weekly steps.",
+      "emptyTitle": "No routines yet",
+      "emptyBody": "Step-by-step routines will appear here once the trainer publishes them."
+    },
+    "articles": {
+      "title": "Learn",
+      "body": "Short articles on skincare basics.",
+      "emptyTitle": "No articles yet",
+      "emptyBody": "Educational articles will appear here once the trainer publishes them."
+    },
+    "products": {
+      "title": "Products",
+      "body": "Descriptions, ingredients, usage and where to buy.",
+      "emptyTitle": "No products yet",
+      "emptyBody": "Product guides will appear here once the trainer adds them. There is no shop or checkout in the app."
+    }
   }
 }

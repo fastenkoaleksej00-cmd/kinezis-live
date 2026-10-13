@@ -23,11 +23,14 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `components/ui/` — Button, Chip, Container, Cover, EmptyState, Logo, Reveal, SectionHeading
 - `components/library/` — WorkoutCard, FilterBar (URL-driven, bottom sheet), SaveButton (any item key), SavedWorkouts
 - `components/feed/` — PostCard, AuthorRow, SavedPosts, SavedEmpty; post page at `app/(app)/posts/[id]`
+- `components/courses/` — CourseCard, CourseProgress, LessonRow, LessonDoneButton, SavedCourses; routes `/face-fitness`, `/face-fitness/[slug]`, `/face-fitness/[slug]/[lesson]`
+- `components/skincare/SectionLink.tsx`; routes `/skincare` (hub), `/skincare/routines|articles|products` (empty until the trainer adds items)
+- `lib/content/courses.ts` — one sample course skeleton (modules → lessons → video/routine/recommendations); `lib/content/skincare.ts` — empty repositories for routines, articles, products
 - `lib/content/posts.ts` — feed repository (sample posts now); `getTodayWorkout()` in `workouts.ts` rotates the session of the day
 - `components/player/VideoPlayer.tsx` — HTML5 player with resume; honest empty state when `video` is null
 - `components/home/ContinueCard.tsx` — last unfinished session from local progress
 - `lib/content/` — `types.ts` (Workout, VideoSource, filters), `workouts.ts` (repository: sample data now, Supabase in stage 5), `localize.ts`
-- `lib/store/` — localStorage stores for favourites (`kl_favorites`, keys from `keys.ts`: `workout:<id>`, `post:<id>`) and progress (`kl_progress`); same API will sync to accounts later
+- `lib/store/` — localStorage stores for favourites (`kl_favorites`, keys from `keys.ts`: `workout:<id>`, `post:<id>`, `course:<id>`), watch progress (`kl_progress`) and completed lessons (`kl_lessons`); same API will sync to accounts later
 - `i18n/` — locale config and request config; `lib/locale.ts` — server action that sets the cookie
 - `design/`, `fotkiinfo/` — reference material from the owner, not part of the build (gitignored)
 
@@ -40,6 +43,8 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Never invent facts: no made-up videos, lessons, products, ingredients, prices, reviews or medical claims.
   Wording: "prevention", "recovery through movement". Never "diagnosis", "treatment", "medical centre".
 - No fake backends: a feature without a real data source shows an honest empty state, never a pretend success.
+- Skincare never ships invented products, brands, ingredients or claims: the repositories stay empty until the trainer enters real items. No shop, no checkout.
+- The sample Face Fitness course has placeholder names only (Module 1, Lesson 1.1); do not write lesson content.
 - Sample posts are labelled "Sample" in the UI; reactions/comments are model flags only, no sending UI.
 - Sample workouts in `lib/content/workouts.ts` are marked `sample: true` and have `video: null`; keep names neutral, no results promised.
 - Filters live in the URL (`?category=&duration=&goal=&level=`) and are parsed by `parseFilters`, unknown values are dropped.

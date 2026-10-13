@@ -33,7 +33,7 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 1. Shell, design system, navigation, language switcher — done
 2. Workout Library with categories, filters, player, favourites — done (sample sessions, videos not connected yet)
 3. Home feed and trainer posts — done (sample posts, session of the day)
-4. Face Fitness courses and Skincare structure
+4. Face Fitness courses and Skincare structure — done (sample course skeleton, empty skincare sections)
 5. Accounts and data (Supabase), video hosting
 6. Trainer admin panel
 7. iOS / Android packaging, subscription
