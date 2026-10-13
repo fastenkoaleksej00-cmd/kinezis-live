@@ -1,0 +1,155 @@
+{
+  "brand": {
+    "name": "KINEZIS LIVE",
+    "short": "LIVE",
+    "tagline": "Bewegung · Regeneration · Pflege"
+  },
+  "nav": {
+    "home": "Start",
+    "explore": "Entdecken",
+    "library": "Bibliothek",
+    "saved": "Gespeichert",
+    "profile": "Profil"
+  },
+  "common": {
+    "comingSoon": "Demnächst",
+    "stageNote": "Dieser Bereich entsteht gerade. Hier erscheinen Inhalte der Trainerin.",
+    "settings": "Einstellungen",
+    "back": "Zurück",
+    "open": "Öffnen",
+    "seeAll": "Alle",
+    "minutes": "{count} Min."
+  },
+  "home": {
+    "greeting": "Hallo",
+    "intro": "Dein Raum für Bewegung, Regeneration und tägliche Pflege.",
+    "todayEyebrow": "Heute",
+    "todayTitle": "Eine kurze Praxis für deinen Körper",
+    "todayBody": "Hier erscheinen tägliche Einheiten und neue Videos deiner Trainerin.",
+    "continueTitle": "Weitermachen",
+    "continueEmpty": "Noch nichts begonnen. Starte eine Einheit aus der Bibliothek.",
+    "feedTitle": "Von deiner Trainerin",
+    "feedEmpty": "Im Feed werden neue Videos, Tipps und Übungen veröffentlicht. Er öffnet in der nächsten Phase.",
+    "resumeAt": "Fortsetzen bei {time}"
+  },
+  "explore": {
+    "title": "Entdecken",
+    "lead": "Drei Richtungen, ein Raum.",
+    "workouts": {
+      "title": "Workouts",
+      "body": "Kinesiotherapie, Yoga, Pilates, Stretching, Mobilität und Rückengesundheit."
+    },
+    "faceFitness": {
+      "title": "Face Fitness",
+      "body": "Strukturierte Kurse mit Modulen und Lektionen."
+    },
+    "skincare": {
+      "title": "Hautpflege",
+      "body": "Routinen, Wissen und Produktführer."
+    }
+  },
+  "library": {
+    "title": "Bibliothek",
+    "lead": "Workouts nach Kategorie, Ziel und Dauer.",
+    "all": "Alle",
+    "categories": {
+      "kinesiotherapy": "Kinesiotherapie",
+      "yoga": "Yoga",
+      "pilates": "Pilates",
+      "stretching": "Stretching",
+      "mobility": "Mobilität",
+      "back": "Rückengesundheit"
+    },
+    "empty": "Videos erscheinen hier, sobald die Trainerin sie veröffentlicht.",
+    "filters": {
+      "title": "Filter",
+      "duration": "Dauer",
+      "goal": "Ziel",
+      "level": "Niveau",
+      "any": "Beliebig",
+      "apply": "Anwenden",
+      "reset": "Zurücksetzen",
+      "close": "Schließen"
+    },
+    "durations": {
+      "short": "Unter 15 Min.",
+      "medium": "15–30 Min.",
+      "long": "Über 30 Min."
+    },
+    "levels": {
+      "beginner": "Einsteiger",
+      "intermediate": "Mittel",
+      "advanced": "Fortgeschritten"
+    },
+    "goals": {
+      "mobility": "Mobilität",
+      "posture": "Haltung",
+      "relax": "Entspannung",
+      "strength": "Kraft",
+      "energy": "Energie",
+      "recovery": "Regeneration"
+    },
+    "save": "Speichern",
+    "unsave": "Aus Gespeichert entfernen",
+    "saved": "Gespeichert",
+    "start": "Einheit starten",
+    "trainer": "Trainerin",
+    "noResults": "Keine Einheiten für diese Filter",
+    "noResultsBody": "Probiere eine andere Kategorie oder setze die Filter zurück.",
+    "sampleNote": "Beispiel-Einheiten geben der Bibliothek vorerst Form. Die echten Videos der Trainerin ersetzen sie."
+  },
+  "saved": {
+    "title": "Gespeichert",
+    "lead": "Deine Lieblingsvideos, Beiträge und Kurse.",
+    "empty": "Noch nichts gespeichert. Tippe auf das Lesezeichen bei einem Video oder Beitrag.",
+    "goToLibrary": "Bibliothek öffnen",
+    "sectionWorkouts": "Workouts",
+    "sectionPosts": "Beiträge"
+  },
+  "profile": {
+    "title": "Profil",
+    "guest": "Gast",
+    "guestHint": "Die Anmeldung kommt mit der Konto-Phase. Vorerst funktioniert die App ohne Konto.",
+    "history": "Trainingsverlauf",
+    "historyEmpty": "Abgeschlossene Einheiten werden hier aufgelistet.",
+    "subscription": "Zugang",
+    "subscriptionFree": "Kostenlose Inhalte",
+    "support": "Trainerin fragen",
+    "supportHint": "Fragen und Online-Einheiten werden später verfügbar sein."
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache der Oberfläche",
+    "languageHint": "Ändert nur die Oberfläche der App. Videos und Beiträge behalten ihre eigene Sprache.",
+    "languages": {
+      "en": "English",
+      "uk": "Українська",
+      "de": "Deutsch"
+    },
+    "saved": "Sprache aktualisiert"
+  },
+  "player": {
+    "noVideoTitle": "Video noch nicht verbunden",
+    "noVideoBody": "Der Player ist bereit. Das Video der Trainerin zu dieser Einheit wird nach Einrichtung des Video-Hostings angehängt.",
+    "play": "Abspielen",
+    "pause": "Pause",
+    "mute": "Stumm",
+    "unmute": "Ton an",
+    "fullscreen": "Vollbild",
+    "seek": "Spulen",
+    "resumedFrom": "Fortgesetzt bei {time}"
+  },
+  "feed": {
+    "kinds": {
+      "news": "Neuigkeiten",
+      "tip": "Tipp",
+      "session": "Neue Einheit",
+      "video": "Kurzes Video",
+      "photo": "Foto"
+    },
+    "sample": "Beispiel",
+    "open": "Öffnen",
+    "videoPending": "Video folgt",
+    "socialLater": "Reaktionen und Kommentare kommen in einer späteren Phase."
+  }
+}

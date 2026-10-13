@@ -1,0 +1,155 @@
+{
+  "brand": {
+    "name": "KINEZIS LIVE",
+    "short": "LIVE",
+    "tagline": "Movement · Recovery · Care"
+  },
+  "nav": {
+    "home": "Home",
+    "explore": "Explore",
+    "library": "Library",
+    "saved": "Saved",
+    "profile": "Profile"
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "stageNote": "This section is being built. Content from the trainer will appear here.",
+    "settings": "Settings",
+    "back": "Back",
+    "open": "Open",
+    "seeAll": "See all",
+    "minutes": "{count} min"
+  },
+  "home": {
+    "greeting": "Hello",
+    "intro": "Your space for movement, recovery and everyday care.",
+    "todayEyebrow": "Today",
+    "todayTitle": "A short practice for your body",
+    "todayBody": "Daily sessions and new videos from your trainer will appear here.",
+    "continueTitle": "Continue",
+    "continueEmpty": "Nothing in progress yet. Start a session from the Library.",
+    "feedTitle": "From your trainer",
+    "feedEmpty": "The feed is where new videos, tips and exercises will be published. It opens in the next stage.",
+    "resumeAt": "Resume at {time}"
+  },
+  "explore": {
+    "title": "Explore",
+    "lead": "Three directions, one space.",
+    "workouts": {
+      "title": "Workouts",
+      "body": "Kinesiotherapy, yoga, pilates, stretching, mobility and back health."
+    },
+    "faceFitness": {
+      "title": "Face Fitness",
+      "body": "Structured courses with modules and lessons."
+    },
+    "skincare": {
+      "title": "Skincare",
+      "body": "Routines, education and product guides."
+    }
+  },
+  "library": {
+    "title": "Library",
+    "lead": "Workouts by category, goal and duration.",
+    "all": "All",
+    "categories": {
+      "kinesiotherapy": "Kinesiotherapy",
+      "yoga": "Yoga",
+      "pilates": "Pilates",
+      "stretching": "Stretching",
+      "mobility": "Mobility",
+      "back": "Back health"
+    },
+    "empty": "Videos will appear here once the trainer publishes them.",
+    "filters": {
+      "title": "Filters",
+      "duration": "Duration",
+      "goal": "Goal",
+      "level": "Level",
+      "any": "Any",
+      "apply": "Apply",
+      "reset": "Reset",
+      "close": "Close"
+    },
+    "durations": {
+      "short": "Under 15 min",
+      "medium": "15–30 min",
+      "long": "Over 30 min"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "goals": {
+      "mobility": "Mobility",
+      "posture": "Posture",
+      "relax": "Relaxation",
+      "strength": "Strength",
+      "energy": "Energy",
+      "recovery": "Recovery"
+    },
+    "save": "Save",
+    "unsave": "Remove from saved",
+    "saved": "Saved",
+    "start": "Start session",
+    "trainer": "Trainer",
+    "noResults": "No sessions match these filters",
+    "noResultsBody": "Try another category or clear the filters.",
+    "sampleNote": "Sample sessions shape the library for now. The trainer's real videos will replace them."
+  },
+  "saved": {
+    "title": "Saved",
+    "lead": "Your favourite videos, posts and courses.",
+    "empty": "Nothing saved yet. Tap the bookmark on any video or post to keep it here.",
+    "goToLibrary": "Open the Library",
+    "sectionWorkouts": "Workouts",
+    "sectionPosts": "Posts"
+  },
+  "profile": {
+    "title": "Profile",
+    "guest": "Guest",
+    "guestHint": "Sign-in arrives with the account stage. For now the app works without an account.",
+    "history": "Practice history",
+    "historyEmpty": "Completed sessions will be listed here.",
+    "subscription": "Access",
+    "subscriptionFree": "Free content",
+    "support": "Ask the trainer",
+    "supportHint": "Questions and online sessions will be available later."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Interface language",
+    "languageHint": "Changes the app interface only. Videos and posts keep their own language.",
+    "languages": {
+      "en": "English",
+      "uk": "Українська",
+      "de": "Deutsch"
+    },
+    "saved": "Language updated"
+  },
+  "player": {
+    "noVideoTitle": "Video not connected yet",
+    "noVideoBody": "The player is ready. The trainer's video for this session will be attached when the video hosting is set up.",
+    "play": "Play",
+    "pause": "Pause",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "fullscreen": "Full screen",
+    "seek": "Seek",
+    "resumedFrom": "Resumed from {time}"
+  },
+  "feed": {
+    "kinds": {
+      "news": "News",
+      "tip": "Tip",
+      "session": "New session",
+      "video": "Short video",
+      "photo": "Photo"
+    },
+    "sample": "Sample",
+    "open": "Open",
+    "videoPending": "Video pending",
+    "socialLater": "Reactions and comments open in a later stage."
+  }
+}
