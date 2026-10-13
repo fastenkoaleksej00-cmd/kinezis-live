@@ -20,7 +20,7 @@ interface CoursePageProps {
 
 export async function generateMetadata({ params }: CoursePageProps) {
   const { slug } = await params;
-  const course = getCourse(slug);
+  const course = await getCourse(slug);
   if (!course) return {};
   const locale = await getLocale();
   return { title: pick(course.title, locale) };
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: CoursePageProps) {
 
 export default async function CoursePage({ params }: CoursePageProps) {
   const { slug } = await params;
-  const course = getCourse(slug);
+  const course = await getCourse(slug);
   if (!course) notFound();
 
   const locale = await getLocale();

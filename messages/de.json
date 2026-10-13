@@ -204,7 +204,27 @@
       "body": "Beschreibung, Inhaltsstoffe, Anwendung und Bezugsquelle.",
       "emptyTitle": "Noch keine Produkte",
       "emptyBody": "Produktführer erscheinen hier, sobald die Trainerin sie hinzufügt. Die App hat keinen Shop und keine Kasse."
-    }
+    },
+    "times": {
+      "morning": "Morgens",
+      "evening": "Abends",
+      "weekly": "Wöchentlich"
+    },
+    "stepsCount": "{count, plural, one {# Schritt} other {# Schritte}}",
+    "categories": {
+      "cleanser": "Reinigung",
+      "toner": "Toner",
+      "serum": "Serum",
+      "moisturizer": "Feuchtigkeitspflege",
+      "spf": "SPF",
+      "mask": "Maske",
+      "tool": "Tool",
+      "other": "Sonstiges"
+    },
+    "usage": "Anwendung",
+    "ingredients": "Inhaltsstoffe",
+    "buy": "Bezugsquelle",
+    "disclaimer": "Allgemeine Pflegeinformation der Trainerin, kein medizinischer Rat. Bei Hauterkrankungen bitte eine Fachperson aufsuchen."
   },
   "auth": {
     "signInTitle": "Anmelden",
@@ -241,7 +261,9 @@
     "nav": {
       "overview": "Übersicht",
       "workouts": "Workouts",
-      "posts": "Beiträge"
+      "posts": "Beiträge",
+      "courses": "Kurse",
+      "skincare": "Hautpflege"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -312,7 +334,23 @@
       "reactions": "Reaktionen erlauben (später)",
       "comments": "Kommentare erlauben (später)",
       "published": "Veröffentlicht",
-      "publishedHint": "Ohne Häkchen bleibt der Eintrag ein Entwurf und ist nur hier sichtbar."
+      "publishedHint": "Ohne Häkchen bleibt der Eintrag ein Entwurf und ist nur hier sichtbar.",
+      "summary": "Kurzbeschreibung",
+      "module": "Modul",
+      "position": "Reihenfolge",
+      "positionHint": "Kleinere Zahlen kommen zuerst.",
+      "routineSteps": "Schritte der Routine",
+      "stepsHint": "Ein Schritt pro Zeile. Zeilen in anderen Sprachen entsprechen sich Zeile für Zeile.",
+      "recommendations": "Empfehlungen",
+      "timeOfDay": "Tageszeit",
+      "name": "Produktname",
+      "brand": "Marke",
+      "productCategory": "Kategorie",
+      "ingredients": "Inhaltsstoffe",
+      "ingredientsHint": "Kommagetrennt oder je Zeile, wie auf der Verpackung.",
+      "usage": "Anwendung",
+      "purchaseUrl": "Kauflink (optional)",
+      "imageSrc": "Bild-URL (optional)"
     },
     "errors": {
       "forbidden": "Dafür fehlt dir die Berechtigung.",
@@ -322,6 +360,27 @@
       "slugTaken": "Dieser Slug wird bereits von einem anderen Workout verwendet.",
       "invalid": "Einige Werte sind nicht erlaubt. Prüfe die Felder.",
       "generic": "Konnte nicht speichern. Versuche es erneut."
-    }
+    },
+    "newCourse": "Neuer Kurs",
+    "editCourse": "Kurs bearbeiten",
+    "courseStructure": "Module und Lektionen",
+    "emptyCoursesTitle": "Noch keine Kurse",
+    "emptyCoursesBody": "Lege einen Kurs an und füge dann Module und Lektionen hinzu.",
+    "newModule": "Modul hinzufügen",
+    "moduleTitle": "Modultitel",
+    "deleteModule": "Modul löschen",
+    "noModules": "Noch keine Module. Füge unten das erste hinzu.",
+    "addLesson": "Lektion hinzufügen",
+    "newLesson": "Neue Lektion",
+    "editLesson": "Lektion bearbeiten",
+    "noLessons": "In diesem Modul gibt es noch keine Lektionen.",
+    "skincareIntro": "Routinen, Artikel und Produkte. In der App erscheint nur, was du hier einträgst.",
+    "newRoutine": "Neue Routine",
+    "editRoutine": "Routine bearbeiten",
+    "newArticle": "Neuer Artikel",
+    "editArticle": "Artikel bearbeiten",
+    "newProduct": "Neues Produkt",
+    "editProduct": "Produkt bearbeiten",
+    "emptyList": "Noch nichts vorhanden."
   }
 }

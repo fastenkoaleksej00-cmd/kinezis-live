@@ -7,7 +7,7 @@ import { listCourses } from "@/lib/content/courses";
 
 export default async function FaceFitnessPage() {
   const t = await getTranslations("faceFitness");
-  const courses = listCourses();
+  const courses = await listCourses();
 
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
@@ -21,9 +21,11 @@ export default async function FaceFitnessPage() {
           </Reveal>
         ))}
       </div>
-      <Reveal delay={0.12}>
-        <p className="text-steel text-center text-xs">{t("sampleNote")}</p>
-      </Reveal>
+      {courses.some((c) => c.sample) ? (
+        <Reveal delay={0.12}>
+          <p className="text-steel text-center text-xs">{t("sampleNote")}</p>
+        </Reveal>
+      ) : null}
     </Container>
   );
 }

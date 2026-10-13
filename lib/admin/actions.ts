@@ -158,3 +158,238 @@ export async function deletePost(fd: FormData): Promise<void> {
   revalidatePath("/", "layout");
   redirect("/admin/posts?deleted=1");
 }
+
+/* ----------------------------------------------------------------------------
+   Courses, modules, lessons
+---------------------------------------------------------------------------- */
+
+const tones = ["deep", "mint", "light"] as const;
+const languagesList = ["en", "uk", "de"] as const;
+
+export async function saveCourse(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = localized(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const id = str(fd, "id") || undefined;
+  const slug = str(fd, "slug") || (await slugify(title.en));
+  if (!slug) return { error: "invalid" };
+  const row = {
+    ...(id ? { id } : {}),
+    slug,
+    title,
+    description: localized(fd, "description") ?? { en: "" },
+    cover_tone: inList(tones, str(fd, "cover_tone"), "mint"),
+    level: inList(levels, str(fd, "level"), "beginner"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    language: inList(languagesList, str(fd, "language"), "uk"),
+    author_id: str(fd, "author_id") || null,
+    ...published(fd, str(fd, "published_at_prev") || null),
+  };
+  const { data, error } = await ctx.db.from("courses").upsert(row, { onConflict: "id" }).select("id").single();
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect(`/admin/courses/${data.id}?saved=1`);
+}
+
+export async function deleteCourse(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  if (id) await ctx.db.from("courses").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/courses?deleted=1");
+}
+
+export async function saveModule(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const courseId = str(fd, "course_id");
+  const title = localized(fd, "title");
+  if (!courseId || !title) return;
+  const id = str(fd, "id") || undefined;
+  const position = Number.parseInt(str(fd, "position"), 10);
+  await ctx.db.from("course_modules").upsert({ ...(id ? { id } : {}), course_id: courseId, title, position: Number.isFinite(position) ? position : 0 }, { onConflict: "id" });
+  revalidatePath("/", "layout");
+  redirect(`/admin/courses/${courseId}?saved=1`);
+}
+
+export async function deleteModule(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  const courseId = str(fd, "course_id");
+  if (id) await ctx.db.from("course_modules").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect(`/admin/courses/${courseId}?deleted=1`);
+}
+
+function localizedLines(fd: FormData, base: string): LocalizedText[] {
+  const split = (v: string) => v.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const en = split(str(fd, `${base}_en`));
+  const uk = split(str(fd, `${base}_uk`));
+  const de = split(str(fd, `${base}_de`));
+  return en.map((line, i) => {
+    const out: LocalizedText = { en: line };
+    if (uk[i]) out.uk = uk[i];
+    if (de[i]) out.de = de[i];
+    return out;
+  });
+}
+
+export async function saveLesson(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = localized(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const moduleId = str(fd, "module_id");
+  const courseId = str(fd, "course_id");
+  if (!moduleId || !courseId) return { error: "invalid" };
+  const id = str(fd, "id") || undefined;
+  const slug = str(fd, "slug") || (await slugify(title.en));
+  const duration = Number.parseInt(str(fd, "duration_min"), 10);
+  const position = Number.parseInt(str(fd, "position"), 10);
+  const row = {
+    ...(id ? { id } : {}),
+    module_id: moduleId,
+    slug,
+    title,
+    summary: localized(fd, "summary"),
+    duration_min: Number.isFinite(duration) && duration > 0 ? duration : null,
+    video: video(fd),
+    routine: localizedLines(fd, "routine"),
+    recommendations: localized(fd, "recommendations"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    position: Number.isFinite(position) ? position : 0,
+  };
+  const { error } = await ctx.db.from("lessons").upsert(row, { onConflict: "id" });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect(`/admin/courses/${courseId}?saved=1`);
+}
+
+export async function deleteLesson(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  const courseId = str(fd, "course_id");
+  if (id) await ctx.db.from("lessons").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect(`/admin/courses/${courseId}?deleted=1`);
+}
+
+/* ----------------------------------------------------------------------------
+   Skincare: routines, articles, products
+---------------------------------------------------------------------------- */
+
+export async function saveRoutine(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = localized(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const id = str(fd, "id") || undefined;
+  const slug = str(fd, "slug") || (await slugify(title.en));
+  const steps = localizedLines(fd, "steps");
+  if (steps.length === 0) return { error: "bodyRequired" };
+  const row = {
+    ...(id ? { id } : {}),
+    slug,
+    title,
+    time_of_day: inList(["morning", "evening", "weekly"] as const, str(fd, "time_of_day"), "morning"),
+    steps,
+    language: inList(languagesList, str(fd, "language"), "uk"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    ...published(fd, str(fd, "published_at_prev") || null),
+  };
+  const { error } = await ctx.db.from("skin_routines").upsert(row, { onConflict: "id" });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?saved=1");
+}
+
+export async function deleteRoutine(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  if (id) await ctx.db.from("skin_routines").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?deleted=1");
+}
+
+export async function saveArticle(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = localized(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const body = localized(fd, "body");
+  if (!body) return { error: "bodyRequired" };
+  const id = str(fd, "id") || undefined;
+  const slug = str(fd, "slug") || (await slugify(title.en));
+  const row = {
+    ...(id ? { id } : {}),
+    slug,
+    title,
+    body,
+    language: inList(languagesList, str(fd, "language"), "uk"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    ...published(fd, str(fd, "published_at_prev") || null),
+  };
+  const { error } = await ctx.db.from("skin_articles").upsert(row, { onConflict: "id" });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?saved=1");
+}
+
+export async function deleteArticle(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  if (id) await ctx.db.from("skin_articles").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?deleted=1");
+}
+
+const productCategories = ["cleanser", "toner", "serum", "moisturizer", "spf", "mask", "tool", "other"] as const;
+
+export async function saveProduct(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const name = str(fd, "name");
+  if (!name) return { error: "titleRequired" };
+  const id = str(fd, "id") || undefined;
+  const slug = str(fd, "slug") || (await slugify(`${str(fd, "brand")} ${name}`));
+  const ingredients = str(fd, "ingredients")
+    .split(/\r?\n|,/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const purchaseUrl = str(fd, "purchase_url");
+  const imageSrc = str(fd, "image_src");
+  const row = {
+    ...(id ? { id } : {}),
+    slug,
+    name,
+    brand: str(fd, "brand"),
+    category: inList(productCategories, str(fd, "category"), "other"),
+    description: localized(fd, "description") ?? { en: "" },
+    ingredients,
+    usage: localized(fd, "usage") ?? { en: "" },
+    purchase_url: purchaseUrl || null,
+    image_src: imageSrc || null,
+    language: inList(languagesList, str(fd, "language"), "uk"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    ...published(fd, str(fd, "published_at_prev") || null),
+  };
+  const { error } = await ctx.db.from("products").upsert(row, { onConflict: "id" });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?saved=1");
+}
+
+export async function deleteProduct(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  if (id) await ctx.db.from("products").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/skincare?deleted=1");
+}

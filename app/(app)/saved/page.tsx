@@ -26,7 +26,7 @@ export default async function SavedPage() {
     date: format.dateTime(new Date(p.publishedAt), { day: "numeric", month: "long" }),
   }));
 
-  const courses: SavedCourseData[] = listCourses().map((c) => ({
+  const courses: SavedCourseData[] = (await listCourses()).map((c) => ({
     id: c.id,
     slug: c.slug,
     title: pick(c.title, locale),

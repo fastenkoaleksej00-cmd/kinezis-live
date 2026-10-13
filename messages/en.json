@@ -204,7 +204,27 @@
       "body": "Descriptions, ingredients, usage and where to buy.",
       "emptyTitle": "No products yet",
       "emptyBody": "Product guides will appear here once the trainer adds them. There is no shop or checkout in the app."
-    }
+    },
+    "times": {
+      "morning": "Morning",
+      "evening": "Evening",
+      "weekly": "Weekly"
+    },
+    "stepsCount": "{count, plural, one {# step} other {# steps}}",
+    "categories": {
+      "cleanser": "Cleanser",
+      "toner": "Toner",
+      "serum": "Serum",
+      "moisturizer": "Moisturizer",
+      "spf": "SPF",
+      "mask": "Mask",
+      "tool": "Tool",
+      "other": "Other"
+    },
+    "usage": "How to use",
+    "ingredients": "Ingredients",
+    "buy": "Where to buy",
+    "disclaimer": "General care information from the trainer, not medical advice. For skin conditions consult a specialist."
   },
   "auth": {
     "signInTitle": "Sign in",
@@ -241,7 +261,9 @@
     "nav": {
       "overview": "Overview",
       "workouts": "Workouts",
-      "posts": "Posts"
+      "posts": "Posts",
+      "courses": "Courses",
+      "skincare": "Skincare"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -312,7 +334,23 @@
       "reactions": "Allow reactions (later)",
       "comments": "Allow comments (later)",
       "published": "Published",
-      "publishedHint": "Unchecked items stay drafts and are visible only here."
+      "publishedHint": "Unchecked items stay drafts and are visible only here.",
+      "summary": "Summary",
+      "module": "Module",
+      "position": "Order",
+      "positionHint": "Lower numbers come first.",
+      "routineSteps": "Routine steps",
+      "stepsHint": "One step per line. Lines in other languages match line by line.",
+      "recommendations": "Recommendations",
+      "timeOfDay": "Time of day",
+      "name": "Product name",
+      "brand": "Brand",
+      "productCategory": "Category",
+      "ingredients": "Ingredients",
+      "ingredientsHint": "Comma-separated or one per line, as printed on the product.",
+      "usage": "How to use",
+      "purchaseUrl": "Purchase link (optional)",
+      "imageSrc": "Image URL (optional)"
     },
     "errors": {
       "forbidden": "You do not have permission for this.",
@@ -322,6 +360,27 @@
       "slugTaken": "This URL slug is already used by another workout.",
       "invalid": "Some values are not allowed. Check the fields.",
       "generic": "Could not save. Try again."
-    }
+    },
+    "newCourse": "New course",
+    "editCourse": "Edit course",
+    "courseStructure": "Modules and lessons",
+    "emptyCoursesTitle": "No courses yet",
+    "emptyCoursesBody": "Create a course, then add modules and lessons inside it.",
+    "newModule": "Add module",
+    "moduleTitle": "Module title",
+    "deleteModule": "Delete module",
+    "noModules": "No modules yet. Add the first one below.",
+    "addLesson": "Add lesson",
+    "newLesson": "New lesson",
+    "editLesson": "Edit lesson",
+    "noLessons": "No lessons in this module yet.",
+    "skincareIntro": "Routines, articles and products. Only what you enter here appears in the app.",
+    "newRoutine": "New routine",
+    "editRoutine": "Edit routine",
+    "newArticle": "New article",
+    "editArticle": "Edit article",
+    "newProduct": "New product",
+    "editProduct": "Edit product",
+    "emptyList": "Nothing here yet."
   }
 }

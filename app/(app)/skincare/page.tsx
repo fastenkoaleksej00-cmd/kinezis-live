@@ -9,10 +9,11 @@ import { listArticles, listProducts, listRoutines } from "@/lib/content/skincare
 
 export default async function SkincarePage() {
   const t = await getTranslations("skincare");
+  const [routines, articles, products] = await Promise.all([listRoutines(), listArticles(), listProducts()]);
   const sections = [
-    { href: "/skincare/routines", icon: ListChecks, title: t("routines.title"), body: t("routines.body"), count: listRoutines().length },
-    { href: "/skincare/articles", icon: BookOpenText, title: t("articles.title"), body: t("articles.body"), count: listArticles().length },
-    { href: "/skincare/products", icon: Sparkles, title: t("products.title"), body: t("products.body"), count: listProducts().length },
+    { href: "/skincare/routines", icon: ListChecks, title: t("routines.title"), body: t("routines.body"), count: routines.length },
+    { href: "/skincare/articles", icon: BookOpenText, title: t("articles.title"), body: t("articles.body"), count: articles.length },
+    { href: "/skincare/products", icon: Sparkles, title: t("products.title"), body: t("products.body"), count: products.length },
   ];
 
   return (

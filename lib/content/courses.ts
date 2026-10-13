@@ -1,9 +1,9 @@
+import { courseColumns, getDb, lessonColumns, moduleColumns, rowsToCourse, type CourseRow, type LessonRow, type ModuleRow } from "./db";
 import type { Course, Lesson } from "./types";
 
 /**
- * Face Fitness repository, stage 4. One sample course shows the structure
- * (modules → lessons → video, routine, recommendations). Names are placeholders
- * on purpose; the trainer's real courses replace them in the admin stage.
+ * Face Fitness repository. Published courses come from Supabase; while there are
+ * none, one sample course with placeholder names shows the structure.
  */
 const sampleCourses: Course[] = [
   {
@@ -65,16 +65,28 @@ const sampleCourses: Course[] = [
   },
 ];
 
-export function listCourses(): Course[] {
-  return [...sampleCourses].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+async function fetchAll(): Promise<Course[]> {
+  const db = await getDb();
+  if (!db) return sampleCourses;
+  const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).order("published_at", { ascending: false });
+  if (error || !courses || courses.length === 0) return sampleCourses;
+  const ids = (courses as unknown as CourseRow[]).map((c) => c.id);
+  const { data: modules } = await db.from("course_modules").select(moduleColumns).in("course_id", ids);
+  const moduleIds = ((modules ?? []) as ModuleRow[]).map((m) => m.id);
+  const { data: lessons } = moduleIds.length > 0 ? await db.from("lessons").select(lessonColumns).in("module_id", moduleIds) : { data: [] };
+  return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], (lessons ?? []) as unknown as LessonRow[]));
 }
 
-export function getCourse(slug: string): Course | undefined {
-  return sampleCourses.find((c) => c.slug === slug);
+export async function listCourses(): Promise<Course[]> {
+  return (await fetchAll()).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
-export function getCourseById(id: string): Course | undefined {
-  return sampleCourses.find((c) => c.id === id);
+export async function getCourse(slug: string): Promise<Course | undefined> {
+  return (await fetchAll()).find((c) => c.slug === slug);
+}
+
+export async function getCourseById(id: string): Promise<Course | undefined> {
+  return (await fetchAll()).find((c) => c.id === id);
 }
 
 export function countLessons(course: Course): number {

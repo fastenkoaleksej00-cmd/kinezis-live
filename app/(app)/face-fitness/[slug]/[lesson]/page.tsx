@@ -15,7 +15,7 @@ interface LessonPageProps {
 
 export default async function LessonPage({ params }: LessonPageProps) {
   const { slug, lesson: lessonSlug } = await params;
-  const course = getCourse(slug);
+  const course = await getCourse(slug);
   if (!course) notFound();
   const found = getLesson(course, lessonSlug);
   if (!found) notFound();
