@@ -23,10 +23,10 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
   const tl = await getTranslations("library");
   const tc = await getTranslations("common");
   const format = await getFormatter();
-  const author = getAuthor(post.authorId);
+  const author = await getAuthor(post.authorId);
   const date = format.dateTime(new Date(post.publishedAt), { day: "numeric", month: "long" });
   const title = post.title ? pick(post.title, locale) : undefined;
-  const workout = post.attachment?.kind === "workout" ? getWorkoutById(post.attachment.workoutId) : undefined;
+  const workout = post.attachment?.kind === "workout" ? await getWorkoutById(post.attachment.workoutId) : undefined;
 
   return (
     <article className="card overflow-hidden">

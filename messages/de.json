@@ -123,7 +123,8 @@
       "trainer": "Trainerin",
       "admin": "Admin"
     },
-    "syncNote": "Gespeichertes, Wiedergabefortschritt und abgeschlossene Lektionen werden mit deinem Konto synchronisiert."
+    "syncNote": "Gespeichertes, Wiedergabefortschritt und abgeschlossene Lektionen werden mit deinem Konto synchronisiert.",
+    "adminPanel": "Verwaltung"
   },
   "settings": {
     "title": "Einstellungen",
@@ -231,6 +232,96 @@
       "missing": "Gib E-Mail und Passwort ein.",
       "generic": "Etwas ist schiefgelaufen. Versuche es gleich noch einmal.",
       "callback": "Der Bestätigungslink ist ungültig oder abgelaufen. Melde dich an oder fordere einen neuen an."
+    }
+  },
+  "admin": {
+    "eyebrow": "Verwaltung",
+    "title": "Inhalte",
+    "lead": "Angemeldet als {name}. Alles, was du hier veröffentlichst, erscheint sofort in der App.",
+    "nav": {
+      "overview": "Übersicht",
+      "workouts": "Workouts",
+      "posts": "Beiträge"
+    },
+    "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
+    "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
+    "newWorkout": "Neues Workout",
+    "editWorkout": "Workout bearbeiten",
+    "newPost": "Neuer Beitrag",
+    "editPost": "Beitrag bearbeiten",
+    "emptyWorkoutsTitle": "Noch keine Workouts",
+    "emptyWorkoutsBody": "Lege das erste an. Speichere es als Entwurf, bis das Video fertig ist.",
+    "emptyPostsTitle": "Noch keine Beiträge",
+    "emptyPostsBody": "Schreibe den ersten Beitrag für den Feed.",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "confirmDelete": "Diesen Eintrag löschen? Das lässt sich nicht rückgängig machen.",
+    "savedNotice": "Gespeichert.",
+    "deletedNotice": "Gelöscht.",
+    "status": {
+      "published": "Veröffentlicht",
+      "draft": "Entwurf"
+    },
+    "tones": {
+      "deep": "Petrol (dunkel)",
+      "light": "Eis (hell)",
+      "mint": "Mint"
+    },
+    "access": {
+      "free": "Kostenlos",
+      "premium": "Premium (künftiges Abo)"
+    },
+    "video": {
+      "none": "Noch kein Video",
+      "file": "Direkte Datei (mp4)",
+      "hls": "Stream (HLS .m3u8)"
+    },
+    "attachment": {
+      "none": "Keiner",
+      "photo": "Foto",
+      "video": "Kurzes Video",
+      "workout": "Verknüpftes Workout"
+    },
+    "fields": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "body": "Text",
+      "slug": "URL-Slug",
+      "slugHint": "Kleinbuchstaben, Ziffern und Bindestriche. Leer lassen, um ihn aus dem englischen Titel zu erzeugen.",
+      "category": "Kategorie",
+      "duration": "Dauer, Minuten",
+      "level": "Niveau",
+      "author": "Autor",
+      "goals": "Ziele",
+      "language": "Sprache des Inhalts",
+      "languageHint": "Die im Video gesprochene Sprache, unabhängig von der App-Sprache.",
+      "coverTone": "Cover-Stil",
+      "access": "Zugang",
+      "accessHint": "Premium-Einträge sind bis zur Abo-Phase für alle sichtbar.",
+      "videoKind": "Videoquelle",
+      "videoHint": "Link vom Video-Host einfügen. Der Upload von hier kommt mit der Video-Phase.",
+      "videoSrc": "Video-URL",
+      "videoPoster": "Poster-URL (optional)",
+      "videoDuration": "Länge, Sekunden",
+      "kind": "Beitragstyp",
+      "attachment": "Anhang",
+      "photoSrc": "Foto-URL (optional)",
+      "photoHint": "Ohne URL wird ein Marken-Cover gezeigt.",
+      "photoAlt": "Fotobeschreibung",
+      "linkedWorkout": "Workout",
+      "reactions": "Reaktionen erlauben (später)",
+      "comments": "Kommentare erlauben (später)",
+      "published": "Veröffentlicht",
+      "publishedHint": "Ohne Häkchen bleibt der Eintrag ein Entwurf und ist nur hier sichtbar."
+    },
+    "errors": {
+      "forbidden": "Dafür fehlt dir die Berechtigung.",
+      "notConfigured": "Die Datenbank ist nicht verbunden.",
+      "titleRequired": "Der englische Titel ist erforderlich.",
+      "bodyRequired": "Der englische Text ist erforderlich.",
+      "slugTaken": "Dieser Slug wird bereits von einem anderen Workout verwendet.",
+      "invalid": "Einige Werte sind nicht erlaubt. Prüfe die Felder.",
+      "generic": "Konnte nicht speichern. Versuche es erneut."
     }
   }
 }

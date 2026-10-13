@@ -1,3 +1,4 @@
+import { getDb, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
 import {
   categoryIds,
   durationBuckets,
@@ -10,15 +11,23 @@ import {
 } from "./types";
 
 /**
- * Content repository, stage 2: an in-memory sample set with the same shape the
- * database will have. Stage 5 swaps the functions below for Supabase queries;
- * pages and components keep calling the same API.
+ * Content repository. Reads published workouts from Supabase; while the database
+ * holds none (or Supabase is not configured) the sample set below shapes the UI.
  */
 
 export const authors: Author[] = [{ id: "yuliia", name: "Юлія", role: "trainer" }];
 
-export function getAuthor(id: string): Author | undefined {
-  return authors.find((a) => a.id === id);
+/** Authors from the database, falling back to the built-in trainer. */
+export async function listAuthors(): Promise<Author[]> {
+  const db = await getDb();
+  if (!db) return authors;
+  const { data } = await db.from("authors").select("id, user_id, name, role").order("created_at");
+  const rows = (data ?? []) as AuthorRow[];
+  return rows.length > 0 ? rows.map((r) => ({ id: r.id, name: r.name, role: r.role })) : authors;
+}
+
+export async function getAuthor(id: string): Promise<Author | undefined> {
+  return (await listAuthors()).find((a) => a.id === id);
 }
 
 /**
@@ -286,8 +295,17 @@ export function bucketOf(durationMin: number): DurationBucket {
   return "long";
 }
 
-export function listWorkouts(filters: WorkoutFilters = {}): Workout[] {
-  return sampleWorkouts
+async function fetchAll(): Promise<Workout[]> {
+  const db = await getDb();
+  if (!db) return sampleWorkouts;
+  const { data, error } = await db.from("workouts").select(workoutColumns).eq("published", true).order("published_at", { ascending: false });
+  if (error || !data || data.length === 0) return sampleWorkouts;
+  return (data as unknown as WorkoutRow[]).map(rowToWorkout);
+}
+
+export async function listWorkouts(filters: WorkoutFilters = {}): Promise<Workout[]> {
+  const all = await fetchAll();
+  return all
     .filter((w) => !filters.category || w.category === filters.category)
     .filter((w) => !filters.duration || bucketOf(w.durationMin) === filters.duration)
     .filter((w) => !filters.goal || w.goals.includes(filters.goal))
@@ -295,12 +313,12 @@ export function listWorkouts(filters: WorkoutFilters = {}): Workout[] {
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
-export function getWorkout(slug: string): Workout | undefined {
-  return sampleWorkouts.find((w) => w.slug === slug);
+export async function getWorkout(slug: string): Promise<Workout | undefined> {
+  return (await fetchAll()).find((w) => w.slug === slug);
 }
 
-export function getWorkoutById(id: string): Workout | undefined {
-  return sampleWorkouts.find((w) => w.id === id);
+export async function getWorkoutById(id: string): Promise<Workout | undefined> {
+  return (await fetchAll()).find((w) => w.id === id);
 }
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -326,8 +344,8 @@ export function parseFilters(params: SearchParams): WorkoutFilters {
 }
 
 /** Session of the day: rotates through the catalogue by calendar day, same for everyone. */
-export function getTodayWorkout(date = new Date()): Workout | undefined {
-  const all = listWorkouts();
+export async function getTodayWorkout(date = new Date()): Promise<Workout | undefined> {
+  const all = await listWorkouts();
   if (all.length === 0) return undefined;
   const start = Date.UTC(date.getUTCFullYear(), 0, 0);
   const dayOfYear = Math.floor((date.getTime() - start) / 86_400_000);

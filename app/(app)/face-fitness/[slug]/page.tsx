@@ -34,7 +34,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const locale = await getLocale();
   const t = await getTranslations("faceFitness");
   const tl = await getTranslations("library");
-  const author = getAuthor(course.authorId);
+  const author = await getAuthor(course.authorId);
   const light = course.coverTone === "light";
   const lessonIds = flatLessons(course).map((l) => l.id);
 

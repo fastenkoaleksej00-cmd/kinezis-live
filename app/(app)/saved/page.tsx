@@ -17,8 +17,9 @@ export default async function SavedPage() {
   const tff = await getTranslations("faceFitness");
   const locale = await getLocale();
   const format = await getFormatter();
-  const workouts = listWorkouts().map((w) => toCardData(w, locale));
-  const posts: SavedPostData[] = listPosts().map((p) => ({
+  const [allWorkouts, allPosts] = await Promise.all([listWorkouts(), listPosts()]);
+  const workouts = allWorkouts.map((w) => toCardData(w, locale));
+  const posts: SavedPostData[] = allPosts.map((p) => ({
     id: p.id,
     title: p.title ? pick(p.title, locale) : pick(p.body, locale).slice(0, 80),
     kind: tf(`kinds.${p.kind}`),

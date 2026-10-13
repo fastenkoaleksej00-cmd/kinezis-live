@@ -17,7 +17,7 @@ interface WorkoutPageProps {
 
 export async function generateMetadata({ params }: WorkoutPageProps) {
   const { slug } = await params;
-  const workout = getWorkout(slug);
+  const workout = await getWorkout(slug);
   if (!workout) return {};
   const locale = await getLocale();
   return { title: pick(workout.title, locale) };
@@ -25,13 +25,13 @@ export async function generateMetadata({ params }: WorkoutPageProps) {
 
 export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const { slug } = await params;
-  const workout = getWorkout(slug);
+  const workout = await getWorkout(slug);
   if (!workout) notFound();
 
   const locale = await getLocale();
   const t = await getTranslations("library");
   const tc = await getTranslations("common");
-  const author = getAuthor(workout.authorId);
+  const author = await getAuthor(workout.authorId);
   const light = workout.coverTone === "light";
 
   const facts = [

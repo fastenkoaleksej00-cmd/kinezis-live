@@ -26,7 +26,7 @@ Copy `.env.example` to `.env.local` and fill in the Supabase URL and publishable
 
 ## Database
 
-Run `supabase/migrations/0001_profiles_and_user_data.sql` in the Supabase SQL Editor once. In Authentication → URL Configuration set Site URL to the app URL (e.g. `http://localhost:3001`) and add `http://localhost:3001/**` to Redirect URLs.
+Run the files in `supabase/migrations/` in order in the Supabase SQL Editor (0001 users, 0002 content, 0003 makes the first account admin). In Authentication → URL Configuration set Site URL to the app URL (e.g. `http://localhost:3001`) and add `http://localhost:3001/**` to Redirect URLs.
 
 ## Testing the player with your own file
 
@@ -39,5 +39,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 3. Home feed and trainer posts — done (sample posts, session of the day)
 4. Face Fitness courses and Skincare structure — done (sample course skeleton, empty skincare sections)
 5. Accounts and data (Supabase) — done; video hosting moves to stage 7
-6. Trainer admin panel
+6. Trainer admin panel — part A done (workouts, posts); part B: courses and skincare
 7. iOS / Android packaging, subscription

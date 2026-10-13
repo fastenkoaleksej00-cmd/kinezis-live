@@ -16,13 +16,13 @@ interface WatchPageProps {
 /** Player screen on a petrol surface: the video first, details below. */
 export default async function WatchPage({ params }: WatchPageProps) {
   const { slug } = await params;
-  const workout = getWorkout(slug);
+  const workout = await getWorkout(slug);
   if (!workout) notFound();
 
   const locale = await getLocale();
   const t = await getTranslations("library");
   const tc = await getTranslations("common");
-  const author = getAuthor(workout.authorId);
+  const author = await getAuthor(workout.authorId);
   const title = pick(workout.title, locale);
 
   return (

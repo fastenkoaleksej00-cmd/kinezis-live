@@ -18,9 +18,8 @@ export default async function HomePage() {
   const tc = await getTranslations("common");
   const tl = await getTranslations("library");
   const locale = await getLocale();
-  const workouts = listWorkouts().map((w) => toCardData(w, locale));
-  const today = getTodayWorkout();
-  const posts = listPosts();
+  const [allWorkouts, today, posts] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts()]);
+  const workouts = allWorkouts.map((w) => toCardData(w, locale));
 
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">

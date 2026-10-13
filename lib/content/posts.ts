@@ -1,8 +1,9 @@
+import { getDb, postColumns, rowToPost, type PostRow } from "./db";
 import type { Post } from "./types";
 
 /**
- * Feed repository, stage 3. Same contract the database will implement in stage 5.
- * Sample posts are neutral platform notes and general tips, labelled as samples in the UI.
+ * Feed repository. Reads published posts from Supabase; while the database holds
+ * none (or Supabase is not configured) the sample posts below shape the UI.
  */
 const samplePosts: Post[] = [
   {
@@ -94,11 +95,19 @@ const samplePosts: Post[] = [
   },
 ];
 
-export function listPosts(limit?: number): Post[] {
-  const sorted = [...samplePosts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+async function fetchAll(): Promise<Post[]> {
+  const db = await getDb();
+  if (!db) return samplePosts;
+  const { data, error } = await db.from("posts").select(postColumns).eq("published", true).order("published_at", { ascending: false });
+  if (error || !data || data.length === 0) return samplePosts;
+  return (data as unknown as PostRow[]).map(rowToPost);
+}
+
+export async function listPosts(limit?: number): Promise<Post[]> {
+  const sorted = (await fetchAll()).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
   return limit ? sorted.slice(0, limit) : sorted;
 }
 
-export function getPost(id: string): Post | undefined {
-  return samplePosts.find((p) => p.id === id);
+export async function getPost(id: string): Promise<Post | undefined> {
+  return (await fetchAll()).find((p) => p.id === id);
 }

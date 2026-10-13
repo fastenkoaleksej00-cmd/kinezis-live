@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { ChevronRight, History, LogOut, MessageCircle, Settings, Sparkles, UserRound } from "lucide-react";
+import { ChevronRight, History, LogOut, MessageCircle, Settings, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -77,6 +77,17 @@ export default async function ProfilePage() {
               </div>
             </li>
           ))}
+          {user && (user.role === "trainer" || user.role === "admin") ? (
+            <li>
+              <Link href="/admin" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
+                <span className="bg-mint-soft text-mint-deep inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                  <ShieldCheck className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
+                </span>
+                <p className="text-ink flex-1 font-semibold">{t("adminPanel")}</p>
+                <ChevronRight className="text-steel h-4 w-4" aria-hidden />
+              </Link>
+            </li>
+          ) : null}
           <li>
             <Link href="/profile/settings" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
               <span className="bg-accent-soft text-accent inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">

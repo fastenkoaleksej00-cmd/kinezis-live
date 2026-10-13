@@ -123,7 +123,8 @@
       "trainer": "Trainer",
       "admin": "Admin"
     },
-    "syncNote": "Saved items, watch progress and lesson completion are synced to your account."
+    "syncNote": "Saved items, watch progress and lesson completion are synced to your account.",
+    "adminPanel": "Admin panel"
   },
   "settings": {
     "title": "Settings",
@@ -231,6 +232,96 @@
       "missing": "Enter your email and password.",
       "generic": "Something went wrong. Try again in a moment.",
       "callback": "The confirmation link is invalid or has expired. Sign in or request a new one."
+    }
+  },
+  "admin": {
+    "eyebrow": "Admin",
+    "title": "Content",
+    "lead": "Signed in as {name}. Everything you publish here appears in the app at once.",
+    "nav": {
+      "overview": "Overview",
+      "workouts": "Workouts",
+      "posts": "Posts"
+    },
+    "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
+    "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
+    "newWorkout": "New workout",
+    "editWorkout": "Edit workout",
+    "newPost": "New post",
+    "editPost": "Edit post",
+    "emptyWorkoutsTitle": "No workouts yet",
+    "emptyWorkoutsBody": "Create the first one. Save it as a draft until the video is ready.",
+    "emptyPostsTitle": "No posts yet",
+    "emptyPostsBody": "Write the first post for the feed.",
+    "save": "Save",
+    "delete": "Delete",
+    "confirmDelete": "Delete this item? This cannot be undone.",
+    "savedNotice": "Saved.",
+    "deletedNotice": "Deleted.",
+    "status": {
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "tones": {
+      "deep": "Petrol (dark)",
+      "light": "Ice (light)",
+      "mint": "Mint"
+    },
+    "access": {
+      "free": "Free",
+      "premium": "Premium (future subscription)"
+    },
+    "video": {
+      "none": "No video yet",
+      "file": "Direct file (mp4)",
+      "hls": "Stream (HLS .m3u8)"
+    },
+    "attachment": {
+      "none": "None",
+      "photo": "Photo",
+      "video": "Short video",
+      "workout": "Linked workout"
+    },
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "body": "Text",
+      "slug": "URL slug",
+      "slugHint": "Lowercase letters, numbers and dashes. Leave empty to generate from the English title.",
+      "category": "Category",
+      "duration": "Duration, minutes",
+      "level": "Level",
+      "author": "Author",
+      "goals": "Goals",
+      "language": "Content language",
+      "languageHint": "The language spoken in the video, independent of the app language.",
+      "coverTone": "Cover style",
+      "access": "Access",
+      "accessHint": "Premium items are still visible to everyone until the subscription stage.",
+      "videoKind": "Video source",
+      "videoHint": "Paste a link from the video host. Uploading from here arrives with the video stage.",
+      "videoSrc": "Video URL",
+      "videoPoster": "Poster image URL (optional)",
+      "videoDuration": "Length, seconds",
+      "kind": "Post type",
+      "attachment": "Attachment",
+      "photoSrc": "Photo URL (optional)",
+      "photoHint": "Without a URL a brand cover is shown.",
+      "photoAlt": "Photo description",
+      "linkedWorkout": "Workout",
+      "reactions": "Allow reactions (later)",
+      "comments": "Allow comments (later)",
+      "published": "Published",
+      "publishedHint": "Unchecked items stay drafts and are visible only here."
+    },
+    "errors": {
+      "forbidden": "You do not have permission for this.",
+      "notConfigured": "The database is not connected.",
+      "titleRequired": "The English title is required.",
+      "bodyRequired": "The English text is required.",
+      "slugTaken": "This URL slug is already used by another workout.",
+      "invalid": "Some values are not allowed. Check the fields.",
+      "generic": "Could not save. Try again."
     }
   }
 }

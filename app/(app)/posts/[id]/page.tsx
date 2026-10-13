@@ -15,7 +15,7 @@ interface PostPageProps {
 
 export async function generateMetadata({ params }: PostPageProps) {
   const { id } = await params;
-  const post = getPost(id);
+  const post = await getPost(id);
   if (!post?.title) return {};
   const locale = await getLocale();
   return { title: pick(post.title, locale) };
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { id } = await params;
-  const post = getPost(id);
+  const post = await getPost(id);
   if (!post) notFound();
   const t = await getTranslations("feed");
   const tn = await getTranslations("nav");

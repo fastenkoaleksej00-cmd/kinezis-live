@@ -20,8 +20,9 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
   const t = await getTranslations("library");
   const locale = await getLocale();
   const filters = parseFilters(await searchParams);
-  const workouts = listWorkouts(filters).map((w) => toCardData(w, locale));
-  const hasSample = listWorkouts().some((w) => w.sample);
+  const [filtered, all] = await Promise.all([listWorkouts(filters), listWorkouts()]);
+  const workouts = filtered.map((w) => toCardData(w, locale));
+  const hasSample = all.some((w) => w.sample);
 
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
