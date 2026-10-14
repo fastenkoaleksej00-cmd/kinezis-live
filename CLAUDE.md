@@ -11,7 +11,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
   Glass surfaces `.glass` / `.glass-dark`, dark `.section-deep`, cover placeholders `.cover`, `.cover-mint`, `.cover-light`.
 - `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de).
 - `motion` for animation, `lucide-react` for icons. No shadcn/ui.
-- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets `videos` (private) and `covers` (public) with staff-only writes). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
+- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets, 0006 plans + trainer profile columns). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
 - Package manager: npm (pnpm cannot lock its store in the sandboxed shell). Fonts: Manrope + Caveat via `next/font`.
 
 ## Commands
@@ -60,7 +60,8 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Sample workouts in `lib/content/workouts.ts` are marked `sample: true` and have `video: null`; keep names neutral, no results promised.
 - Filters live in the URL (`?category=&duration=&goal=&level=`) and are parsed by `parseFilters`, unknown values are dropped.
 - No stock photos. Use `Cover` placeholders until real covers arrive.
-- Subscription and payments: architecture only until the owner decides the scheme.
+- Subscription: plans free | premium | premium_plus live on `profiles.plan` (+ `plan_until`, `premium_interest`); `lib/access/plans.ts` → `canAccess()` is the single entitlement check; watch/lesson pages render `Paywall` when not allowed; cards show `LockBadge`. `/premium` page + Home `PremiumBanner` collect interest and say "launching soon". No payment provider until the owner picks the legal country (see `docs/SUBSCRIPTION.md`). Never let the client change `plan`.
+- Trainer profiles: `/trainers/[id]` from `authors` (bio, specialties, verified, avatar_src, instagram); `TrainerBadge` only when `verified`. `QuickPostButton` (+) on Home for staff → /admin/posts/new.
 - Animations respect `prefers-reduced-motion`. No infinite rotation. Screen transitions: `app/(app)/template.tsx` + `.page-enter` (CSS, 280 ms); active tab indicators slide with motion `layoutId` in BottomNav/SideNav.
 - Product roadmap and audit (Russian): `docs/ROADMAP.md`. Keep it updated when stages land.
 - New dependencies only when truly needed.

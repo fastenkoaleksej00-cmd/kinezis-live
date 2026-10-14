@@ -15,5 +15,6 @@ export function toCardData(w: Workout, locale: Locale): WorkoutCardData {
     level: w.level,
     coverTone: w.coverTone,
     hasVideo: w.video !== null,
+    access: w.access,
   };
 }

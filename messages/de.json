@@ -124,7 +124,11 @@
       "admin": "Admin"
     },
     "syncNote": "Gespeichertes, Wiedergabefortschritt und abgeschlossene Lektionen werden mit deinem Konto synchronisiert.",
-    "adminPanel": "Verwaltung"
+    "adminPanel": "Verwaltung",
+    "plans": {
+      "premium": "Premium",
+      "premium_plus": "Premium Plus"
+    }
   },
   "settings": {
     "title": "Einstellungen",
@@ -394,5 +398,65 @@
         "notConfigured": "Speicher ist nicht verbunden."
       }
     }
+  },
+  "premium": {
+    "eyebrow": "Premium",
+    "badge": "Premium",
+    "soon": "Startet bald · noch keine Zahlungen",
+    "soonShort": "Bald",
+    "bannerTitle": "Deine Trainerin an deiner Seite",
+    "bannerBody": "Persönliche Unterstützung für deine Ziele: Chat mit der Trainerin, Empfehlungen und Hilfe bei der Programmwahl.",
+    "title": "Premium — deine Trainerin an deiner Seite",
+    "lead": "Persönliche Unterstützung bei Alltagsfragen zu Bewegung, Form und Selbstfürsorge. Was auch immer dein Ziel ist, du arbeitest nicht allein daran.",
+    "goals": {
+      "shape": "Abnehmen oder Kraft aufbauen",
+      "wellbeing": "Fitness und Wohlbefinden verbessern",
+      "skin": "Haut und Aussehen pflegen",
+      "nutrition": "Ernährung und Gewohnheiten ordnen",
+      "pregnancy": "Schwangerschaft: Informationen zu sicherer Bewegung und täglicher Pflege",
+      "questions": "Motiviert bleiben und der Trainerin persönliche Fragen stellen"
+    },
+    "includes": {
+      "chat": "Privater Chat mit der Trainerin",
+      "questions": "Fragen zu Training, Ernährung, Regeneration und Pflege",
+      "recommendations": "Empfehlungen passend zu deinen Zielen",
+      "guidance": "Hilfe bei der Wahl von Programmen und Inhalten in der App",
+      "motivation": "Unterstützung und Motivation auf dem Weg",
+      "library": "Premium-Videos, Programme und zusätzliche Kategorien"
+    },
+    "free": {
+      "freeVideos": "Offene Videos und Einheiten",
+      "feed": "Feed der Trainerin",
+      "profiles": "Profil, Gespeichertes und Fortschritt",
+      "likes": "Likes und Kommentare (bald)",
+      "basics": "Basisübungen in jeder Richtung"
+    },
+    "plans": {
+      "free": "Kostenlos",
+      "freePrice": "0 $",
+      "premium": "Premium",
+      "perMonth": "/ Monat",
+      "plannedPrice": "Geplanter Preis, wird noch nicht berechnet"
+    },
+    "laterTitle": "Später",
+    "laterBody": "Premium Plus für {plus} mit exklusiven Inhalten, Einzelkauf von Kursen und bezahlte Videoberatungen mit Trainerinnen.",
+    "ctaTry": "Premium testen",
+    "ctaLearn": "Was ist Premium",
+    "ctaNotify": "Beim Start benachrichtigen",
+    "ctaInterested": "Du stehst auf der Liste",
+    "ctaSignUp": "Konto erstellen, um auf die Liste zu kommen",
+    "lockedTitle": "Diese Einheit gehört zu Premium",
+    "lockedBody": "Premium startet bald. Bis dahin ist dieses Video nur für die Trainerin sichtbar.",
+    "disclaimer": "Die Trainerin ist keine Ärztin oder Ernährungsberaterin. Antwortzeiten im Chat werden beim Start genannt. Bei Schwangerschaft, Krankheit und medizinischen Fragen bitte Fachpersonen aufsuchen.",
+    "backToProfile": "Zurück zum Profil"
+  },
+  "trainer": {
+    "verified": "Verifizierte Trainerin",
+    "bioPending": "Hier erscheinen Geschichte und Spezialisierung der Trainerin.",
+    "askLater": "Frage stellen (Premium, bald)",
+    "statsSessions": "Einheiten",
+    "statsPosts": "Beiträge",
+    "sessions": "Einheiten der Trainerin",
+    "latestPosts": "Neueste Beiträge"
   }
 }

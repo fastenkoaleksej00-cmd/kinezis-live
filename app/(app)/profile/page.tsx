@@ -18,7 +18,6 @@ export default async function ProfilePage() {
 
   const rows = [
     { icon: History, title: t("history"), body: t("historyEmpty") },
-    { icon: Sparkles, title: t("subscription"), body: t("subscriptionFree") },
     { icon: MessageCircle, title: t("support"), body: t("supportHint") },
   ];
 
@@ -77,6 +76,18 @@ export default async function ProfilePage() {
               </div>
             </li>
           ))}
+          <li>
+            <Link href="/premium" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
+              <span className="bg-mint-soft text-mint-deep inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-ink font-semibold">{t("subscription")}</p>
+                <p className="text-steel text-sm">{user && user.plan !== "free" ? t(`plans.${user.plan}`) : t("subscriptionFree")}</p>
+              </div>
+              <ChevronRight className="text-steel h-4 w-4" aria-hidden />
+            </Link>
+          </li>
           {user && (user.role === "trainer" || user.role === "admin") ? (
             <li>
               <Link href="/admin" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">

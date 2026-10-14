@@ -44,6 +44,26 @@ export interface AuthorRow {
   user_id: string | null;
   name: string;
   role: Author["role"];
+  bio: LocalizedText | null;
+  specialties: string[] | null;
+  verified: boolean;
+  avatar_src: string | null;
+  instagram: string | null;
+}
+
+export const authorColumns = "id, user_id, name, role, bio, specialties, verified, avatar_src, instagram";
+
+export function rowToAuthor(r: AuthorRow): Author {
+  return {
+    id: r.id,
+    name: r.name,
+    role: r.role,
+    bio: r.bio ?? undefined,
+    specialties: r.specialties ?? [],
+    verified: r.verified,
+    avatarSrc: r.avatar_src ?? undefined,
+    instagram: r.instagram ?? undefined,
+  };
 }
 
 export const workoutColumns =

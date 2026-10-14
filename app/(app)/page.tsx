@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowRight, Play } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
+import { QuickPostButton } from "@/components/feed/QuickPostButton";
+import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
@@ -11,6 +13,7 @@ import { buttonStyles } from "@/components/ui/buttonStyles";
 import { pick, toCardData } from "@/lib/content/localize";
 import { listPosts } from "@/lib/content/posts";
 import { getTodayWorkout, listWorkouts } from "@/lib/content/workouts";
+import { getSessionUser } from "@/lib/supabase/server";
 
 /** Home, feed-first: today's session, continue, then the trainer feed. */
 export default async function HomePage() {
@@ -18,7 +21,7 @@ export default async function HomePage() {
   const tc = await getTranslations("common");
   const tl = await getTranslations("library");
   const locale = await getLocale();
-  const [allWorkouts, today, posts] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts()]);
+  const [allWorkouts, today, posts, user] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(), getSessionUser()]);
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
 
   return (
@@ -54,6 +57,10 @@ export default async function HomePage() {
         </Reveal>
       ) : null}
 
+      <Reveal delay={0.1}>
+        <PremiumBanner user={user} />
+      </Reveal>
+
       <Reveal delay={0.12} as="section" className="space-y-4">
         <SectionHeading
           title={t("continueTitle")}
@@ -79,6 +86,7 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+      <QuickPostButton />
     </Container>
   );
 }

@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import { Cover } from "@/components/ui/Cover";
 import type { WorkoutCardData } from "@/lib/content/types";
 import { workoutKey } from "@/lib/store/keys";
+import { LockBadge } from "@/components/premium/LockBadge";
 import { SaveButton } from "./SaveButton";
 
 interface WorkoutCardProps {
@@ -14,6 +15,7 @@ interface WorkoutCardProps {
 export async function WorkoutCard({ workout }: WorkoutCardProps) {
   const t = await getTranslations("library");
   const tc = await getTranslations("common");
+  const tp = await getTranslations("premium");
   const light = workout.coverTone === "light";
 
   return (
@@ -22,6 +24,7 @@ export async function WorkoutCard({ workout }: WorkoutCardProps) {
         <div className="absolute top-3 right-3 z-20">
           <SaveButton itemKey={workoutKey(workout.id)} look="glass" />
         </div>
+        {workout.access === "premium" ? <LockBadge label={tp("badge")} /> : null}
         <div className="flex h-full flex-col justify-end p-4">
           <span
             className={

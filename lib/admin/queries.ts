@@ -1,4 +1,4 @@
-import { getDb, postColumns, workoutColumns, type AuthorRow, type PostRow, type WorkoutRow } from "@/lib/content/db";
+import { authorColumns, getDb, postColumns, workoutColumns, type AuthorRow, type PostRow, type WorkoutRow } from "@/lib/content/db";
 
 /** Staff reads: RLS lets trainers and admins see drafts too. */
 export async function listAllWorkouts(): Promise<WorkoutRow[]> {
@@ -32,7 +32,7 @@ export async function getPostRow(id: string): Promise<PostRow | null> {
 export async function listAuthorRows(): Promise<AuthorRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const { data } = await db.from("authors").select("id, user_id, name, role").order("created_at");
+  const { data } = await db.from("authors").select(authorColumns).order("created_at");
   return (data ?? []) as AuthorRow[];
 }
 

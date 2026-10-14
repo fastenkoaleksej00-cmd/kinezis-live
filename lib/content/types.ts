@@ -45,6 +45,11 @@ export interface Author {
   id: string;
   name: string;
   role: "trainer" | "author";
+  bio?: LocalizedText;
+  specialties: string[];
+  verified: boolean;
+  avatarSrc?: string;
+  instagram?: string;
 }
 
 export interface Workout {
@@ -83,6 +88,7 @@ export interface WorkoutCardData {
   level: Level;
   coverTone: CoverTone;
   hasVideo: boolean;
+  access: Access;
 }
 
 /* ----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import { getDb, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
+import { authorColumns, getDb, rowToAuthor, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
 import {
   categoryIds,
   durationBuckets,
@@ -15,15 +15,17 @@ import {
  * holds none (or Supabase is not configured) the sample set below shapes the UI.
  */
 
-export const authors: Author[] = [{ id: "yuliia", name: "Юлія", role: "trainer" }];
+export const authors: Author[] = [
+  { id: "yuliia", name: "Юлія", role: "trainer", specialties: ["yoga", "stretching", "mobility", "kinesiotherapy"], verified: true, instagram: "https://www.instagram.com/julruz_" },
+];
 
 /** Authors from the database, falling back to the built-in trainer. */
 export async function listAuthors(): Promise<Author[]> {
   const db = await getDb();
   if (!db) return authors;
-  const { data } = await db.from("authors").select("id, user_id, name, role").order("created_at");
+  const { data } = await db.from("authors").select(authorColumns).order("created_at");
   const rows = (data ?? []) as AuthorRow[];
-  return rows.length > 0 ? rows.map((r) => ({ id: r.id, name: r.name, role: r.role })) : authors;
+  return rows.length > 0 ? rows.map(rowToAuthor) : authors;
 }
 
 export async function getAuthor(id: string): Promise<Author | undefined> {

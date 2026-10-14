@@ -124,7 +124,11 @@
       "admin": "Admin"
     },
     "syncNote": "Saved items, watch progress and lesson completion are synced to your account.",
-    "adminPanel": "Admin panel"
+    "adminPanel": "Admin panel",
+    "plans": {
+      "premium": "Premium",
+      "premium_plus": "Premium Plus"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -394,5 +398,65 @@
         "notConfigured": "Storage is not connected."
       }
     }
+  },
+  "premium": {
+    "eyebrow": "Premium",
+    "badge": "Premium",
+    "soon": "Launching soon · no payments yet",
+    "soonShort": "Soon",
+    "bannerTitle": "Your trainer by your side",
+    "bannerBody": "Personal support for your goals: a chat with the trainer, recommendations and help choosing the right programs.",
+    "title": "Premium — your trainer by your side",
+    "lead": "Personal support for everyday questions about movement, form and self-care. Whatever your goal, you are not working on it alone.",
+    "goals": {
+      "shape": "Lose weight or build strength",
+      "wellbeing": "Improve fitness and how you feel",
+      "skin": "Keep your skin and look in shape",
+      "nutrition": "Sort out nutrition and daily habits",
+      "pregnancy": "Pregnancy: safe movement and daily care information",
+      "questions": "Stay motivated and ask your trainer personal questions"
+    },
+    "includes": {
+      "chat": "Private chat with the trainer",
+      "questions": "Questions about training, nutrition, recovery and self-care",
+      "recommendations": "Recommendations based on your goals and preferences",
+      "guidance": "Help choosing programs and materials inside the app",
+      "motivation": "Support and motivation along the way",
+      "library": "Premium videos, programs and extra categories"
+    },
+    "free": {
+      "freeVideos": "Open videos and sessions",
+      "feed": "Trainer feed",
+      "profiles": "Profile, saved items and progress",
+      "likes": "Likes and comments (coming)",
+      "basics": "Basic exercises in every direction"
+    },
+    "plans": {
+      "free": "Free",
+      "freePrice": "$0",
+      "premium": "Premium",
+      "perMonth": "/ month",
+      "plannedPrice": "Planned price, not charged yet"
+    },
+    "laterTitle": "Later",
+    "laterBody": "Premium Plus at {plus} with exclusive content, one-time purchase of single courses and paid video consultations with trainers.",
+    "ctaTry": "Try Premium",
+    "ctaLearn": "What is Premium",
+    "ctaNotify": "Tell me when it launches",
+    "ctaInterested": "You are on the list",
+    "ctaSignUp": "Create account to join the list",
+    "lockedTitle": "This session is part of Premium",
+    "lockedBody": "Premium is launching soon. Until then this video is available to the trainer only.",
+    "disclaimer": "The trainer is not a doctor or dietitian. Reply times in the chat will be stated when it opens. For pregnancy, illness and medical questions consult a qualified specialist.",
+    "backToProfile": "Back to profile"
+  },
+  "trainer": {
+    "verified": "Verified trainer",
+    "bioPending": "The trainer's story and specialisation will appear here.",
+    "askLater": "Ask a question (Premium, soon)",
+    "statsSessions": "Sessions",
+    "statsPosts": "Posts",
+    "sessions": "Sessions by the trainer",
+    "latestPosts": "Latest posts"
   }
 }
