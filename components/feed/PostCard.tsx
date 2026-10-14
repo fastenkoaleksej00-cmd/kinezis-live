@@ -6,6 +6,8 @@ import { Cover } from "@/components/ui/Cover";
 import { pick } from "@/lib/content/localize";
 import type { Post } from "@/lib/content/types";
 import { getAuthor, getWorkoutById } from "@/lib/content/workouts";
+import { VideoPlayer } from "@/components/player/VideoPlayer";
+import { resolveVideo } from "@/lib/video/resolve";
 import { formatTime } from "@/lib/format";
 import { postKey } from "@/lib/store/keys";
 import { AuthorRow } from "./AuthorRow";
@@ -27,6 +29,7 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
   const date = format.dateTime(new Date(post.publishedAt), { day: "numeric", month: "long" });
   const title = post.title ? pick(post.title, locale) : undefined;
   const workout = post.attachment?.kind === "workout" ? await getWorkoutById(post.attachment.workoutId) : undefined;
+  const playable = expanded && post.attachment?.kind === "video" ? await resolveVideo(post.attachment.source) : null;
 
   return (
     <article className="card overflow-hidden">
@@ -47,9 +50,17 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
       {post.attachment ? (
         <div className="p-4 pt-3 sm:p-5 sm:pt-3">
           {post.attachment.kind === "photo" ? (
-            <Cover tone={post.attachment.coverTone} ratio="aspect-[4/3]" className="rounded-2xl" label={post.sample ? t("sample") : undefined} />
+            post.attachment.src ? (
+              <div className="relative overflow-hidden rounded-2xl bg-frost">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={post.attachment.src} alt={pick(post.attachment.alt, locale)} className="max-h-[560px] w-full object-cover" loading="lazy" />
+              </div>
+            ) : (
+              <Cover tone={post.attachment.coverTone} ratio="aspect-[4/3]" className="rounded-2xl" label={post.sample ? t("sample") : undefined} />
+            )
           ) : null}
-          {post.attachment.kind === "video" ? (
+          {post.attachment.kind === "video" && !expanded ? (
+            <Link href={`/posts/${post.id}`} className="block">
             <Cover tone={post.attachment.coverTone} ratio="aspect-video" className="rounded-2xl" label={t("kinds.video")}>
               <div className="flex h-full items-center justify-center">
                 <span className={post.attachment.coverTone === "light" ? "text-ink inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/85" : "inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-md"}>
@@ -63,6 +74,10 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
                 <span className="absolute bottom-3 left-3 z-10 rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-md">{t("videoPending")}</span>
               ) : null}
             </Cover>
+            </Link>
+          ) : null}
+          {post.attachment.kind === "video" && expanded ? (
+            <VideoPlayer workoutId={`post:${post.id}`} source={playable} title={title ?? pick(post.body, locale).slice(0, 60)} />
           ) : null}
           {workout ? (
             <Link href={`/library/${workout.slug}`} className="group border-ink/8 bg-frost/70 hover:bg-frost flex items-center gap-3 rounded-2xl border p-3 transition-colors">

@@ -16,7 +16,12 @@ import { getTodayWorkout, listWorkouts } from "@/lib/content/workouts";
 import { getSessionUser } from "@/lib/supabase/server";
 
 /** Home, feed-first: today's session, continue, then the trainer feed. */
-export default async function HomePage() {
+interface HomePageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const sp = await searchParams;
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
   const tl = await getTranslations("library");
@@ -26,6 +31,7 @@ export default async function HomePage() {
 
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">
+      {sp.posted ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("posted")}</p> : null}
       <Reveal>
         <p className="eyebrow mb-2">{t("greeting")}</p>
         <h1 className="text-[1.9rem] leading-[1.05] font-extrabold sm:text-[2.4rem]">{t("intro")}</h1>

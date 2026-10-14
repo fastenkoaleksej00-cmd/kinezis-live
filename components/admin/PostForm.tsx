@@ -111,6 +111,7 @@ export function PostForm({ post, authors, workouts }: PostFormProps) {
             <option value="uk">Українська</option>
             <option value="en">English</option>
             <option value="de">Deutsch</option>
+            <option value="ru">Русский</option>
           </Select>
         </Field>
         <Field label={t("fields.access")} hint={t("fields.accessHint")}>

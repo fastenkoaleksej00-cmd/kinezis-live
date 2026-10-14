@@ -270,3 +270,42 @@ export function rowToProduct(r: ProductRow): Product {
     publishedAt: r.published_at ?? r.created_at,
   };
 }
+
+/* ----------------------------------------------------------------------------
+   Meal plans
+---------------------------------------------------------------------------- */
+
+import type { Meal, MealPlan } from "./types";
+
+export interface MealPlanRow {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  plan_date: string | null;
+  meals: Meal[];
+  notes: LocalizedText | null;
+  author_id: string | null;
+  language: MealPlan["language"];
+  access: MealPlan["access"];
+  published: boolean;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export const mealPlanColumns = "id, slug, title, plan_date, meals, notes, author_id, language, access, published, published_at, created_at, updated_at";
+
+export function rowToMealPlan(r: MealPlanRow): MealPlan {
+  return {
+    id: r.id,
+    slug: r.slug,
+    title: r.title,
+    date: r.plan_date ?? undefined,
+    meals: r.meals ?? [],
+    notes: r.notes ?? undefined,
+    authorId: r.author_id ?? "",
+    language: r.language,
+    access: r.access,
+    publishedAt: r.published_at ?? r.created_at,
+  };
+}

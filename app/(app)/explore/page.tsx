@@ -10,6 +10,7 @@ const directions = [
   { key: "workouts", href: "/library", tone: "deep" },
   { key: "faceFitness", href: "/face-fitness", tone: "mint" },
   { key: "skincare", href: "/skincare", tone: "light" },
+  { key: "nutrition", href: "/nutrition", tone: "mint" },
 ] as const;
 
 /** Explore: the three directions of the platform. */
@@ -21,13 +22,13 @@ export default async function ExplorePage() {
       <Reveal>
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       </Reveal>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {directions.map(({ key, href, tone }, i) => {
           const light = tone === "light";
           return (
             <Reveal key={key} delay={0.06 * (i + 1)}>
               <Link href={href} className="group block">
-                <Cover tone={tone} ratio="aspect-[16/10] sm:aspect-[4/5]">
+                <Cover tone={tone} ratio="aspect-[16/10] lg:aspect-[4/5]">
                   <div className="flex h-full flex-col justify-end p-5">
                     <div className="flex items-end justify-between gap-3">
                       <div>

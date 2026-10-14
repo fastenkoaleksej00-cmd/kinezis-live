@@ -1,4 +1,4 @@
-export const locales = ["en", "uk", "de"] as const;
+export const locales = ["en", "uk", "de", "ru"] as const;
 export type Locale = (typeof locales)[number];
 
 /** English is the first-launch language; the user can change it in Settings. */

@@ -207,3 +207,28 @@ export interface Product {
   access: Access;
   publishedAt: string;
 }
+
+/* ----------------------------------------------------------------------------
+   Nutrition: the trainer's day on a plate. An example, never a prescription.
+---------------------------------------------------------------------------- */
+
+export const mealSlots = ["breakfast", "lunch", "dinner", "snacks"] as const;
+export type MealSlot = (typeof mealSlots)[number];
+
+export interface Meal {
+  slot: MealSlot;
+  text: LocalizedText;
+}
+
+export interface MealPlan {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  date?: string;
+  meals: Meal[];
+  notes?: LocalizedText;
+  authorId: string;
+  language: ContentLanguage;
+  access: Access;
+  publishedAt: string;
+}

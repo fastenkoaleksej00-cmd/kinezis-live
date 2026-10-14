@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { categoryIds, goals as goalList, levels, type Goal, type LocalizedText, type PostAttachment, type VideoSource } from "@/lib/content/types";
+import { categoryIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 
 export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic";
@@ -28,8 +28,10 @@ function localized(fd: FormData, base: string): LocalizedText | null {
   const out: LocalizedText = { en };
   const uk = str(fd, `${base}_uk`);
   const de = str(fd, `${base}_de`);
+  const ru = str(fd, `${base}_ru`);
   if (uk) out.uk = uk;
   if (de) out.de = de;
+  if (ru) out.ru = ru;
   return out;
 }
 
@@ -90,7 +92,7 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
     level: inList(levels, str(fd, "level"), "beginner"),
     goals: goalList.filter((g) => bool(fd, `goal_${g}`)) as Goal[],
     access: str(fd, "access") === "premium" ? "premium" : "free",
-    language: inList(["en", "uk", "de"] as const, str(fd, "language"), "uk"),
+    language: inList(["en", "uk", "de", "ru"] as const, str(fd, "language"), "uk"),
     cover_tone: inList(["deep", "mint", "light"] as const, str(fd, "cover_tone"), "deep"),
     video: video(fd),
     author_id: str(fd, "author_id") || null,
@@ -143,7 +145,7 @@ export async function savePost(_prev: AdminState, fd: FormData): Promise<AdminSt
     title: localized(fd, "title"),
     body,
     attachment: attachment(fd),
-    language: inList(["en", "uk", "de"] as const, str(fd, "language"), "uk"),
+    language: inList(["en", "uk", "de", "ru"] as const, str(fd, "language"), "uk"),
     access: str(fd, "access") === "premium" ? "premium" : "free",
     reactions_enabled: bool(fd, "reactions_enabled"),
     comments_enabled: bool(fd, "comments_enabled"),
@@ -169,7 +171,7 @@ export async function deletePost(fd: FormData): Promise<void> {
 ---------------------------------------------------------------------------- */
 
 const tones = ["deep", "mint", "light"] as const;
-const languagesList = ["en", "uk", "de"] as const;
+const languagesList = ["en", "uk", "de", "ru"] as const;
 
 export async function saveCourse(_prev: AdminState, fd: FormData): Promise<AdminState> {
   const ctx = await staffClient();
@@ -234,10 +236,12 @@ function localizedLines(fd: FormData, base: string): LocalizedText[] {
   const en = split(str(fd, `${base}_en`));
   const uk = split(str(fd, `${base}_uk`));
   const de = split(str(fd, `${base}_de`));
+  const ru = split(str(fd, `${base}_ru`));
   return en.map((line, i) => {
     const out: LocalizedText = { en: line };
     if (uk[i]) out.uk = uk[i];
     if (de[i]) out.de = de[i];
+    if (ru[i]) out.ru = ru[i];
     return out;
   });
 }
@@ -397,4 +401,94 @@ export async function deleteProduct(fd: FormData): Promise<void> {
   if (id) await ctx.db.from("products").delete().eq("id", id);
   revalidatePath("/", "layout");
   redirect("/admin/skincare?deleted=1");
+}
+
+/* ----------------------------------------------------------------------------
+   Quick publish from the feed ("+")
+---------------------------------------------------------------------------- */
+
+export interface QuickPublishState {
+  error?: AdminErrorCode;
+}
+
+/**
+ * One-step post: caption + optional uploaded photo/video, published immediately.
+ * The caption is stored under the chosen content language and copied to `en` as the required fallback.
+ */
+export async function quickPublish(_prev: QuickPublishState, fd: FormData): Promise<QuickPublishState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const caption = str(fd, "caption");
+  if (!caption) return { error: "bodyRequired" };
+  const language = inList(languagesList, str(fd, "language"), "uk");
+  const body: LocalizedText = { en: caption, [language]: caption };
+  const kind = inList(["news", "tip", "session", "video", "photo"] as const, str(fd, "kind"), "news");
+  const mediaKind = str(fd, "media_kind");
+  const mediaPath = str(fd, "media_path");
+  const mediaUrl = str(fd, "media_url");
+  const tone = inList(tones, str(fd, "tone"), "deep");
+
+  let attachment: PostAttachment | null = null;
+  if (mediaKind === "photo" && mediaUrl) attachment = { kind: "photo", coverTone: tone, alt: { en: caption.slice(0, 80) }, src: mediaUrl };
+  if (mediaKind === "video" && mediaPath) attachment = { kind: "video", coverTone: tone, source: { kind: "storage", bucket: "videos", path: mediaPath } };
+
+  const { error } = await ctx.db.from("posts").insert({
+    kind: attachment?.kind === "video" ? (kind === "news" ? "video" : kind) : attachment?.kind === "photo" ? (kind === "news" ? "photo" : kind) : kind,
+    author_id: str(fd, "author_id") || null,
+    title: null,
+    body,
+    attachment,
+    language,
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    reactions_enabled: true,
+    comments_enabled: true,
+    published: true,
+    published_at: new Date().toISOString(),
+  });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/?posted=1");
+}
+
+/* ----------------------------------------------------------------------------
+   Meal plans
+---------------------------------------------------------------------------- */
+
+export async function saveMealPlan(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = localized(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const id = str(fd, "id") || undefined;
+  const date = str(fd, "plan_date");
+  const slug = str(fd, "slug") || (await slugify(`${date || ""} ${title.en}`));
+  const meals = mealSlots
+    .map((slot) => ({ slot, text: localized(fd, `meal_${slot}`) }))
+    .filter((m): m is { slot: MealSlot; text: LocalizedText } => m.text !== null);
+  if (meals.length === 0) return { error: "bodyRequired" };
+  const row = {
+    ...(id ? { id } : {}),
+    slug,
+    title,
+    plan_date: date || null,
+    meals,
+    notes: localized(fd, "notes"),
+    author_id: str(fd, "author_id") || null,
+    language: inList(languagesList, str(fd, "language"), "uk"),
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    ...published(fd, str(fd, "published_at_prev") || null),
+  };
+  const { error } = await ctx.db.from("meal_plans").upsert(row, { onConflict: "id" });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/admin/nutrition?saved=1");
+}
+
+export async function deleteMealPlan(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  if (id) await ctx.db.from("meal_plans").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/nutrition?deleted=1");
 }

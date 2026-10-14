@@ -9,9 +9,9 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Tailwind CSS v4 (`@theme` in `app/globals.css`, no tailwind.config). Palette copied from the site:
   petrol `ink` #10242B → icy `ice` #F5F8F8, glow `#8EDCF0`, accent `#2A86B4`. App-only `mint` tones for beauty directions.
   Glass surfaces `.glass` / `.glass-dark`, dark `.section-deep`, cover placeholders `.cover`, `.cover-mint`, `.cover-light`.
-- `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de).
+- `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de, ru). Add every new key to all four files; a key-parity check script pattern lives in git history of this file's commits.
 - `motion` for animation, `lucide-react` for icons. No shadcn/ui.
-- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets, 0006 plans + trainer profile columns). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
+- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets, 0006 plans + trainer profile columns, 0007 meal_plans). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
 - Package manager: npm (pnpm cannot lock its store in the sandboxed shell). Fonts: Manrope + Caveat via `next/font`.
 
 ## Commands
@@ -38,7 +38,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `lib/supabase/` — `env.ts` (null when not configured), `client.ts` (browser), `server.ts` (cookies + `getSessionUser()`), `middleware.ts` (session refresh, wired in root `middleware.ts`)
 - `lib/video/resolve.ts` — video host adapter: turns a `VideoSource` (file | hls | storage) into a playable URL; Supabase Storage sources get a 3-hour signed URL. Adding Cloudflare Stream/Mux later = one more `kind` here.
 - `components/admin/VideoField.tsx` — source picker with direct browser upload to the private `videos` bucket (50 MB free-plan limit); writes `<name>_kind/_path/_src/_poster` hidden inputs.
-- `lib/auth/actions.ts` — server actions signIn / signUp / signOut; pages `app/(app)/auth/sign-in|sign-up`, callback `app/auth/callback/route.ts`
+- `lib/auth/actions.ts` — signIn / signUp / signOut / requestPasswordReset / updatePassword / signInWithGoogle (Google button only when `NEXT_PUBLIC_AUTH_GOOGLE=true`; setup in `docs/AUTH.md`); pages `/auth/forgot`, `/auth/reset`; pages `app/(app)/auth/sign-in|sign-up`, callback `app/auth/callback/route.ts`
 - `components/auth/` — AuthForm (useActionState), UserDataSync (pulls account rows on sign-in, merges with local stores, pushes every local change)
 - `i18n/` — locale config and request config; `lib/locale.ts` — server action that sets the cookie
 - `capacitor.config.ts`, `ios/`, `android/`, `mobile/` — native shells (Capacitor 8) that load the hosted web app via `server.url` (env `CAPACITOR_SERVER_URL`); `mobile/assets` are the icon/splash sources, `mobile/www` the offline placeholder. Guide: `docs/MOBILE.md`. Never put app logic in the native folders.
@@ -61,6 +61,8 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Filters live in the URL (`?category=&duration=&goal=&level=`) and are parsed by `parseFilters`, unknown values are dropped.
 - No stock photos. Use `Cover` placeholders until real covers arrive.
 - Subscription: plans free | premium | premium_plus live on `profiles.plan` (+ `plan_until`, `premium_interest`); `lib/access/plans.ts` → `canAccess()` is the single entitlement check; watch/lesson pages render `Paywall` when not allowed; cards show `LockBadge`. `/premium` page + Home `PremiumBanner` collect interest and say "launching soon". No payment provider until the owner picks the legal country (see `docs/SUBSCRIPTION.md`). Never let the client change `plan`.
+- `/compose` (staff): Instagram-style quick publish (photo → `covers` bucket public URL, video → `videos` bucket) via `quickPublish`; the Home "+" points here. PostCard renders real photos when `attachment.src` exists and plays video attachments on `/posts/[id]`.
+- Nutrition: `meal_plans` table (migration 0007), `lib/content/meals.ts` (DB only, no samples), `/nutrition`, `/nutrition/[slug]`, admin `/admin/nutrition`. Always show the "one person's day, not a plan for everyone" disclaimer.
 - Trainer profiles: `/trainers/[id]` from `authors` (bio, specialties, verified, avatar_src, instagram); `TrainerBadge` only when `verified`. `QuickPostButton` (+) on Home for staff → /admin/posts/new.
 - Animations respect `prefers-reduced-motion`. No infinite rotation. Screen transitions: `app/(app)/template.tsx` + `.page-enter` (CSS, 280 ms); active tab indicators slide with motion `layoutId` in BottomNav/SideNav.
 - Product roadmap and audit (Russian): `docs/ROADMAP.md`. Keep it updated when stages land.

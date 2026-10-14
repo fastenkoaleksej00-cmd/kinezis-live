@@ -9,7 +9,7 @@ import { SubmitRow } from "./SubmitRow";
 
 const initial: AdminState = {};
 
-function lines(list: Array<{ en?: string; uk?: string; de?: string }> | undefined, code: "en" | "uk" | "de"): string {
+function lines(list: Array<{ en?: string; uk?: string; de?: string; ru?: string }> | undefined, code: "en" | "uk" | "de" | "ru"): string {
   return (list ?? []).map((s) => s[code] ?? "").join("\n");
 }
 
@@ -22,6 +22,7 @@ function CommonFields({ language, access, published, t }: { language?: string; a
             <option value="uk">Українська</option>
             <option value="en">English</option>
             <option value="de">Deutsch</option>
+            <option value="ru">Русский</option>
           </Select>
         </Field>
         <Field label={t("fields.access")} hint={t("fields.accessHint")}>
@@ -64,7 +65,7 @@ export function RoutineForm({ routine }: { routine?: RoutineRow | null }) {
         <fieldset className="space-y-2.5">
           <legend className="eyebrow mb-1">{t("fields.routineSteps")}</legend>
           <p className="text-steel text-xs">{t("fields.stepsHint")}</p>
-          {(["en", "uk", "de"] as const).map((code) => (
+          {(["en", "uk", "de", "ru"] as const).map((code) => (
             <div key={code} className="flex items-start gap-2.5">
               <span className="text-steel mt-3.5 w-7 shrink-0 text-[11px] font-bold tracking-wider uppercase">{code}</span>
               <Textarea name={`steps_${code}`} defaultValue={lines(routine?.steps, code)} rows={5} required={code === "en"} lang={code} aria-label={`${t("fields.routineSteps")} (${code})`} />

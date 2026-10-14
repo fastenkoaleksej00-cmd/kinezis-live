@@ -44,7 +44,7 @@ export function LocalizedInputs({
 }: {
   name: string;
   label: string;
-  value?: { en?: string; uk?: string; de?: string } | null;
+  value?: { en?: string; uk?: string; de?: string; ru?: string } | null;
   required?: boolean;
   multiline?: boolean;
 }) {
@@ -52,6 +52,7 @@ export function LocalizedInputs({
     { code: "en", title: "English" },
     { code: "uk", title: "Українська" },
     { code: "de", title: "Deutsch" },
+    { code: "ru", title: "Русский" },
   ] as const;
   return (
     <fieldset className="space-y-2.5">

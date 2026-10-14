@@ -10,3 +10,7 @@ export function postKey(id: string): string {
 export function courseKey(id: string): string {
   return `course:${id}`;
 }
+
+export function mealKey(id: string): string {
+  return `meal:${id}`;
+}

@@ -79,6 +79,7 @@ export function WorkoutForm({ workout, authors }: WorkoutFormProps) {
             <option value="uk">Українська</option>
             <option value="en">English</option>
             <option value="de">Deutsch</option>
+            <option value="ru">Русский</option>
           </Select>
         </Field>
         <Field label={t("fields.coverTone")}>

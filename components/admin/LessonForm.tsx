@@ -17,7 +17,7 @@ interface LessonFormProps {
 
 const initial: AdminState = {};
 
-function lines(list: Array<{ en?: string; uk?: string; de?: string }> | undefined, code: "en" | "uk" | "de"): string {
+function lines(list: Array<{ en?: string; uk?: string; de?: string; ru?: string }> | undefined, code: "en" | "uk" | "de" | "ru"): string {
   return (list ?? []).map((s) => s[code] ?? "").join("\n");
 }
 
@@ -64,7 +64,7 @@ export function LessonForm({ courseId, modules, lesson, defaultModuleId }: Lesso
         <fieldset className="space-y-2.5">
           <legend className="eyebrow mb-1">{t("fields.routineSteps")}</legend>
           <p className="text-steel text-xs">{t("fields.stepsHint")}</p>
-          {(["en", "uk", "de"] as const).map((code) => (
+          {(["en", "uk", "de", "ru"] as const).map((code) => (
             <div key={code} className="flex items-start gap-2.5">
               <span className="text-steel mt-3.5 w-7 shrink-0 text-[11px] font-bold tracking-wider uppercase">{code}</span>
               <Textarea name={`routine_${code}`} defaultValue={lines(lesson?.routine, code)} rows={4} lang={code} aria-label={`${t("fields.routineSteps")} (${code})`} />

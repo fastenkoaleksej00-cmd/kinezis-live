@@ -30,7 +30,8 @@
     "continueEmpty": "Nothing in progress yet. Start a session from the Library.",
     "feedTitle": "From your trainer",
     "feedEmpty": "The feed is where new videos, tips and exercises will be published. It opens in the next stage.",
-    "resumeAt": "Resume at {time}"
+    "resumeAt": "Resume at {time}",
+    "posted": "Published. Your post is live in the feed."
   },
   "explore": {
     "title": "Explore",
@@ -46,6 +47,10 @@
     "skincare": {
       "title": "Skincare",
       "body": "Routines, education and product guides."
+    },
+    "nutrition": {
+      "title": "Nutrition",
+      "body": "The trainer's day on a plate and daily habits."
     }
   },
   "library": {
@@ -105,7 +110,8 @@
     "goToLibrary": "Open the Library",
     "sectionWorkouts": "Workouts",
     "sectionPosts": "Posts",
-    "sectionCourses": "Courses"
+    "sectionCourses": "Courses",
+    "sectionMeals": "Nutrition"
   },
   "profile": {
     "title": "Profile",
@@ -137,7 +143,8 @@
     "languages": {
       "en": "English",
       "uk": "Українська",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "ru": "Русский"
     },
     "saved": "Language updated"
   },
@@ -255,8 +262,27 @@
       "weakPassword": "The password is too short. Use at least 8 characters.",
       "missing": "Enter your email and password.",
       "generic": "Something went wrong. Try again in a moment.",
-      "callback": "The confirmation link is invalid or has expired. Sign in or request a new one."
-    }
+      "callback": "The confirmation link is invalid or has expired. Sign in or request a new one.",
+      "expired": "The link is invalid or has expired.",
+      "oauth": "Google sign-in did not complete. Try again.",
+      "invalidHint": "If you created the account with Google, use the Google button."
+    },
+    "forgot": "Forgot password?",
+    "forgotTitle": "Reset password",
+    "forgotLead": "Enter your email and we will send a link to set a new password.",
+    "forgotCta": "Send link",
+    "resetEmailBody": "If an account exists for this email, a link to set a new password is on its way. It is valid for one hour.",
+    "backToSignIn": "Back to sign in",
+    "resetTitle": "New password",
+    "resetLead": "Choose a new password for your account.",
+    "newPassword": "New password",
+    "resetCta": "Save password",
+    "resetExpiredBody": "Open the link from the email in the same browser, or request a new one.",
+    "requestNew": "Request a new link",
+    "passwordUpdated": "Password updated. You are signed in.",
+    "google": "Continue with Google",
+    "or": "or",
+    "working": "Please wait…"
   },
   "admin": {
     "eyebrow": "Admin",
@@ -267,7 +293,8 @@
       "workouts": "Workouts",
       "posts": "Posts",
       "courses": "Courses",
-      "skincare": "Skincare"
+      "skincare": "Skincare",
+      "nutrition": "Nutrition"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -355,7 +382,10 @@
       "ingredientsHint": "Comma-separated or one per line, as printed on the product.",
       "usage": "How to use",
       "purchaseUrl": "Purchase link (optional)",
-      "imageSrc": "Image URL (optional)"
+      "imageSrc": "Image URL (optional)",
+      "planDate": "Date",
+      "mealsHint": "Fill the meals you want to share; empty ones are skipped. English is required, other languages optional.",
+      "notes": "Notes"
     },
     "errors": {
       "forbidden": "You do not have permission for this.",
@@ -397,7 +427,10 @@
         "failed": "Upload failed. Check your connection and try again.",
         "notConfigured": "Storage is not connected."
       }
-    }
+    },
+    "newMealPlan": "New day",
+    "editMealPlan": "Edit day",
+    "nutritionIntro": "Your own day on a plate: breakfast, lunch, dinner, snacks. Published as an example, with a disclaimer shown to readers."
   },
   "premium": {
     "eyebrow": "Premium",
@@ -458,5 +491,33 @@
     "statsPosts": "Posts",
     "sessions": "Sessions by the trainer",
     "latestPosts": "Latest posts"
+  },
+  "compose": {
+    "title": "New post",
+    "lead": "Photo or video, a caption, one tap to publish.",
+    "addMedia": "Add a photo or video",
+    "mediaHint": "Photo up to 5 MB · video up to 50 MB",
+    "caption": "Caption",
+    "captionPlaceholder": "What is this about?",
+    "kind": "Type",
+    "publish": "Publish",
+    "publishing": "Publishing…",
+    "fullEditorHint": "Need translations, a linked workout or a draft? Use the full editor in the admin panel."
+  },
+  "nutrition": {
+    "eyebrow": "Nutrition",
+    "title": "The trainer's day on a plate",
+    "lead": "What the trainer actually eats on a given day. Save it and use it as an example.",
+    "disclaimer": "This is one person's day, not a plan for everyone. Needs differ with age, activity, health and goals. Treat it as inspiration, not a prescription; for diets and medical conditions consult a specialist.",
+    "emptyTitle": "No days published yet",
+    "emptyBody": "The trainer's daily plates will appear here.",
+    "mealsCount": "{count, plural, one {# meal} other {# meals}}",
+    "slots": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    },
+    "notes": "Notes"
   }
 }

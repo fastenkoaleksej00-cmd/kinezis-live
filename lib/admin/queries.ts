@@ -131,3 +131,23 @@ export async function getProductRow(id: string): Promise<ProductRow | null> {
   const { data } = await db.from("products").select(productColumns).eq("id", id).maybeSingle();
   return (data as unknown as ProductRow | null) ?? null;
 }
+
+/* ----------------------------------------------------------------------------
+   Meal plans (staff reads)
+---------------------------------------------------------------------------- */
+
+import { mealPlanColumns, type MealPlanRow } from "@/lib/content/db";
+
+export async function listAllMealPlans(): Promise<MealPlanRow[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { data } = await db.from("meal_plans").select(mealPlanColumns).order("updated_at", { ascending: false });
+  return (data ?? []) as unknown as MealPlanRow[];
+}
+
+export async function getMealPlanRow(id: string): Promise<MealPlanRow | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const { data } = await db.from("meal_plans").select(mealPlanColumns).eq("id", id).maybeSingle();
+  return (data as unknown as MealPlanRow | null) ?? null;
+}

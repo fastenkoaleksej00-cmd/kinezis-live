@@ -30,7 +30,8 @@
     "continueEmpty": "Noch nichts begonnen. Starte eine Einheit aus der Bibliothek.",
     "feedTitle": "Von deiner Trainerin",
     "feedEmpty": "Im Feed werden neue Videos, Tipps und Übungen veröffentlicht. Er öffnet in der nächsten Phase.",
-    "resumeAt": "Fortsetzen bei {time}"
+    "resumeAt": "Fortsetzen bei {time}",
+    "posted": "Veröffentlicht. Dein Beitrag ist im Feed."
   },
   "explore": {
     "title": "Entdecken",
@@ -46,6 +47,10 @@
     "skincare": {
       "title": "Hautpflege",
       "body": "Routinen, Wissen und Produktführer."
+    },
+    "nutrition": {
+      "title": "Ernährung",
+      "body": "Der Tag der Trainerin auf dem Teller und tägliche Gewohnheiten."
     }
   },
   "library": {
@@ -105,7 +110,8 @@
     "goToLibrary": "Bibliothek öffnen",
     "sectionWorkouts": "Workouts",
     "sectionPosts": "Beiträge",
-    "sectionCourses": "Kurse"
+    "sectionCourses": "Kurse",
+    "sectionMeals": "Ernährung"
   },
   "profile": {
     "title": "Profil",
@@ -137,7 +143,8 @@
     "languages": {
       "en": "English",
       "uk": "Українська",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "ru": "Русский"
     },
     "saved": "Sprache aktualisiert"
   },
@@ -255,8 +262,27 @@
       "weakPassword": "Das Passwort ist zu kurz. Mindestens 8 Zeichen.",
       "missing": "Gib E-Mail und Passwort ein.",
       "generic": "Etwas ist schiefgelaufen. Versuche es gleich noch einmal.",
-      "callback": "Der Bestätigungslink ist ungültig oder abgelaufen. Melde dich an oder fordere einen neuen an."
-    }
+      "callback": "Der Bestätigungslink ist ungültig oder abgelaufen. Melde dich an oder fordere einen neuen an.",
+      "expired": "Der Link ist ungültig oder abgelaufen.",
+      "oauth": "Die Google-Anmeldung wurde nicht abgeschlossen. Versuche es erneut.",
+      "invalidHint": "Wenn du das Konto mit Google erstellt hast, nutze den Google-Button."
+    },
+    "forgot": "Passwort vergessen?",
+    "forgotTitle": "Passwort zurücksetzen",
+    "forgotLead": "Gib deine E-Mail ein, wir senden einen Link für ein neues Passwort.",
+    "forgotCta": "Link senden",
+    "resetEmailBody": "Wenn ein Konto mit dieser E-Mail existiert, ist der Link für ein neues Passwort unterwegs. Er gilt eine Stunde.",
+    "backToSignIn": "Zurück zur Anmeldung",
+    "resetTitle": "Neues Passwort",
+    "resetLead": "Wähle ein neues Passwort für dein Konto.",
+    "newPassword": "Neues Passwort",
+    "resetCta": "Passwort speichern",
+    "resetExpiredBody": "Öffne den Link aus der E-Mail im selben Browser oder fordere einen neuen an.",
+    "requestNew": "Neuen Link anfordern",
+    "passwordUpdated": "Passwort aktualisiert. Du bist angemeldet.",
+    "google": "Mit Google fortfahren",
+    "or": "oder",
+    "working": "Bitte warten…"
   },
   "admin": {
     "eyebrow": "Verwaltung",
@@ -267,7 +293,8 @@
       "workouts": "Workouts",
       "posts": "Beiträge",
       "courses": "Kurse",
-      "skincare": "Hautpflege"
+      "skincare": "Hautpflege",
+      "nutrition": "Ernährung"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -355,7 +382,10 @@
       "ingredientsHint": "Kommagetrennt oder je Zeile, wie auf der Verpackung.",
       "usage": "Anwendung",
       "purchaseUrl": "Kauflink (optional)",
-      "imageSrc": "Bild-URL (optional)"
+      "imageSrc": "Bild-URL (optional)",
+      "planDate": "Datum",
+      "mealsHint": "Fülle die Mahlzeiten aus, die du teilen möchtest; leere werden übersprungen. Englisch ist Pflicht, andere Sprachen optional.",
+      "notes": "Notizen"
     },
     "errors": {
       "forbidden": "Dafür fehlt dir die Berechtigung.",
@@ -397,7 +427,10 @@
         "failed": "Upload fehlgeschlagen. Prüfe die Verbindung und versuche es erneut.",
         "notConfigured": "Speicher ist nicht verbunden."
       }
-    }
+    },
+    "newMealPlan": "Neuer Tag",
+    "editMealPlan": "Tag bearbeiten",
+    "nutritionIntro": "Dein eigener Tag auf dem Teller: Frühstück, Mittag, Abend, Snacks. Als Beispiel veröffentlicht, Leser sehen einen Hinweis."
   },
   "premium": {
     "eyebrow": "Premium",
@@ -458,5 +491,33 @@
     "statsPosts": "Beiträge",
     "sessions": "Einheiten der Trainerin",
     "latestPosts": "Neueste Beiträge"
+  },
+  "compose": {
+    "title": "Neuer Beitrag",
+    "lead": "Foto oder Video, eine Bildunterschrift, ein Tipp zum Veröffentlichen.",
+    "addMedia": "Foto oder Video hinzufügen",
+    "mediaHint": "Foto bis 5 MB · Video bis 50 MB",
+    "caption": "Text",
+    "captionPlaceholder": "Worum geht es?",
+    "kind": "Typ",
+    "publish": "Veröffentlichen",
+    "publishing": "Wird veröffentlicht…",
+    "fullEditorHint": "Übersetzungen, verknüpftes Workout oder Entwurf? Nutze den vollen Editor in der Verwaltung."
+  },
+  "nutrition": {
+    "eyebrow": "Ernährung",
+    "title": "Der Tag der Trainerin auf dem Teller",
+    "lead": "Was die Trainerin an einem Tag wirklich isst. Speichern und als Beispiel nutzen.",
+    "disclaimer": "Das ist der Tag einer Person, kein Plan für alle. Bedürfnisse unterscheiden sich je nach Alter, Aktivität, Gesundheit und Zielen. Als Inspiration verstehen, nicht als Vorschrift; bei Diäten und Erkrankungen eine Fachperson aufsuchen.",
+    "emptyTitle": "Noch keine Tage veröffentlicht",
+    "emptyBody": "Hier erscheinen die Tagesteller der Trainerin.",
+    "mealsCount": "{count, plural, one {# Mahlzeit} other {# Mahlzeiten}}",
+    "slots": {
+      "breakfast": "Frühstück",
+      "lunch": "Mittagessen",
+      "dinner": "Abendessen",
+      "snacks": "Snacks"
+    },
+    "notes": "Notizen"
   }
 }
