@@ -6,6 +6,7 @@ import { deleteLesson, saveLesson, type AdminState } from "@/lib/admin/actions";
 import type { LessonRow, ModuleRow } from "@/lib/content/db";
 import { Field, Input, LocalizedInputs, Select, Textarea } from "./fields";
 import { SubmitRow } from "./SubmitRow";
+import { VideoField } from "./VideoField";
 
 interface LessonFormProps {
   courseId: string;
@@ -57,21 +58,7 @@ export function LessonForm({ courseId, modules, lesson, defaultModuleId }: Lesso
         </div>
       </section>
 
-      <section className="card grid gap-5 p-5 sm:grid-cols-2">
-        <Field label={t("fields.videoKind")} hint={t("fields.videoHint")} className="sm:col-span-2">
-          <Select name="video_kind" defaultValue={video?.kind ?? "none"}>
-            <option value="none">{t("video.none")}</option>
-            <option value="file">{t("video.file")}</option>
-            <option value="hls">{t("video.hls")}</option>
-          </Select>
-        </Field>
-        <Field label={t("fields.videoSrc")}>
-          <Input name="video_src" type="url" defaultValue={video?.src ?? ""} placeholder="https://" />
-        </Field>
-        <Field label={t("fields.videoPoster")}>
-          <Input name="video_poster" type="url" defaultValue={video?.poster ?? ""} placeholder="https://" />
-        </Field>
-      </section>
+      <VideoField folder="lessons" value={video} />
 
       <section className="card space-y-5 p-5">
         <fieldset className="space-y-2.5">

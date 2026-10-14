@@ -3,14 +3,14 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Film, Maximize2, Pause, Play, Volume2, VolumeX } from "lucide-react";
-import type { VideoSource } from "@/lib/content/types";
+import type { PlayableVideo } from "@/lib/content/types";
 import { formatTime } from "@/lib/format";
 import { useProgress } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
 interface VideoPlayerProps {
   workoutId: string;
-  source: VideoSource;
+  source: PlayableVideo | null;
   title: string;
 }
 

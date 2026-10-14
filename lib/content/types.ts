@@ -31,7 +31,15 @@ export type CoverTone = "deep" | "mint" | "light";
 export type VideoSource =
   | { kind: "file"; src: string; poster?: string }
   | { kind: "hls"; src: string; poster?: string }
+  /** Uploaded through the admin panel into Supabase Storage; played via a signed URL */
+  | { kind: "storage"; bucket: "videos"; path: string; poster?: string }
   | null;
+
+/** What the player actually receives after the source has been resolved to a playable URL. */
+export interface PlayableVideo {
+  src: string;
+  poster?: string;
+}
 
 export interface Author {
   id: string;

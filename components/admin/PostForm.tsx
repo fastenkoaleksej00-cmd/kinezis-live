@@ -6,6 +6,7 @@ import { deletePost, savePost, type AdminState } from "@/lib/admin/actions";
 import type { AuthorRow, PostRow, WorkoutRow } from "@/lib/content/db";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";
 import { SubmitRow } from "./SubmitRow";
+import { VideoField } from "./VideoField";
 
 interface PostFormProps {
   post?: PostRow | null;
@@ -72,21 +73,12 @@ export function PostForm({ post, authors, workouts }: PostFormProps) {
         ) : null}
 
         {attKind === "video" ? (
-          <div className="grid gap-5 sm:grid-cols-2">
-            <Field label={t("fields.videoKind")} className="sm:col-span-2">
-              <Select name="attachment_video_kind" defaultValue={att?.kind === "video" && att.source ? att.source.kind : "none"}>
-                <option value="none">{t("video.none")}</option>
-                <option value="file">{t("video.file")}</option>
-                <option value="hls">{t("video.hls")}</option>
-              </Select>
-            </Field>
-            <Field label={t("fields.videoSrc")}>
-              <Input name="attachment_video_src" type="url" defaultValue={att?.kind === "video" && att.source ? att.source.src : ""} placeholder="https://" />
-            </Field>
+          <>
+            <VideoField name="attachment_video" folder="posts" value={att?.kind === "video" ? att.source : null} />
             <Field label={t("fields.videoDuration")}>
               <Input name="attachment_duration" type="number" min={1} defaultValue={att?.kind === "video" ? (att.durationSec ?? "") : ""} />
             </Field>
-          </div>
+          </>
         ) : null}
 
         {attKind === "workout" ? (

@@ -46,7 +46,12 @@ export async function slugify(input: string): Promise<string> {
 function video(fd: FormData, base = "video"): VideoSource {
   const kind = str(fd, `${base}_kind`);
   const src = str(fd, `${base}_src`);
+  const path = str(fd, `${base}_path`);
   const poster = str(fd, `${base}_poster`);
+  if (kind === "storage") {
+    if (!path) return null;
+    return poster ? { kind, bucket: "videos", path, poster } : { kind, bucket: "videos", path };
+  }
   if ((kind !== "file" && kind !== "hls") || !src) return null;
   return poster ? { kind, src, poster } : { kind, src };
 }

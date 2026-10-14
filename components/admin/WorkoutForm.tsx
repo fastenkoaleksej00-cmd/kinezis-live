@@ -7,6 +7,7 @@ import type { AuthorRow, WorkoutRow } from "@/lib/content/db";
 import { categoryIds, goals, levels } from "@/lib/content/types";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";
 import { SubmitRow } from "./SubmitRow";
+import { VideoField } from "./VideoField";
 
 interface WorkoutFormProps {
   workout?: WorkoutRow | null;
@@ -95,21 +96,7 @@ export function WorkoutForm({ workout, authors }: WorkoutFormProps) {
         </Field>
       </section>
 
-      <section className="card grid gap-5 p-5 sm:grid-cols-2">
-        <Field label={t("fields.videoKind")} hint={t("fields.videoHint")} className="sm:col-span-2">
-          <Select name="video_kind" defaultValue={video?.kind ?? "none"}>
-            <option value="none">{t("video.none")}</option>
-            <option value="file">{t("video.file")}</option>
-            <option value="hls">{t("video.hls")}</option>
-          </Select>
-        </Field>
-        <Field label={t("fields.videoSrc")}>
-          <Input name="video_src" type="url" defaultValue={video?.src ?? ""} placeholder="https://" />
-        </Field>
-        <Field label={t("fields.videoPoster")}>
-          <Input name="video_poster" type="url" defaultValue={video?.poster ?? ""} placeholder="https://" />
-        </Field>
-      </section>
+      <VideoField folder="workouts" value={video} />
 
       <section className="card p-5">
         <Checkbox name="published" label={t("fields.published")} defaultChecked={workout?.published ?? false} />

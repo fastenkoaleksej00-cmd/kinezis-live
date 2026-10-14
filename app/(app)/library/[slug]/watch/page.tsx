@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { workoutKey } from "@/lib/store/keys";
 import { SaveButton } from "@/components/library/SaveButton";
 import { VideoPlayer } from "@/components/player/VideoPlayer";
+import { resolveVideo } from "@/lib/video/resolve";
 import { Container } from "@/components/ui/Container";
 import { pick } from "@/lib/content/localize";
 import { getAuthor, getWorkout } from "@/lib/content/workouts";
@@ -24,6 +25,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
   const tc = await getTranslations("common");
   const author = await getAuthor(workout.authorId);
   const title = pick(workout.title, locale);
+  const playable = await resolveVideo(workout.video);
 
   return (
     <div className="section-deep relative -mb-24 min-h-dvh pb-28 text-white md:-mb-10 md:pb-12">
@@ -37,7 +39,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
           <SaveButton itemKey={workoutKey(workout.id)} look="glass" size="md" />
         </div>
 
-        <VideoPlayer workoutId={workout.id} source={workout.video} title={title} />
+        <VideoPlayer workoutId={workout.id} source={playable} title={title} />
 
         <div>
           <p className="text-glow text-[11px] font-semibold tracking-[0.3em] uppercase">{t(`categories.${workout.category}`)}</p>

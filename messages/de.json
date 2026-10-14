@@ -296,7 +296,8 @@
     "video": {
       "none": "Noch kein Video",
       "file": "Direkte Datei (mp4)",
-      "hls": "Stream (HLS .m3u8)"
+      "hls": "Stream (HLS .m3u8)",
+      "storage": "Datei hochladen (bis 50 MB)"
     },
     "attachment": {
       "none": "Keiner",
@@ -381,6 +382,17 @@
     "editArticle": "Artikel bearbeiten",
     "newProduct": "Neues Produkt",
     "editProduct": "Produkt bearbeiten",
-    "emptyList": "Noch nichts vorhanden."
+    "emptyList": "Noch nichts vorhanden.",
+    "upload": {
+      "hint": "MP4, MOV oder WebM. Lange Videos vorher komprimieren.",
+      "choose": "Datei wählen",
+      "uploading": "Wird hochgeladen…",
+      "remove": "Entfernen",
+      "errors": {
+        "tooLarge": "Die Datei ist größer als 50 MB. Komprimiere sie oder nutze einen Link.",
+        "failed": "Upload fehlgeschlagen. Prüfe die Verbindung und versuche es erneut.",
+        "notConfigured": "Speicher ist nicht verbunden."
+      }
+    }
   }
 }

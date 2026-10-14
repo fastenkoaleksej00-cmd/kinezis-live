@@ -11,7 +11,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
   Glass surfaces `.glass` / `.glass-dark`, dark `.section-deep`, cover placeholders `.cover`, `.cover-mint`, `.cover-light`.
 - `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de).
 - `motion` for animation, `lucide-react` for icons. No shadcn/ui.
-- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
+- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets `videos` (private) and `covers` (public) with staff-only writes). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
 - Package manager: npm (pnpm cannot lock its store in the sandboxed shell). Fonts: Manrope + Caveat via `next/font`.
 
 ## Commands
@@ -35,6 +35,8 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `components/admin/` + `app/(app)/admin/**` — trainer panel: overview; workouts, posts, courses (with ModuleEditor: modules inline, lessons via LessonForm), skincare (routines, articles, products). Layout redirects non-staff to /profile.
 - `lib/store/` — localStorage stores for favourites (`kl_favorites`, keys from `keys.ts`: `workout:<id>`, `post:<id>`, `course:<id>`), watch progress (`kl_progress`) and completed lessons (`kl_lessons`); same API will sync to accounts later
 - `lib/supabase/` — `env.ts` (null when not configured), `client.ts` (browser), `server.ts` (cookies + `getSessionUser()`), `middleware.ts` (session refresh, wired in root `middleware.ts`)
+- `lib/video/resolve.ts` — video host adapter: turns a `VideoSource` (file | hls | storage) into a playable URL; Supabase Storage sources get a 3-hour signed URL. Adding Cloudflare Stream/Mux later = one more `kind` here.
+- `components/admin/VideoField.tsx` — source picker with direct browser upload to the private `videos` bucket (50 MB free-plan limit); writes `<name>_kind/_path/_src/_poster` hidden inputs.
 - `lib/auth/actions.ts` — server actions signIn / signUp / signOut; pages `app/(app)/auth/sign-in|sign-up`, callback `app/auth/callback/route.ts`
 - `components/auth/` — AuthForm (useActionState), UserDataSync (pulls account rows on sign-in, merges with local stores, pushes every local change)
 - `i18n/` — locale config and request config; `lib/locale.ts` — server action that sets the cookie

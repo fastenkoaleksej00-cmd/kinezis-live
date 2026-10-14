@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { LessonDoneButton } from "@/components/courses/LessonDoneButton";
 import { VideoPlayer } from "@/components/player/VideoPlayer";
+import { resolveVideo } from "@/lib/video/resolve";
 import { Container } from "@/components/ui/Container";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { getCourse, getLesson } from "@/lib/content/courses";
@@ -24,6 +25,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const locale = await getLocale();
   const t = await getTranslations("faceFitness");
   const title = pick(lesson.title, locale);
+  const playable = await resolveVideo(lesson.video);
 
   return (
     <div className="section-deep relative -mb-24 min-h-dvh pb-28 text-white md:-mb-10 md:pb-12">
@@ -34,7 +36,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           {pick(course.title, locale)}
         </Link>
 
-        <VideoPlayer workoutId={lesson.id} source={lesson.video} title={title} />
+        <VideoPlayer workoutId={lesson.id} source={playable} title={title} />
 
         <div>
           <p className="text-mint text-[11px] font-semibold tracking-[0.3em] uppercase">{t("lesson")}</p>
