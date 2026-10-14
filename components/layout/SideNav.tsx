@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { motion, useReducedMotion } from "motion/react";
 import { Settings } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { isActivePath, navItems } from "@/lib/navigation";
@@ -14,6 +15,7 @@ export function SideNav() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const tb = useTranslations("brand");
+  const reduce = useReducedMotion();
 
   return (
     <aside className="section-deep fixed inset-y-0 left-0 z-40 hidden w-64 flex-col px-5 py-7 text-white md:flex">
@@ -31,12 +33,20 @@ export function SideNav() {
                   href={href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[15px] font-semibold transition-[background-color,color,border-color] duration-300",
-                    active ? "glass-dark text-white" : "text-mist hover:bg-white/5 hover:text-white",
+                    "relative flex items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[15px] font-semibold transition-colors duration-300",
+                    active ? "text-white" : "text-mist hover:bg-white/5 hover:text-white",
                   )}
                 >
-                  <Icon className="h-[18px] w-[18px]" strokeWidth={active ? 2.2 : 1.8} aria-hidden />
-                  {t(key)}
+                  {active ? (
+                    <motion.span
+                      layoutId="side-pill"
+                      transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 36, mass: 0.8 }}
+                      className="glass-dark absolute inset-0 rounded-2xl"
+                      aria-hidden
+                    />
+                  ) : null}
+                  <Icon className="relative h-[18px] w-[18px]" strokeWidth={active ? 2.2 : 1.8} aria-hidden />
+                  <span className="relative">{t(key)}</span>
                 </Link>
               </li>
             );

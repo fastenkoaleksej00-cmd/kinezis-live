@@ -251,3 +251,26 @@
     -webkit-backdrop-filter: blur(12px) saturate(140%);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Screen transitions: a short fade and lift when a screen mounts.
+   Kept under 300 ms so navigation still feels instant.
+--------------------------------------------------------------------------- */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-enter {
+  animation: page-in 0.28s var(--ease-out-expo) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}

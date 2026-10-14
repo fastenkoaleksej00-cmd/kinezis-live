@@ -61,5 +61,6 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Filters live in the URL (`?category=&duration=&goal=&level=`) and are parsed by `parseFilters`, unknown values are dropped.
 - No stock photos. Use `Cover` placeholders until real covers arrive.
 - Subscription and payments: architecture only until the owner decides the scheme.
-- Animations respect `prefers-reduced-motion`. No infinite rotation.
+- Animations respect `prefers-reduced-motion`. No infinite rotation. Screen transitions: `app/(app)/template.tsx` + `.page-enter` (CSS, 280 ms); active tab indicators slide with motion `layoutId` in BottomNav/SideNav.
+- Product roadmap and audit (Russian): `docs/ROADMAP.md`. Keep it updated when stages land.
 - New dependencies only when truly needed.
