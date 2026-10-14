@@ -40,4 +40,6 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 4. Face Fitness courses and Skincare structure — done (sample course skeleton, empty skincare sections)
 5. Accounts and data (Supabase) — done; video hosting moves to stage 7
 6. Trainer admin panel — done (workouts, posts, courses with modules and lessons, skincare routines, articles, products)
-7. Video upload to Supabase Storage — done (free plan: 50 MB per file); iOS / Android packaging and subscription next
+7. Video upload to Supabase Storage — done (free plan: 50 MB per file)
+8. iOS / Android shells with Capacitor — done, see `docs/MOBILE.md` (needs a deployment + Xcode / Android Studio)
+9. Subscription — next

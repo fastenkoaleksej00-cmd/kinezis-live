@@ -16,6 +16,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 
 ## Commands
 - `npm run dev` / `npm run build` / `npm run lint` / `npm run typecheck`
+- `npm run cap:sync` / `npm run cap:ios` / `npm run cap:android` — native shells (need Xcode / Android Studio)
 - `node scripts/extract-logo.mjs <logo.png>` regenerates the temporary logo PNGs and icons in `public/brand`.
 
 ## Structure
@@ -40,6 +41,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `lib/auth/actions.ts` — server actions signIn / signUp / signOut; pages `app/(app)/auth/sign-in|sign-up`, callback `app/auth/callback/route.ts`
 - `components/auth/` — AuthForm (useActionState), UserDataSync (pulls account rows on sign-in, merges with local stores, pushes every local change)
 - `i18n/` — locale config and request config; `lib/locale.ts` — server action that sets the cookie
+- `capacitor.config.ts`, `ios/`, `android/`, `mobile/` — native shells (Capacitor 8) that load the hosted web app via `server.url` (env `CAPACITOR_SERVER_URL`); `mobile/assets` are the icon/splash sources, `mobile/www` the offline placeholder. Guide: `docs/MOBILE.md`. Never put app logic in the native folders.
 - `design/`, `fotkiinfo/` — reference material from the owner, not part of the build (gitignored)
 
 ## Rules
