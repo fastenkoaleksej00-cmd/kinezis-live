@@ -410,7 +410,8 @@
     "passwordUpdated": "Password updated. You are signed in.",
     "google": "Continue with Google",
     "or": "or",
-    "working": "Please wait…"
+    "working": "Please wait…",
+    "consent": "By creating an account you agree to the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>."
   },
   "admin": {
     "eyebrow": "Admin",
@@ -865,5 +866,12 @@
     "editMine": "Edit my profile",
     "posts": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
     "noPosts": "Nothing shared yet."
+  },
+  "legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "updated": "Updated {date}",
+    "contactTitle": "Contact",
+    "contactPending": "A contact address will be published here before the app goes to the stores."
   }
 }

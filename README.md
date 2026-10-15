@@ -48,4 +48,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 12. Private chat with the trainer (live, Realtime) — done; open to all pre-launch via `NEXT_PUBLIC_CHAT_OPEN_FOR_ALL`
 13. Community posts by members, public member profiles, moderation — done
 14. Dark theme with system/light/dark setting — done
-15. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+15. Privacy policy and terms (4 languages) — done; set `NEXT_PUBLIC_CONTACT_EMAIL`
+16. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`

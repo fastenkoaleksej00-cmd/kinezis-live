@@ -55,4 +55,4 @@ npx @capacitor/assets generate --assetPath mobile/assets --iconBackgroundColor '
 
 - Email confirmation links open in the phone browser, not inside the app. Universal links can fix this later.
 - The app needs internet; `mobile/www/index.html` is only the offline placeholder.
-- Store review requires a privacy policy URL and, for subscriptions, in-app purchases instead of web payments.
+- Store review requires a privacy policy URL: use `https://kinezis-live.vercel.app/privacy` (terms: `/terms`). Subscriptions need in-app purchases instead of web payments.

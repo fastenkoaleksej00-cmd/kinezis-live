@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { ArrowLeft, Bell, KeyRound, Languages, ShieldCheck, Type } from "lucide-react";
+import { ArrowLeft, Bell, FileText, KeyRound, Languages, ShieldCheck, Type } from "lucide-react";
 import { AccessibilitySettings } from "@/components/settings/AccessibilitySettings";
 import { AccountForms } from "@/components/settings/AccountForms";
 import { LanguageSwitcher } from "@/components/settings/LanguageSwitcher";
@@ -22,6 +22,7 @@ export default async function SettingsPage({ searchParams }: PageProps) {
   const t = await getTranslations("settings");
   const ta = await getTranslations("auth");
   const tc = await getTranslations("common");
+  const tlg = await getTranslations("legal");
   const sp = await searchParams;
   const [user, profile] = await Promise.all([getSessionUser(), getMyProfile()]);
 
@@ -76,6 +77,20 @@ export default async function SettingsPage({ searchParams }: PageProps) {
 
       <Reveal delay={0.14}>
         <AccessibilitySettings />
+      </Reveal>
+
+      <Reveal delay={0.16} as="section" id="legal" className="card divide-ink/8 divide-y overflow-hidden">
+        {[
+          { href: "/privacy", label: tlg("privacy") },
+          { href: "/terms", label: tlg("terms") },
+        ].map((l) => (
+          <Link key={l.href} href={l.href} className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
+            <span className="bg-accent-soft text-accent inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+              <FileText className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
+            </span>
+            <span className="text-ink flex-1 font-semibold">{l.label}</span>
+          </Link>
+        ))}
       </Reveal>
 
       <Reveal delay={0.18} as="section" id="account" className="space-y-4">

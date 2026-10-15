@@ -38,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: t("name"),
     },
     robots: { index: false, follow: false },
+    // Legal pages override this with index: true in their own metadata
   };
 }
 

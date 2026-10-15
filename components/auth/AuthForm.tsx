@@ -67,6 +67,23 @@ export function AuthForm({ mode, googleEnabled = false }: AuthFormProps) {
         </p>
       ) : null}
 
+      {mode === "signUp" ? (
+        <p className="text-steel text-center text-xs">
+          {t.rich("consent", {
+            terms: (chunks) => (
+              <Link href="/terms" className="text-accent font-semibold hover:underline">
+                {chunks}
+              </Link>
+            ),
+            privacy: (chunks) => (
+              <Link href="/privacy" className="text-accent font-semibold hover:underline">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
+      ) : null}
+
       <Button type="submit" size="lg" disabled={pending} className="w-full">
         {pending ? t("working") : mode === "signIn" ? t("signIn") : t("createAccount")}
       </Button>
