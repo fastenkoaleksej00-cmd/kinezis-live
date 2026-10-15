@@ -1,10 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useA11y, writeA11y, type TextSize } from "./AccessibilityProvider";
+import { useA11y, writeA11y, type TextSize, type Theme } from "./AccessibilityProvider";
+import { Monitor, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const sizes: TextSize[] = ["normal", "large", "xl"];
+const themes: Array<{ key: Theme; icon: typeof Sun }> = [
+  { key: "system", icon: Monitor },
+  { key: "light", icon: Sun },
+  { key: "dark", icon: Moon },
+];
 
 /** Text size and reduced motion, per device. Applied immediately, remembered on this device. */
 export function AccessibilitySettings() {
@@ -15,6 +21,24 @@ export function AccessibilitySettings() {
       <div>
         <h2 className="text-ink text-base font-bold">{t("title")}</h2>
         <p className="text-steel mt-1 text-sm">{t("lead")}</p>
+      </div>
+      <div>
+        <p className="eyebrow mb-2">{t("appearance")}</p>
+        <div className="flex gap-2" role="radiogroup" aria-label={t("appearance")}>
+          {themes.map(({ key, icon: Icon }) => (
+            <button
+              key={key}
+              type="button"
+              role="radio"
+              aria-checked={a11y.theme === key}
+              onClick={() => writeA11y({ ...a11y, theme: key })}
+              className={cn("inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold transition-colors", a11y.theme === key ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}
+            >
+              <Icon className="h-4 w-4" strokeWidth={2} aria-hidden />
+              {t(`themes.${key}`)}
+            </button>
+          ))}
+        </div>
       </div>
       <div>
         <p className="eyebrow mb-2">{t("textSize")}</p>
@@ -40,7 +64,6 @@ export function AccessibilitySettings() {
         </span>
         <input type="checkbox" checked={a11y.reduceMotion} onChange={(e) => writeA11y({ ...a11y, reduceMotion: e.target.checked })} className="h-5 w-5 shrink-0 rounded" />
       </label>
-      <p className="text-steel text-xs">{t("theme")}</p>
     </section>
   );
 }

@@ -48,8 +48,8 @@ export function LineChart({ points, unit, label, color = "#2a86b4" }: LineChartP
       </defs>
       {ticks.map((t) => (
         <g key={t}>
-          <line x1={pad.l} x2={w - pad.r} y1={sy(t)} y2={sy(t)} stroke="rgba(16,36,43,0.08)" />
-          <text x={pad.l - 8} y={sy(t) + 4} textAnchor="end" fontSize="11" fill="#4f6b76">
+          <line x1={pad.l} x2={w - pad.r} y1={sy(t)} y2={sy(t)} stroke="currentColor" className="text-ink" strokeOpacity="0.1" />
+          <text x={pad.l - 8} y={sy(t) + 4} textAnchor="end" fontSize="11" fill="currentColor" className="text-steel">
             {Number.isInteger(t) ? t : t.toFixed(1)}
           </text>
         </g>
@@ -57,16 +57,16 @@ export function LineChart({ points, unit, label, color = "#2a86b4" }: LineChartP
       <path d={area} fill="url(#chart-fill)" />
       <path d={path} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
       {points.map((p) => (
-        <circle key={p.date} cx={sx(new Date(p.date).getTime())} cy={sy(p.value)} r="3.5" fill="#fff" stroke={color} strokeWidth="2">
+        <circle key={p.date} cx={sx(new Date(p.date).getTime())} cy={sy(p.value)} r="3.5" fill="var(--color-ice)" stroke={color} strokeWidth="2">
           <title>
             {fmt(p.date)}: {p.value} {unit}
           </title>
         </circle>
       ))}
-      <text x={pad.l} y={h - 10} fontSize="11" fill="#4f6b76">
+      <text x={pad.l} y={h - 10} fontSize="11" fill="currentColor" className="text-steel">
         {fmt(first.date)}
       </text>
-      <text x={w - pad.r} y={h - 10} fontSize="11" fill="#4f6b76" textAnchor="end">
+      <text x={w - pad.r} y={h - 10} fontSize="11" fill="currentColor" className="text-steel" textAnchor="end">
         {fmt(last.date)}
       </text>
     </svg>

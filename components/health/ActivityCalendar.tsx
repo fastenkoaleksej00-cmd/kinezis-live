@@ -27,7 +27,7 @@ export function ActivityCalendar({ activeDays, weeks, label }: ActivityCalendarP
   return (
     <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={label} className="h-auto w-full max-w-[520px]">
       {cells.map((c) => (
-        <rect key={c.key} x={c.x} y={c.y} width={cell} height={cell} rx="5" fill={c.on ? "#2a86b4" : c.future ? "transparent" : "rgba(16,36,43,0.07)"} stroke={c.future ? "rgba(16,36,43,0.08)" : "none"}>
+        <rect key={c.key} x={c.x} y={c.y} width={cell} height={cell} rx="5" fill={c.on ? "var(--color-accent)" : c.future ? "transparent" : "currentColor"} fillOpacity={c.on ? 1 : 0.08} stroke={c.future ? "currentColor" : "none"} strokeOpacity={0.1} className="text-ink">
           <title>{c.key}</title>
         </rect>
       ))}

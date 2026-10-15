@@ -223,7 +223,13 @@
       },
       "reduceMotion": "Weniger Bewegung",
       "reduceMotionHint": "Schaltet Bildschirm- und Tab-Animationen aus.",
-      "theme": "Design: hell. Ein dunkles Design ist als eigene Phase geplant."
+      "theme": "Folgt standardmäßig deinem Gerät.",
+      "appearance": "Darstellung",
+      "themes": {
+        "system": "System",
+        "light": "Hell",
+        "dark": "Dunkel"
+      }
     },
     "account": {
       "title": "Konto",

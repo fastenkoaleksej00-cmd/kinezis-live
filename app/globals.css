@@ -292,3 +292,141 @@ html[data-reduce-motion="true"] *::after {
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
 }
+
+/* ---------------------------------------------------------------------------
+   Dark theme. Applied by AccessibilityProvider as html[data-theme="dark"].
+   Petrol surfaces, buttons and covers already live in the dark range, so the
+   theme mainly swaps the page, cards, inputs and text while keeping the brand.
+--------------------------------------------------------------------------- */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ice: #0d171c;
+  --color-sky: #182a31;
+  --color-steel: #97adb6;
+  --color-text: #dbe7eb;
+  --color-bone: #16242a;
+  --color-bone-2: #233640;
+  --color-accent: #5fbbe6;
+  --color-accent-soft: #163241;
+  --color-mint-soft: #16352f;
+  --color-mint-deep: #8fd3c4;
+  --dark-surface: #142127;
+  --dark-surface-2: #1a2b32;
+  --dark-fg: #e7f4f7;
+  --dark-line: rgba(231, 244, 247, 0.1);
+}
+html[data-theme="dark"] body {
+  background: var(--color-ice);
+  color: var(--color-text);
+}
+html[data-theme="dark"] :is(h1, h2, h3),
+html[data-theme="dark"] .text-ink {
+  color: var(--dark-fg);
+}
+html[data-theme="dark"] .card {
+  background: var(--dark-surface);
+  border-color: var(--dark-line);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 44px -26px rgba(0, 0, 0, 0.7);
+}
+html[data-theme="dark"] .glass {
+  background: linear-gradient(160deg, rgba(26, 43, 50, 0.85), rgba(20, 33, 39, 0.7));
+  border-color: rgba(231, 244, 247, 0.12);
+  box-shadow: 0 1px 0 rgba(231, 244, 247, 0.06) inset, 0 24px 60px -28px rgba(0, 0, 0, 0.7);
+}
+html[data-theme="dark"] .glass::before {
+  background: linear-gradient(90deg, transparent, rgba(142, 220, 240, 0.35), transparent);
+}
+html[data-theme="dark"] .section-ice {
+  background: linear-gradient(180deg, var(--dark-surface) 0%, var(--color-ice) 100%);
+}
+html[data-theme="dark"] .cover-light {
+  background:
+    radial-gradient(70% 60% at 85% 10%, rgba(142, 220, 240, 0.25) 0%, rgba(142, 220, 240, 0) 65%),
+    linear-gradient(160deg, #1e3a44 0%, #24454f 60%, #1a2f37 100%);
+}
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .hover\:bg-white:hover {
+  background-color: var(--dark-surface-2);
+}
+html[data-theme="dark"] .bg-white\/85,
+html[data-theme="dark"] .hover\:bg-white\/85:hover {
+  background-color: rgba(26, 43, 50, 0.9);
+}
+html[data-theme="dark"] .bg-white\/80 {
+  background-color: rgba(26, 43, 50, 0.85);
+}
+html[data-theme="dark"] .bg-white\/70 {
+  background-color: rgba(26, 43, 50, 0.75);
+}
+html[data-theme="dark"] .bg-white\/60 {
+  background-color: rgba(26, 43, 50, 0.65);
+}
+html[data-theme="dark"] .bg-white\/55 {
+  background-color: rgba(26, 43, 50, 0.6);
+}
+html[data-theme="dark"] .bg-frost,
+html[data-theme="dark"] .hover\:bg-frost:hover {
+  background-color: var(--dark-surface-2);
+}
+html[data-theme="dark"] .bg-frost\/70 {
+  background-color: rgba(26, 43, 50, 0.75);
+}
+html[data-theme="dark"] .bg-frost\/60,
+html[data-theme="dark"] .hover\:bg-frost\/60:hover {
+  background-color: rgba(26, 43, 50, 0.65);
+}
+html[data-theme="dark"] .border-ink\/8,
+html[data-theme="dark"] .border-ink\/10,
+html[data-theme="dark"] .border-white,
+html[data-theme="dark"] .border-white\/80 {
+  border-color: var(--dark-line);
+}
+html[data-theme="dark"] .divide-ink\/8 > :not(:last-child) {
+  border-color: var(--dark-line);
+}
+html[data-theme="dark"] .bg-ink\/5 {
+  background-color: rgba(231, 244, 247, 0.06);
+}
+html[data-theme="dark"] .bg-ink\/10 {
+  background-color: rgba(231, 244, 247, 0.1);
+}
+html[data-theme="dark"] .hover\:bg-ink\/5:hover {
+  background-color: rgba(231, 244, 247, 0.06);
+}
+/* Primary gradient would vanish on a dark page: lift it to the accent range */
+html[data-theme="dark"] .from-ink-2 {
+  --tw-gradient-from: #2f7ea3;
+}
+html[data-theme="dark"] .from-ink-3 {
+  --tw-gradient-from: #3a8fb5;
+}
+html[data-theme="dark"] .to-ink {
+  --tw-gradient-to: #1f5e7c;
+}
+html[data-theme="dark"] .to-ink-2 {
+  --tw-gradient-to: #2a6f90;
+}
+/* Error and like tints */
+html[data-theme="dark"] .bg-\[\#fdf2f2\] {
+  background-color: #3a1c1f;
+}
+html[data-theme="dark"] .border-\[\#e3b4b4\] {
+  border-color: #6b3a3a;
+}
+html[data-theme="dark"] .text-\[\#8a2f2f\],
+html[data-theme="dark"] .hover\:text-\[\#8a2f2f\]:hover {
+  color: #f3a6a6;
+}
+html[data-theme="dark"] .hover\:bg-\[\#fdf2f2\]:hover {
+  background-color: #3a1c1f;
+}
+html[data-theme="dark"] .bg-\[\#fdeef0\] {
+  background-color: #3a1c22;
+}
+html[data-theme="dark"] .text-\[\#c0394f\] {
+  color: #ff8fa0;
+}
+html[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator,
+html[data-theme="dark"] input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}

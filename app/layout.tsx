@@ -56,7 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="font-sans">
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var a=JSON.parse(localStorage.getItem("kl_a11y")||"{}");if(a.textSize)document.documentElement.dataset.textSize=a.textSize;if(a.reduceMotion)document.documentElement.dataset.reduceMotion="true";}catch(e){}`,
+            __html: `try{var a=JSON.parse(localStorage.getItem("kl_a11y")||"{}");var d=document.documentElement;if(a.textSize)d.dataset.textSize=a.textSize;if(a.reduceMotion)d.dataset.reduceMotion="true";var t=a.theme||"system";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}d.dataset.theme=t;}catch(e){}`,
           }}
         />
         <noscript>

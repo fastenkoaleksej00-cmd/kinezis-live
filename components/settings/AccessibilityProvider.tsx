@@ -3,14 +3,16 @@
 import { useEffect, useSyncExternalStore } from "react";
 
 export type TextSize = "normal" | "large" | "xl";
+export type Theme = "system" | "light" | "dark";
 
 interface A11y {
   textSize: TextSize;
   reduceMotion: boolean;
+  theme: Theme;
 }
 
 const KEY = "kl_a11y";
-const fallback: A11y = { textSize: "normal", reduceMotion: false };
+const fallback: A11y = { textSize: "normal", reduceMotion: false, theme: "system" };
 const listeners = new Set<() => void>();
 let cached: A11y = fallback;
 let cachedRaw: string | null | undefined;
@@ -46,11 +48,19 @@ export function writeA11y(next: A11y): void {
   listeners.forEach((l) => l());
 }
 
+function resolveTheme(theme: Theme): "light" | "dark" {
+  if (theme === "system") return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return theme;
+}
+
 function apply(a: A11y) {
   const el = document.documentElement;
   el.dataset.textSize = a.textSize;
   if (a.reduceMotion) el.dataset.reduceMotion = "true";
   else delete el.dataset.reduceMotion;
+  const resolved = resolveTheme(a.theme);
+  el.dataset.theme = resolved;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", resolved === "dark" ? "#0d171c" : "#f5f8f8");
 }
 
 function subscribe(l: () => void) {
@@ -67,6 +77,12 @@ export function useA11y(): A11y {
 export function AccessibilityProvider() {
   useEffect(() => {
     apply(read());
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => {
+      if (read().theme === "system") apply(read());
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
   return null;
 }

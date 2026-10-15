@@ -223,7 +223,13 @@
       },
       "reduceMotion": "Reduce motion",
       "reduceMotionHint": "Turns off screen and tab animations.",
-      "theme": "Theme: light. A dark theme is planned as a separate stage."
+      "theme": "Follows your device by default.",
+      "appearance": "Appearance",
+      "themes": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
+      }
     },
     "account": {
       "title": "Account",

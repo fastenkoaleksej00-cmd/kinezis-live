@@ -23,12 +23,12 @@ export function BarChart({ bars, ariaLabel }: BarChartProps) {
               </title>
             </rect>
             {b.value > 0 ? (
-              <text x={x + bw * 0.3} y={h - pad.b - bh - 6} textAnchor="middle" fontSize="11" fill="#1b3139" fontWeight="600">
+              <text x={x + bw * 0.3} y={h - pad.b - bh - 6} textAnchor="middle" fontSize="11" fill="currentColor" className="text-ink" fontWeight="600">
                 {b.value}
               </text>
             ) : null}
             {i % 2 === 0 ? (
-              <text x={x + bw * 0.3} y={h - 8} textAnchor="middle" fontSize="10" fill="#4f6b76">
+              <text x={x + bw * 0.3} y={h - 8} textAnchor="middle" fontSize="10" fill="currentColor" className="text-steel">
                 {b.label}
               </text>
             ) : null}
