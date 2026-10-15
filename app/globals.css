@@ -292,6 +292,25 @@
     }
   }
 
+  /* Focus sounds: playing icon breathes */
+  .breath-pulse {
+    animation: breath-pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes breath-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .breath-pulse {
+      animation: none;
+    }
+  }
+
   /* Water glass fill */
   .water-fill {
     transition: height 700ms var(--ease-out-expo);

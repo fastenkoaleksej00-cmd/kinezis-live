@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Bookmark, Calculator, Droplets, HeartPulse, History, PersonStanding, Play, Settings2, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
+import { Bookmark, Calculator, Droplets, Headphones, HeartPulse, History, NotebookPen, PersonStanding, Play, Settings2, Sparkles, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
 import { createLocalStore } from "@/lib/store/localStore";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,9 @@ const catalogue = [
   { id: "health", href: "/health", icon: HeartPulse, tone: "mint" },
   { id: "nutrition", href: "/nutrition", icon: UtensilsCrossed, tone: "mint" },
   { id: "appleHealth", href: "/health/connect", icon: Watch, tone: "sky" },
+  { id: "mind", href: "/mind", icon: Sparkles, tone: "mint" },
+  { id: "journal", href: "/mind/journal", icon: NotebookPen, tone: "warm" },
+  { id: "sounds", href: "/mind/sounds", icon: Headphones, tone: "sky" },
 ] as const satisfies ReadonlyArray<{ id: string; href: string; icon: LucideIcon; tone: string }>;
 
 type QuickId = (typeof catalogue)[number]["id"];

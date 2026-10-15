@@ -10,6 +10,7 @@ import { TodayRings } from "@/components/home/TodayRings";
 import { QuickAccess } from "@/components/home/QuickAccess";
 import { GoalWidget } from "@/components/home/GoalWidget";
 import { WaterWidget } from "@/components/home/WaterWidget";
+import { CheckInCard } from "@/components/mind/Journal";
 import { NewSessions } from "@/components/home/NewSessions";
 import { BreathWidget } from "@/components/breath/BreathWidget";
 import { computeActivityStats } from "@/lib/health/stats";
@@ -79,6 +80,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       <Reveal delay={0.075}>
         <WaterWidget />
+      </Reveal>
+
+      <Reveal delay={0.078}>
+        <CheckInCard />
       </Reveal>
 
       {today ? (

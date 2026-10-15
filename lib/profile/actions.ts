@@ -157,7 +157,7 @@ export async function logActivity(fd: FormData): Promise<void> {
   const ctx = await me();
   if ("error" in ctx) return;
   const raw = str(fd, "item_type");
-  const itemType = raw === "lesson" ? "lesson" : raw === "breath" ? "breath" : "workout";
+  const itemType = raw === "lesson" ? "lesson" : raw === "breath" ? "breath" : raw === "mind" ? "mind" : "workout";
   const itemId = str(fd, "item_id");
   if (!itemId) return;
   const duration = Number.parseInt(str(fd, "duration_min"), 10);
@@ -186,6 +186,24 @@ export async function logBreathSession(practiceId: string, title: string, minute
     item_id: id,
     title: title.slice(0, 120) || null,
     duration_min: duration,
+  });
+  if (error) return false;
+  revalidateProfile();
+  return true;
+}
+
+/** Finished mind practice (meditation, screen break, evening ritual): silent insert, no redirect */
+export async function logMindSession(practiceId: string, title: string, minutes: number): Promise<boolean> {
+  const ctx = await me();
+  if ("error" in ctx) return false;
+  const id = practiceId.replace(/[^a-z0-9-]/g, "").slice(0, 60);
+  if (!id) return false;
+  const { error } = await ctx.supabase.from("activity_log").insert({
+    user_id: ctx.user.id,
+    item_type: "mind",
+    item_id: id,
+    title: title.slice(0, 120) || null,
+    duration_min: Math.min(120, Math.max(1, Math.round(minutes))),
   });
   if (error) return false;
   revalidateProfile();

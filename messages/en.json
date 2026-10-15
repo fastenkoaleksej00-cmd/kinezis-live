@@ -55,7 +55,10 @@
       "appleHealth": "Apple Health",
       "customise": "Customise",
       "customiseHint": "Pick {min} to {max} shortcuts. The order follows your selection. Stored on this device.",
-      "reset": "Reset to default"
+      "reset": "Reset to default",
+      "mind": "Mind",
+      "journal": "Journal",
+      "sounds": "Sounds"
     }
   },
   "explore": {
@@ -84,6 +87,10 @@
     "breathe": {
       "title": "Breathing",
       "body": "Calm, recovery and diaphragm work with the evidence behind it."
+    },
+    "mind": {
+      "title": "Mind and rest",
+      "body": "Meditation, journal, evening ritual and calm sounds."
     }
   },
   "library": {
@@ -1571,6 +1578,158 @@
       "activate": "Resume publishing",
       "suspend": "Pause publishing",
       "verifyNote": "Verify only after a real check of documents. The badge is shown separately from likes and completions."
+    }
+  },
+  "mind": {
+    "eyebrow": "Mind & rest",
+    "title": "Mind and rest",
+    "lead": "Short practices for attention, calm and a gentle end of the day.",
+    "disclaimer": "These practices support well-being. They do not diagnose or treat anxiety, depression, insomnia or pain. If you feel persistently low or unsafe, contact a doctor or a local helpline.",
+    "breatheTitle": "Breathing",
+    "breatheBody": "Paced breathing practices with the evidence behind them.",
+    "minutes": "{count} min",
+    "timer": {
+      "progress": "Progress",
+      "step": "Step {n} of {total}",
+      "done": "Done",
+      "ready": "Ready",
+      "doneBody": "Finished. Take a moment before you move on.",
+      "stepLeft": "{s} s",
+      "again": "Again",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "stop": "Stop",
+      "chime": "Soft chime between steps",
+      "logged": "Saved to your activity.",
+      "loggedGuest": "Done. Sign in to keep a history."
+    },
+    "break": {
+      "title": "Screen break",
+      "lead": "About two and a half minutes for the neck, shoulders, hands and eyes."
+    },
+    "evening": {
+      "title": "Evening ritual",
+      "lead": "Calm breathing, a few floor stretches and one line of gratitude.",
+      "progress": "Ritual steps",
+      "stages": {
+        "breath": "Breathe",
+        "stretch": "Stretch",
+        "gratitude": "Gratitude"
+      },
+      "breathIntro": "Three minutes of slow breathing with a longer exhale.",
+      "skip": "Skip this step",
+      "stretchIntro": "Lie on a mat or the bed. Move slowly, nothing should hurt.",
+      "gratitudeQuestion": "What was good today, even something small?",
+      "gratitudePlaceholder": "A warm cup of tea, a walk, a kind word…",
+      "gratitudeNote": "Optional. Saved in your journal for today; only you can see it.",
+      "finish": "Finish the evening",
+      "goodNight": "Good night.",
+      "savedSigned": "The ritual is saved to your activity and journal.",
+      "savedGuest": "Saved on this device. Sign in to keep a history.",
+      "toSounds": "Fall asleep to calm sound"
+    },
+    "journal": {
+      "title": "Well-being journal",
+      "lead": "Mood, energy, sleep and tension in one tap a day. Patterns appear over the weeks.",
+      "eyebrow": "Check-in",
+      "cardTitle": "How are you today?",
+      "doneTitle": "Thanks for checking in",
+      "doneBody": "Today's marks are saved. Come back tomorrow.",
+      "edit": "Change today's marks",
+      "history": "Journal and history",
+      "scales": {
+        "mood": "Mood",
+        "energy": "Energy",
+        "sleep": "Sleep last night",
+        "tension": "Tension in the body"
+      },
+      "levels": {
+        "mood": {
+          "1": "Very low",
+          "2": "Low",
+          "3": "Neutral",
+          "4": "Good",
+          "5": "Very good"
+        },
+        "energy": {
+          "1": "Exhausted",
+          "2": "Tired",
+          "3": "Okay",
+          "4": "Energetic",
+          "5": "Full of energy"
+        },
+        "sleep": {
+          "1": "Very poor",
+          "2": "Poor",
+          "3": "Okay",
+          "4": "Good",
+          "5": "Very good"
+        },
+        "tension": {
+          "1": "None",
+          "2": "Slight",
+          "3": "Noticeable",
+          "4": "Strong",
+          "5": "Very strong"
+        }
+      },
+      "empty": "No marks yet. Start with today above.",
+      "gratitudeTitle": "Gratitude notes",
+      "today": "Today",
+      "historyTitle": "Last 14 days",
+      "disclaimer": "The journal is for noticing patterns, not for diagnosis. If low mood or poor sleep lasts more than two weeks, talk to a doctor.",
+      "privacySigned": "Saved to your account. Only you can see it; it is never shown to trainers or other members.",
+      "privacyGuest": "Saved on this device only. Sign in to keep it across devices."
+    },
+    "challenges": {
+      "title": "Gentle challenges",
+      "lead": "A week of small habits. Missed days are simply not counted, nothing resets.",
+      "note": "Progress is counted from what you finish in the app on this device; water uses your daily goal.",
+      "daysLabel": "Days of the challenge",
+      "completed": "Completed. Well done.",
+      "ended": "The week is over: {count} days done. Every day counts.",
+      "doToday": "Do today's step",
+      "again": "Start again",
+      "leave": "Leave",
+      "join": "Join",
+      "items": {
+        "breath7": {
+          "title": "7 days of breathing",
+          "body": "One finished breathing practice a day, {target} of {window} days."
+        },
+        "meditate7": {
+          "title": "Meditation week",
+          "body": "Meditate on {target} of {window} days, any length."
+        },
+        "water7": {
+          "title": "Water week",
+          "body": "Reach your water goal {target} of {window} days. Never force it."
+        },
+        "journal7": {
+          "title": "Daily check-in",
+          "body": "Fill the journal {target} of {window} days."
+        },
+        "breaks5": {
+          "title": "Kind to your neck",
+          "body": "Take a screen break on {target} of {window} days."
+        }
+      }
+    },
+    "sounds": {
+      "title": "Focus sounds",
+      "lead": "Rain, waves or a deep hum, generated right in the app. Works offline.",
+      "kinds": {
+        "rain": "Rain",
+        "waves": "Waves",
+        "deep": "Deep hum"
+      },
+      "noTimer": "No timer",
+      "timer": "{count} min",
+      "volume": "Volume",
+      "stop": "Stop",
+      "play": "Play",
+      "note": "Keep the volume low. The sound fades out when the timer ends."
     }
   }
 }

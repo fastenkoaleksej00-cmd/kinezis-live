@@ -55,7 +55,10 @@
       "appleHealth": "Apple Health",
       "customise": "Anpassen",
       "customiseHint": "Wähle {min} bis {max} Verknüpfungen. Die Reihenfolge folgt deiner Auswahl. Auf diesem Gerät gespeichert.",
-      "reset": "Standard wiederherstellen"
+      "reset": "Standard wiederherstellen",
+      "mind": "Geist",
+      "journal": "Tagebuch",
+      "sounds": "Klänge"
     }
   },
   "explore": {
@@ -84,6 +87,10 @@
     "breathe": {
       "title": "Atmung",
       "body": "Ruhe, Regeneration und Zwerchfellarbeit mit der Evidenz dahinter."
+    },
+    "mind": {
+      "title": "Geist und Ruhe",
+      "body": "Meditation, Tagebuch, Abendritual und ruhige Klänge."
     }
   },
   "library": {
@@ -1571,6 +1578,158 @@
       "activate": "Veröffentlichen fortsetzen",
       "suspend": "Veröffentlichen pausieren",
       "verifyNote": "Verifiziere nur nach echter Prüfung der Unterlagen. Das Abzeichen wird getrennt von Likes und Abschlüssen gezeigt."
+    }
+  },
+  "mind": {
+    "eyebrow": "Geist & Ruhe",
+    "title": "Geist und Ruhe",
+    "lead": "Kurze Praktiken für Aufmerksamkeit, Ruhe und einen sanften Tagesabschluss.",
+    "disclaimer": "Diese Praktiken unterstützen das Wohlbefinden. Sie diagnostizieren oder behandeln keine Angst, Depression, Schlaflosigkeit oder Schmerzen. Wenn es dir länger schlecht geht oder du dich nicht sicher fühlst, wende dich an eine Ärztin oder eine Beratungsstelle.",
+    "breatheTitle": "Atmung",
+    "breatheBody": "Atempraktiken mit vorgegebenem Tempo und Evidenz.",
+    "minutes": "{count} Min.",
+    "timer": {
+      "progress": "Fortschritt",
+      "step": "Schritt {n} von {total}",
+      "done": "Fertig",
+      "ready": "Bereit",
+      "doneBody": "Geschafft. Bleib einen Moment dabei, bevor du weitermachst.",
+      "stepLeft": "{s} s",
+      "again": "Nochmal",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Weiter",
+      "stop": "Stopp",
+      "chime": "Sanfter Ton zwischen Schritten",
+      "logged": "In deiner Aktivität gespeichert.",
+      "loggedGuest": "Fertig. Melde dich an, um einen Verlauf zu führen."
+    },
+    "break": {
+      "title": "Bildschirmpause",
+      "lead": "Etwa zweieinhalb Minuten für Nacken, Schultern, Hände und Augen."
+    },
+    "evening": {
+      "title": "Abendritual",
+      "lead": "Ruhiges Atmen, ein paar Dehnungen am Boden und eine Zeile Dankbarkeit.",
+      "progress": "Schritte des Rituals",
+      "stages": {
+        "breath": "Atmen",
+        "stretch": "Dehnen",
+        "gratitude": "Dankbarkeit"
+      },
+      "breathIntro": "Drei Minuten langsames Atmen mit längerem Ausatmen.",
+      "skip": "Schritt überspringen",
+      "stretchIntro": "Leg dich auf eine Matte oder ins Bett. Beweg dich langsam, nichts soll wehtun.",
+      "gratitudeQuestion": "Was war heute gut, auch wenn es klein war?",
+      "gratitudePlaceholder": "Ein warmer Tee, ein Spaziergang, ein freundliches Wort…",
+      "gratitudeNote": "Optional. Wird im Tagebuch für heute gespeichert; nur du siehst es.",
+      "finish": "Abend abschließen",
+      "goodNight": "Gute Nacht.",
+      "savedSigned": "Das Ritual ist in Aktivität und Tagebuch gespeichert.",
+      "savedGuest": "Auf diesem Gerät gespeichert. Melde dich an, um einen Verlauf zu führen.",
+      "toSounds": "Mit ruhigem Klang einschlafen"
+    },
+    "journal": {
+      "title": "Wohlbefinden-Tagebuch",
+      "lead": "Stimmung, Energie, Schlaf und Anspannung mit einem Tipp am Tag. Über Wochen werden Muster sichtbar.",
+      "eyebrow": "Check-in",
+      "cardTitle": "Wie geht es dir heute?",
+      "doneTitle": "Danke fürs Eintragen",
+      "doneBody": "Die heutigen Werte sind gespeichert. Komm morgen wieder.",
+      "edit": "Heutige Werte ändern",
+      "history": "Tagebuch und Verlauf",
+      "scales": {
+        "mood": "Stimmung",
+        "energy": "Energie",
+        "sleep": "Schlaf letzte Nacht",
+        "tension": "Anspannung im Körper"
+      },
+      "levels": {
+        "mood": {
+          "1": "Sehr schlecht",
+          "2": "Schlecht",
+          "3": "Neutral",
+          "4": "Gut",
+          "5": "Sehr gut"
+        },
+        "energy": {
+          "1": "Erschöpft",
+          "2": "Müde",
+          "3": "Okay",
+          "4": "Munter",
+          "5": "Voller Energie"
+        },
+        "sleep": {
+          "1": "Sehr schlecht",
+          "2": "Schlecht",
+          "3": "Okay",
+          "4": "Gut",
+          "5": "Sehr gut"
+        },
+        "tension": {
+          "1": "Keine",
+          "2": "Leicht",
+          "3": "Spürbar",
+          "4": "Stark",
+          "5": "Sehr stark"
+        }
+      },
+      "empty": "Noch keine Einträge. Beginne oben mit heute.",
+      "gratitudeTitle": "Dankbarkeitsnotizen",
+      "today": "Heute",
+      "historyTitle": "Letzte 14 Tage",
+      "disclaimer": "Das Tagebuch hilft, Muster zu bemerken, nicht zu diagnostizieren. Wenn gedrückte Stimmung oder schlechter Schlaf länger als zwei Wochen anhalten, sprich mit einer Ärztin.",
+      "privacySigned": "In deinem Konto gespeichert. Nur du siehst es; Trainern und anderen Mitgliedern wird es nie gezeigt.",
+      "privacyGuest": "Nur auf diesem Gerät gespeichert. Melde dich an, um es auf allen Geräten zu haben."
+    },
+    "challenges": {
+      "title": "Sanfte Challenges",
+      "lead": "Eine Woche kleiner Gewohnheiten. Verpasste Tage zählen einfach nicht, nichts wird zurückgesetzt.",
+      "note": "Gezählt wird, was du in der App auf diesem Gerät abschließt; Wasser nach deinem Tagesziel.",
+      "daysLabel": "Tage der Challenge",
+      "completed": "Geschafft. Gut gemacht.",
+      "ended": "Die Woche ist vorbei: {count} Tage geschafft. Jeder Tag zählt.",
+      "doToday": "Heutigen Schritt machen",
+      "again": "Neu starten",
+      "leave": "Verlassen",
+      "join": "Mitmachen",
+      "items": {
+        "breath7": {
+          "title": "7 Tage Atmen",
+          "body": "Eine abgeschlossene Atempraxis am Tag, {target} von {window} Tagen."
+        },
+        "meditate7": {
+          "title": "Meditationswoche",
+          "body": "Meditiere an {target} von {window} Tagen, beliebig lang."
+        },
+        "water7": {
+          "title": "Wasserwoche",
+          "body": "Erreiche dein Wasserziel an {target} von {window} Tagen. Nie erzwingen."
+        },
+        "journal7": {
+          "title": "Täglicher Check-in",
+          "body": "Fülle das Tagebuch an {target} von {window} Tagen aus."
+        },
+        "breaks5": {
+          "title": "Gut zum Nacken",
+          "body": "Mach an {target} von {window} Tagen eine Bildschirmpause."
+        }
+      }
+    },
+    "sounds": {
+      "title": "Fokus-Klänge",
+      "lead": "Regen, Wellen oder ein tiefes Brummen, direkt in der App erzeugt. Funktioniert offline.",
+      "kinds": {
+        "rain": "Regen",
+        "waves": "Wellen",
+        "deep": "Tiefes Brummen"
+      },
+      "noTimer": "Ohne Timer",
+      "timer": "{count} Min.",
+      "volume": "Lautstärke",
+      "stop": "Stopp",
+      "play": "Abspielen",
+      "note": "Halte die Lautstärke niedrig. Der Klang blendet aus, wenn der Timer endet."
     }
   }
 }

@@ -6,6 +6,7 @@ import { favoritesStore } from "@/lib/store/favorites";
 import { lessonsStore } from "@/lib/store/lessons";
 import { progressStore, type ProgressEntry } from "@/lib/store/progress";
 import { localDay, mergeWaterDays, waterStore } from "@/lib/store/water";
+import { checkinsStore, mergeCheckins, toRow, type CheckinRow } from "@/lib/store/checkins";
 
 interface FavoriteRow {
   item_key: string;
@@ -122,10 +123,31 @@ export function UserDataSync({ signedIn }: { signedIn: boolean }) {
           .map(([day, ml]) => ({ user_id: uid, day, ml, goal_ml: local.goal, updated_at: new Date().toISOString() }));
         if (rows.length > 0) await client.from("water_days").upsert(rows, { onConflict: "user_id,day" });
       }
+
+      // Check-ins: newest wins per day; a missing table (migration not run) is ignored
+      const ck = await client.from("wellbeing_checkins").select("day, mood, energy, sleep, tension, gratitude, updated_at").eq("user_id", uid).gte("day", localDay(since));
+      if (cancelled) return;
+      if (!ck.error) {
+        const remote = (ck.data ?? []) as CheckinRow[];
+        mergeCheckins(remote);
+        const local = checkinsStore.read().days;
+        const push = Object.entries(local)
+          .filter(([day, c]) => day >= localDay(since) && !remote.some((r) => r.day === day && r.updated_at >= c.updatedAt))
+          .map(([day, c]) => toRow(uid, day, c));
+        if (push.length > 0) await client.from("wellbeing_checkins").upsert(push, { onConflict: "user_id,day" });
+      }
     }
 
     function startPush(client: SupabaseClient) {
       unsubscribers.push(
+        checkinsStore.subscribe(() => {
+          const uid = userId.current;
+          if (!uid) return;
+          const all = checkinsStore.read().days;
+          const latest = Object.entries(all).sort((a, b) => (a[1].updatedAt < b[1].updatedAt ? 1 : -1))[0];
+          if (!latest) return;
+          void client.from("wellbeing_checkins").upsert(toRow(uid, latest[0], latest[1]), { onConflict: "user_id,day" });
+        }),
         waterStore.subscribe(() => {
           const uid = userId.current;
           if (!uid) return;

@@ -10,6 +10,7 @@ import type { Practice } from "@/lib/breath/types";
 import { pick } from "@/lib/content/localize";
 import type { Locale } from "@/i18n/config";
 import { logBreathSession } from "@/lib/profile/actions";
+import { markHabit } from "@/lib/store/habits";
 import { cn } from "@/lib/utils";
 
 interface BreathSessionProps {
@@ -150,6 +151,7 @@ export function BreathSession({ practice, minutes, compact = false, signedIn, au
   useEffect(() => {
     if (status !== "done" || logged.current) return;
     logged.current = true;
+    markHabit("breath");
     onFinished?.();
     if (!signedIn) return;
     void logBreathSession(practice.id, pick(practice.title, locale), elapsed / 60)

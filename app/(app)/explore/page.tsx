@@ -14,6 +14,7 @@ const directions = [
   { key: "nutrition", href: "/nutrition", tone: "mint", image: "/covers/explore/nutrition.webp" },
   { key: "body", href: "/body", tone: "deep", image: null },
   { key: "breathe", href: "/breathe", tone: "mint", image: null },
+  { key: "mind", href: "/mind", tone: "deep", image: null },
 ] as const;
 
 /** Explore: the directions of the platform. */
