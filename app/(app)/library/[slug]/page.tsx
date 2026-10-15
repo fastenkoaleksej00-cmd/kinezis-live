@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, Clock, Play, Signal, Target, UserRound } from "lucide-react";
 import { workoutKey } from "@/lib/store/keys";
+import { LogActivityButton } from "@/components/health/LogActivityButton";
 import { SaveButton } from "@/components/library/SaveButton";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
@@ -13,6 +14,7 @@ import { getAuthor, getWorkout } from "@/lib/content/workouts";
 
 interface WorkoutPageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
 export async function generateMetadata({ params }: WorkoutPageProps) {
@@ -23,8 +25,9 @@ export async function generateMetadata({ params }: WorkoutPageProps) {
   return { title: pick(workout.title, locale) };
 }
 
-export default async function WorkoutPage({ params }: WorkoutPageProps) {
+export default async function WorkoutPage({ params, searchParams }: WorkoutPageProps) {
   const { slug } = await params;
+  const sp = await searchParams;
   const workout = await getWorkout(slug);
   if (!workout) notFound();
 
@@ -72,6 +75,10 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
           {t("start")}
         </Link>
         <SaveButton itemKey={workoutKey(workout.id)} look="solid" size="md" withLabel />
+      </Reveal>
+
+      <Reveal delay={0.12}>
+        <LogActivityButton itemType="workout" itemId={workout.id} title={pick(workout.title, locale)} durationMin={workout.durationMin} back={`/library/${workout.slug}`} logged={Boolean(sp.logged)} />
       </Reveal>
 
       <Reveal delay={0.14} as="section" className="grid gap-3 sm:grid-cols-2">

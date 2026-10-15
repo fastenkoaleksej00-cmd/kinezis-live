@@ -13,10 +13,11 @@ interface RevealProps {
   /** Vertical offset in px */
   y?: number;
   as?: RevealTag;
+  id?: string;
 }
 
 /** Soft appear-on-scroll via CSS transitions. Respects prefers-reduced-motion. */
-export function Reveal({ children, className, delay = 0, y = 24, as = "div" }: RevealProps) {
+export function Reveal({ children, className, delay = 0, y = 24, as = "div", id }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px -6% 0px" });
   const reduce = useReducedMotion();
@@ -31,5 +32,5 @@ export function Reveal({ children, className, delay = 0, y = 24, as = "div" }: R
     willChange: shown ? "auto" : "opacity, transform",
   };
 
-  return createElement(as, { ref, className, style, "data-reveal": "" }, children);
+  return createElement(as, { ref, className, style, id, "data-reveal": "" }, children);
 }

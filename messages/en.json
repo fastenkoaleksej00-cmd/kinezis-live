@@ -134,7 +134,28 @@
     "plans": {
       "premium": "Premium",
       "premium_plus": "Premium Plus"
-    }
+    },
+    "edit": "Edit profile",
+    "health": "My health",
+    "healthHint": "Measurements, goal and charts. Private.",
+    "activity": "Activity",
+    "activityHint": "Sessions, streaks and calendar.",
+    "savedNotice": "Profile saved.",
+    "achievements": "Achievements",
+    "badges": {
+      "first": "First session",
+      "five": "5 sessions",
+      "twenty": "20 sessions",
+      "streak3": "3-day streak",
+      "streak7": "7-day streak",
+      "hour": "60 minutes"
+    },
+    "stats": {
+      "sessions": "Sessions",
+      "streak": "Streak",
+      "minutes": "Minutes"
+    },
+    "noStats": "Mark a session as done to start your stats."
   },
   "settings": {
     "title": "Settings",
@@ -146,7 +167,90 @@
       "de": "Deutsch",
       "ru": "Русский"
     },
-    "saved": "Language updated"
+    "saved": "Language updated",
+    "save": "Save",
+    "savedNotice": "Saved.",
+    "signedOutNote": "Sign in to manage notifications, privacy and your account.",
+    "notifications": {
+      "title": "Notifications",
+      "lead": "Choose what you want to hear about. Delivery to your phone arrives with the mobile app; your choices are saved now.",
+      "types": {
+        "workouts": "New workouts",
+        "reminders": "Reminders",
+        "posts": "New posts from the trainer",
+        "messages": "Messages from the trainer",
+        "goals": "Goals and progress"
+      },
+      "permissionGranted": "Browser notifications: allowed.",
+      "permissionDenied": "Browser notifications are blocked. Allow them in the site settings of your browser (lock icon in the address bar) to receive them later.",
+      "permissionDefault": "Browser notifications have not been requested yet. We will ask only when there is something to send.",
+      "permissionUnsupported": "This browser does not support notifications."
+    },
+    "reminders": {
+      "title": "Reminders",
+      "lead": "Shown as cards on Home at the chosen time. Not sent as push yet.",
+      "time": "Time",
+      "kinds": {
+        "workout": "Workout",
+        "water": "Water",
+        "rest": "Rest",
+        "sleep": "Sleep",
+        "stretch": "Stretch"
+      },
+      "todayTitle": "Today's reminders",
+      "edit": "Edit",
+      "inAppOnly": "Shown in the app only; phone notifications come with the mobile app."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "lead": "What other people can see.",
+      "profileVisible": "Profile visible to others",
+      "profileVisibleHint": "Name, photo and interests.",
+      "showActivity": "Show my activity",
+      "showActivityHint": "Sessions count and streak on your profile. Off by default.",
+      "allowComments": "Allow comments",
+      "allowCommentsHint": "Applies once comments open.",
+      "healthNote": "Health data (weight, measurements, goal) is never shown to anyone and cannot be switched on."
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "lead": "Applies on this device.",
+      "textSize": "Text size",
+      "sizes": {
+        "normal": "Normal",
+        "large": "Large",
+        "xl": "Extra large"
+      },
+      "reduceMotion": "Reduce motion",
+      "reduceMotionHint": "Turns off screen and tab animations.",
+      "theme": "Theme: light. A dark theme is planned as a separate stage."
+    },
+    "account": {
+      "title": "Account",
+      "emailTitle": "Change email",
+      "emailLabel": "New email",
+      "emailCurrent": "Current: {email}",
+      "emailSent": "Check the new address: open the confirmation link to finish the change.",
+      "emailCta": "Send confirmation",
+      "passwordTitle": "Change password",
+      "passwordLabel": "New password",
+      "passwordHint": "At least 8 characters.",
+      "passwordSaved": "Password changed.",
+      "passwordCta": "Save password",
+      "signOutHint": "Sign out on this device.",
+      "deleteTitle": "Delete account",
+      "deleteBody": "Removes your profile, saved items, progress, measurements and activity. This cannot be undone.",
+      "deleteConfirmLabel": "Type DELETE to confirm",
+      "deleteCta": "Delete my account",
+      "errors": {
+        "signedOut": "Sign in first.",
+        "notConfigured": "Accounts are not connected.",
+        "invalid": "Check the value.",
+        "generic": "Could not save. Try again.",
+        "weakPassword": "At least 8 characters.",
+        "sameEmail": "This is already your email."
+      }
+    }
   },
   "player": {
     "noVideoTitle": "Video not connected yet",
@@ -519,5 +623,141 @@
       "snacks": "Snacks"
     },
     "notes": "Notes"
+  },
+  "health": {
+    "eyebrow": "Private",
+    "title": "My health",
+    "lead": "Your numbers, visible only to you.",
+    "signIn": "Sign in",
+    "signedOutTitle": "Sign in to use this section",
+    "signedOutBody": "Measurements and health details are stored in your account and never shown to other people.",
+    "cards": {
+      "weight": "Weight",
+      "height": "Height",
+      "bmi": "BMI (estimate)",
+      "age": "Age",
+      "noData": "No data yet",
+      "bmiNote": "Orientation only, not a diagnosis",
+      "bmiNeeds": "Needs height and weight"
+    },
+    "disclaimer": "These figures are for your own orientation. The app does not make medical conclusions and does not promise results. For health concerns consult a specialist.",
+    "profileTitle": "About you",
+    "profileLead": "Optional. Used for the estimate and for tailoring recommendations later.",
+    "measurementsTitle": "Add a measurement",
+    "measurementsLead": "One entry per day; the same date overwrites the previous value.",
+    "addMeasurement": "Add",
+    "save": "Save",
+    "saved": "Saved.",
+    "delete": "Delete",
+    "fields": {
+      "height": "Height",
+      "birthDate": "Date of birth",
+      "goal": "Goal",
+      "activity": "Activity level",
+      "experience": "Training experience",
+      "date": "Date",
+      "weight": "Weight",
+      "waist": "Waist",
+      "note": "Note",
+      "optional": "optional"
+    },
+    "goals": {
+      "lose_weight": "Lose weight",
+      "gain_muscle": "Gain muscle",
+      "maintain": "Maintain weight",
+      "strength": "Build strength",
+      "endurance": "Endurance",
+      "activity": "Stay active"
+    },
+    "activity": {
+      "low": "Low (sitting most of the day)",
+      "moderate": "Moderate (walks, 1–3 sessions a week)",
+      "high": "High (4+ sessions a week)"
+    },
+    "experience": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "chartsTitle": "History",
+    "periods": {
+      "week": "Week",
+      "month": "Month",
+      "quarter": "3 months",
+      "year": "Year"
+    },
+    "chartWeightLabel": "Weight over time",
+    "chartWaistLabel": "Waist over time",
+    "emptyTitle": "No measurements yet",
+    "emptyBody": "Add your first weight above. The chart appears after two entries.",
+    "notEnough": "Add at least {count} entries in this period to see a chart.",
+    "appleHealthTitle": "Apple Health and Apple Watch",
+    "appleHealthBody": "Steps, heart rate and sleep can only be read by the native iOS app with your per-type permission. The web version cannot access them, so there is no connect button here.",
+    "appleHealthStatus": "Status: not available in this version · planned for the iOS app",
+    "errors": {
+      "signedOut": "Sign in first.",
+      "notConfigured": "Accounts are not connected.",
+      "invalid": "Check the values: they look outside a realistic range.",
+      "generic": "Could not save. Try again.",
+      "weakPassword": "At least 8 characters.",
+      "sameEmail": "This is already your email."
+    }
+  },
+  "activity": {
+    "title": "Activity",
+    "lead": "Completed sessions, streaks and consistency.",
+    "leadWithGoal": "Your goal: {goal}. Here is how regular you are.",
+    "cards": {
+      "sessions": "Sessions",
+      "streak": "Current streak",
+      "bestStreak": "Best streak",
+      "minutes": "Minutes total"
+    },
+    "days": "{count, plural, one {# day} other {# days}}",
+    "calendar": "Last 12 weeks",
+    "weekly": "Sessions per week",
+    "history": "History",
+    "remove": "Remove",
+    "emptyTitle": "No sessions logged yet",
+    "emptyBody": "Open a session and tap “I did this” when you finish. Completed videos count too.",
+    "markDone": "I did this",
+    "loggedNotice": "Logged to your activity.",
+    "note": "Only sessions you marked or finished in the player are counted. Calories, heart rate and sleep are not estimated."
+  },
+  "profileEdit": {
+    "title": "Edit profile",
+    "lead": "How you appear in the app.",
+    "name": "Name",
+    "bio": "About you",
+    "bioHint": "Up to 300 characters.",
+    "interestsTitle": "Interests",
+    "interests": {
+      "face": "Face fitness",
+      "skincare": "Skincare",
+      "nutrition": "Nutrition",
+      "pregnancy": "Pregnancy"
+    },
+    "avatarUpload": "Change photo",
+    "avatarHint": "Tap the photo to change it. JPG, PNG or WebP up to 5 MB.",
+    "bannerTitle": "Profile banner",
+    "bannerUpload": "Upload image",
+    "bannerRemove": "Remove image",
+    "bannerPosition": "Crop position",
+    "presets": {
+      "deep": "Petrol",
+      "mint": "Mint",
+      "light": "Ice"
+    },
+    "uploadFailed": "Upload failed. Check the file size and try again.",
+    "save": "Save profile",
+    "saving": "Saving…",
+    "errors": {
+      "signedOut": "Sign in first.",
+      "notConfigured": "Accounts are not connected.",
+      "invalid": "Check the values.",
+      "generic": "Could not save. Try again.",
+      "weakPassword": "",
+      "sameEmail": ""
+    }
   }
 }

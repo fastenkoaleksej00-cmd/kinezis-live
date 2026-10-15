@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { AccessibilityProvider } from "@/components/settings/AccessibilityProvider";
 import { getSiteUrl } from "@/lib/utils";
 import "./globals.css";
 
@@ -53,9 +54,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} className={`${manrope.variable} ${caveat.variable}`}>
       <body className="font-sans">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var a=JSON.parse(localStorage.getItem("kl_a11y")||"{}");if(a.textSize)document.documentElement.dataset.textSize=a.textSize;if(a.reduceMotion)document.documentElement.dataset.reduceMotion="true";}catch(e){}`,
+          }}
+        />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
+        <AccessibilityProvider />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

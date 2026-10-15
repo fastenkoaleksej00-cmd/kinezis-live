@@ -11,7 +11,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
   Glass surfaces `.glass` / `.glass-dark`, dark `.section-deep`, cover placeholders `.cover`, `.cover-mint`, `.cover-light`.
 - `next-intl` without URL prefixes: cookie `kl_locale`, default `en`, dictionaries in `messages/*.json` (en, uk, de, ru). Add every new key to all four files; a key-parity check script pattern lives in git history of this file's commits.
 - `motion` for animation, `lucide-react` for icons. No shadcn/ui.
-- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets, 0006 plans + trainer profile columns, 0007 meal_plans). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
+- Supabase (`@supabase/ssr` + `supabase-js`): auth with email + password, `profiles` with roles user/trainer/admin, per-user tables `favorites`, `watch_progress`, `lesson_progress` (RLS: own rows only). Schema in `supabase/migrations/` (0001 users, 0002 workouts/posts with `is_staff()` policies, 0003 first-user-admin, 0004 courses + skincare, 0005 storage buckets, 0006 plans + trainer profile columns, 0007 meal_plans, 0008 profile/health/settings + `avatars` bucket + `delete_my_account()`). Public env in `.env.local` (gitignored); never store the service_role key in the repo.
 - Package manager: npm (pnpm cannot lock its store in the sandboxed shell). Fonts: Manrope + Caveat via `next/font`.
 
 ## Commands
@@ -53,6 +53,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Never invent facts: no made-up videos, lessons, products, ingredients, prices, reviews or medical claims.
   Wording: "prevention", "recovery through movement". Never "diagnosis", "treatment", "medical centre".
 - The app must keep working with Supabase unconfigured: stores stay local, auth pages show an honest notice.
+- Never estimate calories, heart rate or sleep; Apple Health needs the native app (plan in `docs/HEALTH_INTEGRATION.md`). Notification preferences are stored but nothing is pushed yet; say so in the UI.
 - No fake backends: a feature without a real data source shows an honest empty state, never a pretend success.
 - Skincare never ships invented products, brands, ingredients or claims: the repositories stay empty until the trainer enters real items. No shop, no checkout.
 - The sample Face Fitness course has placeholder names only (Module 1, Lesson 1.1); do not write lesson content.
@@ -63,6 +64,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - Subscription: plans free | premium | premium_plus live on `profiles.plan` (+ `plan_until`, `premium_interest`); `lib/access/plans.ts` → `canAccess()` is the single entitlement check; watch/lesson pages render `Paywall` when not allowed; cards show `LockBadge`. `/premium` page + Home `PremiumBanner` collect interest and say "launching soon". No payment provider until the owner picks the legal country (see `docs/SUBSCRIPTION.md`). Never let the client change `plan`.
 - `/compose` (staff): Instagram-style quick publish (photo → `covers` bucket public URL, video → `videos` bucket) via `quickPublish`; the Home "+" points here. PostCard renders real photos when `attachment.src` exists and plays video attachments on `/posts/[id]`.
 - Nutrition: `meal_plans` table (migration 0007), `lib/content/meals.ts` (DB only, no samples), `/nutrition`, `/nutrition/[slug]`, admin `/admin/nutrition`. Always show the "one person's day, not a plan for everyone" disclaimer.
+- Personal area: `lib/profile/` (types, queries `getMyProfile/listMeasurements/listActivity`, actions), `lib/health/stats.ts` (pure streak/BMI/period helpers), pages `/profile` (banner, avatar, stats, achievements), `/profile/edit`, `/profile/activity`, `/health`, `/profile/settings` (language, notifications + reminders, privacy, accessibility, account incl. email/password change and `delete_my_account()` RPC). Charts are dependency-free SVG in `components/health/`. Health rows are owner-only via RLS and never rendered publicly. Accessibility (text size, reduce motion) is per-device in localStorage via `AccessibilityProvider`.
 - Trainer profiles: `/trainers/[id]` from `authors` (bio, specialties, verified, avatar_src, instagram); `TrainerBadge` only when `verified`. `QuickPostButton` (+) on Home for staff → /admin/posts/new.
 - Animations respect `prefers-reduced-motion`. No infinite rotation. Screen transitions: `app/(app)/template.tsx` + `.page-enter` (CSS, 280 ms); active tab indicators slide with motion `layoutId` in BottomNav/SideNav.
 - Product roadmap and audit (Russian): `docs/ROADMAP.md`. Keep it updated when stages land.

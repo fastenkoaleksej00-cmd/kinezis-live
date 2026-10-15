@@ -5,6 +5,7 @@ import { PostCard } from "@/components/feed/PostCard";
 import { QuickPostButton } from "@/components/feed/QuickPostButton";
 import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
+import { RemindersCard } from "@/components/home/RemindersCard";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
 import { Reveal } from "@/components/ui/Reveal";
@@ -13,6 +14,7 @@ import { buttonStyles } from "@/components/ui/buttonStyles";
 import { pick, toCardData } from "@/lib/content/localize";
 import { listPosts } from "@/lib/content/posts";
 import { getTodayWorkout, listWorkouts } from "@/lib/content/workouts";
+import { getMyProfile } from "@/lib/profile/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 
 /** Home, feed-first: today's session, continue, then the trainer feed. */
@@ -26,7 +28,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const tc = await getTranslations("common");
   const tl = await getTranslations("library");
   const locale = await getLocale();
-  const [allWorkouts, today, posts, user] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(), getSessionUser()]);
+  const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(), getSessionUser(), getMyProfile()]);
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
 
   return (
@@ -60,6 +62,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               </div>
             </Cover>
           </Link>
+        </Reveal>
+      ) : null}
+
+      {profile ? (
+        <Reveal delay={0.09}>
+          <RemindersCard reminders={profile.reminders} />
         </Reveal>
       ) : null}
 

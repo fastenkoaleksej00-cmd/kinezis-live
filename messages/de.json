@@ -134,7 +134,28 @@
     "plans": {
       "premium": "Premium",
       "premium_plus": "Premium Plus"
-    }
+    },
+    "edit": "Profil bearbeiten",
+    "health": "Meine Gesundheit",
+    "healthHint": "Messungen, Ziel und Kurven. Privat.",
+    "activity": "Aktivität",
+    "activityHint": "Einheiten, Serien und Kalender.",
+    "savedNotice": "Profil gespeichert.",
+    "achievements": "Erfolge",
+    "badges": {
+      "first": "Erste Einheit",
+      "five": "5 Einheiten",
+      "twenty": "20 Einheiten",
+      "streak3": "3-Tage-Serie",
+      "streak7": "7-Tage-Serie",
+      "hour": "60 Minuten"
+    },
+    "stats": {
+      "sessions": "Einheiten",
+      "streak": "Serie",
+      "minutes": "Minuten"
+    },
+    "noStats": "Markiere eine Einheit als erledigt, um deine Statistik zu starten."
   },
   "settings": {
     "title": "Einstellungen",
@@ -146,7 +167,90 @@
       "de": "Deutsch",
       "ru": "Русский"
     },
-    "saved": "Sprache aktualisiert"
+    "saved": "Sprache aktualisiert",
+    "save": "Speichern",
+    "savedNotice": "Gespeichert.",
+    "signedOutNote": "Melde dich an, um Benachrichtigungen, Privatsphäre und Konto zu verwalten.",
+    "notifications": {
+      "title": "Benachrichtigungen",
+      "lead": "Wähle, worüber du informiert werden willst. Die Zustellung aufs Handy kommt mit der mobilen App; deine Auswahl wird jetzt gespeichert.",
+      "types": {
+        "workouts": "Neue Workouts",
+        "reminders": "Erinnerungen",
+        "posts": "Neue Beiträge der Trainerin",
+        "messages": "Nachrichten der Trainerin",
+        "goals": "Ziele und Fortschritt"
+      },
+      "permissionGranted": "Browser-Benachrichtigungen: erlaubt.",
+      "permissionDenied": "Browser-Benachrichtigungen sind blockiert. Erlaube sie in den Website-Einstellungen deines Browsers (Schloss-Symbol in der Adressleiste), um sie später zu erhalten.",
+      "permissionDefault": "Die Erlaubnis wurde noch nicht angefragt. Wir fragen erst, wenn es etwas zu senden gibt.",
+      "permissionUnsupported": "Dieser Browser unterstützt keine Benachrichtigungen."
+    },
+    "reminders": {
+      "title": "Erinnerungen",
+      "lead": "Erscheinen als Karten auf Start zur gewählten Zeit. Noch nicht als Push.",
+      "time": "Uhrzeit",
+      "kinds": {
+        "workout": "Training",
+        "water": "Wasser",
+        "rest": "Pause",
+        "sleep": "Schlaf",
+        "stretch": "Dehnen"
+      },
+      "todayTitle": "Erinnerungen heute",
+      "edit": "Bearbeiten",
+      "inAppOnly": "Nur in der App; Handy-Benachrichtigungen kommen mit der mobilen App."
+    },
+    "privacy": {
+      "title": "Privatsphäre",
+      "lead": "Was andere sehen können.",
+      "profileVisible": "Profil für andere sichtbar",
+      "profileVisibleHint": "Name, Foto und Interessen.",
+      "showActivity": "Meine Aktivität zeigen",
+      "showActivityHint": "Anzahl Einheiten und Serie im Profil. Standardmäßig aus.",
+      "allowComments": "Kommentare erlauben",
+      "allowCommentsHint": "Gilt, sobald Kommentare freigeschaltet sind.",
+      "healthNote": "Gesundheitsdaten (Gewicht, Messungen, Ziel) werden niemandem gezeigt und lassen sich nicht freigeben."
+    },
+    "accessibility": {
+      "title": "Barrierefreiheit",
+      "lead": "Gilt auf diesem Gerät.",
+      "textSize": "Textgröße",
+      "sizes": {
+        "normal": "Normal",
+        "large": "Groß",
+        "xl": "Sehr groß"
+      },
+      "reduceMotion": "Weniger Bewegung",
+      "reduceMotionHint": "Schaltet Bildschirm- und Tab-Animationen aus.",
+      "theme": "Design: hell. Ein dunkles Design ist als eigene Phase geplant."
+    },
+    "account": {
+      "title": "Konto",
+      "emailTitle": "E-Mail ändern",
+      "emailLabel": "Neue E-Mail",
+      "emailCurrent": "Aktuell: {email}",
+      "emailSent": "Prüfe die neue Adresse: öffne den Bestätigungslink, um die Änderung abzuschließen.",
+      "emailCta": "Bestätigung senden",
+      "passwordTitle": "Passwort ändern",
+      "passwordLabel": "Neues Passwort",
+      "passwordHint": "Mindestens 8 Zeichen.",
+      "passwordSaved": "Passwort geändert.",
+      "passwordCta": "Passwort speichern",
+      "signOutHint": "Auf diesem Gerät abmelden.",
+      "deleteTitle": "Konto löschen",
+      "deleteBody": "Entfernt Profil, Gespeichertes, Fortschritt, Messungen und Aktivität. Das lässt sich nicht rückgängig machen.",
+      "deleteConfirmLabel": "Tippe DELETE zur Bestätigung",
+      "deleteCta": "Mein Konto löschen",
+      "errors": {
+        "signedOut": "Melde dich zuerst an.",
+        "notConfigured": "Konten sind nicht verbunden.",
+        "invalid": "Prüfe den Wert.",
+        "generic": "Konnte nicht speichern. Versuche es erneut.",
+        "weakPassword": "Mindestens 8 Zeichen.",
+        "sameEmail": "Das ist bereits deine E-Mail."
+      }
+    }
   },
   "player": {
     "noVideoTitle": "Video noch nicht verbunden",
@@ -519,5 +623,141 @@
       "snacks": "Snacks"
     },
     "notes": "Notizen"
+  },
+  "health": {
+    "eyebrow": "Privat",
+    "title": "Meine Gesundheit",
+    "lead": "Deine Werte, nur für dich sichtbar.",
+    "signIn": "Anmelden",
+    "signedOutTitle": "Melde dich an, um diesen Bereich zu nutzen",
+    "signedOutBody": "Messungen und Gesundheitsdaten liegen in deinem Konto und werden nie anderen gezeigt.",
+    "cards": {
+      "weight": "Gewicht",
+      "height": "Größe",
+      "bmi": "BMI (Richtwert)",
+      "age": "Alter",
+      "noData": "Noch keine Daten",
+      "bmiNote": "Nur Orientierung, keine Diagnose",
+      "bmiNeeds": "Braucht Größe und Gewicht"
+    },
+    "disclaimer": "Diese Zahlen dienen nur deiner Orientierung. Die App zieht keine medizinischen Schlüsse und verspricht keine Ergebnisse. Bei Gesundheitsfragen wende dich an Fachpersonen.",
+    "profileTitle": "Über dich",
+    "profileLead": "Optional. Für den Richtwert und später für passende Empfehlungen.",
+    "measurementsTitle": "Messung hinzufügen",
+    "measurementsLead": "Ein Eintrag pro Tag; dasselbe Datum überschreibt den vorherigen Wert.",
+    "addMeasurement": "Hinzufügen",
+    "save": "Speichern",
+    "saved": "Gespeichert.",
+    "delete": "Löschen",
+    "fields": {
+      "height": "Größe",
+      "birthDate": "Geburtsdatum",
+      "goal": "Ziel",
+      "activity": "Aktivitätsniveau",
+      "experience": "Trainingserfahrung",
+      "date": "Datum",
+      "weight": "Gewicht",
+      "waist": "Taille",
+      "note": "Notiz",
+      "optional": "optional"
+    },
+    "goals": {
+      "lose_weight": "Abnehmen",
+      "gain_muscle": "Muskeln aufbauen",
+      "maintain": "Gewicht halten",
+      "strength": "Kraft aufbauen",
+      "endurance": "Ausdauer",
+      "activity": "Aktiv bleiben"
+    },
+    "activity": {
+      "low": "Niedrig (meist sitzend)",
+      "moderate": "Mittel (Spaziergänge, 1–3 Einheiten pro Woche)",
+      "high": "Hoch (4+ Einheiten pro Woche)"
+    },
+    "experience": {
+      "beginner": "Einsteigerin",
+      "intermediate": "Mittel",
+      "advanced": "Fortgeschritten"
+    },
+    "chartsTitle": "Verlauf",
+    "periods": {
+      "week": "Woche",
+      "month": "Monat",
+      "quarter": "3 Monate",
+      "year": "Jahr"
+    },
+    "chartWeightLabel": "Gewicht im Verlauf",
+    "chartWaistLabel": "Taille im Verlauf",
+    "emptyTitle": "Noch keine Messungen",
+    "emptyBody": "Trage oben dein erstes Gewicht ein. Die Kurve erscheint ab zwei Einträgen.",
+    "notEnough": "Trage mindestens {count} Werte in diesem Zeitraum ein, um eine Kurve zu sehen.",
+    "appleHealthTitle": "Apple Health und Apple Watch",
+    "appleHealthBody": "Schritte, Puls und Schlaf kann nur die native iOS-App mit deiner Erlaubnis je Datentyp lesen. Die Webversion hat keinen Zugriff, deshalb gibt es hier keinen Verbinden-Button.",
+    "appleHealthStatus": "Status: in dieser Version nicht verfügbar · für die iOS-App geplant",
+    "errors": {
+      "signedOut": "Melde dich zuerst an.",
+      "notConfigured": "Konten sind nicht verbunden.",
+      "invalid": "Prüfe die Werte: sie liegen außerhalb eines realistischen Bereichs.",
+      "generic": "Konnte nicht speichern. Versuche es erneut.",
+      "weakPassword": "Mindestens 8 Zeichen.",
+      "sameEmail": "Das ist bereits deine E-Mail."
+    }
+  },
+  "activity": {
+    "title": "Aktivität",
+    "lead": "Abgeschlossene Einheiten, Serien und Regelmäßigkeit.",
+    "leadWithGoal": "Dein Ziel: {goal}. So regelmäßig bist du.",
+    "cards": {
+      "sessions": "Einheiten",
+      "streak": "Aktuelle Serie",
+      "bestStreak": "Beste Serie",
+      "minutes": "Minuten gesamt"
+    },
+    "days": "{count, plural, one {# Tag} other {# Tage}}",
+    "calendar": "Letzte 12 Wochen",
+    "weekly": "Einheiten pro Woche",
+    "history": "Verlauf",
+    "remove": "Entfernen",
+    "emptyTitle": "Noch keine Einheiten erfasst",
+    "emptyBody": "Öffne eine Einheit und tippe am Ende auf „Erledigt“. Fertig gesehene Videos zählen auch.",
+    "markDone": "Erledigt",
+    "loggedNotice": "In deiner Aktivität erfasst.",
+    "note": "Nur Einheiten zählen, die du markiert oder im Player beendet hast. Kalorien, Puls und Schlaf werden nicht geschätzt."
+  },
+  "profileEdit": {
+    "title": "Profil bearbeiten",
+    "lead": "So erscheinst du in der App.",
+    "name": "Name",
+    "bio": "Über dich",
+    "bioHint": "Bis zu 300 Zeichen.",
+    "interestsTitle": "Interessen",
+    "interests": {
+      "face": "Face Fitness",
+      "skincare": "Hautpflege",
+      "nutrition": "Ernährung",
+      "pregnancy": "Schwangerschaft"
+    },
+    "avatarUpload": "Foto ändern",
+    "avatarHint": "Tippe auf das Foto, um es zu ändern. JPG, PNG oder WebP bis 5 MB.",
+    "bannerTitle": "Profilbanner",
+    "bannerUpload": "Bild hochladen",
+    "bannerRemove": "Bild entfernen",
+    "bannerPosition": "Bildausschnitt",
+    "presets": {
+      "deep": "Petrol",
+      "mint": "Mint",
+      "light": "Eis"
+    },
+    "uploadFailed": "Upload fehlgeschlagen. Prüfe die Dateigröße und versuche es erneut.",
+    "save": "Profil speichern",
+    "saving": "Wird gespeichert…",
+    "errors": {
+      "signedOut": "Melde dich zuerst an.",
+      "notConfigured": "Konten sind nicht verbunden.",
+      "invalid": "Prüfe die Werte.",
+      "generic": "Konnte nicht speichern. Versuche es erneut.",
+      "weakPassword": "",
+      "sameEmail": ""
+    }
   }
 }
