@@ -15,6 +15,9 @@ import { LikeButton } from "@/components/social/LikeButton";
 import { MessageCircle } from "lucide-react";
 import { getSocialCounts } from "@/lib/social/queries";
 import { getSessionUser } from "@/lib/supabase/server";
+import { getPublicMembers } from "@/lib/profile/public";
+import { deleteOwnPost } from "@/lib/admin/actions";
+import { Trash2 } from "lucide-react";
 
 interface PostCardProps {
   post: Post;
@@ -23,16 +26,22 @@ interface PostCardProps {
   /** Pre-fetched counts (lists pass them to avoid one query per card) */
   social?: { likes: number; comments: number; liked: boolean };
   signedIn?: boolean;
+  /** Pre-fetched member info for community posts */
+  member?: { displayName: string | null; avatarSrc: string | null } | null;
+  viewerId?: string | null;
 }
 
 /** Feed card: author, kind label, text, attachment, save. Opens the post page. */
-export async function PostCard({ post, expanded = false, social, signedIn }: PostCardProps) {
+export async function PostCard({ post, expanded = false, social, signedIn, member, viewerId }: PostCardProps) {
   const locale = await getLocale();
   const t = await getTranslations("feed");
   const tl = await getTranslations("library");
   const tc = await getTranslations("common");
   const format = await getFormatter();
-  const author = await getAuthor(post.authorId);
+  const author = post.userId ? undefined : await getAuthor(post.authorId);
+  const memberInfo = post.userId ? (member !== undefined ? member : ((await getPublicMembers([post.userId]))[post.userId] ?? null)) : null;
+  const viewer = viewerId !== undefined ? viewerId : ((await getSessionUser())?.id ?? null);
+  const mine = Boolean(post.userId && viewer && post.userId === viewer);
   const date = format.dateTime(new Date(post.publishedAt), { day: "numeric", month: "long" });
   const title = post.title ? pick(post.title, locale) : undefined;
   const workout = post.attachment?.kind === "workout" ? await getWorkoutById(post.attachment.workoutId) : undefined;
@@ -44,8 +53,40 @@ export async function PostCard({ post, expanded = false, social, signedIn }: Pos
   return (
     <article className="card overflow-hidden">
       <div className="flex items-start justify-between gap-3 p-4 pb-3 sm:p-5 sm:pb-3">
-        <AuthorRow author={author} roleLabel={tl("trainer")} meta={`${date} · ${t(`kinds.${post.kind}`)}`} />
-        <SaveButton itemKey={postKey(post.id)} look="solid" />
+        {post.userId ? (
+          <Link href={`/members/${post.userId}`} className="flex min-w-0 items-center gap-3">
+            <span className="section-deep text-frost inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full text-sm font-bold">
+              {memberInfo?.avatarSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={memberInfo.avatarSrc} alt="" className="h-full w-full object-cover" />
+              ) : (
+                (memberInfo?.displayName ?? t("member")).slice(0, 1).toUpperCase()
+              )}
+            </span>
+            <span className="min-w-0">
+              <span className="text-ink block truncate text-sm font-bold">
+                {memberInfo?.displayName ?? t("member")} <span className="text-steel font-medium">· {t("community")}</span>
+              </span>
+              <span className="text-steel block text-xs">
+                {date}
+                {post.category ? ` · ${t(`categories.${post.category as "other"}`)}` : ""}
+              </span>
+            </span>
+          </Link>
+        ) : (
+          <AuthorRow author={author} roleLabel={tl("trainer")} meta={`${date} · ${t(`kinds.${post.kind}`)}`} />
+        )}
+        <div className="flex shrink-0 items-center gap-1">
+          {mine && expanded ? (
+            <form action={deleteOwnPost}>
+              <input type="hidden" name="id" value={post.id} />
+              <button type="submit" aria-label={t("deleteOwn")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+                <Trash2 className="h-4 w-4" aria-hidden />
+              </button>
+            </form>
+          ) : null}
+          <SaveButton itemKey={postKey(post.id)} look="solid" />
+        </div>
       </div>
 
       <div className="space-y-3 px-4 sm:px-5">

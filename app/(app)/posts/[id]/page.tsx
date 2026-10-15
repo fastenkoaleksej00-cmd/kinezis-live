@@ -43,7 +43,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </Link>
       </Reveal>
       <Reveal delay={0.05}>
-        <PostCard post={post} expanded />
+        <PostCard post={post} expanded viewerId={user?.id ?? null} />
       </Reveal>
       {!post.sample ? (
         <Reveal delay={0.1} id="comments">

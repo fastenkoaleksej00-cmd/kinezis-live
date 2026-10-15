@@ -274,7 +274,25 @@
     "sample": "Beispiel",
     "open": "Öffnen",
     "videoPending": "Video folgt",
-    "socialLater": "Reaktionen und Kommentare kommen in einer späteren Phase."
+    "socialLater": "Reaktionen und Kommentare kommen in einer späteren Phase.",
+    "member": "Mitglied",
+    "community": "Community",
+    "deleteOwn": "Meinen Beitrag löschen",
+    "deletedNotice": "Beitrag gelöscht.",
+    "communityEmpty": "Noch keine Community-Beiträge. Tippe auf +, um den ersten zu teilen.",
+    "filters": {
+      "all": "Alle",
+      "trainer": "Trainerin",
+      "community": "Community"
+    },
+    "categories": {
+      "workouts": "Workouts",
+      "face": "Face Fitness",
+      "skincare": "Hautpflege",
+      "nutrition": "Ernährung",
+      "motivation": "Motivation",
+      "other": "Sonstiges"
+    }
   },
   "faceFitness": {
     "eyebrow": "Beauty",
@@ -400,7 +418,8 @@
       "skincare": "Hautpflege",
       "nutrition": "Ernährung",
       "comments": "Kommentare",
-      "messages": "Nachrichten"
+      "messages": "Nachrichten",
+      "community": "Community"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -419,7 +438,8 @@
     "deletedNotice": "Gelöscht.",
     "status": {
       "published": "Veröffentlicht",
-      "draft": "Entwurf"
+      "draft": "Entwurf",
+      "hiddenPost": "ausgeblendet"
     },
     "tones": {
       "deep": "Petrol (dunkel)",
@@ -539,7 +559,8 @@
     "nutritionIntro": "Dein eigener Tag auf dem Teller: Frühstück, Mittag, Abend, Snacks. Als Beispiel veröffentlicht, Leser sehen einen Hinweis.",
     "commentsIntro": "Neueste Kommentare der Mitglieder. Ausblenden behält den Eintrag, Löschen entfernt ihn.",
     "hide": "Ausblenden",
-    "unhide": "Wieder anzeigen"
+    "unhide": "Wieder anzeigen",
+    "communityIntro": "Beiträge von Mitgliedern. Ausblenden lässt den Beitrag nur für die Autorin sichtbar; Löschen entfernt ihn."
   },
   "premium": {
     "eyebrow": "Premium",
@@ -611,7 +632,19 @@
     "kind": "Typ",
     "publish": "Veröffentlichen",
     "publishing": "Wird veröffentlicht…",
-    "fullEditorHint": "Übersetzungen, verknüpftes Workout oder Entwurf? Nutze den vollen Editor in der Verwaltung."
+    "fullEditorHint": "Übersetzungen, verknüpftes Workout oder Entwurf? Nutze den vollen Editor in der Verwaltung.",
+    "memberLead": "Teile ein Foto, ein Video oder einen Gedanken mit der Community.",
+    "memberPlaceholder": "Was möchtest du teilen?",
+    "category": "Kategorie",
+    "categories": {
+      "workouts": "Workouts",
+      "face": "Face Fitness",
+      "skincare": "Hautpflege",
+      "nutrition": "Ernährung",
+      "motivation": "Motivation",
+      "other": "Sonstiges"
+    },
+    "memberRules": "Nur eigene Fotos und Videos. Keine medizinischen Ratschläge. Die Trainerin kann Beiträge ausblenden, die gegen die Regeln verstoßen."
   },
   "nutrition": {
     "eyebrow": "Ernährung",
@@ -818,5 +851,13 @@
       "notConfigured": "Chat ist nicht verbunden.",
       "sendFailed": "Konnte nicht senden. Prüfe die Verbindung und versuche es erneut."
     }
+  },
+  "members": {
+    "member": "Mitglied",
+    "privateTitle": "Dieses Profil ist privat",
+    "privateBody": "Das Mitglied zeigt sein Profil nicht.",
+    "editMine": "Mein Profil bearbeiten",
+    "posts": "{count, plural, =0 {Keine Beiträge} one {# Beitrag} other {# Beiträge}}",
+    "noPosts": "Noch nichts geteilt."
   }
 }

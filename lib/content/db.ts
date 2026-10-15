@@ -26,6 +26,9 @@ export interface PostRow {
   id: string;
   kind: Post["kind"];
   author_id: string | null;
+  user_id: string | null;
+  category: string | null;
+  hidden: boolean;
   title: LocalizedText | null;
   body: LocalizedText;
   attachment: PostAttachment | null;
@@ -69,7 +72,7 @@ export function rowToAuthor(r: AuthorRow): Author {
 export const workoutColumns =
   "id, slug, title, description, category, duration_min, level, goals, access, language, cover_tone, video, author_id, published, published_at, created_at, updated_at";
 export const postColumns =
-  "id, kind, author_id, title, body, attachment, language, access, reactions_enabled, comments_enabled, published, published_at, created_at, updated_at";
+  "id, kind, author_id, user_id, category, hidden, title, body, attachment, language, access, reactions_enabled, comments_enabled, published, published_at, created_at, updated_at";
 
 export function rowToWorkout(r: WorkoutRow): Workout {
   return {
@@ -95,6 +98,9 @@ export function rowToPost(r: PostRow): Post {
     id: r.id,
     kind: r.kind,
     authorId: r.author_id ?? "",
+    userId: r.user_id ?? undefined,
+    category: r.category ?? undefined,
+    hidden: r.hidden,
     title: r.title ?? undefined,
     body: r.body,
     attachment: r.attachment ?? undefined,

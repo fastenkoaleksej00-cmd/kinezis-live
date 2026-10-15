@@ -12,7 +12,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { pick, toCardData } from "@/lib/content/localize";
-import { listPosts } from "@/lib/content/posts";
+import { listPosts, type FeedFilter } from "@/lib/content/posts";
+import { getPublicMembers } from "@/lib/profile/public";
+import { cn } from "@/lib/utils";
 import { getTodayWorkout, listWorkouts } from "@/lib/content/workouts";
 import { getMyProfile } from "@/lib/profile/queries";
 import { getSocialCounts } from "@/lib/social/queries";
@@ -25,17 +27,21 @@ interface HomePageProps {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const sp = await searchParams;
+  const feed: FeedFilter = sp.feed === "trainer" || sp.feed === "community" ? sp.feed : "all";
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
   const tl = await getTranslations("library");
   const locale = await getLocale();
-  const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(), getSessionUser(), getMyProfile()]);
+  const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(undefined, feed), getSessionUser(), getMyProfile()]);
+  const members = await getPublicMembers(posts.map((p) => p.userId ?? "").filter(Boolean));
+  const tf = await getTranslations("feed");
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
   const social = await getSocialCounts("post", posts.map((p) => p.id));
 
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">
       {sp.posted ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("posted")}</p> : null}
+      {sp.deleted ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm font-semibold">{tf("deletedNotice")}</p> : null}
       <Reveal>
         <p className="eyebrow mb-2">{t("greeting")}</p>
         <h1 className="text-[1.9rem] leading-[1.05] font-extrabold sm:text-[2.4rem]">{t("intro")}</h1>
@@ -92,12 +98,20 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       <section className="space-y-4">
         <Reveal delay={0.16}>
-          <SectionHeading title={t("feedTitle")} />
+          <SectionHeading title={feed === "community" ? tf("filters.community") : t("feedTitle")} />
+          <div className="scroll-row -mx-4 mt-3 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+            {(["all", "trainer", "community"] as const).map((f) => (
+              <Link key={f} href={f === "all" ? "/" : `/?feed=${f}`} scroll={false} className={cn("inline-flex h-9 shrink-0 items-center rounded-full px-4 text-sm font-semibold transition-colors", feed === f ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70 hover:bg-white")}>
+                {tf(`filters.${f}`)}
+              </Link>
+            ))}
+          </div>
         </Reveal>
         <div className="mx-auto max-w-[720px] space-y-4">
+          {posts.length === 0 && feed === "community" ? <p className="card text-steel px-5 py-4 text-sm">{tf("communityEmpty")}</p> : null}
           {posts.map((post, i) => (
             <Reveal key={post.id} delay={Math.min(i, 4) * 0.05}>
-              <PostCard post={post} social={social[post.id]} signedIn={Boolean(user)} />
+              <PostCard post={post} social={social[post.id]} signedIn={Boolean(user)} member={post.userId ? (members[post.userId] ?? null) : null} viewerId={user?.id ?? null} />
             </Reveal>
           ))}
         </div>

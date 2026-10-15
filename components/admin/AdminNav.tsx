@@ -14,6 +14,7 @@ const items = [
   { key: "nutrition", href: "/admin/nutrition" },
   { key: "comments", href: "/admin/comments" },
   { key: "messages", href: "/admin/messages" },
+  { key: "community", href: "/admin/community" },
 ] as const;
 
 export function AdminNav() {

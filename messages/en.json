@@ -274,7 +274,25 @@
     "sample": "Sample",
     "open": "Open",
     "videoPending": "Video pending",
-    "socialLater": "Reactions and comments open in a later stage."
+    "socialLater": "Reactions and comments open in a later stage.",
+    "member": "Member",
+    "community": "Community",
+    "deleteOwn": "Delete my post",
+    "deletedNotice": "Post deleted.",
+    "communityEmpty": "No community posts yet. Tap + to share the first one.",
+    "filters": {
+      "all": "All",
+      "trainer": "Trainer",
+      "community": "Community"
+    },
+    "categories": {
+      "workouts": "Workouts",
+      "face": "Face fitness",
+      "skincare": "Skincare",
+      "nutrition": "Nutrition",
+      "motivation": "Motivation",
+      "other": "Other"
+    }
   },
   "faceFitness": {
     "eyebrow": "Beauty",
@@ -400,7 +418,8 @@
       "skincare": "Skincare",
       "nutrition": "Nutrition",
       "comments": "Comments",
-      "messages": "Messages"
+      "messages": "Messages",
+      "community": "Community"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -419,7 +438,8 @@
     "deletedNotice": "Deleted.",
     "status": {
       "published": "Published",
-      "draft": "Draft"
+      "draft": "Draft",
+      "hiddenPost": "hidden"
     },
     "tones": {
       "deep": "Petrol (dark)",
@@ -539,7 +559,8 @@
     "nutritionIntro": "Your own day on a plate: breakfast, lunch, dinner, snacks. Published as an example, with a disclaimer shown to readers.",
     "commentsIntro": "Latest comments from members. Hide keeps a record; delete removes it.",
     "hide": "Hide",
-    "unhide": "Show again"
+    "unhide": "Show again",
+    "communityIntro": "Posts by members. Hide keeps the post visible to its author only; delete removes it."
   },
   "premium": {
     "eyebrow": "Premium",
@@ -611,7 +632,19 @@
     "kind": "Type",
     "publish": "Publish",
     "publishing": "Publishing…",
-    "fullEditorHint": "Need translations, a linked workout or a draft? Use the full editor in the admin panel."
+    "fullEditorHint": "Need translations, a linked workout or a draft? Use the full editor in the admin panel.",
+    "memberLead": "Share a photo, a video or a thought with the community.",
+    "memberPlaceholder": "What would you like to share?",
+    "category": "Category",
+    "categories": {
+      "workouts": "Workouts",
+      "face": "Face fitness",
+      "skincare": "Skincare",
+      "nutrition": "Nutrition",
+      "motivation": "Motivation",
+      "other": "Other"
+    },
+    "memberRules": "Only your own photos and videos. No medical advice. The trainer can hide posts that break the rules."
   },
   "nutrition": {
     "eyebrow": "Nutrition",
@@ -818,5 +851,13 @@
       "notConfigured": "Chat is not connected.",
       "sendFailed": "Could not send. Check your connection and try again."
     }
+  },
+  "members": {
+    "member": "Member",
+    "privateTitle": "This profile is private",
+    "privateBody": "The member chose not to show their profile.",
+    "editMine": "Edit my profile",
+    "posts": "{count, plural, =0 {No posts} one {# post} other {# posts}}",
+    "noPosts": "Nothing shared yet."
   }
 }

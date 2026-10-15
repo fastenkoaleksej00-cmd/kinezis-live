@@ -26,7 +26,7 @@ Copy `.env.example` to `.env.local` and fill in the Supabase URL and publishable
 
 ## Database
 
-Run the files in `supabase/migrations/` in order in the Supabase SQL Editor (0001 users, 0002 workouts and posts, 0003 makes the first account admin, 0004 courses and skincare, 0005 storage buckets, 0006 plans and trainer profiles, 0007 meal plans, 0008 profile, health and settings, 0009 likes and comments, 0010 chat). In Authentication → URL Configuration set Site URL to the app URL (e.g. `http://localhost:3001`) and add `http://localhost:3001/**` to Redirect URLs.
+Run the files in `supabase/migrations/` in order in the Supabase SQL Editor (0001 users, 0002 workouts and posts, 0003 makes the first account admin, 0004 courses and skincare, 0005 storage buckets, 0006 plans and trainer profiles, 0007 meal plans, 0008 profile, health and settings, 0009 likes and comments, 0010 chat, 0011 member posts). In Authentication → URL Configuration set Site URL to the app URL (e.g. `http://localhost:3001`) and add `http://localhost:3001/**` to Redirect URLs.
 
 ## Testing the player with your own file
 
@@ -46,4 +46,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 10. Settings, profile editor, health dashboard, activity stats — done (Apple Health: plan in `docs/HEALTH_INTEGRATION.md`)
 11. Likes and comments with moderation — done
 12. Private chat with the trainer (live, Realtime) — done; open to all pre-launch via `NEXT_PUBLIC_CHAT_OPEN_FOR_ALL`
-13. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+13. Community posts by members, public member profiles, moderation — done
+14. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`

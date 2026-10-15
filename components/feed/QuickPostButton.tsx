@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Plus } from "lucide-react";
-import { getSessionUser, isStaff } from "@/lib/supabase/server";
+import { getSessionUser } from "@/lib/supabase/server";
 
-/** Floating "+" for the trainer: new post in two taps, straight from the feed. Hidden for everyone else. */
+/** Floating "+": new post in two taps, straight from the feed. Any signed-in member. */
 export async function QuickPostButton() {
   const user = await getSessionUser();
-  if (!isStaff(user)) return null;
+  if (!user) return null;
   const t = await getTranslations("compose");
   return (
     <Link

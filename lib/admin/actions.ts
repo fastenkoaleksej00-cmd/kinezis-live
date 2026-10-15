@@ -492,3 +492,66 @@ export async function deleteMealPlan(fd: FormData): Promise<void> {
   revalidatePath("/", "layout");
   redirect("/admin/nutrition?deleted=1");
 }
+
+/* ----------------------------------------------------------------------------
+   Community posts: members publish and delete their own; staff moderate
+---------------------------------------------------------------------------- */
+
+const memberCategories = ["workouts", "face", "skincare", "nutrition", "motivation", "other"] as const;
+
+export async function memberPublish(_prev: QuickPublishState, fd: FormData): Promise<QuickPublishState> {
+  const supabase = await createServerSupabase();
+  if (!supabase) return { error: "notConfigured" };
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "forbidden" };
+  const caption = str(fd, "caption");
+  if (!caption) return { error: "bodyRequired" };
+  const language = inList(languagesList, str(fd, "language"), "uk");
+  const mediaKind = str(fd, "media_kind");
+  const mediaPath = str(fd, "media_path");
+  const mediaUrl = str(fd, "media_url");
+  let attachment: PostAttachment | null = null;
+  if (mediaKind === "photo" && mediaUrl) attachment = { kind: "photo", coverTone: "deep", alt: { en: caption.slice(0, 80) }, src: mediaUrl };
+  if (mediaKind === "video" && mediaPath) attachment = { kind: "video", coverTone: "deep", source: { kind: "storage", bucket: "member-videos", path: mediaPath } };
+  const category = inList(memberCategories, str(fd, "category"), "other");
+  const { error } = await supabase.from("posts").insert({
+    kind: attachment?.kind === "video" ? "video" : attachment?.kind === "photo" ? "photo" : "news",
+    author_id: null,
+    user_id: user.id,
+    category,
+    title: null,
+    body: { en: caption, [language]: caption },
+    attachment,
+    language,
+    access: "free",
+    reactions_enabled: true,
+    comments_enabled: true,
+    published: true,
+    published_at: new Date().toISOString(),
+  });
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect("/?posted=1&feed=community");
+}
+
+/** Owner deletes their own post; staff may delete any. RLS enforces both. */
+export async function deleteOwnPost(fd: FormData): Promise<void> {
+  const supabase = await createServerSupabase();
+  if (!supabase) return;
+  const id = str(fd, "id");
+  if (id) await supabase.from("posts").delete().eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/?deleted=1");
+}
+
+export async function setPostHidden(fd: FormData): Promise<void> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return;
+  const id = str(fd, "id");
+  const hidden = str(fd, "hidden") === "true";
+  if (id) await ctx.db.from("posts").update({ hidden }).eq("id", id);
+  revalidatePath("/", "layout");
+  redirect("/admin/community");
+}

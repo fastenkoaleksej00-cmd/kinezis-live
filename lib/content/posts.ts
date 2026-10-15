@@ -95,19 +95,35 @@ const samplePosts: Post[] = [
   },
 ];
 
+export type FeedFilter = "all" | "trainer" | "community";
+
 async function fetchAll(): Promise<Post[]> {
   const db = await getDb();
   if (!db) return samplePosts;
-  const { data, error } = await db.from("posts").select(postColumns).eq("published", true).order("published_at", { ascending: false });
+  const { data, error } = await db.from("posts").select(postColumns).eq("published", true).eq("hidden", false).order("published_at", { ascending: false });
   if (error || !data || data.length === 0) return samplePosts;
   return (data as unknown as PostRow[]).map(rowToPost);
 }
 
-export async function listPosts(limit?: number): Promise<Post[]> {
-  const sorted = (await fetchAll()).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+export async function listPosts(limit?: number, filter: FeedFilter = "all"): Promise<Post[]> {
+  const sorted = (await fetchAll())
+    .filter((p) => (filter === "trainer" ? !p.userId : filter === "community" ? Boolean(p.userId) : true))
+    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
   return limit ? sorted.slice(0, limit) : sorted;
 }
 
+/** Posts by one member (for their public profile). */
+export async function listPostsByUser(userId: string): Promise<Post[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const { data } = await db.from("posts").select(postColumns).eq("user_id", userId).eq("published", true).eq("hidden", false).order("published_at", { ascending: false });
+  return ((data ?? []) as unknown as PostRow[]).map(rowToPost);
+}
+
 export async function getPost(id: string): Promise<Post | undefined> {
-  return (await fetchAll()).find((p) => p.id === id);
+  const db = await getDb();
+  if (!db) return samplePosts.find((p) => p.id === id);
+  // Direct lookup so an author can open their own hidden post; RLS still decides who may read it
+  const { data } = await db.from("posts").select(postColumns).eq("id", id).maybeSingle();
+  return data ? rowToPost(data as unknown as PostRow) : samplePosts.find((p) => p.id === id);
 }

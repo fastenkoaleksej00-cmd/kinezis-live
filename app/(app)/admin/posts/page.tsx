@@ -16,7 +16,7 @@ export default async function AdminPostsPage({ searchParams }: PageProps) {
   const tf = await getTranslations("feed");
   const format = await getFormatter();
   const params = await searchParams;
-  const posts = await listAllPosts();
+  const posts = (await listAllPosts()).filter((p) => !p.user_id);
 
   return (
     <div className="space-y-5">
