@@ -1286,13 +1286,14 @@
     "undo": "Letzte Portion rückgängig",
     "goalLabel": "Tagesziel, ml",
     "goalSave": "Speichern",
-    "goalNote": "Dein eigenes Ziel. Der Bedarf hängt von Körper, Belastung, Wetter und Gesundheit ab; das ist keine medizinische Norm.",
+    "goalNote": "Dein eigenes Ziel, bis 3 L. Der Bedarf hängt von Körper, Belastung, Wetter und Gesundheit ab; das ist keine medizinische Norm.",
     "week": "Letzte 7 Tage",
     "disclaimer": "Manuelles Protokoll. Die App misst nicht, was du trinkst.",
     "remove": "{ml} ml entfernen",
     "totalLabel": "Heutige Summe, ml",
     "rapidWarning": "Viel Wasser in kurzer Zeit kann riskant sein. Mach eine Pause und trink nicht weiter, nur um das Ziel zu erreichen.",
-    "overGoalNote": "Du hast im Verhältnis zu deinem Ziel schon reichlich getrunken. Das Ziel ist keine Pflichtnorm: richte dich nach Durst und dem Rat deiner Fachperson, nie mit Zwang."
+    "overGoalNote": "Du hast im Verhältnis zu deinem Ziel schon reichlich getrunken. Das Ziel ist keine Pflichtnorm: richte dich nach Durst und dem Rat deiner Fachperson, nie mit Zwang.",
+    "maxReached": "Heute 3 L erfasst, das Tagesmaximum des Trackers. Mehr zu trinken, nur für eine Zahl, ist nicht nötig."
   },
   "goal": {
     "eyebrow": "Mein Ziel",

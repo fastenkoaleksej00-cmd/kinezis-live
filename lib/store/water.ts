@@ -22,7 +22,9 @@ export interface WaterState {
 
 export const waterPortions = [50, 100, 150, 250, 330, 500] as const;
 export const defaultWater: WaterState = { goal: 2000, portion: 250, days: {}, events: [] };
-const MAX_DAY = 20000;
+/** Owner decision: the tracker never counts more than 3 L a day, and the goal cannot exceed it */
+export const MAX_DAY = 3000;
+export const MAX_GOAL = 3000;
 
 /** Local calendar day, not UTC: a glass at 23:30 belongs to today. */
 export function localDay(d = new Date()): string {
@@ -45,7 +47,8 @@ function current(): WaterState {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
   const events = (Array.isArray(raw.events) ? raw.events : []).filter((e) => typeof e.at === "number" && e.at >= startOfDay.getTime());
-  return { goal: raw.goal ?? defaultWater.goal, portion: raw.portion ?? defaultWater.portion, days: raw.days ?? {}, events };
+  const days = Object.fromEntries(Object.entries(raw.days ?? {}).map(([k, v]) => [k, Math.min(MAX_DAY, v)]));
+  return { goal: Math.min(MAX_GOAL, raw.goal ?? defaultWater.goal), portion: raw.portion ?? defaultWater.portion, days, events };
 }
 
 function setToday(ml: number, event: WaterEvent | null): void {
@@ -98,7 +101,7 @@ export function setTodayTotal(ml: number): void {
 
 export function setWaterGoal(goal: number): void {
   const s = current();
-  waterStore.write({ ...s, goal: Math.min(10000, Math.max(200, Math.round(goal))) });
+  waterStore.write({ ...s, goal: Math.min(MAX_GOAL, Math.max(200, Math.round(goal))) });
 }
 
 export function setWaterPortion(portion: number): void {
@@ -116,7 +119,7 @@ export function recentIntake(s: WaterState, minutes: number, now = Date.now()): 
 export function mergeWaterDays(rows: Array<{ day: string; ml: number; goal_ml: number }>): void {
   const s = current();
   const days = { ...s.days };
-  for (const r of rows) days[r.day] = Math.max(days[r.day] ?? 0, r.ml);
+  for (const r of rows) days[r.day] = Math.min(MAX_DAY, Math.max(days[r.day] ?? 0, r.ml));
   const latest = [...rows].sort((a, b) => (a.day < b.day ? 1 : -1))[0];
-  waterStore.write({ ...s, days: prune(days), goal: latest ? latest.goal_ml : s.goal });
+  waterStore.write({ ...s, days: prune(days), goal: Math.min(MAX_GOAL, latest ? latest.goal_ml : s.goal) });
 }
