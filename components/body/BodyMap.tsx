@@ -2,12 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { ChevronDown, Loader2, RotateCcw } from "lucide-react";
+import { ChevronDown, Hand, Loader2, Minus, Plus, RotateCcw, RotateCw, Undo2 } from "lucide-react";
 import { useA11y } from "@/components/settings/AccessibilityProvider";
 import { regionIds, type ConcernId, type PainKind, type RegionId } from "@/lib/body/regions";
 import type { WorkoutCardData } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
-import { BodyScene, type SceneStatus } from "./BodyScene";
+import { BodyScene, type BodySceneApi, type SceneStatus } from "./BodyScene";
 import { BodySilhouette } from "./BodySilhouette";
 import { RegionSheet } from "./RegionSheet";
 
@@ -54,6 +54,8 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
   const [pain, setPain] = useState<PainKind | null>(null);
   const [dark, setDark] = useState(false);
   const [listOpen, setListOpen] = useState(false);
+  const [api, setApi] = useState<BodySceneApi | null>(null);
+  const [drag, setDrag] = useState(false);
 
   useEffect(() => {
     const el = document.documentElement;
@@ -77,7 +79,7 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
     <div className="space-y-4">
       <div className="card relative overflow-hidden">
         <div className="relative h-[62dvh] min-h-[420px] w-full">
-          {status !== "error" ? <BodyScene modelUrl={modelUrl} selected={selected} view={view} reduceMotion={a11y.reduceMotion} dark={dark} onSelect={select} onStatus={setStatus} labels={labels} /> : null}
+          {status !== "error" ? <BodyScene modelUrl={modelUrl} selected={selected} view={view} reduceMotion={a11y.reduceMotion} dark={dark} onSelect={select} onStatus={setStatus} labels={labels} onApi={setApi} /> : null}
           {status === "error" ? (
             <div className="absolute inset-0 p-4">
               <BodySilhouette selected={selected} view={view} onSelect={select} labels={labels} />
@@ -103,7 +105,40 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
             </button>
           ) : null}
         </div>
-        <p className="text-steel border-ink/8 border-t px-4 py-2.5 text-xs">{status === "error" ? t("fallbackNote") : t("hint")}</p>
+        {status === "ready" && api ? (
+          <div className="border-ink/8 flex items-center justify-between gap-2 border-t px-3 py-2">
+            <div className="flex gap-1">
+              <button type="button" onClick={() => api.rotateBy(-45)} aria-label={t("controls.rotateLeft")} className="border-ink/10 text-ink hover:bg-white inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 active:scale-95">
+                <Undo2 className="h-4 w-4" strokeWidth={2} aria-hidden />
+              </button>
+              <button type="button" onClick={() => api.rotateBy(45)} aria-label={t("controls.rotateRight")} className="border-ink/10 text-ink hover:bg-white inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 active:scale-95">
+                <RotateCw className="h-4 w-4" strokeWidth={2} aria-hidden />
+              </button>
+            </div>
+            <div className="flex gap-1">
+              <button type="button" onClick={() => api.zoomBy(0.8)} aria-label={t("controls.zoomIn")} className="border-ink/10 text-ink hover:bg-white inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 active:scale-95">
+                <Plus className="h-4 w-4" strokeWidth={2.2} aria-hidden />
+              </button>
+              <button type="button" onClick={() => api.zoomBy(1.25)} aria-label={t("controls.zoomOut")} className="border-ink/10 text-ink hover:bg-white inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 active:scale-95">
+                <Minus className="h-4 w-4" strokeWidth={2.2} aria-hidden />
+              </button>
+            </div>
+            <button
+              type="button"
+              aria-pressed={drag}
+              onClick={() => {
+                const next = !drag;
+                setDrag(next);
+                api.setDrag(next);
+              }}
+              className={cn("inline-flex h-10 items-center gap-1.5 rounded-full px-3 text-xs font-semibold transition-colors", drag ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}
+            >
+              <Hand className="h-4 w-4" strokeWidth={2} aria-hidden />
+              {t("controls.drag")}
+            </button>
+          </div>
+        ) : null}
+        <p className="text-steel border-ink/8 border-t px-4 py-2.5 text-xs">{status === "error" ? t("fallbackNote") : drag ? t("hintDrag") : t("hint")}</p>
       </div>
 
       <div>

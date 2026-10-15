@@ -6,8 +6,16 @@ import { regionAt, regionIds, regions, type RegionId } from "@/lib/body/regions"
 
 export type SceneStatus = "loading" | "ready" | "error";
 
+export interface BodySceneApi {
+  rotateBy: (deg: number) => void;
+  zoomBy: (factor: number) => void;
+  setDrag: (on: boolean) => void;
+}
+
 interface BodySceneProps {
   modelUrl: string;
+  /** Called once the scene is ready with the control API (rotate, zoom, drag toggle) */
+  onApi?: (api: BodySceneApi) => void;
   selected: RegionId | null;
   view: "front" | "back";
   reduceMotion: boolean;
@@ -24,10 +32,10 @@ const HEIGHT = 1.75;
  * so a tap selects the area the hit point falls in, not an individual bone. Vertices inside the
  * selected region are tinted through vertex colours, the rest is dimmed.
  */
-export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, labels }: BodySceneProps) {
+export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, labels, onApi }: BodySceneProps) {
   const dotRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const hostRef = useRef<HTMLDivElement>(null);
-  const api = useRef<{ paint: (i: number) => void; setView: (v: "front" | "back", instant: boolean) => void; setDark: (d: boolean) => void } | null>(null);
+  const api = useRef<{ paint: (i: number) => void; setView: (v: "front" | "back", instant: boolean) => void; setDark: (d: boolean) => void; rotateBy: (deg: number) => void; zoomBy: (factor: number) => void; setDrag: (on: boolean) => void } | null>(null);
   const selectedRef = useRef<RegionId | null>(selected);
   selectedRef.current = selected;
 
@@ -149,10 +157,16 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         controls.maxPolarAngle = Math.PI * 0.72;
         controls.enableDamping = true;
         controls.dampingFactor = 0.08;
-        // One-finger vertical swipes scroll the page; horizontal drags rotate; two fingers pinch-zoom the model
-        renderer.domElement.style.touchAction = "pan-y";
-        controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+        // Touch screens: the page must scroll freely over the model, so gestures do not drive the camera.
+        // Rotation and zoom come from the on-screen buttons (or the optional drag toggle). Mouse users keep drag.
         controls.enablePan = false;
+        const setDrag = (on: boolean) => {
+          const allow = on || !coarse;
+          controls.enableRotate = allow;
+          controls.enableZoom = allow;
+          renderer.domElement.style.touchAction = allow ? "none" : "auto";
+        };
+        setDrag(false);
 
         const dist = 3.1;
         const place = (azimuth: number) => camera.position.set(Math.sin(azimuth) * dist, target.y + 0.15, Math.cos(azimuth) * dist);
@@ -160,6 +174,27 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         camera.lookAt(target);
 
         let anim: { from: T.Vector3; to: T.Vector3; start: number } | null = null;
+        const azimuthOf = () => Math.atan2(camera.position.x, camera.position.z);
+        const rotateBy = (deg: number) => {
+          const az = azimuthOf() + (deg * Math.PI) / 180;
+          const d = camera.position.distanceTo(target);
+          const to = new THREE.Vector3(Math.sin(az) * d, camera.position.y, Math.cos(az) * d);
+          if (reduceMotion) {
+            camera.position.copy(to);
+            anim = null;
+          } else anim = { from: camera.position.clone(), to, start: performance.now() };
+          needsRender = true;
+        };
+        const zoomBy = (factor: number) => {
+          const d = Math.min(controls.maxDistance, Math.max(controls.minDistance, camera.position.distanceTo(target) * factor));
+          const az = azimuthOf();
+          const to = new THREE.Vector3(Math.sin(az) * d, camera.position.y, Math.cos(az) * d);
+          if (reduceMotion) {
+            camera.position.copy(to);
+            anim = null;
+          } else anim = { from: camera.position.clone(), to, start: performance.now() };
+          needsRender = true;
+        };
         const setView = (v: "front" | "back", instant: boolean) => {
           const to = new THREE.Vector3();
           const az = v === "front" ? 0 : Math.PI;
@@ -278,7 +313,11 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             isDark = d;
             paint(selectedRef.current ? regionIds.indexOf(selectedRef.current) : -1);
           },
+          rotateBy,
+          zoomBy,
+          setDrag,
         };
+        onApi?.({ rotateBy, zoomBy, setDrag });
         paint(selectedRef.current ? regionIds.indexOf(selectedRef.current) : -1);
         setView(view, true);
         onStatus("ready");

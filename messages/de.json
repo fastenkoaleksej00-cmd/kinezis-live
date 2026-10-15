@@ -907,7 +907,7 @@
     "title": "Körperkarte",
     "lead": "Tippe auf eine Stelle des Skeletts, um passende Inhalte aus der Bibliothek zu sehen.",
     "loading": "Skelett wird geladen…",
-    "hint": "Ziehen zum Drehen, Pinch oder Scrollen zum Zoomen. Tippe auf einen Punkt oder die Knochen, um einen Bereich zu wählen; Bereiche sind ungefähr, keine einzelnen Knochen.",
+    "hint": "Tippe auf einen Punkt oder die Knochen, um einen Bereich zu wählen. Die Seite scrollt über das Modell; drehen und zoomen mit den Tasten darunter. Bereiche sind ungefähr, keine einzelnen Knochen.",
     "fallbackNote": "3D ist auf diesem Gerät nicht verfügbar, vereinfachte Karte. Tippe auf einen Punkt, um einen Bereich zu wählen.",
     "views": {
       "front": "Vorne",
@@ -980,6 +980,14 @@
       "knees": "Stabilität beim Gehen, Laufen und in der Hocke; abhängig von Hüft- und Sprunggelenksbeweglichkeit.",
       "shins": "Unterschenkelknochen und Waden; tragen die Last jedes Schrittes.",
       "feet": "Das Fundament: Gewölbe und Sprunggelenke bestimmen, wie Last nach oben wandert."
+    },
+    "hintDrag": "Ziehmodus an: Wische auf dem Modell, um es zu drehen. Ausschalten, um die Seite wieder zu scrollen.",
+    "controls": {
+      "rotateLeft": "Nach links drehen",
+      "rotateRight": "Nach rechts drehen",
+      "zoomIn": "Vergrößern",
+      "zoomOut": "Verkleinern",
+      "drag": "Ziehen"
     }
   },
   "quickAdd": {

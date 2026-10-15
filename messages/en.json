@@ -907,7 +907,7 @@
     "title": "Body map",
     "lead": "Tap an area of the skeleton to see what fits it from the library.",
     "loading": "Loading the skeleton…",
-    "hint": "Drag to rotate, pinch or scroll to zoom. Tap a dot or the bones to select an area; areas are approximate, not single bones.",
+    "hint": "Tap a dot or the bones to select an area. The page scrolls over the model; rotate and zoom with the buttons below. Areas are approximate, not single bones.",
     "fallbackNote": "3D is unavailable on this device, showing a simplified map. Tap a dot to select an area.",
     "views": {
       "front": "Front",
@@ -980,6 +980,14 @@
       "knees": "Stability for walking, running and squatting; depend on hip and ankle mobility.",
       "shins": "Lower leg bones and calves; carry the load of every step.",
       "feet": "The foundation: arches and ankles decide how load travels up the body."
+    },
+    "hintDrag": "Drag mode is on: swipe on the model to rotate it. Turn it off to scroll the page again.",
+    "controls": {
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "drag": "Drag"
     }
   },
   "quickAdd": {
