@@ -5,19 +5,18 @@ import type { ActivityStats } from "@/lib/health/stats";
 
 interface TodayRingsProps {
   stats: ActivityStats;
+  /** Personal weekly targets from the profile (defaults 3 sessions / 60 minutes) */
+  sessionsTarget: number;
+  minutesTarget: number;
 }
 
-/** Weekly targets: 3 sessions and 60 minutes. Fixed for now; configurable targets come with goals. */
-export const WEEKLY_SESSIONS_TARGET = 3;
-export const WEEKLY_MINUTES_TARGET = 60;
-
-export async function TodayRings({ stats }: TodayRingsProps) {
+export async function TodayRings({ stats, sessionsTarget, minutesTarget }: TodayRingsProps) {
   const t = await getTranslations("home.rings");
   const thisWeek = stats.weeks[stats.weeks.length - 1]?.count ?? 0;
   const weekMinutes = stats.weekMinutes;
   const rings = [
-    { key: "sessions", value: thisWeek / WEEKLY_SESSIONS_TARGET, color: "var(--color-accent)", big: `${thisWeek}`, small: `/ ${WEEKLY_SESSIONS_TARGET}` },
-    { key: "minutes", value: weekMinutes / WEEKLY_MINUTES_TARGET, color: "var(--color-mint-deep)", big: `${weekMinutes}`, small: `/ ${WEEKLY_MINUTES_TARGET}` },
+    { key: "sessions", value: thisWeek / sessionsTarget, color: "var(--color-accent)", big: `${thisWeek}`, small: `/ ${sessionsTarget}` },
+    { key: "minutes", value: weekMinutes / minutesTarget, color: "var(--color-mint-deep)", big: `${weekMinutes}`, small: `/ ${minutesTarget}` },
     { key: "streak", value: Math.min(1, stats.currentStreak / 7), color: "#e8a24a", big: `${stats.currentStreak}`, small: t("days") },
   ] as const;
 

@@ -31,6 +31,8 @@ interface ProfileRow {
   fitness_goal: string | null;
   activity_level: string | null;
   experience: string | null;
+  weekly_sessions_target: number | null;
+  weekly_minutes_target: number | null;
 }
 
 const inList = <T extends string>(list: readonly T[], v: string | null | undefined): T | null => (v && (list as readonly string[]).includes(v) ? (v as T) : null);
@@ -45,7 +47,7 @@ export async function getMyProfile(): Promise<UserProfile | null> {
   if (!user) return null;
   const { data } = await supabase
     .from("profiles")
-    .select("id, display_name, avatar_src, bio, interests, banner_src, banner_preset, banner_position, privacy, notification_prefs, reminders, height_cm, birth_date, fitness_goal, activity_level, experience")
+    .select("id, display_name, avatar_src, bio, interests, banner_src, banner_preset, banner_position, privacy, notification_prefs, reminders, height_cm, birth_date, fitness_goal, activity_level, experience, weekly_sessions_target, weekly_minutes_target")
     .eq("id", user.id)
     .maybeSingle();
   const r = data as ProfileRow | null;
@@ -67,6 +69,8 @@ export async function getMyProfile(): Promise<UserProfile | null> {
     fitnessGoal: inList(fitnessGoals, r.fitness_goal),
     activityLevel: inList(activityLevels, r.activity_level),
     experience: inList(experienceLevels, r.experience),
+    weeklySessionsTarget: r.weekly_sessions_target ?? 3,
+    weeklyMinutesTarget: r.weekly_minutes_target ?? 60,
   };
 }
 

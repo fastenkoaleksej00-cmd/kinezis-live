@@ -60,7 +60,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       {stats ? (
         <Reveal delay={0.06}>
-          <TodayRings stats={stats} />
+          <TodayRings stats={stats} sessionsTarget={profile?.weeklySessionsTarget ?? 3} minutesTarget={profile?.weeklyMinutesTarget ?? 60} />
         </Reveal>
       ) : null}
 

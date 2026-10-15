@@ -278,7 +278,8 @@
         "weakPassword": "Mindestens 8 Zeichen.",
         "sameEmail": "Das ist bereits deine E-Mail."
       }
-    }
+    },
+    "showIntro": "Willkommensbildschirme erneut zeigen"
   },
   "player": {
     "noVideoTitle": "Video noch nicht verbunden",
@@ -726,7 +727,10 @@
       "weight": "Gewicht",
       "waist": "Taille",
       "note": "Notiz",
-      "optional": "optional"
+      "optional": "optional",
+      "weeklySessions": "Wochenziel: Einheiten",
+      "weeklyMinutes": "Wochenziel: Minuten",
+      "weeklyHint": "Wird von den Ringen auf Start genutzt."
     },
     "goals": {
       "lose_weight": "Abnehmen",
@@ -1043,5 +1047,33 @@
     },
     "method": "Methode: Ruheenergie nach Mifflin–St Jeor × Aktivitätsfaktor (1,2 / 1,45 / 1,7); sanftes Tempo 0,25–0,5 kg pro Woche; Minimum 1200 kcal (weiblich) oder 1500 kcal (männlich).",
     "disclaimer": "Echte Ergebnisse hängen von Ernährung, Aktivität, Schlaf und deinem Körper ab. Das ist kein Diätplan und kein medizinischer Rat. Bei Erkrankungen, Schwangerschaft oder Essproblemen Fachpersonen aufsuchen."
+  },
+  "onboarding": {
+    "skip": "Überspringen",
+    "next": "Weiter",
+    "start": "Los geht’s",
+    "note": "Wird einmal gezeigt. In den Einstellungen erneut zu öffnen.",
+    "slides": {
+      "welcome": {
+        "eyebrow": "KINEZIS LIVE",
+        "title": "Bewegung, Regeneration und Pflege, jeden Tag",
+        "body": "Ein Raum mit deiner Trainerin: Einheiten, Kurse, Ernährungsbeispiele und eine Community, die dich trägt."
+      },
+      "library": {
+        "eyebrow": "Bibliothek",
+        "title": "Einheiten nach Ziel, Dauer und Niveau",
+        "body": "Kinesiotherapie, Yoga, Pilates, Stretching, Mobilität und Rückengesundheit. Speichere Passendes und mach dort weiter, wo du warst."
+      },
+      "body": {
+        "eyebrow": "Körperkarte und Gesundheit",
+        "title": "Tippe, wo es zählt",
+        "body": "Wähle einen Bereich am Skelett, sieh, was passt, führe ein privates Messtagebuch und schau zu, wie sich deine Ringe füllen."
+      },
+      "care": {
+        "eyebrow": "Gemeinsam",
+        "title": "Deine Trainerin und die Community",
+        "body": "Schreib der Trainerin, teile Fortschritte, folge Face-Fitness- und Hautpflege-Routinen. Nichts hier ist medizinischer Rat."
+      }
+    }
   }
 }

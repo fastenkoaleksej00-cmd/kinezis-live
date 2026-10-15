@@ -278,7 +278,8 @@
         "weakPassword": "At least 8 characters.",
         "sameEmail": "This is already your email."
       }
-    }
+    },
+    "showIntro": "Show the welcome screens again"
   },
   "player": {
     "noVideoTitle": "Video not connected yet",
@@ -726,7 +727,10 @@
       "weight": "Weight",
       "waist": "Waist",
       "note": "Note",
-      "optional": "optional"
+      "optional": "optional",
+      "weeklySessions": "Weekly goal: sessions",
+      "weeklyMinutes": "Weekly goal: minutes",
+      "weeklyHint": "Used by the rings on Home."
     },
     "goals": {
       "lose_weight": "Lose weight",
@@ -1043,5 +1047,33 @@
     },
     "method": "Method: Mifflin–St Jeor resting energy × activity factor (1.2 / 1.45 / 1.7); gentle pace of 0.25–0.5 kg per week; minimum intake 1200 kcal (female) or 1500 kcal (male).",
     "disclaimer": "Real results depend on nutrition, activity, sleep and your body. This is not a diet plan or medical advice. For health conditions, pregnancy or eating difficulties consult a specialist."
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "start": "Get started",
+    "note": "Shown once. You can open it again in Settings.",
+    "slides": {
+      "welcome": {
+        "eyebrow": "KINEZIS LIVE",
+        "title": "Movement, recovery and care, every day",
+        "body": "A space with your trainer: sessions, courses, nutrition examples and a community that keeps you going."
+      },
+      "library": {
+        "eyebrow": "Library",
+        "title": "Sessions by goal, length and level",
+        "body": "Kinesiotherapy, yoga, pilates, stretching, mobility and back health. Save what fits and continue where you left off."
+      },
+      "body": {
+        "eyebrow": "Body map and health",
+        "title": "Tap where it matters",
+        "body": "Pick an area on the skeleton, see what fits it, keep a private diary of measurements and watch your rings fill."
+      },
+      "care": {
+        "eyebrow": "Together",
+        "title": "Your trainer and the community",
+        "body": "Write to the trainer, share your progress, follow face fitness and skincare routines. Nothing here is medical advice."
+      }
+    }
   }
 }

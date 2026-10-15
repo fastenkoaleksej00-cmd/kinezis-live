@@ -81,6 +81,7 @@ export default async function SettingsPage({ searchParams }: PageProps) {
 
       <Reveal delay={0.16} as="section" id="legal" className="card divide-ink/8 divide-y overflow-hidden">
         {[
+          { href: "/welcome", label: t("showIntro") },
           { href: "/privacy", label: tlg("privacy") },
           { href: "/terms", label: tlg("terms") },
         ].map((l) => (

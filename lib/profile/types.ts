@@ -49,6 +49,8 @@ export interface UserProfile {
   fitnessGoal: FitnessGoal | null;
   activityLevel: ActivityLevel | null;
   experience: ExperienceLevel | null;
+  weeklySessionsTarget: number;
+  weeklyMinutesTarget: number;
 }
 
 export interface Measurement {

@@ -48,6 +48,12 @@ export function HealthProfileForm({ profile }: { profile: UserProfile }) {
           ))}
         </Select>
       </Field>
+      <Field label={t("fields.weeklySessions")} hint={t("fields.weeklyHint")}>
+        <Input name="weekly_sessions_target" type="number" min={1} max={14} defaultValue={profile.weeklySessionsTarget} />
+      </Field>
+      <Field label={t("fields.weeklyMinutes")} hint={t("fields.weeklyHint")}>
+        <Input name="weekly_minutes_target" type="number" min={10} max={1500} step={10} defaultValue={profile.weeklyMinutesTarget} />
+      </Field>
       <Field label={t("fields.experience")}>
         <Select name="experience" defaultValue={profile.experience ?? ""}>
           <option value="">—</option>

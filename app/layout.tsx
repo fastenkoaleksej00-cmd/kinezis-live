@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { OnboardingGate } from "@/components/onboarding/OnboardingGate";
 import { AccessibilityProvider } from "@/components/settings/AccessibilityProvider";
 import { getSiteUrl } from "@/lib/utils";
 import "./globals.css";
@@ -64,7 +65,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
         <AccessibilityProvider />
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <OnboardingGate />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

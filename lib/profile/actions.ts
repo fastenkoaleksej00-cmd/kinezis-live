@@ -83,11 +83,15 @@ export async function updateHealthProfile(_prev: ProfileState, fd: FormData): Pr
   const height = num(fd, "height_cm");
   if (height !== null && (height < 80 || height > 250)) return { error: "invalid" };
   const birth = str(fd, "birth_date") || null;
+  const sessionsTarget = Number.parseInt(str(fd, "weekly_sessions_target"), 10);
+  const minutesTarget = Number.parseInt(str(fd, "weekly_minutes_target"), 10);
   const { error } = await ctx.supabase
     .from("profiles")
     .update({
       height_cm: height,
       birth_date: birth,
+      weekly_sessions_target: Number.isFinite(sessionsTarget) ? Math.min(14, Math.max(1, sessionsTarget)) : 3,
+      weekly_minutes_target: Number.isFinite(minutesTarget) ? Math.min(1500, Math.max(10, minutesTarget)) : 60,
       fitness_goal: inList(fitnessGoals, str(fd, "fitness_goal")),
       activity_level: inList(activityLevels, str(fd, "activity_level")),
       experience: inList(experienceLevels, str(fd, "experience")),
