@@ -58,7 +58,7 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
             <span className="section-deep text-frost inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full text-sm font-bold">
               {memberInfo?.avatarSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={memberInfo.avatarSrc} alt="" className="h-full w-full object-cover" />
+                <img src={memberInfo.avatarSrc} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
               ) : (
                 (memberInfo?.displayName ?? t("member")).slice(0, 1).toUpperCase()
               )}

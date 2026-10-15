@@ -61,6 +61,12 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         const [THREE, { GLTFLoader }, { OrbitControls }] = await Promise.all([import("three"), import("three/examples/jsm/loaders/GLTFLoader.js"), import("three/examples/jsm/controls/OrbitControls.js")]);
         if (disposed) return;
         let needsRender = true;
+        // The frame loop runs only while something changes (animation, damping, a pending render); otherwise it stops
+        let raf = 0;
+        let loopFn: ((now: number) => void) | null = null;
+        const kick = () => {
+          if (!raf && loopFn) raf = requestAnimationFrame(loopFn);
+        };
 
         // Phones: lower pixel ratio and no MSAA keep memory down, which is what makes iOS Safari drop WebGL contexts
         const coarse = window.matchMedia("(pointer: coarse)").matches;
@@ -210,6 +216,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             (p.geo.attributes.color as T.BufferAttribute).needsUpdate = true;
           }
           needsRender = true;
+          kick();
         };
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -249,6 +256,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             anim = null;
           } else anim = { from: camera.position.clone(), to, start: performance.now() };
           needsRender = true;
+          kick();
         };
         const zoomBy = (factor: number) => {
           const d = Math.min(controls.maxDistance, Math.max(controls.minDistance, camera.position.distanceTo(target) * factor));
@@ -259,6 +267,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             anim = null;
           } else anim = { from: camera.position.clone(), to, start: performance.now() };
           needsRender = true;
+          kick();
         };
         const setView = (v: "front" | "back", instant: boolean) => {
           const to = new THREE.Vector3();
@@ -269,6 +278,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             anim = null;
           } else anim = { from: camera.position.clone(), to, start: performance.now() };
           needsRender = true;
+          kick();
         };
 
         // Tap vs drag: select only when the pointer barely moved
@@ -292,25 +302,32 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         renderer.domElement.addEventListener("pointerdown", onDown);
         renderer.domElement.addEventListener("pointerup", onUp);
 
+        let lastW = 0;
+        let lastH = 0;
         const resize = () => {
           const w = host.clientWidth;
           const h = host.clientHeight;
-          if (w === 0 || h === 0) return;
+          if (w === 0 || h === 0 || (w === lastW && h === lastH)) return;
+          lastW = w;
+          lastH = h;
           // Keep the CSS size equal to the host: on hi-DPI screens the drawing buffer is larger than the box
           renderer.setSize(w, h, true);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
+          // Resizing clears the canvas; draw the frame right away so no blank frame flashes (mobile toolbar show/hide)
+          renderer.render(scene, camera);
           needsRender = true;
+          kick();
         };
         resize();
         const ro = new ResizeObserver(resize);
         ro.observe(host);
 
         const anchor = new THREE.Vector3();
-        let raf = 0;
         let lastInteraction = 0;
         const requestRender = () => {
           needsRender = true;
+          kick();
         };
         controls.addEventListener("change", () => {
           lastInteraction = performance.now();
@@ -339,7 +356,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         renderer.domElement.addEventListener("webglcontextrestored", onRestored);
 
         const loop = (now: number) => {
-          raf = requestAnimationFrame(loop);
+          raf = 0;
           if (!visible || document.hidden) return;
           if (anim) {
             const t = Math.min(1, (now - anim.start) / 600);
@@ -347,13 +364,16 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             camera.position.lerpVectors(anim.from, anim.to, e);
             if (t >= 1) anim = null;
             needsRender = true;
+            kick();
           }
           // Damping keeps moving for a moment after the finger lifts
-          if (now - lastInteraction < 1200) needsRender = true;
+          const settling = now - lastInteraction < 1200;
+          if (settling) needsRender = true;
           if (!needsRender) return;
           needsRender = false;
           controls.update();
           renderer.render(scene, camera);
+          if (anim || settling) raf = requestAnimationFrame(loop);
           // Project every region anchor to the screen; hide dots that face away from the camera
           const rect = renderer.domElement.getBoundingClientRect();
           const sel = selectedRef.current;
@@ -391,7 +411,8 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             el.dataset.active = sel === r.id ? "true" : "false";
           });
         };
-        raf = requestAnimationFrame(loop);
+        loopFn = loop;
+        kick();
 
         api.current = {
           paint,

@@ -42,13 +42,15 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const tl = await getTranslations("library");
   const locale = await getLocale();
   const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(undefined, feed), getSessionUser(), getMyProfile()]);
-  const members = await getPublicMembers(posts.map((p) => p.userId ?? "").filter(Boolean));
-  const log = user ? await listActivity() : [];
+  const [members, log, measurements, social, tf] = await Promise.all([
+    getPublicMembers(posts.map((p) => p.userId ?? "").filter(Boolean)),
+    user ? listActivity() : Promise.resolve([]),
+    user && profile?.primaryGoal === "weight" ? listMeasurements() : Promise.resolve([]),
+    getSocialCounts("post", posts.map((p) => p.id)),
+    getTranslations("feed"),
+  ]);
   const stats = user ? computeActivityStats(log) : null;
-  const measurements = user && profile?.primaryGoal === "weight" ? await listMeasurements() : [];
-  const tf = await getTranslations("feed");
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
-  const social = await getSocialCounts("post", posts.map((p) => p.id));
 
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">

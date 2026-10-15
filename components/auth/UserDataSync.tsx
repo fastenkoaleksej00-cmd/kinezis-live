@@ -6,7 +6,6 @@ import { favoritesStore } from "@/lib/store/favorites";
 import { lessonsStore } from "@/lib/store/lessons";
 import { progressStore, type ProgressEntry } from "@/lib/store/progress";
 import { localDay, mergeWaterDays, waterStore } from "@/lib/store/water";
-import { getBrowserClient } from "@/lib/supabase/client";
 
 interface FavoriteRow {
   item_key: string;
@@ -34,15 +33,28 @@ interface LessonRow {
  * On sign-in: pull remote rows, merge with local (union for favourites, newest wins for progress), push the result.
  * Afterwards: every local change is written to the account. Signed out: local only, nothing is sent.
  */
-export function UserDataSync() {
+export function UserDataSync({ signedIn }: { signedIn: boolean }) {
   const userId = useRef<string | null>(null);
   const lastFavorites = useRef<string[]>([]);
 
   useEffect(() => {
-    const supabase = getBrowserClient();
-    if (!supabase) return;
+    // Guests never need the Supabase client; members get it after first paint, off the critical path
+    if (!signedIn) return;
     let cancelled = false;
+    let teardown: (() => void) | null = null;
     const unsubscribers: Array<() => void> = [];
+    const idle = typeof window.requestIdleCallback === "function" ? window.requestIdleCallback : (cb: () => void) => window.setTimeout(cb, 300);
+    const cancelIdle = typeof window.cancelIdleCallback === "function" ? window.cancelIdleCallback : window.clearTimeout;
+    const handle = idle(() => {
+      void import("@/lib/supabase/client").then(({ getBrowserClient }) => {
+        if (cancelled) return;
+        const supabase = getBrowserClient();
+        if (!supabase) return;
+        teardown = start(supabase);
+      });
+    });
+
+    function start(supabase: SupabaseClient): () => void {
 
     async function pullAndMerge(client: SupabaseClient, uid: string) {
       const [fav, prog, les] = await Promise.all([
@@ -154,24 +166,29 @@ export function UserDataSync() {
       );
     }
 
-    startPush(supabase);
+      startPush(supabase);
 
-    const { data: auth } = supabase.auth.onAuthStateChange((_event, session) => {
-      const uid = session?.user.id ?? null;
-      if (uid && uid !== userId.current) {
-        userId.current = uid;
-        void pullAndMerge(supabase, uid);
-      } else if (!uid) {
-        userId.current = null;
-      }
-    });
+      const { data: auth } = supabase.auth.onAuthStateChange((_event, session) => {
+        const uid = session?.user.id ?? null;
+        if (uid && uid !== userId.current) {
+          userId.current = uid;
+          void pullAndMerge(supabase, uid);
+        } else if (!uid) {
+          userId.current = null;
+        }
+      });
+      return () => {
+        auth.subscription.unsubscribe();
+        unsubscribers.forEach((u) => u());
+      };
+    }
 
     return () => {
       cancelled = true;
-      auth.subscription.unsubscribe();
-      unsubscribers.forEach((u) => u());
+      cancelIdle(handle as number);
+      teardown?.();
     };
-  }, []);
+  }, [signedIn]);
 
   return null;
 }

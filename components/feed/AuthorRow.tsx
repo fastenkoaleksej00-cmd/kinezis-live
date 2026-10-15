@@ -20,7 +20,7 @@ export async function AuthorRow({ author, roleLabel, meta, tone = "light" }: Aut
       <span className="section-deep text-frost inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full text-sm font-bold">
         {author?.avatarSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={author.avatarSrc} alt="" className="h-full w-full object-cover" />
+          <img src={author.avatarSrc} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
         ) : (
           name.slice(0, 1)
         )}

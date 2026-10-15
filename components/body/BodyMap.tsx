@@ -104,7 +104,8 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
   return (
     <div className="space-y-4">
       <div className="card relative overflow-hidden">
-        <div className="relative h-[62dvh] min-h-[420px] w-full">
+        {/* svh, not dvh: the small-viewport height does not change when the mobile toolbar hides on scroll, so the canvas is not resized mid-scroll */}
+        <div className="relative h-[62svh] min-h-[420px] w-full">
           {status !== "error" ? <BodyScene modelUrl={modelUrl} attempt={attempt} selected={selected} view={view} reduceMotion={a11y.reduceMotion} dark={dark} onSelect={select} onStatus={setStatus} onProgress={setProgress} labels={labels} onApi={setApi} /> : null}
           {status === "error" ? (
             <div className="absolute inset-0 p-4">
