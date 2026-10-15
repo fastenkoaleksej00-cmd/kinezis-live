@@ -1,10 +1,11 @@
+import { cache } from "react";
 import { createServerClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { getSupabaseEnv } from "./env";
 
 /** Server client bound to the request cookies. Returns null when Supabase is not configured. */
-export async function createServerSupabase(): Promise<SupabaseClient | null> {
+export const createServerSupabase = cache(async (): Promise<SupabaseClient | null> => {
   const env = getSupabaseEnv();
   if (!env) return null;
   const cookieStore = await cookies();
@@ -23,7 +24,7 @@ export async function createServerSupabase(): Promise<SupabaseClient | null> {
       },
     },
   });
-}
+});
 
 export interface SessionUser {
   id: string;
@@ -40,7 +41,7 @@ export function isStaff(user: SessionUser | null): boolean {
 }
 
 /** Current user plus profile row, or null. */
-export async function getSessionUser(): Promise<SessionUser | null> {
+export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   const supabase = await createServerSupabase();
   if (!supabase) return null;
   const {
@@ -62,4 +63,4 @@ export async function getSessionUser(): Promise<SessionUser | null> {
     planUntil: profile?.plan_until ?? null,
     premiumInterest: Boolean(profile?.premium_interest),
   };
-}
+});

@@ -41,14 +41,17 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
       try {
         const [THREE, { GLTFLoader }, { OrbitControls }] = await Promise.all([import("three"), import("three/examples/jsm/loaders/GLTFLoader.js"), import("three/examples/jsm/controls/OrbitControls.js")]);
         if (disposed) return;
+        let needsRender = true;
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // Phones: lower pixel ratio and no MSAA keep memory down, which is what makes iOS Safari drop WebGL contexts
+        const coarse = window.matchMedia("(pointer: coarse)").matches;
+        const dpr = Math.min(window.devicePixelRatio, coarse ? 1.5 : 2);
+        const renderer = new THREE.WebGLRenderer({ antialias: dpr <= 1.5, alpha: true, powerPreference: "default" });
+        renderer.setPixelRatio(dpr);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.05;
         host.appendChild(renderer.domElement);
-        renderer.domElement.style.touchAction = "none";
         renderer.domElement.style.display = "block";
         renderer.domElement.style.width = "100%";
         renderer.domElement.style.height = "100%";
@@ -67,7 +70,11 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         scene.add(hemi, key, fill, rim);
 
         const gltf = await new GLTFLoader().loadAsync(modelUrl);
-        if (disposed) return;
+        if (disposed) {
+          renderer.dispose();
+          renderer.domElement.remove();
+          return;
+        }
         const scan = gltf.scene;
         const boneMat = new THREE.MeshStandardMaterial({ color: 0xeef3f5, roughness: 0.6, metalness: 0.02, vertexColors: true });
         const meshes: T.Mesh[] = [];
@@ -130,6 +137,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             }
             (p.geo.attributes.color as T.BufferAttribute).needsUpdate = true;
           }
+          needsRender = true;
         };
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -141,6 +149,10 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         controls.maxPolarAngle = Math.PI * 0.72;
         controls.enableDamping = true;
         controls.dampingFactor = 0.08;
+        // One-finger vertical swipes scroll the page; horizontal drags rotate; two fingers pinch-zoom the model
+        renderer.domElement.style.touchAction = "pan-y";
+        controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+        controls.enablePan = false;
 
         const dist = 3.1;
         const place = (azimuth: number) => camera.position.set(Math.sin(azimuth) * dist, target.y + 0.15, Math.cos(azimuth) * dist);
@@ -156,6 +168,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             camera.position.copy(to);
             anim = null;
           } else anim = { from: camera.position.clone(), to, start: performance.now() };
+          needsRender = true;
         };
 
         // Tap vs drag: select only when the pointer barely moved
@@ -187,6 +200,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           renderer.setSize(w, h, true);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
+          needsRender = true;
         };
         resize();
         const ro = new ResizeObserver(resize);
@@ -194,14 +208,50 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
 
         const anchor = new THREE.Vector3();
         let raf = 0;
+        let lastInteraction = 0;
+        const requestRender = () => {
+          needsRender = true;
+        };
+        controls.addEventListener("change", () => {
+          lastInteraction = performance.now();
+          requestRender();
+        });
+        // Pause the loop while the tab is hidden or the scene is scrolled away
+        let visible = true;
+        const io = new IntersectionObserver((entries) => {
+          visible = entries[0]?.isIntersecting ?? true;
+          if (visible) requestRender();
+        });
+        io.observe(host);
+        const onVisibility = () => {
+          if (!document.hidden) requestRender();
+        };
+        document.addEventListener("visibilitychange", onVisibility);
+        // Context loss (memory pressure on phones): keep the canvas, re-render when the browser gives the context back
+        const onLost = (e: Event) => {
+          e.preventDefault();
+        };
+        const onRestored = () => {
+          paint(selectedRef.current ? regionIds.indexOf(selectedRef.current) : -1);
+          requestRender();
+        };
+        renderer.domElement.addEventListener("webglcontextlost", onLost);
+        renderer.domElement.addEventListener("webglcontextrestored", onRestored);
+
         const loop = (now: number) => {
           raf = requestAnimationFrame(loop);
+          if (!visible || document.hidden) return;
           if (anim) {
             const t = Math.min(1, (now - anim.start) / 600);
             const e = 1 - Math.pow(1 - t, 3);
             camera.position.lerpVectors(anim.from, anim.to, e);
             if (t >= 1) anim = null;
+            needsRender = true;
           }
+          // Damping keeps moving for a moment after the finger lifts
+          if (now - lastInteraction < 1200) needsRender = true;
+          if (!needsRender) return;
+          needsRender = false;
           controls.update();
           renderer.render(scene, camera);
           // Project every region anchor to the screen; hide dots that face away from the camera
@@ -236,6 +286,10 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         cleanup = () => {
           cancelAnimationFrame(raf);
           ro.disconnect();
+          io.disconnect();
+          document.removeEventListener("visibilitychange", onVisibility);
+          renderer.domElement.removeEventListener("webglcontextlost", onLost);
+          renderer.domElement.removeEventListener("webglcontextrestored", onRestored);
           renderer.domElement.removeEventListener("pointerdown", onDown);
           renderer.domElement.removeEventListener("pointerup", onUp);
           controls.dispose();

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createServerSupabase } from "@/lib/supabase/server";
 import {
   activityLevels,
@@ -38,7 +39,7 @@ interface ProfileRow {
 const inList = <T extends string>(list: readonly T[], v: string | null | undefined): T | null => (v && (list as readonly string[]).includes(v) ? (v as T) : null);
 
 /** The signed-in user's full profile (private fields included). Null when signed out. */
-export async function getMyProfile(): Promise<UserProfile | null> {
+export const getMyProfile = cache(async (): Promise<UserProfile | null> => {
   const supabase = await createServerSupabase();
   if (!supabase) return null;
   const {
@@ -72,9 +73,9 @@ export async function getMyProfile(): Promise<UserProfile | null> {
     weeklySessionsTarget: r.weekly_sessions_target ?? 3,
     weeklyMinutesTarget: r.weekly_minutes_target ?? 60,
   };
-}
+});
 
-export async function listMeasurements(): Promise<Measurement[]> {
+export const listMeasurements = cache(async (): Promise<Measurement[]> => {
   const supabase = await createServerSupabase();
   if (!supabase) return [];
   const { data } = await supabase.from("measurements").select("id, measured_on, weight_kg, waist_cm, note").order("measured_on", { ascending: true });
@@ -85,9 +86,9 @@ export async function listMeasurements(): Promise<Measurement[]> {
     waistCm: m.waist_cm !== null ? Number(m.waist_cm) : null,
     note: m.note,
   }));
-}
+});
 
-export async function listActivity(limit = 365): Promise<ActivityEntry[]> {
+export const listActivity = cache(async (limit = 365): Promise<ActivityEntry[]> => {
   const supabase = await createServerSupabase();
   if (!supabase) return [];
   const { data } = await supabase.from("activity_log").select("id, item_type, item_id, title, duration_min, completed_at").order("completed_at", { ascending: false }).limit(limit);
@@ -99,4 +100,4 @@ export async function listActivity(limit = 365): Promise<ActivityEntry[]> {
     durationMin: a.duration_min,
     completedAt: a.completed_at,
   }));
-}
+});

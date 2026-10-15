@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createServerSupabase } from "@/lib/supabase/server";
 import type { ChatMessage, Conversation, InboxItem } from "./types";
 
@@ -54,7 +55,7 @@ export async function listMessages(conversationId: string, limit = 200): Promise
 }
 
 /** Unread messages from the trainer, for the member's profile badge. */
-export async function countMyUnread(): Promise<number> {
+export const countMyUnread = cache(async (): Promise<number> => {
   const supabase = await createServerSupabase();
   if (!supabase) return 0;
   const {
@@ -68,7 +69,7 @@ export async function countMyUnread(): Promise<number> {
   if (c.last_read_by_user_at) q = q.gt("created_at", c.last_read_by_user_at);
   const { count } = await q;
   return count ?? 0;
-}
+});
 
 /** Staff inbox: every conversation, newest activity first, with the member's name and last message. */
 export async function listInbox(): Promise<InboxItem[]> {

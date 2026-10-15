@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { courseColumns, getDb, lessonColumns, moduleColumns, rowsToCourse, type CourseRow, type LessonRow, type ModuleRow } from "./db";
 import type { Course, Lesson } from "./types";
 
@@ -65,7 +66,7 @@ const sampleCourses: Course[] = [
   },
 ];
 
-async function fetchAll(): Promise<Course[]> {
+const fetchAll = cache(async (): Promise<Course[]> => {
   const db = await getDb();
   if (!db) return sampleCourses;
   const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).order("published_at", { ascending: false });
@@ -75,7 +76,7 @@ async function fetchAll(): Promise<Course[]> {
   const moduleIds = ((modules ?? []) as ModuleRow[]).map((m) => m.id);
   const { data: lessons } = moduleIds.length > 0 ? await db.from("lessons").select(lessonColumns).in("module_id", moduleIds) : { data: [] };
   return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], (lessons ?? []) as unknown as LessonRow[]));
-}
+});
 
 export async function listCourses(): Promise<Course[]> {
   return (await fetchAll()).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));

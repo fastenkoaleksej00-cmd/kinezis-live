@@ -25,6 +25,31 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
   const [status, setStatus] = useState<SceneStatus>("loading");
   const [view, setView] = useState<"front" | "back">("front");
   const [selected, setSelected] = useState<RegionId | null>(initialRegion);
+  const [restored, setRestored] = useState(false);
+
+  // Remember the last area and view for this session so switching tabs does not reset the map
+  useEffect(() => {
+    try {
+      const raw = window.sessionStorage.getItem("kl_body_state");
+      if (raw && !initialRegion) {
+        const saved = JSON.parse(raw) as { selected?: RegionId | null; view?: "front" | "back" };
+        if (saved.view === "front" || saved.view === "back") setView(saved.view);
+        if (saved.selected && (regionIds as readonly string[]).includes(saved.selected)) setSelected(saved.selected);
+      }
+    } catch {
+      // ignore
+    }
+    setRestored(true);
+  }, [initialRegion]);
+
+  useEffect(() => {
+    if (!restored) return;
+    try {
+      window.sessionStorage.setItem("kl_body_state", JSON.stringify({ selected, view }));
+    } catch {
+      // ignore
+    }
+  }, [selected, view, restored]);
   const [concern, setConcern] = useState<ConcernId | null>(null);
   const [pain, setPain] = useState<PainKind | null>(null);
   const [dark, setDark] = useState(false);

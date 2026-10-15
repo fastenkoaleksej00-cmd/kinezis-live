@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getDb, postColumns, rowToPost, type PostRow } from "./db";
 import type { Post } from "./types";
 
@@ -97,13 +98,13 @@ const samplePosts: Post[] = [
 
 export type FeedFilter = "all" | "trainer" | "community";
 
-async function fetchAll(): Promise<Post[]> {
+const fetchAll = cache(async (): Promise<Post[]> => {
   const db = await getDb();
   if (!db) return samplePosts;
   const { data, error } = await db.from("posts").select(postColumns).eq("published", true).eq("hidden", false).order("published_at", { ascending: false });
   if (error || !data || data.length === 0) return samplePosts;
   return (data as unknown as PostRow[]).map(rowToPost);
-}
+});
 
 export async function listPosts(limit?: number, filter: FeedFilter = "all"): Promise<Post[]> {
   const sorted = (await fetchAll())
