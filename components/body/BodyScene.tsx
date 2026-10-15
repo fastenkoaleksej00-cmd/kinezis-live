@@ -159,7 +159,9 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         const anchorsBack: T.Vector3[] = [];
         {
           const v = new THREE.Vector3();
-          regions.forEach((r, zi) => {
+          regions.forEach((r) => {
+            // Vertices are tagged with the index in `regionIds`, which is NOT the order of `regions`
+            const zi = regionIds.indexOf(r.id);
             const pts: T.Vector3[] = [];
             const side = Math.sign(r.anchor[0]);
             for (const mesh of meshes) {
@@ -356,13 +358,34 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           const rect = renderer.domElement.getBoundingClientRect();
           const sel = selectedRef.current;
           const fromFront = camera.position.z >= 0;
+          const placed: Array<{ x: number; y: number; visible: boolean }> = [];
+          regions.forEach((r, i) => {
+            anchor.copy(fromFront ? anchorsFront[i] : anchorsBack[i]).project(camera);
+            const facing = r.view === "both" || (r.view === "front") === fromFront;
+            placed.push({ x: ((anchor.x + 1) / 2) * rect.width, y: ((1 - anchor.y) / 2) * rect.height, visible: facing && anchor.z < 1 });
+          });
+          // Neighbouring dots (spine / upper back, pelvis / hips) are nudged apart horizontally so each stays tappable
+          const MIN = 22;
+          for (let a = 0; a < placed.length; a++) {
+            for (let b = a + 1; b < placed.length; b++) {
+              const p = placed[a];
+              const q = placed[b];
+              if (!p.visible || !q.visible) continue;
+              const dx = q.x - p.x;
+              const dy = q.y - p.y;
+              const d = Math.hypot(dx, dy);
+              if (d >= MIN) continue;
+              const push = (MIN - d) / 2;
+              const dir = dx === 0 ? 1 : Math.sign(dx);
+              p.x -= push * dir;
+              q.x += push * dir;
+            }
+          }
           regions.forEach((r, i) => {
             const el = dotRefs.current[i];
             if (!el) return;
-            anchor.copy(fromFront ? anchorsFront[i] : anchorsBack[i]).project(camera);
-            const facing = r.view === "both" || (r.view === "front") === fromFront;
-            const visible = facing && anchor.z < 1;
-            el.style.transform = `translate(${((anchor.x + 1) / 2) * rect.width}px, ${((1 - anchor.y) / 2) * rect.height}px) translate(-50%, -50%)`;
+            const { x, y, visible } = placed[i];
+            el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
             el.style.opacity = visible ? "1" : "0";
             el.style.pointerEvents = visible ? "auto" : "none";
             el.dataset.active = sel === r.id ? "true" : "false";
@@ -444,7 +467,7 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             e.stopPropagation();
             onSelect(selected === r.id ? null : r.id);
           }}
-          className="group absolute top-0 left-0 flex h-9 w-9 items-center justify-center opacity-0 transition-opacity duration-300 data-[active=true]:z-10"
+          className="group absolute top-0 left-0 flex h-9 w-9 items-center justify-center rounded-full opacity-0 transition-opacity duration-300 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 data-[active=true]:z-10"
         >
           <span className="relative block h-5 w-5">
             <span className="bg-accent absolute inset-0 rounded-full opacity-25 transition-transform duration-300 group-data-[active=true]:scale-[1.9]" />
