@@ -32,7 +32,15 @@
     "feedTitle": "Von deiner Trainerin",
     "feedEmpty": "Im Feed werden neue Videos, Tipps und Übungen veröffentlicht. Er öffnet in der nächsten Phase.",
     "resumeAt": "Fortsetzen bei {time}",
-    "posted": "Veröffentlicht. Dein Beitrag ist im Feed."
+    "posted": "Veröffentlicht. Dein Beitrag ist im Feed.",
+    "rings": {
+      "title": "Diese Woche",
+      "open": "Aktivität",
+      "sessions": "Einheiten",
+      "minutes": "Minuten",
+      "streak": "Serie",
+      "days": "Tage"
+    }
   },
   "explore": {
     "title": "Entdecken",
@@ -106,7 +114,8 @@
     "trainer": "Trainerin",
     "noResults": "Keine Einheiten für diese Filter",
     "noResultsBody": "Probiere eine andere Kategorie oder setze die Filter zurück.",
-    "sampleNote": "Beispiel-Einheiten geben der Bibliothek vorerst Form. Die echten Videos der Trainerin ersetzen sie."
+    "sampleNote": "Beispiel-Einheiten geben der Bibliothek vorerst Form. Die echten Videos der Trainerin ersetzen sie.",
+    "publishedNotice": "Veröffentlicht. Die Einheit ist in der Bibliothek."
   },
   "saved": {
     "title": "Gespeichert",
@@ -234,7 +243,8 @@
       "themes": {
         "system": "System",
         "light": "Hell",
-        "dark": "Dunkel"
+        "dark": "Dunkel",
+        "mint": "Mint"
       }
     },
     "account": {
@@ -752,7 +762,9 @@
       "generic": "Konnte nicht speichern. Versuche es erneut.",
       "weakPassword": "Mindestens 8 Zeichen.",
       "sameEmail": "Das ist bereits deine E-Mail."
-    }
+    },
+    "calculatorTitle": "Zielrechner",
+    "calculatorBody": "Erhaltungsenergie, sanfte Zufuhr und ein realistisches Zeitfenster."
   },
   "activity": {
     "title": "Aktivität",
@@ -959,5 +971,71 @@
       "shins": "Unterschenkelknochen und Waden; tragen die Last jedes Schrittes.",
       "feet": "Das Fundament: Gewölbe und Sprunggelenke bestimmen, wie Last nach oben wandert."
     }
+  },
+  "quickAdd": {
+    "add": "Hinzufügen",
+    "post": "Neuer Beitrag",
+    "postHint": "Foto, Video oder ein Gedanke für den Feed",
+    "workout": "Neues Workout-Video",
+    "workoutHint": "Eine Einheit in die Bibliothek laden"
+  },
+  "workoutCompose": {
+    "pageTitle": "Neues Workout",
+    "pageLead": "Video, Titel, Kategorie, Cover, veröffentlichen. Zwei Minuten.",
+    "pickVideo": "Video wählen",
+    "title": "Titel",
+    "titlePlaceholder": "z. B. Morgendliche Rückenmobilität",
+    "description": "Beschreibung",
+    "optional": "optional",
+    "category": "Kategorie",
+    "duration": "Dauer, Minuten",
+    "level": "Niveau",
+    "cover": "Cover",
+    "coverUpload": "Bild hochladen",
+    "coverFromVideo": "Bild aus dem Video",
+    "frameAt": "Bild bei {seconds} s · Regler verschieben, dann „Bild aus dem Video“ tippen",
+    "coverHint": "Ohne Cover wird der Markenverlauf gezeigt. Ein echtes Bild wirkt im Feed besser.",
+    "preview": "Kartenvorschau",
+    "publish": "Veröffentlichen",
+    "publishing": "Wird veröffentlicht…",
+    "saveDraft": "Als Entwurf speichern",
+    "note": "Zum Veröffentlichen ist ein Video nötig; ein Entwurf geht auch ohne. Dateien liegen in Supabase Storage (50 MB pro Datei im kostenlosen Tarif)."
+  },
+  "calculator": {
+    "title": "Zielrechner",
+    "lead": "Eine Orientierung für den Weg zum Zielgewicht. Lokale Rechnung, keine Versprechen.",
+    "fields": {
+      "current": "Aktuelles Gewicht",
+      "target": "Zielgewicht",
+      "age": "Alter",
+      "sex": "Geschlecht für die Formel",
+      "sexHint": "Optional. Ohne Angabe wird das Ergebnis als Spanne zwischen beiden Formeln gezeigt.",
+      "sexSkip": "Keine Angabe",
+      "female": "Weiblich",
+      "male": "Männlich"
+    },
+    "fillIn": "Trage die vier Zahlen ein, um eine Schätzung zu sehen.",
+    "invalid": "Prüfe die Werte: sie liegen außerhalb eines realistischen Bereichs.",
+    "result": {
+      "maintenance": "Erhaltung",
+      "intake": "Empfohlene Zufuhr",
+      "change": "Änderung",
+      "time": "Zeitfenster",
+      "weeks": "Wochen",
+      "lose": "Sanfte Abnahme von 0,25–0,5 kg pro Woche",
+      "gain": "Sanfte Zunahme von 0,25–0,5 kg pro Woche",
+      "maintain": "Du bist schon am Ziel. Halte den Erhaltungsbereich und bleib aktiv.",
+      "paceNote": "Schneller ist nicht besser: langsame, stetige Veränderung lässt sich leichter halten.",
+      "maintainNote": "Dein Ziel entspricht dem aktuellen Gewicht, also geht es ums Halten.",
+      "bmi": "BMI jetzt {now}, am Ziel {target}. Der BMI ist nur eine Orientierung."
+    },
+    "warnings": {
+      "minor": "Du bist unter 18. Standard-Kalorienschätzungen passen nicht für einen wachsenden Körper; sprich bitte mit Eltern und einer Ärztin oder Ernährungsberaterin.",
+      "targetUnderweight": "Das Zielgewicht läge unter einem gesunden BMI-Bereich. Besprich so ein Ziel mit einer Fachperson.",
+      "targetHigh": "Das Ziel ist hoch für deine Größe. Eine Fachperson kann ein sichereres Ziel setzen.",
+      "floorApplied": "Die Zufuhr wurde auf ein sicheres Minimum angehoben. Darunter ist ohne ärztliche Begleitung nicht ratsam."
+    },
+    "method": "Methode: Ruheenergie nach Mifflin–St Jeor × Aktivitätsfaktor (1,2 / 1,45 / 1,7); sanftes Tempo 0,25–0,5 kg pro Woche; Minimum 1200 kcal (weiblich) oder 1500 kcal (männlich).",
+    "disclaimer": "Echte Ergebnisse hängen von Ernährung, Aktivität, Schlaf und deinem Körper ab. Das ist kein Diätplan und kein medizinischer Rat. Bei Erkrankungen, Schwangerschaft oder Essproblemen Fachpersonen aufsuchen."
   }
 }

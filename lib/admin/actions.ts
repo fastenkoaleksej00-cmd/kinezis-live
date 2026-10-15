@@ -555,3 +555,42 @@ export async function setPostHidden(fd: FormData): Promise<void> {
   revalidatePath("/", "layout");
   redirect("/admin/community");
 }
+
+/* ----------------------------------------------------------------------------
+   Quick workout publish (trainer, from the "+" on Home)
+---------------------------------------------------------------------------- */
+
+export async function quickPublishWorkout(_prev: QuickPublishState, fd: FormData): Promise<QuickPublishState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const title = str(fd, "title");
+  if (!title) return { error: "titleRequired" };
+  const language = inList(languagesList, str(fd, "language"), "uk");
+  const videoPath = str(fd, "video_path");
+  const poster = str(fd, "poster_url");
+  const duration = Number.parseInt(str(fd, "duration_min"), 10);
+  const publish = str(fd, "mode") === "publish";
+  const description = str(fd, "description");
+  const base = await slugify(title);
+  const slug = `${base || "session"}-${Date.now().toString(36).slice(-4)}`;
+  const row = {
+    slug,
+    title: { en: title, [language]: title },
+    description: description ? { en: description, [language]: description } : { en: "" },
+    category: inList(categoryIds, str(fd, "category"), "mobility"),
+    duration_min: Number.isFinite(duration) && duration > 0 ? duration : 15,
+    level: inList(levels, str(fd, "level"), "beginner"),
+    goals: goalList.filter((g) => fd.get(`goal_${g}`) === "on") as Goal[],
+    access: str(fd, "access") === "premium" ? "premium" : "free",
+    language,
+    cover_tone: "deep",
+    video: videoPath ? (poster ? { kind: "storage", bucket: "videos", path: videoPath, poster } : { kind: "storage", bucket: "videos", path: videoPath }) : null,
+    author_id: str(fd, "author_id") || null,
+    published: publish,
+    published_at: publish ? new Date().toISOString() : null,
+  };
+  const { error } = await ctx.db.from("workouts").insert(row);
+  if (error) return { error: mapDbError(error.message) };
+  revalidatePath("/", "layout");
+  redirect(publish ? `/library/${slug}?published=1` : "/admin/workouts?saved=1");
+}

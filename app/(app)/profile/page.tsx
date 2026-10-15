@@ -74,12 +74,12 @@ export default async function ProfilePage({ searchParams }: PageProps) {
               </Link>
             ) : null}
           </div>
-          <div className="px-5 pb-5">
+          <div className="relative z-10 px-5 pb-5">
             <div className="-mt-9 flex items-end gap-4">
               <span className="section-deep text-frost inline-flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white text-2xl font-bold shadow-[var(--shadow-card)]">
                 {profile?.avatarSrc ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={profile.avatarSrc} alt="" className="h-full w-full object-cover" />
+                  <img src={profile.avatarSrc} alt="" className="h-full w-full object-cover object-[50%_30%]" />
                 ) : user?.displayName ? (
                   user.displayName.slice(0, 1).toUpperCase()
                 ) : (

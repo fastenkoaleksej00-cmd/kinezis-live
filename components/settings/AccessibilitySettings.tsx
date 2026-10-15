@@ -2,13 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { useA11y, writeA11y, type TextSize, type Theme } from "./AccessibilityProvider";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Leaf, Monitor, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const sizes: TextSize[] = ["normal", "large", "xl"];
 const themes: Array<{ key: Theme; icon: typeof Sun }> = [
   { key: "system", icon: Monitor },
   { key: "light", icon: Sun },
+  { key: "mint", icon: Leaf },
   { key: "dark", icon: Moon },
 ];
 
@@ -24,7 +25,7 @@ export function AccessibilitySettings() {
       </div>
       <div>
         <p className="eyebrow mb-2">{t("appearance")}</p>
-        <div className="flex gap-2" role="radiogroup" aria-label={t("appearance")}>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label={t("appearance")}>
           {themes.map(({ key, icon: Icon }) => (
             <button
               key={key}
@@ -32,7 +33,7 @@ export function AccessibilitySettings() {
               role="radio"
               aria-checked={a11y.theme === key}
               onClick={() => writeA11y({ ...a11y, theme: key })}
-              className={cn("inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold transition-colors", a11y.theme === key ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}
+              className={cn("inline-flex h-10 items-center justify-center gap-2 rounded-full text-sm font-semibold transition-colors", a11y.theme === key ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}
             >
               <Icon className="h-4 w-4" strokeWidth={2} aria-hidden />
               {t(`themes.${key}`)}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
-import { ArrowLeft, HeartPulse, Scale, Watch } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calculator, HeartPulse, Scale, Watch } from "lucide-react";
 import { HealthProfileForm, MeasurementForm, MeasurementRow } from "@/components/health/HealthForms";
 import { LineChart } from "@/components/health/LineChart";
 import { Container } from "@/components/ui/Container";
@@ -80,6 +80,19 @@ export default async function HealthPage({ searchParams }: PageProps) {
 
       <Reveal delay={0.08}>
         <p className="text-steel text-xs">{t("disclaimer")}</p>
+      </Reveal>
+
+      <Reveal delay={0.09}>
+        <Link href="/health/calculator" className="card group flex items-center gap-4 p-4 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5">
+          <span className="bg-mint-soft text-mint-deep inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl">
+            <Calculator className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="text-ink block font-bold">{t("calculatorTitle")}</span>
+            <span className="text-steel block text-sm">{t("calculatorBody")}</span>
+          </span>
+          <ArrowUpRight className="text-steel group-hover:text-ink h-4 w-4 transition-colors" aria-hidden />
+        </Link>
       </Reveal>
 
       <Reveal delay={0.1} as="section" className="space-y-3">

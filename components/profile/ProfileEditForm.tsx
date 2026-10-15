@@ -86,7 +86,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
             <button type="button" onClick={() => avatarRef.current?.click()} disabled={busy !== null} className="section-deep text-frost relative inline-flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white text-2xl font-bold shadow-[var(--shadow-card)]" aria-label={t("avatarUpload")}>
               {avatar ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={avatar} alt="" className="h-full w-full object-cover" />
+                <img src={avatar} alt="" className="h-full w-full object-cover object-[50%_30%]" />
               ) : (
                 (profile.displayName ?? "?").slice(0, 1).toUpperCase()
               )}

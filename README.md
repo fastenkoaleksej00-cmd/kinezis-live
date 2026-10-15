@@ -50,4 +50,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 14. Dark theme with system/light/dark setting — done
 15. Privacy policy and terms (4 languages) — done; set `NEXT_PUBLIC_CONTACT_EMAIL`
 16. Body map with the KINEZIS skeleton (3D, tappable areas, recommendations from real sessions) — done
-17. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+17. Visual pass: avatar fix, theme-adaptive logo, mint theme, activity rings and animated progress, route skeletons, trainer workout composer with covers, goal calculator — done
+18. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`

@@ -16,11 +16,11 @@ export async function WorkoutCard({ workout }: WorkoutCardProps) {
   const t = await getTranslations("library");
   const tc = await getTranslations("common");
   const tp = await getTranslations("premium");
-  const light = workout.coverTone === "light";
+  const light = workout.coverTone === "light" && !workout.poster;
 
   return (
     <Link href={`/library/${workout.slug}`} className="group block">
-      <Cover tone={workout.coverTone} ratio="aspect-[4/5]" label={t(`categories.${workout.category}`)}>
+      <Cover tone={workout.coverTone} ratio="aspect-[4/5]" label={t(`categories.${workout.category}`)} imageSrc={workout.poster}>
         <div className="absolute top-3 right-3 z-20">
           <SaveButton itemKey={workoutKey(workout.id)} look="glass" />
         </div>

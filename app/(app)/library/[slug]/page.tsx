@@ -40,7 +40,7 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
   const t = await getTranslations("library");
   const tc = await getTranslations("common");
   const author = await getAuthor(workout.authorId);
-  const light = workout.coverTone === "light";
+  const light = workout.coverTone === "light" && !workout.video?.poster;
   const format = await getFormatter();
   const [user, social, comments] = await Promise.all([getSessionUser(), getSocialCounts("workout", [workout.id]), workout.sample ? Promise.resolve([]) : listComments("workout", workout.id)]);
   const counts = social[workout.id];
@@ -62,8 +62,9 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
         </Link>
       </Reveal>
 
+      {sp.published ? <p className="pop-in bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("publishedNotice")}</p> : null}
       <Reveal delay={0.05}>
-        <Cover tone={workout.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t(`categories.${workout.category}`)}>
+        <Cover tone={workout.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t(`categories.${workout.category}`)} imageSrc={workout.video?.poster}>
           <div className="absolute top-3 right-3 z-20">
             <SaveButton itemKey={workoutKey(workout.id)} look="glass" size="md" />
           </div>

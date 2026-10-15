@@ -30,7 +30,12 @@ export async function LogActivityButton({ itemType, itemId, title, durationMin, 
         <CheckCircle2 className="h-4 w-4" strokeWidth={2.2} aria-hidden />
         {t("markDone")}
       </button>
-      {logged ? <span className="text-mint-deep text-sm font-semibold">{t("loggedNotice")}</span> : null}
+      {logged ? (
+        <span className="pop-in text-mint-deep inline-flex items-center gap-1.5 text-sm font-semibold">
+          <CheckCircle2 className="h-4 w-4" strokeWidth={2.5} aria-hidden />
+          {t("loggedNotice")}
+        </span>
+      ) : null}
     </form>
   );
 }

@@ -6,6 +6,7 @@ import { Play } from "lucide-react";
 import type { WorkoutCardData } from "@/lib/content/types";
 import { formatTime } from "@/lib/format";
 import { useLastInProgress } from "@/lib/store/progress";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 
 interface ContinueCardProps {
   workouts: WorkoutCardData[];
@@ -36,9 +37,7 @@ export function ContinueCard({ workouts }: ContinueCardProps) {
         <span className="text-steel mt-0.5 block text-xs">
           {t("resumeAt", { time: formatTime(last.entry.position) })} · {tc("minutes", { count: workout.durationMin })}
         </span>
-        <span className="bg-bone-2 mt-2 block h-1.5 overflow-hidden rounded-full">
-          <span className="bg-accent block h-full rounded-full" style={{ width: `${percent}%` }} />
-        </span>
+        <ProgressBar percent={percent} className="mt-2" />
       </span>
     </Link>
   );

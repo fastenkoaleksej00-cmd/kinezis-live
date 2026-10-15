@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { useLessons } from "@/lib/store/lessons";
 
 interface CourseProgressProps {
@@ -21,9 +22,7 @@ export function CourseProgress({ lessonIds }: CourseProgressProps) {
         <span className="text-ink font-semibold">{t("progress", { done, total })}</span>
         <span className="text-steel tabular-nums">{percent}%</span>
       </div>
-      <div className="bg-bone-2 mt-2.5 h-1.5 overflow-hidden rounded-full">
-        <div className="bg-mint-deep h-full rounded-full transition-[width] duration-500 ease-[var(--ease-out-expo)]" style={{ width: `${percent}%` }} />
-      </div>
+      <ProgressBar percent={percent} color="bg-mint-deep" className="mt-2.5" />
     </div>
   );
 }

@@ -32,7 +32,15 @@
     "feedTitle": "From your trainer",
     "feedEmpty": "The feed is where new videos, tips and exercises will be published. It opens in the next stage.",
     "resumeAt": "Resume at {time}",
-    "posted": "Published. Your post is live in the feed."
+    "posted": "Published. Your post is live in the feed.",
+    "rings": {
+      "title": "This week",
+      "open": "Activity",
+      "sessions": "Sessions",
+      "minutes": "Minutes",
+      "streak": "Streak",
+      "days": "days"
+    }
   },
   "explore": {
     "title": "Explore",
@@ -106,7 +114,8 @@
     "trainer": "Trainer",
     "noResults": "No sessions match these filters",
     "noResultsBody": "Try another category or clear the filters.",
-    "sampleNote": "Sample sessions shape the library for now. The trainer's real videos will replace them."
+    "sampleNote": "Sample sessions shape the library for now. The trainer's real videos will replace them.",
+    "publishedNotice": "Published. The session is live in the library."
   },
   "saved": {
     "title": "Saved",
@@ -234,7 +243,8 @@
       "themes": {
         "system": "System",
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "mint": "Mint"
       }
     },
     "account": {
@@ -752,7 +762,9 @@
       "generic": "Could not save. Try again.",
       "weakPassword": "At least 8 characters.",
       "sameEmail": "This is already your email."
-    }
+    },
+    "calculatorTitle": "Goal calculator",
+    "calculatorBody": "Maintenance energy, gentle intake and a realistic time window."
   },
   "activity": {
     "title": "Activity",
@@ -959,5 +971,71 @@
       "shins": "Lower leg bones and calves; carry the load of every step.",
       "feet": "The foundation: arches and ankles decide how load travels up the body."
     }
+  },
+  "quickAdd": {
+    "add": "Add",
+    "post": "New post",
+    "postHint": "Photo, video or a thought for the feed",
+    "workout": "New workout video",
+    "workoutHint": "Upload a session to the library"
+  },
+  "workoutCompose": {
+    "pageTitle": "New workout",
+    "pageLead": "Video, title, category, cover, publish. Two minutes.",
+    "pickVideo": "Choose a video",
+    "title": "Title",
+    "titlePlaceholder": "e.g. Morning back mobility",
+    "description": "Description",
+    "optional": "optional",
+    "category": "Category",
+    "duration": "Duration, minutes",
+    "level": "Level",
+    "cover": "Cover",
+    "coverUpload": "Upload image",
+    "coverFromVideo": "Frame from the video",
+    "frameAt": "Frame at {seconds} s · move the slider, then tap “Frame from the video”",
+    "coverHint": "Without a cover the brand gradient is shown. A real frame or photo looks better in the feed.",
+    "preview": "Card preview",
+    "publish": "Publish",
+    "publishing": "Publishing…",
+    "saveDraft": "Save as draft",
+    "note": "Publishing needs a video; a draft can be saved without one. Files are stored in Supabase Storage (50 MB per file on the free plan)."
+  },
+  "calculator": {
+    "title": "Goal calculator",
+    "lead": "An orientation for your path to a target weight. Local maths, no promises.",
+    "fields": {
+      "current": "Current weight",
+      "target": "Target weight",
+      "age": "Age",
+      "sex": "Sex for the formula",
+      "sexHint": "Optional. Without it the result is shown as a range between the two formulas.",
+      "sexSkip": "Prefer not to say",
+      "female": "Female",
+      "male": "Male"
+    },
+    "fillIn": "Fill in the four numbers to see an estimate.",
+    "invalid": "Check the values: they look outside a realistic range.",
+    "result": {
+      "maintenance": "Maintenance",
+      "intake": "Suggested intake",
+      "change": "Change",
+      "time": "Time window",
+      "weeks": "weeks",
+      "lose": "Gentle loss of 0.25–0.5 kg per week",
+      "gain": "Gentle gain of 0.25–0.5 kg per week",
+      "maintain": "You are already at your target. Keep the maintenance range and stay active.",
+      "paceNote": "Faster is not better: slow, steady change is easier to keep.",
+      "maintainNote": "Your target equals your current weight, so the goal is to maintain.",
+      "bmi": "BMI now {now}, at target {target}. BMI is an orientation only."
+    },
+    "warnings": {
+      "minor": "You are under 18. Standard calorie estimates are not suitable for growing bodies; please talk to a parent and a doctor or dietitian instead.",
+      "targetUnderweight": "The target weight would be below a healthy BMI range. Please discuss such a goal with a specialist.",
+      "targetHigh": "The target is high for your height. A specialist can help set a safer goal.",
+      "floorApplied": "The intake was raised to a safe minimum. Going lower is not recommended without medical supervision."
+    },
+    "method": "Method: Mifflin–St Jeor resting energy × activity factor (1.2 / 1.45 / 1.7); gentle pace of 0.25–0.5 kg per week; minimum intake 1200 kcal (female) or 1500 kcal (male).",
+    "disclaimer": "Real results depend on nutrition, activity, sleep and your body. This is not a diet plan or medical advice. For health conditions, pregnancy or eating difficulties consult a specialist."
   }
 }

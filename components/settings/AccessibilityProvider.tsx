@@ -3,7 +3,7 @@
 import { useEffect, useSyncExternalStore } from "react";
 
 export type TextSize = "normal" | "large" | "xl";
-export type Theme = "system" | "light" | "dark";
+export type Theme = "system" | "light" | "mint" | "dark";
 
 interface A11y {
   textSize: TextSize;
@@ -48,7 +48,7 @@ export function writeA11y(next: A11y): void {
   listeners.forEach((l) => l());
 }
 
-function resolveTheme(theme: Theme): "light" | "dark" {
+function resolveTheme(theme: Theme): "light" | "mint" | "dark" {
   if (theme === "system") return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   return theme;
 }
@@ -60,7 +60,7 @@ function apply(a: A11y) {
   else delete el.dataset.reduceMotion;
   const resolved = resolveTheme(a.theme);
   el.dataset.theme = resolved;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", resolved === "dark" ? "#0d171c" : "#f5f8f8");
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", resolved === "dark" ? "#0d171c" : resolved === "mint" ? "#eef7f4" : "#f5f8f8");
 }
 
 function subscribe(l: () => void) {

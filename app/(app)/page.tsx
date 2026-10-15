@@ -6,6 +6,9 @@ import { QuickPostButton } from "@/components/feed/QuickPostButton";
 import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
 import { RemindersCard } from "@/components/home/RemindersCard";
+import { TodayRings } from "@/components/home/TodayRings";
+import { computeActivityStats } from "@/lib/health/stats";
+import { listActivity } from "@/lib/profile/queries";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
 import { Reveal } from "@/components/ui/Reveal";
@@ -34,6 +37,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const locale = await getLocale();
   const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(undefined, feed), getSessionUser(), getMyProfile()]);
   const members = await getPublicMembers(posts.map((p) => p.userId ?? "").filter(Boolean));
+  const stats = user ? computeActivityStats(await listActivity()) : null;
   const tf = await getTranslations("feed");
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
   const social = await getSocialCounts("post", posts.map((p) => p.id));
@@ -47,25 +51,31 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <h1 className="text-[1.9rem] leading-[1.05] font-extrabold sm:text-[2.4rem]">{t("intro")}</h1>
       </Reveal>
 
+      {stats ? (
+        <Reveal delay={0.06}>
+          <TodayRings stats={stats} />
+        </Reveal>
+      ) : null}
+
       {today ? (
         <Reveal delay={0.08}>
           <Link href={`/library/${today.slug}`} className="group block">
-            <Cover tone={today.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t("todayEyebrow")}>
+            <Cover tone={today.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t("todayEyebrow")} imageSrc={today.video?.poster}>
               <div className="flex h-full flex-col justify-end p-5 sm:p-7">
-                <p className={today.coverTone === "light" ? "text-steel text-[11px] font-semibold tracking-[0.3em] uppercase" : "text-glow text-[11px] font-semibold tracking-[0.3em] uppercase"}>
+                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel text-[11px] font-semibold tracking-[0.3em] uppercase" : "text-glow text-[11px] font-semibold tracking-[0.3em] uppercase"}>
                   {tl(`categories.${today.category}`)}
                 </p>
-                <h2 className={today.coverTone === "light" ? "text-ink mt-1.5 text-2xl leading-tight font-bold sm:text-3xl" : "text-frost mt-1.5 text-2xl leading-tight font-bold sm:text-3xl"}>
+                <h2 className={today.coverTone === "light" && !today.video?.poster ? "text-ink mt-1.5 text-2xl leading-tight font-bold sm:text-3xl" : "text-frost mt-1.5 text-2xl leading-tight font-bold sm:text-3xl"}>
                   {pick(today.title, locale)}
                 </h2>
-                <p className={today.coverTone === "light" ? "text-steel mt-2 max-w-md text-sm sm:text-base" : "text-mist mt-2 max-w-md text-sm sm:text-base"}>
+                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel mt-2 max-w-md text-sm sm:text-base" : "text-mist mt-2 max-w-md text-sm sm:text-base"}>
                   {tc("minutes", { count: today.durationMin })} · {tl(`levels.${today.level}`)}
                 </p>
                 <div className="mt-5 flex items-center gap-3">
-                  <span className={today.coverTone === "light" ? "text-ink inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5" : "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5"}>
+                  <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5" : "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5"}>
                     <Play className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden />
                   </span>
-                  <span className={today.coverTone === "light" ? "text-ink text-sm font-semibold" : "text-frost text-sm font-semibold"}>{tl("start")}</span>
+                  <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink text-sm font-semibold" : "text-frost text-sm font-semibold"}>{tl("start")}</span>
                 </div>
               </div>
             </Cover>

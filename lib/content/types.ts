@@ -90,6 +90,8 @@ export interface WorkoutCardData {
   hasVideo: boolean;
   access: Access;
   goals: Goal[];
+  /** Real cover image when the trainer uploaded one */
+  poster?: string;
 }
 
 /* ----------------------------------------------------------------------------

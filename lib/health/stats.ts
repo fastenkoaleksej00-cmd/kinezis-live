@@ -9,6 +9,8 @@ export interface ActivityStats {
   /** ISO dates (YYYY-MM-DD) with at least one session, newest first */
   activeDays: string[];
   weeks: Array<{ start: string; count: number }>;
+  /** Minutes logged in the current calendar week (Mon–Sun) */
+  weekMinutes: number;
 }
 
 const dayKey = (iso: string) => iso.slice(0, 10);
@@ -59,7 +61,10 @@ export function computeActivityStats(log: ActivityEntry[], today = new Date()): 
     weeks.push({ start: start.toISOString().slice(0, 10), count });
   }
 
-  return { sessions: log.length, totalMinutes, longestMin, currentStreak, bestStreak, activeDays: sorted, weeks };
+  const weekStart = addDays(monday, 0).getTime();
+  const weekMinutes = log.filter((e) => new Date(e.completedAt).getTime() >= weekStart).reduce((n, e) => n + (e.durationMin ?? 0), 0);
+
+  return { sessions: log.length, totalMinutes, longestMin, currentStreak, bestStreak, activeDays: sorted, weeks, weekMinutes };
 }
 
 export type Period = "week" | "month" | "quarter" | "year";
