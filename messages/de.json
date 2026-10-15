@@ -9,7 +9,8 @@
     "explore": "Entdecken",
     "library": "Bibliothek",
     "saved": "Gespeichert",
-    "profile": "Profil"
+    "profile": "Profil",
+    "body": "Körper"
   },
   "common": {
     "comingSoon": "Demnächst",
@@ -51,6 +52,10 @@
     "nutrition": {
       "title": "Ernährung",
       "body": "Der Tag der Trainerin auf dem Teller und tägliche Gewohnheiten."
+    },
+    "body": {
+      "title": "Körperkarte",
+      "body": "Tippe auf eine Stelle des Skeletts und finde Passendes."
     }
   },
   "library": {
@@ -111,7 +116,8 @@
     "sectionWorkouts": "Workouts",
     "sectionPosts": "Beiträge",
     "sectionCourses": "Kurse",
-    "sectionMeals": "Ernährung"
+    "sectionMeals": "Ernährung",
+    "sectionAreas": "Meine Bereiche"
   },
   "profile": {
     "title": "Profil",
@@ -873,5 +879,85 @@
     "updated": "Aktualisiert {date}",
     "contactTitle": "Kontakt",
     "contactPending": "Eine Kontaktadresse wird hier vor der Veröffentlichung in den Stores ergänzt."
+  },
+  "body": {
+    "eyebrow": "Körperkarte",
+    "title": "Körperkarte",
+    "lead": "Tippe auf eine Stelle des Skeletts, um passende Inhalte aus der Bibliothek zu sehen.",
+    "loading": "Skelett wird geladen…",
+    "hint": "Ziehen zum Drehen, Pinch oder Scrollen zum Zoomen, Tippen zum Auswählen. Bereiche sind ungefähr, keine einzelnen Knochen.",
+    "fallbackNote": "3D ist auf diesem Gerät nicht verfügbar, vereinfachte Karte. Tippe auf einen Punkt, um einen Bereich zu wählen.",
+    "views": {
+      "front": "Vorne",
+      "back": "Hinten"
+    },
+    "reset": "Zurücksetzen",
+    "regionsList": "Bereiche",
+    "selected": "Gewählter Bereich",
+    "whatBothers": "Woran möchtest du arbeiten?",
+    "concerns": {
+      "stiffness": "Steifheit",
+      "mobility": "Beweglichkeit",
+      "relax": "Entspannung",
+      "prevention": "Prävention",
+      "exercises": "Übungen",
+      "yoga": "Yoga",
+      "pilates": "Pilates",
+      "materials": "Material und Video",
+      "pain": "Schmerz",
+      "trainer": "Trainerin fragen"
+    },
+    "pain": {
+      "question": "Wie ist der Schmerz?",
+      "kinds": {
+        "mild": "Leicht, vertraut",
+        "afterLoad": "Nach Belastung, vergeht mit Ruhe",
+        "severe": "Stark",
+        "sudden": "Plötzlich",
+        "numbness": "Mit Taubheit oder Kribbeln",
+        "weakness": "Mit Schwäche"
+      },
+      "redFlag": "Starke, plötzliche Schmerzen, Taubheit oder Schwäche brauchen zuerst eine ärztliche Abklärung. Bitte wähle keine Übungen selbst; geh zur Ärztin, und schreib der Trainerin danach, wenn du magst.",
+      "mildNote": "Bei leichtem, vertrautem Unbehagen hilft oft sanfte Bewegung. Beginne leicht, hör auf, wenn es schlimmer wird, und frag die Trainerin bei Unsicherheit."
+    },
+    "sessionsTitle": "Passende Einheiten",
+    "noSessions": "Für diesen Bereich gibt es in der Bibliothek noch keine Einheiten. Die Trainerin ergänzt regelmäßig; frag sie im Chat.",
+    "trainerNote": "Die Trainerin antwortet im Chat, sobald sie kann. Beschreibe, was du spürst, seit wann und was es besser oder schlechter macht.",
+    "save": "Bereich speichern",
+    "saved": "Gespeichert",
+    "watch": "Video ansehen",
+    "askTrainer": "Trainerin fragen",
+    "disclaimer": "Das Antippen des Skeletts diagnostiziert nichts. Die Information ist allgemein; bei Schmerzen oder Krankheit Fachpersonen aufsuchen.",
+    "chatPrefill": "Hallo! Ich habe eine Frage zu meinem Bereich „{region}“: ",
+    "regions": {
+      "neck": "Nacken",
+      "shoulders": "Schultern",
+      "chest": "Brustkorb",
+      "upperBack": "Oberer Rücken",
+      "spine": "Wirbelsäule",
+      "lowerBack": "Unterer Rücken",
+      "elbows": "Ellbogen",
+      "wrists": "Handgelenke und Hände",
+      "pelvis": "Becken",
+      "hips": "Hüften",
+      "knees": "Knie",
+      "shins": "Schienbeine und Waden",
+      "feet": "Knöchel und Füße"
+    },
+    "info": {
+      "neck": "Sieben Wirbel, die den Kopf tragen. Lange Bildschirmzeit macht die Region steif; sanfte Bewegung hält sie beweglich.",
+      "shoulders": "Das beweglichste Gelenk des Körpers, empfindlich für Haltung und wiederholte Belastung.",
+      "chest": "Rippen, Brustbein und die Muskeln, die den Brustkorb öffnen. Rundes Sitzen verkürzt sie.",
+      "upperBack": "Brustwirbelsäule und Schulterblätter: Stütze für Atmung und aufrechte Haltung.",
+      "spine": "Die ganze Säule vom Nacken bis zum Steißbein. Beweglichkeit und Kraft darum schützen die Bandscheiben.",
+      "lowerBack": "Fünf Lendenwirbel, der im Alltag meistbelastete Teil der Wirbelsäule.",
+      "elbows": "Scharniergelenke zwischen Ober- und Unterarm; ermüden durch Schreibtischarbeit und Heben.",
+      "wrists": "Kleine Knochen und Sehnen für Feinmotorik und Stütze auf den Händen.",
+      "pelvis": "Verbindet die Wirbelsäule mit den Beinen und bestimmt Haltung und Gang.",
+      "hips": "Tiefe Kugelgelenke; ihre Beweglichkeit wirkt auf Rücken und Knie.",
+      "knees": "Stabilität beim Gehen, Laufen und in der Hocke; abhängig von Hüft- und Sprunggelenksbeweglichkeit.",
+      "shins": "Unterschenkelknochen und Waden; tragen die Last jedes Schrittes.",
+      "feet": "Das Fundament: Gewölbe und Sprunggelenke bestimmen, wie Last nach oben wandert."
+    }
   }
 }

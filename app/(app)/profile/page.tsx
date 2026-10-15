@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Award, ChevronRight, HeartPulse, History, LogOut, MessageCircle, Pencil, Settings, ShieldCheck, Sparkles, UserRound } from "lucide-react";
+import { Award, Bookmark, ChevronRight, HeartPulse, History, LogOut, MessageCircle, Pencil, Settings, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -43,7 +43,9 @@ export default async function ProfilePage({ searchParams }: PageProps) {
   const interestLabel = (i: string) =>
     i in { kinesiotherapy: 1, yoga: 1, pilates: 1, stretching: 1, mobility: 1, back: 1 } ? tl(`categories.${i as "yoga"}`) : tpe(`interests.${i as "face"}`);
 
+  const tsv = await getTranslations("saved");
   const rows = [
+    { href: "/saved", icon: Bookmark, title: tsv("title"), body: tsv("lead"), tone: "accent" },
     { href: "/health", icon: HeartPulse, title: t("health"), body: t("healthHint"), tone: "mint" },
     { href: "/profile/activity", icon: History, title: t("activity"), body: t("activityHint"), tone: "accent" },
     { href: "/premium", icon: Sparkles, title: t("subscription"), body: user && user.plan !== "free" ? t(`plans.${user.plan}`) : t("subscriptionFree"), tone: "mint" },

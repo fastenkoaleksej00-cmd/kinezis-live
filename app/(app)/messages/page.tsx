@@ -8,13 +8,22 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { canAccess } from "@/lib/access/plans";
+import { regionIds, type RegionId } from "@/lib/body/regions";
 import { chatOpenForAll } from "@/lib/chat/config";
 import { getOrCreateMyConversation, listMessages } from "@/lib/chat/queries";
 import { getAuthor } from "@/lib/content/workouts";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
 
+interface MessagesPageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
 /** Member side of the trainer chat. */
-export default async function MessagesPage() {
+export default async function MessagesPage({ searchParams }: MessagesPageProps) {
+  const sp = await searchParams;
+  const tb = await getTranslations("body");
+  const topic = typeof sp.topic === "string" && (regionIds as readonly string[]).includes(sp.topic) ? (sp.topic as RegionId) : null;
+  const prefill = topic ? tb("chatPrefill", { region: tb(`regions.${topic}`) }) : undefined;
   const t = await getTranslations("chat");
   const tn = await getTranslations("nav");
   const locale = await getLocale();
@@ -60,7 +69,7 @@ export default async function MessagesPage() {
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       </Reveal>
       <Reveal delay={0.05}>
-        <ChatThread conversationId={conversation.id} initial={messages} meId={user.id} staff={false} counterpartName={trainer?.name ?? "KINEZIS"} counterpartAvatar={trainer?.avatarSrc} locale={locale} />
+        <ChatThread conversationId={conversation.id} initial={messages} meId={user.id} staff={false} counterpartName={trainer?.name ?? "KINEZIS"} counterpartAvatar={trainer?.avatarSrc} locale={locale} prefill={prefill} />
       </Reveal>
       <Reveal delay={0.08}>
         <p className="text-steel text-xs">{chatOpenForAll() ? t("prelaunchNote") : t("replyNote")}</p>

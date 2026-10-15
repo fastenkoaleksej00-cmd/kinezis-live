@@ -9,7 +9,8 @@
     "explore": "Explore",
     "library": "Library",
     "saved": "Saved",
-    "profile": "Profile"
+    "profile": "Profile",
+    "body": "Body"
   },
   "common": {
     "comingSoon": "Coming soon",
@@ -51,6 +52,10 @@
     "nutrition": {
       "title": "Nutrition",
       "body": "The trainer's day on a plate and daily habits."
+    },
+    "body": {
+      "title": "Body map",
+      "body": "Tap an area of the skeleton and find what fits it."
     }
   },
   "library": {
@@ -111,7 +116,8 @@
     "sectionWorkouts": "Workouts",
     "sectionPosts": "Posts",
     "sectionCourses": "Courses",
-    "sectionMeals": "Nutrition"
+    "sectionMeals": "Nutrition",
+    "sectionAreas": "My areas"
   },
   "profile": {
     "title": "Profile",
@@ -873,5 +879,85 @@
     "updated": "Updated {date}",
     "contactTitle": "Contact",
     "contactPending": "A contact address will be published here before the app goes to the stores."
+  },
+  "body": {
+    "eyebrow": "Body map",
+    "title": "Body map",
+    "lead": "Tap an area of the skeleton to see what fits it from the library.",
+    "loading": "Loading the skeleton…",
+    "hint": "Drag to rotate, pinch or scroll to zoom, tap an area to select it. Areas are approximate, not single bones.",
+    "fallbackNote": "3D is unavailable on this device, showing a simplified map. Tap a dot to select an area.",
+    "views": {
+      "front": "Front",
+      "back": "Back"
+    },
+    "reset": "Clear",
+    "regionsList": "Areas",
+    "selected": "Selected area",
+    "whatBothers": "What would you like to work on?",
+    "concerns": {
+      "stiffness": "Stiffness",
+      "mobility": "Mobility",
+      "relax": "Relaxation",
+      "prevention": "Prevention",
+      "exercises": "Exercises",
+      "yoga": "Yoga",
+      "pilates": "Pilates",
+      "materials": "Materials and video",
+      "pain": "Pain",
+      "trainer": "Ask the trainer"
+    },
+    "pain": {
+      "question": "What is the pain like?",
+      "kinds": {
+        "mild": "Mild, familiar",
+        "afterLoad": "After load, goes away with rest",
+        "severe": "Severe",
+        "sudden": "Sudden",
+        "numbness": "With numbness or tingling",
+        "weakness": "With weakness"
+      },
+      "redFlag": "Severe, sudden pain, numbness or weakness need a medical assessment first. Please do not pick exercises on your own; see a doctor, and write to the trainer afterwards if you want.",
+      "mildNote": "For mild, familiar discomfort gentle movement often helps. Start light, stop if it gets worse, and ask the trainer if unsure."
+    },
+    "sessionsTitle": "Sessions that fit",
+    "noSessions": "No sessions for this area in the library yet. The trainer adds new ones regularly; ask her in the chat.",
+    "trainerNote": "The trainer will answer in the chat when available. Describe what you feel, when it started and what makes it better or worse.",
+    "save": "Save area",
+    "saved": "Saved",
+    "watch": "Watch video",
+    "askTrainer": "Ask the trainer",
+    "disclaimer": "Tapping the skeleton does not diagnose anything. The information is general; for pain or illness consult a specialist.",
+    "chatPrefill": "Hi! I have a question about my {region}: ",
+    "regions": {
+      "neck": "Neck",
+      "shoulders": "Shoulders",
+      "chest": "Chest",
+      "upperBack": "Upper back",
+      "spine": "Spine",
+      "lowerBack": "Lower back",
+      "elbows": "Elbows",
+      "wrists": "Wrists and hands",
+      "pelvis": "Pelvis",
+      "hips": "Hips",
+      "knees": "Knees",
+      "shins": "Shins and calves",
+      "feet": "Ankles and feet"
+    },
+    "info": {
+      "neck": "Seven vertebrae that carry the head. Long screen time stiffens this area; gentle movement keeps it mobile.",
+      "shoulders": "The most mobile joint in the body, sensitive to posture and repetitive loads.",
+      "chest": "Ribs, breastbone and the muscles that open the chest. A rounded sitting posture tightens it.",
+      "upperBack": "Thoracic spine and shoulder blades: support for breathing and an upright posture.",
+      "spine": "The whole column from neck to tailbone. Mobility and strength around it protect the discs.",
+      "lowerBack": "Five lumbar vertebrae, the most loaded part of the spine in daily life.",
+      "elbows": "Hinge joints between upper arm and forearm; often tired from desk work and lifting.",
+      "wrists": "Small bones and tendons for fine motor control and support on the hands.",
+      "pelvis": "Links the spine to the legs and sets the base of posture and gait.",
+      "hips": "Deep ball-and-socket joints; their mobility affects the back and knees.",
+      "knees": "Stability for walking, running and squatting; depend on hip and ankle mobility.",
+      "shins": "Lower leg bones and calves; carry the load of every step.",
+      "feet": "The foundation: arches and ankles decide how load travels up the body."
+    }
   }
 }

@@ -17,16 +17,18 @@ interface ChatThreadProps {
   counterpartName: string;
   counterpartAvatar?: string | null;
   locale: string;
+  /** Text placed in the composer on open (e.g. "About my neck: ") */
+  prefill?: string;
 }
 
 /**
  * Live thread: initial messages from the server, new ones via Supabase Realtime.
  * Sending inserts directly through the browser client (RLS decides who may write where).
  */
-export function ChatThread({ conversationId, initial, meId, staff, counterpartName, counterpartAvatar, locale }: ChatThreadProps) {
+export function ChatThread({ conversationId, initial, meId, staff, counterpartName, counterpartAvatar, locale, prefill }: ChatThreadProps) {
   const t = useTranslations("chat");
   const [messages, setMessages] = useState<ChatMessage[]>(initial);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(prefill ?? "");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [live, setLive] = useState(false);

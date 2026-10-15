@@ -1,4 +1,5 @@
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
+import { SavedRegions } from "@/components/body/SavedRegions";
 import { SavedCourses, type SavedCourseData } from "@/components/courses/SavedCourses";
 import { SavedEmpty } from "@/components/feed/SavedEmpty";
 import { SavedPosts, type SavedPostData } from "@/components/feed/SavedPosts";
@@ -50,6 +51,7 @@ export default async function SavedPage() {
       </Reveal>
       <Reveal delay={0.06} className="space-y-8">
         <SavedEmpty />
+        <SavedRegions />
         <SavedWorkouts workouts={workouts} />
         <SavedCourses courses={courses} />
         <SavedPosts posts={posts} />

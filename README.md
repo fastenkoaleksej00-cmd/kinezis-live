@@ -49,4 +49,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 13. Community posts by members, public member profiles, moderation — done
 14. Dark theme with system/light/dark setting — done
 15. Privacy policy and terms (4 languages) — done; set `NEXT_PUBLIC_CONTACT_EMAIL`
-16. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+16. Body map with the KINEZIS skeleton (3D, tappable areas, recommendations from real sessions) — done
+17. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`

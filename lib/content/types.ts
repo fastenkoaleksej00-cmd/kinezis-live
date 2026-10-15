@@ -89,6 +89,7 @@ export interface WorkoutCardData {
   coverTone: CoverTone;
   hasVideo: boolean;
   access: Access;
+  goals: Goal[];
 }
 
 /* ----------------------------------------------------------------------------

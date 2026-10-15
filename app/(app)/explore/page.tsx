@@ -11,6 +11,7 @@ const directions = [
   { key: "faceFitness", href: "/face-fitness", tone: "mint" },
   { key: "skincare", href: "/skincare", tone: "light" },
   { key: "nutrition", href: "/nutrition", tone: "mint" },
+  { key: "body", href: "/body", tone: "deep" },
 ] as const;
 
 /** Explore: the three directions of the platform. */
