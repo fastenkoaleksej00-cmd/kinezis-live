@@ -45,7 +45,17 @@
     "quick": {
       "body": "Körperkarte",
       "nutrition": "Ernährung",
-      "library": "Bibliothek"
+      "library": "Bibliothek",
+      "breathe": "Atmen",
+      "water": "Wasser",
+      "goal": "Mein Ziel",
+      "activity": "Aktivität",
+      "saved": "Gespeichert",
+      "health": "Meine Gesundheit",
+      "appleHealth": "Apple Health",
+      "customise": "Anpassen",
+      "customiseHint": "Wähle {min} bis {max} Verknüpfungen. Die Reihenfolge folgt deiner Auswahl. Auf diesem Gerät gespeichert.",
+      "reset": "Standard wiederherstellen"
     }
   },
   "explore": {
@@ -713,7 +723,16 @@
       "age": "Alter",
       "noData": "Noch keine Daten",
       "bmiNote": "Nur Orientierung, keine Diagnose",
-      "bmiNeeds": "Braucht Größe und Gewicht"
+      "bmiNeeds": "Braucht Größe und Gewicht",
+      "targetWeight": "Zielgewicht",
+      "toGo": "Noch {kg} kg",
+      "setGoal": "Unter Mein Ziel setzen",
+      "today": "Heute",
+      "todaySub": "Minuten aus deinem Protokoll",
+      "week": "Diese Woche",
+      "weekSub": "{count, plural, one {# Einheit} other {# Einheiten}} erledigt",
+      "streak": "Serie",
+      "streakSub": "Tage in Folge"
     },
     "disclaimer": "Diese Zahlen dienen nur deiner Orientierung. Die App zieht keine medizinischen Schlüsse und verspricht keine Ergebnisse. Bei Gesundheitsfragen wende dich an Fachpersonen.",
     "profileTitle": "Über dich",
@@ -737,7 +756,8 @@
       "optional": "optional",
       "weeklySessions": "Wochenziel: Einheiten",
       "weeklyMinutes": "Wochenziel: Minuten",
-      "weeklyHint": "Wird von den Ringen auf Start genutzt."
+      "weeklyHint": "Wird von den Ringen auf Start genutzt.",
+      "targetWeight": "Zielgewicht"
     },
     "goals": {
       "lose_weight": "Abnehmen",
@@ -769,9 +789,6 @@
     "emptyTitle": "Noch keine Messungen",
     "emptyBody": "Trage oben dein erstes Gewicht ein. Die Kurve erscheint ab zwei Einträgen.",
     "notEnough": "Trage mindestens {count} Werte in diesem Zeitraum ein, um eine Kurve zu sehen.",
-    "appleHealthTitle": "Apple Health und Apple Watch",
-    "appleHealthBody": "Schritte, Puls und Schlaf kann nur die native iOS-App mit deiner Erlaubnis je Datentyp lesen. Die Webversion hat keinen Zugriff, deshalb gibt es hier keinen Verbinden-Button.",
-    "appleHealthStatus": "Status: in dieser Version nicht verfügbar · für die iOS-App geplant",
     "errors": {
       "signedOut": "Melde dich zuerst an.",
       "notConfigured": "Konten sind nicht verbunden.",
@@ -783,7 +800,23 @@
     "calculatorTitle": "Zielrechner",
     "calculatorBody": "Erhaltungsenergie, sanfte Zufuhr und ein realistisches Zeitfenster.",
     "breatheTitle": "Atmung und Regeneration",
-    "breatheBody": "Kurze Praktiken, ehrlich darüber, was sie können und was nicht."
+    "breatheBody": "Kurze Praktiken, ehrlich darüber, was sie können und was nicht.",
+    "sources": {
+      "manual": "Manuell",
+      "calculated": "Schätzung",
+      "app": "App-Protokoll",
+      "health": "Apple Health",
+      "none": "Keine Quelle"
+    },
+    "connectTitle": "Apple Health und Apple Watch",
+    "connectBody": "Schritte, Distanz, Puls und Schlaf können nur aus der iOS-App hierher kommen, mit deiner Erlaubnis pro Typ.",
+    "connectStatus": "Nicht verbunden · öffnen, um zu sehen, was möglich ist",
+    "pending": {
+      "steps": "Schritte",
+      "distance": "Distanz",
+      "heartRate": "Puls",
+      "sleep": "Schlaf"
+    }
   },
   "activity": {
     "title": "Aktivität",
@@ -825,11 +858,6 @@
     "bannerUpload": "Bild hochladen",
     "bannerRemove": "Bild entfernen",
     "bannerPosition": "Bildausschnitt",
-    "presets": {
-      "deep": "Petrol",
-      "mint": "Mint",
-      "light": "Eis"
-    },
     "uploadFailed": "Upload fehlgeschlagen. Prüfe die Dateigröße und versuche es erneut.",
     "save": "Profil speichern",
     "saving": "Wird gespeichert…",
@@ -840,7 +868,17 @@
       "generic": "Konnte nicht speichern. Versuche es erneut.",
       "weakPassword": "",
       "sameEmail": ""
-    }
+    },
+    "presets": {
+      "mint": "Mint",
+      "ocean": "Ozean",
+      "lavender": "Lavendel",
+      "sunset": "Sonnenuntergang",
+      "forest": "Wald",
+      "midnight": "Mitternacht"
+    },
+    "bannerHint": "Vorschau oben; das Banner ändert nicht das App-Design.",
+    "bannerReset": "Zurück zu Mint"
   },
   "social": {
     "like": "Gefällt mir",
@@ -1064,7 +1102,8 @@
       "floorApplied": "Die Zufuhr wurde auf ein sicheres Minimum angehoben. Darunter ist ohne ärztliche Begleitung nicht ratsam."
     },
     "method": "Methode: Ruheenergie nach Mifflin–St Jeor × Aktivitätsfaktor (1,2 / 1,45 / 1,7); sanftes Tempo 0,25–0,5 kg pro Woche; Minimum 1200 kcal (weiblich) oder 1500 kcal (männlich).",
-    "disclaimer": "Echte Ergebnisse hängen von Ernährung, Aktivität, Schlaf und deinem Körper ab. Das ist kein Diätplan und kein medizinischer Rat. Bei Erkrankungen, Schwangerschaft oder Essproblemen Fachpersonen aufsuchen."
+    "disclaimer": "Echte Ergebnisse hängen von Ernährung, Aktivität, Schlaf und deinem Körper ab. Das ist kein Diätplan und kein medizinischer Rat. Bei Erkrankungen, Schwangerschaft oder Essproblemen Fachpersonen aufsuchen.",
+    "weightSection": "Gewicht: Energie und sanftes Tempo"
   },
   "onboarding": {
     "skip": "Überspringen",
@@ -1162,5 +1201,122 @@
       "sources": "{count, plural, one {# Quelle} other {# Quellen}}",
       "checked": "Geprüft am {date}. Die Stufen folgen der Stärke und Konsistenz der Evidenz, nicht der Beliebtheit der Methode."
     }
+  },
+  "water": {
+    "eyebrow": "Wasser",
+    "title": "Wasser heute",
+    "goalEdit": "Tagesziel ändern",
+    "progressLabel": "{ml} von {goal} ml",
+    "add": "+{ml} ml",
+    "undo": "Letzte Portion rückgängig",
+    "goalLabel": "Tagesziel, ml",
+    "goalSave": "Speichern",
+    "goalNote": "Dein eigenes Ziel. Der Bedarf hängt von Körper, Belastung, Wetter und Gesundheit ab; das ist keine medizinische Norm.",
+    "week": "Letzte 7 Tage",
+    "disclaimer": "Manuelles Protokoll. Die App misst nicht, was du trinkst."
+  },
+  "goal": {
+    "eyebrow": "Mein Ziel",
+    "pickTitle": "Ziel festlegen",
+    "pickBody": "Gewicht, Einheiten pro Woche, Minuten oder tägliches Atmen.",
+    "types": {
+      "weight": "Zielgewicht",
+      "sessions": "Einheiten pro Woche",
+      "minutes": "Minuten pro Woche",
+      "breath": "Täglich atmen"
+    },
+    "notes": {
+      "sessions": "{count, plural, =0 {Wochenziel erreicht} one {Noch # Einheit diese Woche} other {Noch # Einheiten diese Woche}}",
+      "minutes": "{count, plural, =0 {Wochenziel erreicht} other {Noch # Minuten diese Woche}}",
+      "breath": "Tage mit Atempraxis diese Woche",
+      "breathDone": "Jeden Tag diese Woche. Schön.",
+      "weight": "{kg} kg bis zum Ziel, nach deinen Messungen",
+      "weightDone": "Du bist auf deinem Zielgewicht",
+      "weightNeeds": "Trage ein Gewicht ein, um den Fortschritt zu sehen"
+    },
+    "approx": "Ungefähr; nur aus deinen Einträgen, kein Datum versprochen.",
+    "pickerTitle": "Mein Ziel",
+    "pickerLead": "Ein Ziel wird auf Home gezeigt. Jederzeit änderbar.",
+    "descriptions": {
+      "weight": "Fortschritt vom ersten erfassten Gewicht zum Ziel. Messungen unter Meine Gesundheit.",
+      "sessions": "Zählt Einheiten, die du als erledigt markierst; dieselbe Zahl wie die Ringe.",
+      "minutes": "Minuten dieser Woche aus Trainings, Lektionen und Atmen.",
+      "breath": "Tage dieser Woche mit mindestens einer abgeschlossenen Atempraxis."
+    },
+    "fields": {
+      "currentKg": "Aktuelles Gewicht",
+      "targetKg": "Zielgewicht",
+      "needWeight": "Trage unter Meine Gesundheit ein Gewicht ein, damit Fortschritt gezeigt werden kann.",
+      "sessionsPerWeek": "Einheiten pro Woche",
+      "minutesPerWeek": "Minuten pro Woche"
+    },
+    "save": "Ziel speichern",
+    "saved": "Gespeichert.",
+    "errors": {
+      "invalid": "Prüfe das Ziel: es liegt außerhalb eines realistischen Bereichs.",
+      "generic": "Konnte nicht speichern. Versuch es nochmal."
+    },
+    "pickerNote": "Keine extremen Ziele: Gewichtsziele nutzen das sanfte Tempo des Rechners unten, und nichts verspricht ein Datum."
+  },
+  "connect": {
+    "eyebrow": "Apple Health",
+    "title": "Apple Health verbinden",
+    "lead": "Ein Berechtigungsbildschirm, deine Daten bleiben deine. Das würde die App anfragen, und so steht es gerade.",
+    "status": {
+      "web": {
+        "title": "Im Browser nicht verfügbar",
+        "body": "Apple Health öffnet sich nur der nativen iOS-App. Webversion und Home-Bildschirm-Verknüpfung erreichen es nicht, daher gibt es hier keinen Verbinden-Button. Trage die Zahlen, die dir wichtig sind, manuell unter Meine Gesundheit ein."
+      },
+      "ios": {
+        "title": "iOS-App noch ohne Health-Modul",
+        "body": "Dieser Build der KINEZIS LIVE App enthält die Apple-Health-Brücke nicht. Ein Update fügt sie hinzu; dann erscheint der Berechtigungsbildschirm."
+      },
+      "android": {
+        "title": "Apple Health ist eine iOS-Funktion",
+        "body": "Auf Android heißt der passende Dienst Health Connect. Er ist separat geplant; manuelle Eingabe funktioniert heute."
+      },
+      "notConnected": "Status: nicht verbunden"
+    },
+    "categoriesTitle": "Was die App anfragen wird und warum",
+    "categories": {
+      "steps": {
+        "title": "Schritte und Distanz",
+        "why": "Tägliche Bewegung an einem Ort mit deinen Einheiten."
+      },
+      "workouts": {
+        "title": "Trainings und aktive Minuten",
+        "why": "Auf der Uhr erfasste Einheiten zählen zum Wochenziel."
+      },
+      "heart": {
+        "title": "Puls und Ruhepuls",
+        "why": "Als Kontext für die Erholung gezeigt. Nie als Diagnose gedeutet."
+      },
+      "sleep": {
+        "title": "Schlafdauer",
+        "why": "Hilft, Erholung neben dem Training zu sehen. Keine erfundenen Schlafwerte."
+      },
+      "breathing": {
+        "title": "Atemfrequenz (falls die Uhr sie erfasst)",
+        "why": "Optionaler Kontext für die Atempraktiken."
+      }
+    },
+    "categoriesNote": "Nur erlaubte Typen werden gelesen. Jeder kann im Systemdialog einzeln abgelehnt und später in der Health-App abgeschaltet werden.",
+    "flowTitle": "So wird es funktionieren",
+    "flow": {
+      "1": "Du tippst in der iOS-App auf Verbinden.",
+      "2": "Die App erklärt die Kategorien oben.",
+      "3": "iOS zeigt seinen eigenen Berechtigungsbildschirm, Typ für Typ.",
+      "4": "Die App liest nur, was du erlaubt hast, sonst nichts.",
+      "5": "Erlaubte Zahlen erscheinen auf Home und unter Meine Gesundheit mit der Quelle Apple Health.",
+      "6": "Lehnst du ab, funktioniert alles weiter und die manuelle Eingabe bleibt."
+    },
+    "privacyTitle": "Datenschutz",
+    "privacy": {
+      "1": "Gesundheitsdaten werden nie an Dritte weitergegeben und nie anderen Mitgliedern gezeigt.",
+      "2": "Jede Berechtigung kannst du jederzeit unter iOS-Einstellungen → Health → Datenzugriff widerrufen.",
+      "3": "Manuelle, geschätzte und importierte Zahlen tragen immer ihre Quelle.",
+      "4": "Nichts wird als verbunden gezeigt, bevor tatsächlich Daten empfangen wurden."
+    },
+    "manualNote": "Bis die native Brücke kommt, ist Meine Gesundheit vollständig manuell: Gewicht, Maße, Wasser und dein Aktivitätsprotokoll."
   }
 }

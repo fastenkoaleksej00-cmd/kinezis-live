@@ -7,11 +7,13 @@ import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
 import { RemindersCard } from "@/components/home/RemindersCard";
 import { TodayRings } from "@/components/home/TodayRings";
-import { QuickLinks } from "@/components/home/QuickLinks";
+import { QuickAccess } from "@/components/home/QuickAccess";
+import { GoalWidget } from "@/components/home/GoalWidget";
+import { WaterWidget } from "@/components/home/WaterWidget";
 import { NewSessions } from "@/components/home/NewSessions";
 import { BreathWidget } from "@/components/breath/BreathWidget";
 import { computeActivityStats } from "@/lib/health/stats";
-import { listActivity } from "@/lib/profile/queries";
+import { listActivity, listMeasurements } from "@/lib/profile/queries";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -41,7 +43,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const locale = await getLocale();
   const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(undefined, feed), getSessionUser(), getMyProfile()]);
   const members = await getPublicMembers(posts.map((p) => p.userId ?? "").filter(Boolean));
-  const stats = user ? computeActivityStats(await listActivity()) : null;
+  const log = user ? await listActivity() : [];
+  const stats = user ? computeActivityStats(log) : null;
+  const measurements = user && profile?.primaryGoal === "weight" ? await listMeasurements() : [];
   const tf = await getTranslations("feed");
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
   const social = await getSocialCounts("post", posts.map((p) => p.id));
@@ -56,7 +60,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       </Reveal>
 
       <Reveal delay={0.05}>
-        <QuickLinks />
+        <QuickAccess />
       </Reveal>
 
       {stats ? (
@@ -64,6 +68,16 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <TodayRings stats={stats} sessionsTarget={profile?.weeklySessionsTarget ?? 3} minutesTarget={profile?.weeklyMinutesTarget ?? 60} />
         </Reveal>
       ) : null}
+
+      {profile && stats ? (
+        <Reveal delay={0.07}>
+          <GoalWidget profile={profile} stats={stats} log={log} measurements={measurements} />
+        </Reveal>
+      ) : null}
+
+      <Reveal delay={0.075}>
+        <WaterWidget />
+      </Reveal>
 
       {today ? (
         <Reveal delay={0.08}>

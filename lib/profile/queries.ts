@@ -1,8 +1,9 @@
+import { normalizeBanner } from "./banner";
 import { cache } from "react";
 import { createServerSupabase } from "@/lib/supabase/server";
 import {
   activityLevels,
-  bannerPresets,
+  primaryGoals,
   defaultNotificationPrefs,
   defaultPrivacy,
   experienceLevels,
@@ -34,6 +35,8 @@ interface ProfileRow {
   experience: string | null;
   weekly_sessions_target: number | null;
   weekly_minutes_target: number | null;
+  primary_goal?: string | null;
+  target_weight_kg?: number | string | null;
 }
 
 const inList = <T extends string>(list: readonly T[], v: string | null | undefined): T | null => (v && (list as readonly string[]).includes(v) ? (v as T) : null);
@@ -48,7 +51,7 @@ export const getMyProfile = cache(async (): Promise<UserProfile | null> => {
   if (!user) return null;
   const { data } = await supabase
     .from("profiles")
-    .select("id, display_name, avatar_src, bio, interests, banner_src, banner_preset, banner_position, privacy, notification_prefs, reminders, height_cm, birth_date, fitness_goal, activity_level, experience, weekly_sessions_target, weekly_minutes_target")
+    .select("*")
     .eq("id", user.id)
     .maybeSingle();
   const r = data as ProfileRow | null;
@@ -60,7 +63,7 @@ export const getMyProfile = cache(async (): Promise<UserProfile | null> => {
     bio: r.bio,
     interests: (r.interests ?? []).filter((i): i is UserProfile["interests"][number] => (interestOptions as readonly string[]).includes(i)),
     bannerSrc: r.banner_src,
-    bannerPreset: inList(bannerPresets, r.banner_preset) ?? "deep",
+    bannerPreset: normalizeBanner(r.banner_preset),
     bannerPosition: typeof r.banner_position === "number" ? Math.min(100, Math.max(0, r.banner_position)) : 50,
     privacy: { ...defaultPrivacy, ...(r.privacy ?? {}) },
     notificationPrefs: { ...defaultNotificationPrefs, ...(r.notification_prefs ?? {}) },
@@ -72,6 +75,8 @@ export const getMyProfile = cache(async (): Promise<UserProfile | null> => {
     experience: inList(experienceLevels, r.experience),
     weeklySessionsTarget: r.weekly_sessions_target ?? 3,
     weeklyMinutesTarget: r.weekly_minutes_target ?? 60,
+    primaryGoal: inList(primaryGoals, r.primary_goal ?? null),
+    targetWeightKg: r.target_weight_kg !== null && r.target_weight_kg !== undefined ? Number(r.target_weight_kg) : null,
   };
 });
 

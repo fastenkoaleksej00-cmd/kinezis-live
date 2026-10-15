@@ -45,7 +45,17 @@
     "quick": {
       "body": "Body map",
       "nutrition": "Nutrition",
-      "library": "Library"
+      "library": "Library",
+      "breathe": "Breathe",
+      "water": "Water",
+      "goal": "My goal",
+      "activity": "Activity",
+      "saved": "Saved",
+      "health": "My health",
+      "appleHealth": "Apple Health",
+      "customise": "Customise",
+      "customiseHint": "Pick {min} to {max} shortcuts. The order follows your selection. Stored on this device.",
+      "reset": "Reset to default"
     }
   },
   "explore": {
@@ -713,7 +723,16 @@
       "age": "Age",
       "noData": "No data yet",
       "bmiNote": "Orientation only, not a diagnosis",
-      "bmiNeeds": "Needs height and weight"
+      "bmiNeeds": "Needs height and weight",
+      "targetWeight": "Target weight",
+      "toGo": "{kg} kg to go",
+      "setGoal": "Set in My goal",
+      "today": "Today",
+      "todaySub": "Minutes from your log",
+      "week": "This week",
+      "weekSub": "{count, plural, one {# session} other {# sessions}} marked done",
+      "streak": "Streak",
+      "streakSub": "Days in a row"
     },
     "disclaimer": "These figures are for your own orientation. The app does not make medical conclusions and does not promise results. For health concerns consult a specialist.",
     "profileTitle": "About you",
@@ -737,7 +756,8 @@
       "optional": "optional",
       "weeklySessions": "Weekly goal: sessions",
       "weeklyMinutes": "Weekly goal: minutes",
-      "weeklyHint": "Used by the rings on Home."
+      "weeklyHint": "Used by the rings on Home.",
+      "targetWeight": "Target weight"
     },
     "goals": {
       "lose_weight": "Lose weight",
@@ -769,9 +789,6 @@
     "emptyTitle": "No measurements yet",
     "emptyBody": "Add your first weight above. The chart appears after two entries.",
     "notEnough": "Add at least {count} entries in this period to see a chart.",
-    "appleHealthTitle": "Apple Health and Apple Watch",
-    "appleHealthBody": "Steps, heart rate and sleep can only be read by the native iOS app with your per-type permission. The web version cannot access them, so there is no connect button here.",
-    "appleHealthStatus": "Status: not available in this version · planned for the iOS app",
     "errors": {
       "signedOut": "Sign in first.",
       "notConfigured": "Accounts are not connected.",
@@ -783,7 +800,23 @@
     "calculatorTitle": "Goal calculator",
     "calculatorBody": "Maintenance energy, gentle intake and a realistic time window.",
     "breatheTitle": "Breathing and recovery",
-    "breatheBody": "Short practices, honest about what they can and cannot do."
+    "breatheBody": "Short practices, honest about what they can and cannot do.",
+    "sources": {
+      "manual": "Manual",
+      "calculated": "Estimate",
+      "app": "App log",
+      "health": "Apple Health",
+      "none": "No source"
+    },
+    "connectTitle": "Apple Health and Apple Watch",
+    "connectBody": "Steps, distance, heart rate and sleep can arrive here only from the iOS app, with your per-type permission.",
+    "connectStatus": "Not connected · open to see what is possible",
+    "pending": {
+      "steps": "Steps",
+      "distance": "Distance",
+      "heartRate": "Heart rate",
+      "sleep": "Sleep"
+    }
   },
   "activity": {
     "title": "Activity",
@@ -825,11 +858,6 @@
     "bannerUpload": "Upload image",
     "bannerRemove": "Remove image",
     "bannerPosition": "Crop position",
-    "presets": {
-      "deep": "Petrol",
-      "mint": "Mint",
-      "light": "Ice"
-    },
     "uploadFailed": "Upload failed. Check the file size and try again.",
     "save": "Save profile",
     "saving": "Saving…",
@@ -840,7 +868,17 @@
       "generic": "Could not save. Try again.",
       "weakPassword": "",
       "sameEmail": ""
-    }
+    },
+    "presets": {
+      "mint": "Mint",
+      "ocean": "Ocean",
+      "lavender": "Lavender",
+      "sunset": "Sunset",
+      "forest": "Forest",
+      "midnight": "Midnight"
+    },
+    "bannerHint": "Preview above; the banner does not change the app theme.",
+    "bannerReset": "Back to Mint"
   },
   "social": {
     "like": "Like",
@@ -1064,7 +1102,8 @@
       "floorApplied": "The intake was raised to a safe minimum. Going lower is not recommended without medical supervision."
     },
     "method": "Method: Mifflin–St Jeor resting energy × activity factor (1.2 / 1.45 / 1.7); gentle pace of 0.25–0.5 kg per week; minimum intake 1200 kcal (female) or 1500 kcal (male).",
-    "disclaimer": "Real results depend on nutrition, activity, sleep and your body. This is not a diet plan or medical advice. For health conditions, pregnancy or eating difficulties consult a specialist."
+    "disclaimer": "Real results depend on nutrition, activity, sleep and your body. This is not a diet plan or medical advice. For health conditions, pregnancy or eating difficulties consult a specialist.",
+    "weightSection": "Weight: energy and a gentle pace"
   },
   "onboarding": {
     "skip": "Skip",
@@ -1162,5 +1201,122 @@
       "sources": "{count, plural, one {# source} other {# sources}}",
       "checked": "Checked on {date}. Levels follow how strong and consistent the evidence is, not how popular the method is."
     }
+  },
+  "water": {
+    "eyebrow": "Water",
+    "title": "Today's water",
+    "goalEdit": "Change the daily goal",
+    "progressLabel": "{ml} of {goal} ml",
+    "add": "+{ml} ml",
+    "undo": "Undo the last portion",
+    "goalLabel": "Daily goal, ml",
+    "goalSave": "Save",
+    "goalNote": "Your own goal. Needs differ with body, activity, weather and health; this is not a medical norm.",
+    "week": "Last 7 days",
+    "disclaimer": "Manual log. The app does not measure what you drink."
+  },
+  "goal": {
+    "eyebrow": "My goal",
+    "pickTitle": "Set a goal",
+    "pickBody": "Weight, sessions a week, minutes or a daily breathing habit.",
+    "types": {
+      "weight": "Target weight",
+      "sessions": "Sessions a week",
+      "minutes": "Minutes a week",
+      "breath": "Breathe every day"
+    },
+    "notes": {
+      "sessions": "{count, plural, =0 {Weekly goal reached} one {# session to go this week} other {# sessions to go this week}}",
+      "minutes": "{count, plural, =0 {Weekly goal reached} other {# minutes to go this week}}",
+      "breath": "Days with a breathing practice this week",
+      "breathDone": "Every day this week. Nice.",
+      "weight": "{kg} kg to your target, by your own measurements",
+      "weightDone": "You are at your target weight",
+      "weightNeeds": "Add a weight measurement to see progress"
+    },
+    "approx": "Approximate; based on your entries only, no dates promised.",
+    "pickerTitle": "My goal",
+    "pickerLead": "One goal is shown on Home. Change it any time.",
+    "descriptions": {
+      "weight": "Progress from your first logged weight to the target. Add measurements in My health.",
+      "sessions": "Counts sessions you mark as done; same number as the Home rings.",
+      "minutes": "Minutes logged this week from workouts, lessons and breathing.",
+      "breath": "Days this week with at least one finished breathing practice."
+    },
+    "fields": {
+      "currentKg": "Current weight",
+      "targetKg": "Target weight",
+      "needWeight": "Add a weight in My health so progress can be shown.",
+      "sessionsPerWeek": "Sessions a week",
+      "minutesPerWeek": "Minutes a week"
+    },
+    "save": "Save goal",
+    "saved": "Saved.",
+    "errors": {
+      "invalid": "Check the target: it looks outside a realistic range.",
+      "generic": "Could not save. Try again."
+    },
+    "pickerNote": "No extreme targets: weight goals use the gentle pace from the calculator below, and nothing promises a date."
+  },
+  "connect": {
+    "eyebrow": "Apple Health",
+    "title": "Connect Apple Health",
+    "lead": "One permission screen, your data stays yours. Here is what the app would ask for and where things stand.",
+    "status": {
+      "web": {
+        "title": "Not available in the browser",
+        "body": "Apple Health opens only to the native iOS app. The web version and the Home-screen shortcut cannot reach it, so there is no connect button here. Fill the numbers you care about manually in My health."
+      },
+      "ios": {
+        "title": "iOS app without the Health module yet",
+        "body": "This build of the KINEZIS LIVE app does not include the Apple Health bridge. An update will add it; the permission screen will appear then."
+      },
+      "android": {
+        "title": "Apple Health is an iOS feature",
+        "body": "On Android the matching service is Health Connect. It is planned separately; manual entry works today."
+      },
+      "notConnected": "Status: not connected"
+    },
+    "categoriesTitle": "What the app will ask for and why",
+    "categories": {
+      "steps": {
+        "title": "Steps and distance",
+        "why": "Daily movement in one place with your sessions."
+      },
+      "workouts": {
+        "title": "Workouts and active minutes",
+        "why": "Sessions you record on the watch count towards your weekly goal."
+      },
+      "heart": {
+        "title": "Heart rate and resting heart rate",
+        "why": "Shown as context for recovery. Never interpreted as a diagnosis."
+      },
+      "sleep": {
+        "title": "Sleep duration",
+        "why": "Helps you see recovery next to training. No sleep scores invented."
+      },
+      "breathing": {
+        "title": "Respiratory rate (if the watch records it)",
+        "why": "Optional context for the breathing practices."
+      }
+    },
+    "categoriesNote": "Only the types you allow are read. Each one can be refused separately in the system prompt and switched off later in the Health app.",
+    "flowTitle": "How it will work",
+    "flow": {
+      "1": "You tap Connect in the iOS app.",
+      "2": "The app explains the categories above.",
+      "3": "iOS shows its own permission screen, type by type.",
+      "4": "The app reads only what you allowed, nothing else.",
+      "5": "Allowed numbers appear on Home and in My health with the source label Apple Health.",
+      "6": "If you decline, everything keeps working and manual entry stays available."
+    },
+    "privacyTitle": "Privacy",
+    "privacy": {
+      "1": "Health data is never shared with third parties and never shown to other members.",
+      "2": "You can revoke each permission at any time in iOS Settings → Health → Data access.",
+      "3": "Manual, estimated and imported numbers are always labelled with their source.",
+      "4": "Nothing is shown as connected until data has actually been received."
+    },
+    "manualNote": "Until the native bridge ships, My health is fully manual: weight, measurements, water and your activity log."
   }
 }

@@ -10,6 +10,7 @@ import {
   fitnessGoals,
   interestOptions,
   notificationTypes,
+  primaryGoals,
   reminderKinds,
   type Reminder,
 } from "./types";
@@ -55,7 +56,7 @@ export async function updateProfile(_prev: ProfileState, fd: FormData): Promise<
   const displayName = str(fd, "display_name").slice(0, 60);
   const bio = str(fd, "bio").slice(0, 300);
   const interests = interestOptions.filter((i) => fd.get(`interest_${i}`) === "on");
-  const bannerPreset = inList(bannerPresets, str(fd, "banner_preset")) ?? "deep";
+  const bannerPreset = inList(bannerPresets, str(fd, "banner_preset")) ?? "mint";
   const bannerSrc = str(fd, "banner_src") || null;
   const avatarSrc = str(fd, "avatar_src") || null;
   const pos = Number.parseInt(str(fd, "banner_position"), 10);
@@ -85,6 +86,8 @@ export async function updateHealthProfile(_prev: ProfileState, fd: FormData): Pr
   const birth = str(fd, "birth_date") || null;
   const sessionsTarget = Number.parseInt(str(fd, "weekly_sessions_target"), 10);
   const minutesTarget = Number.parseInt(str(fd, "weekly_minutes_target"), 10);
+  const targetWeight = num(fd, "target_weight_kg");
+  if (targetWeight !== null && (targetWeight < 20 || targetWeight > 400)) return { error: "invalid" };
   const { error } = await ctx.supabase
     .from("profiles")
     .update({
@@ -95,10 +98,31 @@ export async function updateHealthProfile(_prev: ProfileState, fd: FormData): Pr
       fitness_goal: inList(fitnessGoals, str(fd, "fitness_goal")),
       activity_level: inList(activityLevels, str(fd, "activity_level")),
       experience: inList(experienceLevels, str(fd, "experience")),
+      target_weight_kg: targetWeight,
     })
     .eq("id", ctx.user.id);
   if (error) return { error: "generic" };
   revalidateProfile();
+  return { ok: true };
+}
+
+/** Primary goal for the Home widget; weight goals also store the target weight. Weekly targets are reused by the rings. */
+export async function updateGoal(_prev: ProfileState, fd: FormData): Promise<ProfileState> {
+  const ctx = await me();
+  if ("error" in ctx) return { error: ctx.error };
+  const goal = inList(primaryGoals, str(fd, "primary_goal"));
+  const targetWeight = num(fd, "target_weight_kg");
+  if (goal === "weight" && (targetWeight === null || targetWeight < 20 || targetWeight > 400)) return { error: "invalid" };
+  const sessionsTarget = Number.parseInt(str(fd, "weekly_sessions_target"), 10);
+  const minutesTarget = Number.parseInt(str(fd, "weekly_minutes_target"), 10);
+  const patch: Record<string, unknown> = { primary_goal: goal };
+  if (goal === "weight") patch.target_weight_kg = targetWeight;
+  if (goal === "sessions" && Number.isFinite(sessionsTarget)) patch.weekly_sessions_target = Math.min(14, Math.max(1, sessionsTarget));
+  if (goal === "minutes" && Number.isFinite(minutesTarget)) patch.weekly_minutes_target = Math.min(1500, Math.max(10, minutesTarget));
+  const { error } = await ctx.supabase.from("profiles").update(patch).eq("id", ctx.user.id);
+  if (error) return { error: "generic" };
+  revalidateProfile();
+  revalidatePath("/health/calculator");
   return { ok: true };
 }
 

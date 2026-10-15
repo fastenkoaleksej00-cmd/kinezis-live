@@ -10,8 +10,13 @@ export type ExperienceLevel = (typeof experienceLevels)[number];
 export const interestOptions = ["yoga", "pilates", "stretching", "mobility", "back", "face", "skincare", "nutrition", "pregnancy"] as const;
 export type Interest = (typeof interestOptions)[number];
 
-export const bannerPresets = ["deep", "mint", "light"] as const;
+/** Banner palettes. Mint is the brand default; legacy values "deep" and "light" are mapped in lib/profile/banner.ts. */
+export const bannerPresets = ["mint", "ocean", "lavender", "sunset", "forest", "midnight"] as const;
 export type BannerPreset = (typeof bannerPresets)[number];
+
+/** One primary goal shown on Home. Weight uses measurements, the rest use the activity log. */
+export const primaryGoals = ["weight", "sessions", "minutes", "breath"] as const;
+export type PrimaryGoal = (typeof primaryGoals)[number];
 
 export const notificationTypes = ["workouts", "reminders", "posts", "messages", "goals"] as const;
 export type NotificationType = (typeof notificationTypes)[number];
@@ -51,6 +56,8 @@ export interface UserProfile {
   experience: ExperienceLevel | null;
   weeklySessionsTarget: number;
   weeklyMinutesTarget: number;
+  primaryGoal: PrimaryGoal | null;
+  targetWeightKg: number | null;
 }
 
 export interface Measurement {

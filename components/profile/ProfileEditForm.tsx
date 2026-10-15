@@ -6,7 +6,8 @@ import { Camera, ImagePlus, Loader2, X } from "lucide-react";
 import { Checkbox, Field, Input, Textarea } from "@/components/admin/fields";
 import { Button } from "@/components/ui/Button";
 import { updateProfile, type ProfileState } from "@/lib/profile/actions";
-import { bannerPresets, interestOptions, type UserProfile } from "@/lib/profile/types";
+import { bannerClass } from "@/lib/profile/banner";
+import { bannerPresets, interestOptions, type BannerPreset, type UserProfile } from "@/lib/profile/types";
 import { getBrowserClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +31,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
   const [state, action, pending] = useActionState(updateProfile, initial);
   const [avatar, setAvatar] = useState<string | null>(profile.avatarSrc);
   const [banner, setBanner] = useState<string | null>(profile.bannerSrc);
-  const [preset, setPreset] = useState<string>(profile.bannerPreset);
+  const [preset, setPreset] = useState<BannerPreset>(profile.bannerPreset);
   const [position, setPosition] = useState<number>(profile.bannerPosition);
   const [busy, setBusy] = useState<"avatar" | "banner" | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -64,7 +65,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
 
       {/* Live preview of banner + avatar */}
       <section className="card overflow-hidden">
-        <div className={cn("relative h-40 sm:h-48", !banner && (preset === "mint" ? "cover cover-mint" : preset === "light" ? "cover cover-light" : "cover"))}>
+        <div className={cn("relative h-40 sm:h-48", !banner && bannerClass(preset))}>
           {banner ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={banner} alt="" className="h-full w-full object-cover" style={{ objectPosition: `50% ${position}%` }} />
@@ -102,7 +103,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
 
       <section className="card space-y-4 p-5">
         <p className="eyebrow">{t("bannerTitle")}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
           {bannerPresets.map((p) => (
             <button
               key={p}
@@ -112,11 +113,26 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
                 setBanner(null);
               }}
               aria-pressed={!banner && preset === p}
-              className={cn("h-12 w-20 rounded-xl border-2 transition-colors", p === "mint" ? "cover cover-mint" : p === "light" ? "cover cover-light" : "cover", !banner && preset === p ? "border-accent" : "border-transparent")}
-              aria-label={t(`presets.${p}`)}
-            />
+              className="group flex flex-col items-center gap-1.5"
+            >
+              <span className={cn("block h-12 w-full rounded-xl border-2 transition-[transform,border-color] duration-300 group-active:scale-95", bannerClass(p), !banner && preset === p ? "border-accent" : "border-transparent")} aria-hidden />
+              <span className={cn("text-[11px] font-semibold", !banner && preset === p ? "text-ink" : "text-steel")}>{t(`presets.${p}`)}</span>
+            </button>
           ))}
         </div>
+        <p className="text-steel text-xs">{t("bannerHint")}</p>
+        {preset !== "mint" || banner ? (
+          <button
+            type="button"
+            onClick={() => {
+              setPreset("mint");
+              setBanner(null);
+            }}
+            className="text-accent text-xs font-semibold hover:underline"
+          >
+            {t("bannerReset")}
+          </button>
+        ) : null}
         {banner ? (
           <label className="block">
             <span className="text-steel mb-1.5 block text-xs font-semibold">{t("bannerPosition")}</span>

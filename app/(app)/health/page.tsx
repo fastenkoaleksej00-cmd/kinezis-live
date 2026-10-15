@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { ArrowLeft, ArrowUpRight, Calculator, HeartPulse, Scale, Watch, Wind } from "lucide-react";
+import { WaterWidget } from "@/components/home/WaterWidget";
+import { SourceBadge, type DataSource } from "@/components/health/SourceBadge";
 import { HealthProfileForm, MeasurementForm, MeasurementRow } from "@/components/health/HealthForms";
 import { LineChart } from "@/components/health/LineChart";
 import { Container } from "@/components/ui/Container";
@@ -8,8 +10,8 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
-import { ageFromBirthDate, bmi, filterByPeriod, latestWeight, type Period } from "@/lib/health/stats";
-import { getMyProfile, listMeasurements } from "@/lib/profile/queries";
+import { ageFromBirthDate, bmi, computeActivityStats, filterByPeriod, latestWeight, type Period } from "@/lib/health/stats";
+import { getMyProfile, listActivity, listMeasurements } from "@/lib/profile/queries";
 import { cn } from "@/lib/utils";
 
 interface PageProps {
@@ -25,7 +27,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
   const format = await getFormatter();
   const sp = await searchParams;
   const period: Period = periods.includes(sp.period as Period) ? (sp.period as Period) : "month";
-  const [profile, measurements] = await Promise.all([getMyProfile(), listMeasurements()]);
+  const [profile, measurements, log] = await Promise.all([getMyProfile(), listMeasurements(), listActivity()]);
 
   if (!profile) {
     return (
@@ -52,6 +54,19 @@ export default async function HealthPage({ searchParams }: PageProps) {
   const weightPoints = inPeriod.filter((m) => m.weightKg !== null).map((m) => ({ date: m.measuredOn, value: m.weightKg as number }));
   const waistPoints = inPeriod.filter((m) => m.waistCm !== null).map((m) => ({ date: m.measuredOn, value: m.waistCm as number }));
   const dateLabel = (iso: string) => format.dateTime(new Date(iso), { day: "numeric", month: "short", year: "numeric" });
+  const stats = computeActivityStats(log);
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const todayMinutes = log.filter((e) => e.completedAt.slice(0, 10) === todayKey).reduce((n, e) => n + (e.durationMin ?? 0), 0);
+  const cards: Array<{ label: string; value: string; sub: string; source: DataSource }> = [
+    { label: t("cards.weight"), value: latest?.weightKg !== undefined && latest?.weightKg !== null ? `${latest.weightKg} kg` : "—", sub: latest ? dateLabel(latest.measuredOn) : t("cards.noData"), source: latest ? "manual" : "none" },
+    { label: t("cards.height"), value: profile.heightCm ? `${profile.heightCm} cm` : "—", sub: profile.heightCm ? "" : t("cards.noData"), source: profile.heightCm ? "manual" : "none" },
+    { label: t("cards.targetWeight"), value: profile.targetWeightKg ? `${profile.targetWeightKg} kg` : "—", sub: profile.targetWeightKg ? (latest?.weightKg ? t("cards.toGo", { kg: Math.round(Math.abs(latest.weightKg - profile.targetWeightKg) * 10) / 10 }) : "") : t("cards.setGoal"), source: profile.targetWeightKg ? "manual" : "none" },
+    { label: t("cards.bmi"), value: index !== null ? String(index) : "—", sub: index !== null ? t("cards.bmiNote") : t("cards.bmiNeeds"), source: index !== null ? "calculated" : "none" },
+    { label: t("cards.today"), value: `${todayMinutes} min`, sub: t("cards.todaySub"), source: "app" },
+    { label: t("cards.week"), value: `${stats.weekMinutes} min`, sub: t("cards.weekSub", { count: stats.weeks[stats.weeks.length - 1]?.count ?? 0 }), source: "app" },
+    { label: t("cards.streak"), value: `${stats.currentStreak}`, sub: t("cards.streakSub"), source: "app" },
+    { label: t("cards.age"), value: age !== null ? String(age) : "—", sub: age !== null ? "" : t("fields.optional"), source: age !== null ? "manual" : "none" },
+  ];
 
   return (
     <Container as="section" className="max-w-[860px] space-y-8 py-4 sm:py-8">
@@ -64,18 +79,40 @@ export default async function HealthPage({ searchParams }: PageProps) {
       </Reveal>
 
       <Reveal delay={0.05} as="section" className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {[
-          { label: t("cards.weight"), value: latest?.weightKg !== undefined && latest?.weightKg !== null ? `${latest.weightKg} kg` : "—", sub: latest ? dateLabel(latest.measuredOn) : t("cards.noData") },
-          { label: t("cards.height"), value: profile.heightCm ? `${profile.heightCm} cm` : "—", sub: profile.heightCm ? "" : t("cards.noData") },
-          { label: t("cards.bmi"), value: index !== null ? String(index) : "—", sub: index !== null ? t("cards.bmiNote") : t("cards.bmiNeeds") },
-          { label: t("cards.age"), value: age !== null ? String(age) : "—", sub: age !== null ? "" : t("fields.optional") },
-        ].map((c) => (
+        {cards.map((c) => (
           <div key={c.label} className="card px-4 py-3.5">
-            <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{c.label}</p>
+            <div className="flex items-start justify-between gap-2">
+              <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{c.label}</p>
+              <SourceBadge source={c.source} />
+            </div>
             <p className="text-ink mt-1 text-2xl font-extrabold">{c.value}</p>
             {c.sub ? <p className="text-steel mt-0.5 text-xs">{c.sub}</p> : null}
           </div>
         ))}
+      </Reveal>
+
+      <Reveal delay={0.06} as="section" className="grid gap-3 sm:grid-cols-2">
+        <WaterWidget id="water" variant="full" />
+        <Link href="/health/connect" className="card group flex flex-col justify-between gap-4 p-5 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5">
+          <div className="flex items-start justify-between gap-3">
+            <span className="bg-[#fde8ea] text-[#b9344a] inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl">
+              <Watch className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+            </span>
+            <ArrowUpRight className="text-steel group-hover:text-ink h-4 w-4 transition-colors" aria-hidden />
+          </div>
+          <div>
+            <p className="text-ink font-bold">{t("connectTitle")}</p>
+            <p className="text-steel mt-1 text-sm">{t("connectBody")}</p>
+            <ul className="mt-3 flex flex-wrap gap-1.5">
+              {(["steps", "distance", "heartRate", "sleep"] as const).map((k) => (
+                <li key={k} className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">
+                  {t(`pending.${k}`)}
+                </li>
+              ))}
+            </ul>
+            <p className="text-steel mt-3 text-xs">{t("connectStatus")}</p>
+          </div>
+        </Link>
       </Reveal>
 
       <Reveal delay={0.08}>
@@ -161,16 +198,6 @@ export default async function HealthPage({ searchParams }: PageProps) {
         )}
       </Reveal>
 
-      <Reveal delay={0.22} as="section" className="card flex items-start gap-4 p-5">
-        <span className="bg-bone-2 text-steel inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
-          <Watch className="h-5 w-5" strokeWidth={1.8} aria-hidden />
-        </span>
-        <div className="text-sm">
-          <p className="text-ink font-semibold">{t("appleHealthTitle")}</p>
-          <p className="text-steel mt-1">{t("appleHealthBody")}</p>
-          <p className="text-steel mt-1 text-xs">{t("appleHealthStatus")}</p>
-        </div>
-      </Reveal>
     </Container>
   );
 }

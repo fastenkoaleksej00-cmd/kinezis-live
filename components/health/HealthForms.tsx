@@ -48,6 +48,9 @@ export function HealthProfileForm({ profile }: { profile: UserProfile }) {
           ))}
         </Select>
       </Field>
+      <Field label={t("fields.targetWeight")} hint="kg">
+        <Input name="target_weight_kg" type="number" inputMode="decimal" step="0.1" min={20} max={400} defaultValue={profile.targetWeightKg ?? ""} />
+      </Field>
       <Field label={t("fields.weeklySessions")} hint={t("fields.weeklyHint")}>
         <Input name="weekly_sessions_target" type="number" min={1} max={14} defaultValue={profile.weeklySessionsTarget} />
       </Field>

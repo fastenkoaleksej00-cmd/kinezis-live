@@ -8,6 +8,7 @@ import { buttonStyles } from "@/components/ui/buttonStyles";
 import { signOut } from "@/lib/auth/actions";
 import { countMyUnread } from "@/lib/chat/queries";
 import { computeActivityStats } from "@/lib/health/stats";
+import { bannerClass } from "@/lib/profile/banner";
 import { getMyProfile, listActivity } from "@/lib/profile/queries";
 import { getSupabaseEnv } from "@/lib/supabase/env";
 import { getSessionUser } from "@/lib/supabase/server";
@@ -51,7 +52,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
     { href: "/premium", icon: Sparkles, title: t("subscription"), body: user && user.plan !== "free" ? t(`plans.${user.plan}`) : t("subscriptionFree"), tone: "mint" },
   ] as const;
 
-  const bannerClass = profile?.bannerPreset === "mint" ? "cover cover-mint" : profile?.bannerPreset === "light" ? "cover cover-light" : "cover";
+  const bannerClasses = bannerClass(profile?.bannerPreset ?? "mint");
 
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
@@ -62,7 +63,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
 
       <Reveal delay={0.06}>
         <div className="card overflow-hidden">
-          <div className={cn("relative h-32 sm:h-40", !profile?.bannerSrc && bannerClass)}>
+          <div className={cn("relative h-32 sm:h-40", !profile?.bannerSrc && bannerClasses)}>
             {profile?.bannerSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={profile.bannerSrc} alt="" className="h-full w-full object-cover" style={{ objectPosition: `50% ${profile.bannerPosition}%` }} />

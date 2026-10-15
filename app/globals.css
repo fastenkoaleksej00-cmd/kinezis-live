@@ -220,6 +220,45 @@
       radial-gradient(70% 60% at 85% 10%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 65%),
       linear-gradient(160deg, #d9edf3 0%, #c5e0e9 60%, #e7f4f7 100%);
   }
+  /* Profile banner palettes (used together with .cover for the grid overlay). Mint is the default. */
+  .banner-mint {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 65%),
+      radial-gradient(60% 55% at 10% 100%, rgba(63, 143, 128, 0.45) 0%, rgba(63, 143, 128, 0) 60%),
+      linear-gradient(160deg, #3f8f80 0%, #7fc5b6 55%, #c8ece4 100%);
+  }
+  .banner-ocean {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(142, 220, 240, 0.5) 0%, rgba(142, 220, 240, 0) 65%),
+      linear-gradient(160deg, #1d5f86 0%, #2a86b4 50%, #6fc9d8 100%);
+  }
+  .banner-lavender {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 65%),
+      linear-gradient(160deg, #6b5aa6 0%, #9a8bd0 55%, #dcd4f3 100%);
+  }
+  .banner-sunset {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(255, 236, 200, 0.6) 0%, rgba(255, 236, 200, 0) 65%),
+      linear-gradient(160deg, #d9674f 0%, #ef9a6a 50%, #f5c7c0 100%);
+  }
+  .banner-forest {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(176, 222, 190, 0.45) 0%, rgba(176, 222, 190, 0) 65%),
+      linear-gradient(160deg, #1f4a3a 0%, #2f6b52 55%, #7fb08f 100%);
+  }
+  .banner-midnight {
+    background:
+      radial-gradient(70% 60% at 85% 10%, rgba(142, 220, 240, 0.35) 0%, rgba(142, 220, 240, 0) 65%),
+      radial-gradient(60% 55% at 10% 100%, rgba(118, 154, 168, 0.45) 0%, rgba(118, 154, 168, 0) 60%),
+      linear-gradient(160deg, #10242b 0%, #19343d 55%, #31525d 100%);
+  }
+
+  /* Water glass fill */
+  .water-fill {
+    transition: height 700ms var(--ease-out-expo);
+    background: linear-gradient(180deg, #8edcf0 0%, #5fb7cf 45%, #3f8f80 100%);
+  }
   .cover::after {
     content: "";
     position: absolute;

@@ -5,6 +5,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { favoritesStore } from "@/lib/store/favorites";
 import { lessonsStore } from "@/lib/store/lessons";
 import { progressStore, type ProgressEntry } from "@/lib/store/progress";
+import { localDay, mergeWaterDays, waterStore } from "@/lib/store/water";
 import { getBrowserClient } from "@/lib/supabase/client";
 
 interface FavoriteRow {
@@ -16,6 +17,11 @@ interface ProgressRow {
   duration_sec: number;
   completed: boolean;
   updated_at: string;
+}
+interface WaterRow {
+  day: string;
+  ml: number;
+  goal_ml: number;
 }
 interface LessonRow {
   lesson_id: string;
@@ -90,10 +96,31 @@ export function UserDataSync() {
         })
         .map(([lesson_id, e]) => ({ user_id: uid, lesson_id, completed: e.completed, updated_at: e.at }));
       if (lesRows.length > 0) await client.from("lesson_progress").upsert(lesRows, { onConflict: "user_id,lesson_id" });
+
+      // Water: per-day maximum wins; a missing table (migration not run) is ignored
+      const since = new Date();
+      since.setDate(since.getDate() - 60);
+      const water = await client.from("water_days").select("day, ml, goal_ml").eq("user_id", uid).gte("day", localDay(since));
+      if (cancelled) return;
+      if (!water.error) {
+        mergeWaterDays((water.data ?? []) as WaterRow[]);
+        const local = waterStore.read();
+        const rows = Object.entries(local.days)
+          .filter(([day, ml]) => ml > 0 && !((water.data ?? []) as WaterRow[]).some((r) => r.day === day && r.ml >= ml))
+          .map(([day, ml]) => ({ user_id: uid, day, ml, goal_ml: local.goal, updated_at: new Date().toISOString() }));
+        if (rows.length > 0) await client.from("water_days").upsert(rows, { onConflict: "user_id,day" });
+      }
     }
 
     function startPush(client: SupabaseClient) {
       unsubscribers.push(
+        waterStore.subscribe(() => {
+          const uid = userId.current;
+          if (!uid) return;
+          const s = waterStore.read();
+          const day = localDay();
+          void client.from("water_days").upsert({ user_id: uid, day, ml: s.days[day] ?? 0, goal_ml: s.goal, updated_at: new Date().toISOString() }, { onConflict: "user_id,day" });
+        }),
         favoritesStore.subscribe(() => {
           const uid = userId.current;
           if (!uid) return;

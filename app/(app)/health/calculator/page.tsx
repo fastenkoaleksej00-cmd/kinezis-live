@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { GoalCalculator } from "@/components/health/GoalCalculator";
+import { GoalPicker } from "@/components/health/GoalPicker";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -24,7 +25,13 @@ export default async function CalculatorPage() {
         </Link>
         <SectionHeading as="h1" eyebrow={th("eyebrow")} title={t("title")} lead={t("lead")} />
       </Reveal>
+      {profile ? (
+        <Reveal delay={0.04}>
+          <GoalPicker profile={profile} currentKg={last?.weightKg ?? null} />
+        </Reveal>
+      ) : null}
       <Reveal delay={0.06}>
+        <p className="eyebrow mb-3">{t("weightSection")}</p>
         <GoalCalculator defaults={{ currentKg: last?.weightKg ?? null, heightCm: profile?.heightCm ?? null, age: ageFromBirthDate(profile?.birthDate ?? null), activity: profile?.activityLevel ?? null, goal: profile?.fitnessGoal ?? null }} />
       </Reveal>
     </Container>
