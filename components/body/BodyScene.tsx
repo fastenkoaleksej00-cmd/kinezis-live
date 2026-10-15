@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type * as T from "three";
-import { regionAt, regionById, regionIds, regions, type RegionId } from "@/lib/body/regions";
+import { regionAt, regionIds, regions, type RegionId } from "@/lib/body/regions";
 
 export type SceneStatus = "loading" | "ready" | "error";
 
@@ -14,8 +14,7 @@ interface BodySceneProps {
   dark: boolean;
   onSelect: (id: RegionId | null) => void;
   onStatus: (s: SceneStatus) => void;
-  /** Receives screen coordinates of the selected region's anchor every frame */
-  markerRef: React.RefObject<HTMLDivElement | null>;
+  labels: Record<RegionId, string>;
 }
 
 const HEIGHT = 1.75;
@@ -25,7 +24,8 @@ const HEIGHT = 1.75;
  * so a tap selects the area the hit point falls in, not an individual bone. Vertices inside the
  * selected region are tinted through vertex colours, the rest is dimmed.
  */
-export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, markerRef }: BodySceneProps) {
+export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, labels }: BodySceneProps) {
+  const dotRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const hostRef = useRef<HTMLDivElement>(null);
   const api = useRef<{ paint: (i: number) => void; setView: (v: "front" | "back", instant: boolean) => void; setDark: (d: boolean) => void } | null>(null);
   const selectedRef = useRef<RegionId | null>(selected);
@@ -119,8 +119,8 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         let isDark = dark;
         const paint = (zoneIndex: number) => {
           const base = isDark ? new THREE.Color(0.92, 0.95, 0.96) : new THREE.Color(1, 1, 1);
-          const dim = isDark ? new THREE.Color(0.55, 0.62, 0.66) : new THREE.Color(0.72, 0.78, 0.81);
-          const hi = base.clone().lerp(new THREE.Color(0x2a86b4), 0.72);
+          const dim = isDark ? new THREE.Color(0.5, 0.57, 0.61) : new THREE.Color(0.66, 0.73, 0.77);
+          const hi = base.clone().lerp(new THREE.Color(0x2a86b4), 0.85);
           for (const p of painters) {
             for (let i = 0; i < p.n; i++) {
               const col = zoneIndex < 0 ? base : p.zone[i] === zoneIndex ? hi : dim;
@@ -204,19 +204,20 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           }
           controls.update();
           renderer.render(scene, camera);
-          const marker = markerRef.current;
+          // Project every region anchor to the screen; hide dots that face away from the camera
+          const rect = renderer.domElement.getBoundingClientRect();
           const sel = selectedRef.current;
-          if (marker) {
-            if (sel) {
-              anchor.set(...regionById[sel].anchor).project(camera);
-              const rect = renderer.domElement.getBoundingClientRect();
-              const x = ((anchor.x + 1) / 2) * rect.width;
-              const y = ((1 - anchor.y) / 2) * rect.height;
-              const visible = anchor.z < 1;
-              marker.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-              marker.style.opacity = visible ? "1" : "0";
-            } else marker.style.opacity = "0";
-          }
+          regions.forEach((r, i) => {
+            const el = dotRefs.current[i];
+            if (!el) return;
+            anchor.set(...r.anchor).project(camera);
+            const facing = r.view === "both" || r.anchor[2] * camera.position.z >= 0;
+            const visible = facing && anchor.z < 1;
+            el.style.transform = `translate(${((anchor.x + 1) / 2) * rect.width}px, ${((1 - anchor.y) / 2) * rect.height}px) translate(-50%, -50%)`;
+            el.style.opacity = visible ? "1" : "0";
+            el.style.pointerEvents = visible ? "auto" : "none";
+            el.dataset.active = sel === r.id ? "true" : "false";
+          });
         };
         raf = requestAnimationFrame(loop);
 
@@ -269,7 +270,36 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
     api.current?.setDark(dark);
   }, [dark]);
 
-  return <div ref={hostRef} className="absolute inset-0" aria-hidden />;
+  return (
+    <>
+      <div ref={hostRef} className="absolute inset-0" aria-hidden />
+      {regions.map((r, i) => (
+        <button
+          key={r.id}
+          ref={(el) => {
+            dotRefs.current[i] = el;
+          }}
+          type="button"
+          aria-label={labels[r.id]}
+          aria-pressed={selected === r.id}
+          data-active="false"
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect(selected === r.id ? null : r.id);
+          }}
+          className="group absolute top-0 left-0 flex items-center gap-2 opacity-0 transition-opacity duration-300 data-[active=true]:z-10"
+        >
+          <span className="relative block h-5 w-5">
+            <span className="bg-accent absolute inset-0 rounded-full opacity-25 transition-transform duration-300 group-data-[active=true]:scale-[1.9]" />
+            <span className="absolute inset-[5px] rounded-full border-2 border-white bg-accent shadow-[0_2px_8px_rgba(16,36,43,0.35)] transition-transform duration-300 group-hover:scale-110 group-data-[active=true]:inset-[3px]" />
+          </span>
+          <span className="pointer-events-none hidden rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink shadow-[var(--shadow-card)] backdrop-blur-md group-data-[active=true]:block">
+            {labels[r.id]}
+          </span>
+        </button>
+      ))}
+    </>
+  );
 }
 
 export const regionCount = regions.length;

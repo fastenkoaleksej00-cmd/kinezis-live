@@ -885,14 +885,14 @@
     "title": "Body map",
     "lead": "Tap an area of the skeleton to see what fits it from the library.",
     "loading": "Loading the skeleton…",
-    "hint": "Drag to rotate, pinch or scroll to zoom, tap an area to select it. Areas are approximate, not single bones.",
+    "hint": "Drag to rotate, pinch or scroll to zoom. Tap a dot or the bones to select an area; areas are approximate, not single bones.",
     "fallbackNote": "3D is unavailable on this device, showing a simplified map. Tap a dot to select an area.",
     "views": {
       "front": "Front",
       "back": "Back"
     },
     "reset": "Clear",
-    "regionsList": "Areas",
+    "regionsList": "All areas as a list",
     "selected": "Selected area",
     "whatBothers": "What would you like to work on?",
     "concerns": {
