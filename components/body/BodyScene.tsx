@@ -49,6 +49,9 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         renderer.toneMappingExposure = 1.05;
         host.appendChild(renderer.domElement);
         renderer.domElement.style.touchAction = "none";
+        renderer.domElement.style.display = "block";
+        renderer.domElement.style.width = "100%";
+        renderer.domElement.style.height = "100%";
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 20);
@@ -180,7 +183,8 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           const w = host.clientWidth;
           const h = host.clientHeight;
           if (w === 0 || h === 0) return;
-          renderer.setSize(w, h, false);
+          // Keep the CSS size equal to the host: on hi-DPI screens the drawing buffer is larger than the box
+          renderer.setSize(w, h, true);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
         };
