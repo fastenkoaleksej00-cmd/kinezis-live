@@ -11,15 +11,22 @@ import { resolveVideo } from "@/lib/video/resolve";
 import { formatTime } from "@/lib/format";
 import { postKey } from "@/lib/store/keys";
 import { AuthorRow } from "./AuthorRow";
+import { LikeButton } from "@/components/social/LikeButton";
+import { MessageCircle } from "lucide-react";
+import { getSocialCounts } from "@/lib/social/queries";
+import { getSessionUser } from "@/lib/supabase/server";
 
 interface PostCardProps {
   post: Post;
   /** Full body instead of a clamped preview */
   expanded?: boolean;
+  /** Pre-fetched counts (lists pass them to avoid one query per card) */
+  social?: { likes: number; comments: number; liked: boolean };
+  signedIn?: boolean;
 }
 
 /** Feed card: author, kind label, text, attachment, save. Opens the post page. */
-export async function PostCard({ post, expanded = false }: PostCardProps) {
+export async function PostCard({ post, expanded = false, social, signedIn }: PostCardProps) {
   const locale = await getLocale();
   const t = await getTranslations("feed");
   const tl = await getTranslations("library");
@@ -30,6 +37,9 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
   const title = post.title ? pick(post.title, locale) : undefined;
   const workout = post.attachment?.kind === "workout" ? await getWorkoutById(post.attachment.workoutId) : undefined;
   const playable = expanded && post.attachment?.kind === "video" ? await resolveVideo(post.attachment.source) : null;
+  const counts = social ?? (await getSocialCounts("post", [post.id]))[post.id];
+  const isSignedIn = signedIn ?? Boolean(await getSessionUser());
+  const ts = await getTranslations("social");
 
   return (
     <article className="card overflow-hidden">
@@ -100,15 +110,24 @@ export async function PostCard({ post, expanded = false }: PostCardProps) {
         <div className="h-4 sm:h-5" />
       )}
 
-      {!expanded ? (
-        <div className="border-ink/8 flex items-center justify-between border-t px-4 py-3 sm:px-5">
-          <span className="text-steel text-xs">{post.sample ? t("sample") : ""}</span>
+      <div className="border-ink/8 flex items-center justify-between gap-3 border-t px-4 py-3 sm:px-5">
+        <div className="flex items-center gap-2">
+          {post.reactionsEnabled && !post.sample ? <LikeButton targetType="post" targetId={post.id} likes={counts.likes} liked={counts.liked} signedIn={isSignedIn} /> : null}
+          {post.commentsEnabled && !post.sample ? (
+            <Link href={`/posts/${post.id}#comments`} className="border-ink/10 text-ink inline-flex h-9 items-center gap-1.5 rounded-full border bg-white/70 px-3 text-sm font-semibold hover:bg-white" aria-label={ts("commentsTitle")}>
+              <MessageCircle className="h-4 w-4" strokeWidth={2} aria-hidden />
+              <span className="tabular-nums">{counts.comments}</span>
+            </Link>
+          ) : null}
+          {post.sample ? <span className="text-steel text-xs">{t("sample")}</span> : null}
+        </div>
+        {!expanded ? (
           <Link href={`/posts/${post.id}`} className="text-accent inline-flex items-center gap-1 text-sm font-semibold hover:underline">
             {t("open")}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </Link>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </article>
   );
 }

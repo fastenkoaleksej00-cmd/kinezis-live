@@ -398,7 +398,8 @@
       "posts": "Posts",
       "courses": "Courses",
       "skincare": "Skincare",
-      "nutrition": "Nutrition"
+      "nutrition": "Nutrition",
+      "comments": "Comments"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -534,7 +535,10 @@
     },
     "newMealPlan": "New day",
     "editMealPlan": "Edit day",
-    "nutritionIntro": "Your own day on a plate: breakfast, lunch, dinner, snacks. Published as an example, with a disclaimer shown to readers."
+    "nutritionIntro": "Your own day on a plate: breakfast, lunch, dinner, snacks. Published as an example, with a disclaimer shown to readers.",
+    "commentsIntro": "Latest comments from members. Hide keeps a record; delete removes it.",
+    "hide": "Hide",
+    "unhide": "Show again"
   },
   "premium": {
     "eyebrow": "Premium",
@@ -565,7 +569,7 @@
       "freeVideos": "Open videos and sessions",
       "feed": "Trainer feed",
       "profiles": "Profile, saved items and progress",
-      "likes": "Likes and comments (coming)",
+      "likes": "Likes and comments",
       "basics": "Basic exercises in every direction"
     },
     "plans": {
@@ -758,6 +762,30 @@
       "generic": "Could not save. Try again.",
       "weakPassword": "",
       "sameEmail": ""
+    }
+  },
+  "social": {
+    "like": "Like",
+    "unlike": "Remove like",
+    "commentsTitle": "Comments",
+    "commentsCount": "{count, plural, =0 {No comments yet} one {# comment} other {# comments}}",
+    "noComments": "Be the first to comment.",
+    "commentsOff": "Comments are off for this post.",
+    "member": "Member",
+    "trainer": "Trainer",
+    "hidden": "hidden by the trainer",
+    "delete": "Delete comment",
+    "placeholder": "Write a comment…",
+    "rules": "Be kind. The trainer can hide comments.",
+    "send": "Send",
+    "signInToComment": "Sign in to comment.",
+    "signIn": "Sign in",
+    "errors": {
+      "signedOut": "Sign in first.",
+      "empty": "Write something first.",
+      "tooLong": "Up to 1000 characters.",
+      "disabled": "Comments are off here.",
+      "generic": "Could not send. Try again."
     }
   }
 }

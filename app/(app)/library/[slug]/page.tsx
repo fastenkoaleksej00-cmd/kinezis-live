@@ -4,6 +4,11 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, Clock, Play, Signal, Target, UserRound } from "lucide-react";
 import { workoutKey } from "@/lib/store/keys";
 import { LogActivityButton } from "@/components/health/LogActivityButton";
+import { Comments } from "@/components/social/Comments";
+import { LikeButton } from "@/components/social/LikeButton";
+import { getSocialCounts, listComments } from "@/lib/social/queries";
+import { getSessionUser, isStaff } from "@/lib/supabase/server";
+import { getFormatter } from "next-intl/server";
 import { SaveButton } from "@/components/library/SaveButton";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
@@ -36,6 +41,10 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
   const tc = await getTranslations("common");
   const author = await getAuthor(workout.authorId);
   const light = workout.coverTone === "light";
+  const format = await getFormatter();
+  const [user, social, comments] = await Promise.all([getSessionUser(), getSocialCounts("workout", [workout.id]), workout.sample ? Promise.resolve([]) : listComments("workout", workout.id)]);
+  const counts = social[workout.id];
+  const dates = Object.fromEntries(comments.map((c) => [c.id, format.dateTime(new Date(c.createdAt), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })]));
 
   const facts = [
     { icon: Clock, label: t("filters.duration"), value: tc("minutes", { count: workout.durationMin }) },
@@ -75,6 +84,7 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
           {t("start")}
         </Link>
         <SaveButton itemKey={workoutKey(workout.id)} look="solid" size="md" withLabel />
+        {!workout.sample ? <LikeButton targetType="workout" targetId={workout.id} likes={counts.likes} liked={counts.liked} signedIn={Boolean(user)} /> : null}
       </Reveal>
 
       <Reveal delay={0.12}>
@@ -95,6 +105,12 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
           </div>
         ))}
       </Reveal>
+
+      {!workout.sample ? (
+        <Reveal delay={0.18} id="comments">
+          <Comments targetType="workout" targetId={workout.id} path={`/library/${workout.slug}`} comments={comments} signedIn={Boolean(user)} staff={isStaff(user)} enabled dates={dates} />
+        </Reveal>
+      ) : null}
     </Container>
   );
 }

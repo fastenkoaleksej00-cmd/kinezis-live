@@ -15,6 +15,7 @@ import { pick, toCardData } from "@/lib/content/localize";
 import { listPosts } from "@/lib/content/posts";
 import { getTodayWorkout, listWorkouts } from "@/lib/content/workouts";
 import { getMyProfile } from "@/lib/profile/queries";
+import { getSocialCounts } from "@/lib/social/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 
 /** Home, feed-first: today's session, continue, then the trainer feed. */
@@ -30,6 +31,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const locale = await getLocale();
   const [allWorkouts, today, posts, user, profile] = await Promise.all([listWorkouts(), getTodayWorkout(), listPosts(), getSessionUser(), getMyProfile()]);
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
+  const social = await getSocialCounts("post", posts.map((p) => p.id));
 
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">
@@ -95,7 +97,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <div className="mx-auto max-w-[720px] space-y-4">
           {posts.map((post, i) => (
             <Reveal key={post.id} delay={Math.min(i, 4) * 0.05}>
-              <PostCard post={post} />
+              <PostCard post={post} social={social[post.id]} signedIn={Boolean(user)} />
             </Reveal>
           ))}
         </div>

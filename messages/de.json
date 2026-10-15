@@ -398,7 +398,8 @@
       "posts": "Beiträge",
       "courses": "Kurse",
       "skincare": "Hautpflege",
-      "nutrition": "Ernährung"
+      "nutrition": "Ernährung",
+      "comments": "Kommentare"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -534,7 +535,10 @@
     },
     "newMealPlan": "Neuer Tag",
     "editMealPlan": "Tag bearbeiten",
-    "nutritionIntro": "Dein eigener Tag auf dem Teller: Frühstück, Mittag, Abend, Snacks. Als Beispiel veröffentlicht, Leser sehen einen Hinweis."
+    "nutritionIntro": "Dein eigener Tag auf dem Teller: Frühstück, Mittag, Abend, Snacks. Als Beispiel veröffentlicht, Leser sehen einen Hinweis.",
+    "commentsIntro": "Neueste Kommentare der Mitglieder. Ausblenden behält den Eintrag, Löschen entfernt ihn.",
+    "hide": "Ausblenden",
+    "unhide": "Wieder anzeigen"
   },
   "premium": {
     "eyebrow": "Premium",
@@ -565,7 +569,7 @@
       "freeVideos": "Offene Videos und Einheiten",
       "feed": "Feed der Trainerin",
       "profiles": "Profil, Gespeichertes und Fortschritt",
-      "likes": "Likes und Kommentare (bald)",
+      "likes": "Likes und Kommentare",
       "basics": "Basisübungen in jeder Richtung"
     },
     "plans": {
@@ -758,6 +762,30 @@
       "generic": "Konnte nicht speichern. Versuche es erneut.",
       "weakPassword": "",
       "sameEmail": ""
+    }
+  },
+  "social": {
+    "like": "Gefällt mir",
+    "unlike": "Gefällt mir entfernen",
+    "commentsTitle": "Kommentare",
+    "commentsCount": "{count, plural, =0 {Noch keine Kommentare} one {# Kommentar} other {# Kommentare}}",
+    "noComments": "Schreib den ersten Kommentar.",
+    "commentsOff": "Kommentare sind bei diesem Beitrag aus.",
+    "member": "Mitglied",
+    "trainer": "Trainerin",
+    "hidden": "von der Trainerin ausgeblendet",
+    "delete": "Kommentar löschen",
+    "placeholder": "Kommentar schreiben…",
+    "rules": "Bleib freundlich. Die Trainerin kann Kommentare ausblenden.",
+    "send": "Senden",
+    "signInToComment": "Melde dich an, um zu kommentieren.",
+    "signIn": "Anmelden",
+    "errors": {
+      "signedOut": "Melde dich zuerst an.",
+      "empty": "Schreib zuerst etwas.",
+      "tooLong": "Bis zu 1000 Zeichen.",
+      "disabled": "Kommentare sind hier aus.",
+      "generic": "Konnte nicht senden. Versuche es erneut."
     }
   }
 }
