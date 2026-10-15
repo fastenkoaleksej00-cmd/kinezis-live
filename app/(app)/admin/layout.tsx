@@ -13,9 +13,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
       <div>
-        <p className="eyebrow mb-2">{t("eyebrow")}</p>
-        <AdminNav />
+        <p className="eyebrow mb-2">{user.role === "admin" ? t("eyebrow") : t("trainerEyebrow")}</p>
+        <AdminNav role={user.role} />
       </div>
+      {user.role === "trainer" && user.authorStatus !== "active" ? <p className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t("suspendedNotice")}</p> : null}
       {children}
     </Container>
   );

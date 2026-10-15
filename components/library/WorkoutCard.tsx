@@ -38,6 +38,7 @@ export async function WorkoutCard({ workout }: WorkoutCardProps) {
           <h3 className={light ? "text-ink text-[15px] leading-snug font-bold" : "text-frost text-[15px] leading-snug font-bold"}>{workout.title}</h3>
           <p className={light ? "text-steel mt-1 text-xs font-medium" : "text-mist mt-1 text-xs font-medium"}>
             {tc("minutes", { count: workout.durationMin })} · {t(`levels.${workout.level}`)}
+            {workout.authorName ? <span className="block truncate opacity-90">{workout.authorName}</span> : null}
           </p>
         </div>
       </Cover>

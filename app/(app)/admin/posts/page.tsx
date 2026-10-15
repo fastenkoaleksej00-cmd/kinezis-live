@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { listAllPosts } from "@/lib/admin/queries";
+import { getSessionUser } from "@/lib/supabase/server";
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -16,7 +17,8 @@ export default async function AdminPostsPage({ searchParams }: PageProps) {
   const tf = await getTranslations("feed");
   const format = await getFormatter();
   const params = await searchParams;
-  const posts = (await listAllPosts()).filter((p) => !p.user_id);
+  const viewer = await getSessionUser();
+  const posts = (await listAllPosts(viewer?.role === "trainer" ? viewer.authorId : null)).filter((p) => !p.user_id);
 
   return (
     <div className="space-y-5">
@@ -31,6 +33,7 @@ export default async function AdminPostsPage({ searchParams }: PageProps) {
         }
       />
       {params.saved ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
+      {params.submitted ? <p className="bg-accent-soft text-accent rounded-2xl px-4 py-3 text-sm font-semibold">{t("submittedNotice")}</p> : null}
       {params.deleted ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm font-semibold">{t("deletedNotice")}</p> : null}
 
       {posts.length === 0 ? (

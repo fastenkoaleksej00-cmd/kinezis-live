@@ -56,4 +56,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 20. Mint as default and brand accent, theme picker in onboarding, motion polish (cross-fade, live rings, chart draw-in, count-up, softer 3D inertia) — done
 21. Breathing & recovery: evidence-reviewed library (levels on every practice, sources, `docs/BREATHING_EVIDENCE.md`), Home widget, timer screen, body-map and post-session links — done; run migration 0014
 22. Personal centre: customisable quick access, water log with account sync, "My goal" widget + picker, unified health cards with data sources, Apple Health connect screen (honest status, no bridge yet), six profile banner palettes — done; run migration 0015
-23. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+23. Multi-trainer platform: ownership-scoped RLS, trainer applications with admin approval, review queue, reports, trainer cabinet and card, library filters by trainer/equipment/body area, programmes — done; run migration 0016
+24. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`

@@ -4,7 +4,8 @@ import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import { deleteWorkout, saveWorkout, type AdminState } from "@/lib/admin/actions";
 import type { AuthorRow, WorkoutRow } from "@/lib/content/db";
-import { categoryIds, goals, levels } from "@/lib/content/types";
+import { categoryIds, equipmentIds, goals, levels } from "@/lib/content/types";
+import { regionIds } from "@/lib/body/regions";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";
 import { SubmitRow } from "./SubmitRow";
 import { VideoField } from "./VideoField";
@@ -12,13 +13,16 @@ import { VideoField } from "./VideoField";
 interface WorkoutFormProps {
   workout?: WorkoutRow | null;
   authors: AuthorRow[];
+  /** Admins choose the author and the review state; trainers always publish as themselves */
+  isAdmin?: boolean;
 }
 
 const initial: AdminState = {};
 
-export function WorkoutForm({ workout, authors }: WorkoutFormProps) {
+export function WorkoutForm({ workout, authors, isAdmin = false }: WorkoutFormProps) {
   const t = useTranslations("admin");
   const tl = useTranslations("library");
+  const tb = useTranslations("body");
   const [state, action, pending] = useActionState(saveWorkout, initial);
   const video = workout?.video ?? null;
 
@@ -57,15 +61,33 @@ export function WorkoutForm({ workout, authors }: WorkoutFormProps) {
             ))}
           </Select>
         </Field>
-        <Field label={t("fields.author")}>
-          <Select name="author_id" defaultValue={workout?.author_id ?? authors[0]?.id ?? ""}>
-            {authors.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.name}
-              </option>
+        {isAdmin ? (
+          <Field label={t("fields.author")}>
+            <Select name="author_id" defaultValue={workout?.author_id ?? authors[0]?.id ?? ""}>
+              {authors.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.name}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        ) : null}
+        <fieldset className="sm:col-span-2">
+          <legend className="eyebrow mb-2.5">{t("fields.equipment")}</legend>
+          <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+            {equipmentIds.map((e) => (
+              <Checkbox key={e} name={`equipment_${e}`} label={tl(`equipment.${e}`)} defaultChecked={workout?.equipment?.includes(e) ?? false} />
             ))}
-          </Select>
-        </Field>
+          </div>
+        </fieldset>
+        <fieldset className="sm:col-span-2">
+          <legend className="eyebrow mb-2.5">{t("fields.bodyRegions")}</legend>
+          <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+            {regionIds.map((r) => (
+              <Checkbox key={r} name={`region_${r}`} label={tb(`regions.${r}`)} defaultChecked={workout?.body_regions?.includes(r) ?? false} />
+            ))}
+          </div>
+        </fieldset>
         <fieldset className="sm:col-span-2">
           <legend className="eyebrow mb-2.5">{t("fields.goals")}</legend>
           <div className="flex flex-wrap gap-x-5 gap-y-2.5">
@@ -99,9 +121,26 @@ export function WorkoutForm({ workout, authors }: WorkoutFormProps) {
 
       <VideoField folder="workouts" value={video} />
 
-      <section className="card p-5">
+      <section className="card space-y-4 p-5">
+        <LocalizedInputs name="safety" label={t("fields.safety")} value={workout?.safety ?? undefined} multiline />
+        <p className="text-steel text-xs">{t("fields.safetyHint")}</p>
+      </section>
+
+      <section className="card space-y-3 p-5">
         <Checkbox name="published" label={t("fields.published")} defaultChecked={workout?.published ?? false} />
-        <p className="text-steel mt-1.5 text-xs">{t("fields.publishedHint")}</p>
+        <p className="text-steel text-xs">{isAdmin ? t("fields.publishedHint") : t("fields.publishedTrainerHint")}</p>
+        {isAdmin ? (
+          <Field label={t("fields.reviewStatus")}>
+            <Select name="review_status" defaultValue={workout?.review_status ?? "approved"}>
+              {(["approved", "pending", "rejected"] as const).map((r) => (
+                <option key={r} value={r}>
+                  {t(`status.${r}`)}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        ) : null}
+        {workout?.review_status === "rejected" && workout.review_note ? <p className="text-sm text-[#8a2f2f]">{t("status.rejectedNote", { note: workout.review_note })}</p> : null}
       </section>
 
       <SubmitRow pending={pending} error={state.error} deleteAction={workout ? deleteWorkout : undefined} id={workout?.id} />

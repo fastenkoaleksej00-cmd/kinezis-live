@@ -69,13 +69,21 @@ const sampleCourses: Course[] = [
 const fetchAll = cache(async (): Promise<Course[]> => {
   const db = await getDb();
   if (!db) return sampleCourses;
-  const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).order("published_at", { ascending: false });
+  const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
   if (error || !courses || courses.length === 0) return sampleCourses;
   const ids = (courses as unknown as CourseRow[]).map((c) => c.id);
   const { data: modules } = await db.from("course_modules").select(moduleColumns).in("course_id", ids);
   const moduleIds = ((modules ?? []) as ModuleRow[]).map((m) => m.id);
   const { data: lessons } = moduleIds.length > 0 ? await db.from("lessons").select(lessonColumns).in("module_id", moduleIds) : { data: [] };
-  return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], (lessons ?? []) as unknown as LessonRow[]));
+  const lessonRows = (lessons ?? []) as unknown as LessonRow[];
+  // Programme steps linked to a library session borrow its video (and poster) when they have none of their own
+  const linked = lessonRows.map((l) => l.workout_id).filter((id): id is string => Boolean(id));
+  if (linked.length > 0) {
+    const { data: ws } = await db.from("workouts").select("id, video").in("id", linked).eq("published", true).eq("review_status", "approved");
+    const videoById = new Map(((ws ?? []) as Array<{ id: string; video: LessonRow["video"] }>).map((w) => [w.id, w.video]));
+    for (const l of lessonRows) if (l.workout_id && !l.video) l.video = videoById.get(l.workout_id) ?? null;
+  }
+  return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], lessonRows));
 });
 
 export async function listCourses(): Promise<Course[]> {

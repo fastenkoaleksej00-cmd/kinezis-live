@@ -5,8 +5,10 @@ export function pick(text: LocalizedText, locale: Locale): string {
   return text[locale] ?? text.en;
 }
 
-export function toCardData(w: Workout, locale: Locale): WorkoutCardData {
+export function toCardData(w: Workout, locale: Locale, authorName?: string): WorkoutCardData {
   return {
+    authorId: w.authorId,
+    authorName,
     id: w.id,
     slug: w.slug,
     title: pick(w.title, locale),

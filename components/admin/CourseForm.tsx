@@ -9,13 +9,14 @@ import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";
 import { SubmitRow } from "./SubmitRow";
 
 interface CourseFormProps {
+  isAdmin?: boolean;
   course?: CourseRow | null;
   authors: AuthorRow[];
 }
 
 const initial: AdminState = {};
 
-export function CourseForm({ course, authors }: CourseFormProps) {
+export function CourseForm({ course, authors, isAdmin = false }: CourseFormProps) {
   const t = useTranslations("admin");
   const tl = useTranslations("library");
   const [state, action, pending] = useActionState(saveCourse, initial);
@@ -43,8 +44,14 @@ export function CourseForm({ course, authors }: CourseFormProps) {
             ))}
           </Select>
         </Field>
-        <Field label={t("fields.author")}>
-          <Select name="author_id" defaultValue={course?.author_id ?? authors[0]?.id ?? ""}>
+        <Field label={t("fields.kind")}>
+          <Select name="kind" defaultValue={course?.kind ?? "course"}>
+            <option value="course">{t("kinds.course")}</option>
+            <option value="program">{t("kinds.program")}</option>
+          </Select>
+        </Field>
+        <Field label={t("fields.author")} className={isAdmin ? undefined : "hidden"}>
+          <Select name="author_id" defaultValue={course?.author_id ?? authors[0]?.id ?? ""} disabled={!isAdmin}>
             {authors.map((a) => (
               <option key={a.id} value={a.id}>
                 {a.name}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { getSessionUser } from "@/lib/supabase/server";
 import { BookOpen, Plus } from "lucide-react";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -15,7 +16,8 @@ export default async function AdminCoursesPage({ searchParams }: PageProps) {
   const t = await getTranslations("admin");
   const tl = await getTranslations("library");
   const params = await searchParams;
-  const courses = await listAllCourses();
+  const viewer = await getSessionUser();
+  const courses = await listAllCourses(viewer?.role === "trainer" ? viewer.authorId : null);
 
   return (
     <div className="space-y-5">
@@ -41,7 +43,7 @@ export default async function AdminCoursesPage({ searchParams }: PageProps) {
                   <span className="text-ink block truncate font-semibold">{c.title.en}</span>
                   <span className="text-steel block text-xs">{tl(`levels.${c.level}`)}</span>
                 </span>
-                <StatusBadge published={c.published} />
+                <StatusBadge published={c.published} review={c.review_status} />
               </Link>
             </li>
           ))}

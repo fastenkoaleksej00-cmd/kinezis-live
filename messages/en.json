@@ -107,7 +107,10 @@
       "any": "Any",
       "apply": "Apply",
       "reset": "Reset",
-      "close": "Close"
+      "close": "Close",
+      "author": "Trainer",
+      "equipment": "Equipment",
+      "region": "Body area"
     },
     "durations": {
       "short": "Under 15 min",
@@ -136,7 +139,20 @@
     "noResultsBody": "Try another category or clear the filters.",
     "sampleNote": "Sample sessions shape the library for now. The trainer's real videos will replace them.",
     "publishedNotice": "Published. The session is live in the library.",
-    "recoverAfter": "Recover with 3 minutes of breathing"
+    "recoverAfter": "Recover with 3 minutes of breathing",
+    "equipment": {
+      "none": "No equipment",
+      "mat": "Mat",
+      "band": "Band",
+      "ball": "Small ball",
+      "chair": "Chair",
+      "blocks": "Blocks",
+      "dumbbells": "Light dumbbells"
+    },
+    "programsTitle": "Programmes",
+    "programsBody": "Ordered sequences of sessions with your progress.",
+    "program": "Programme",
+    "safetyTitle": "Before you start"
   },
   "saved": {
     "title": "Saved",
@@ -192,7 +208,9 @@
       "streak": "Streak",
       "minutes": "Minutes"
     },
-    "noStats": "Mark a session as done to start your stats."
+    "noStats": "Mark a session as done to start your stats.",
+    "becomeTrainer": "Become a trainer",
+    "becomeTrainerHint": "Apply to publish your own sessions and programmes."
   },
   "settings": {
     "title": "Settings",
@@ -466,7 +484,12 @@
       "nutrition": "Nutrition",
       "comments": "Comments",
       "messages": "Messages",
-      "community": "Community"
+      "community": "Community",
+      "review": "Review",
+      "applications": "Applications",
+      "trainers": "Trainers",
+      "reports": "Reports",
+      "profile": "My card"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -486,7 +509,11 @@
     "status": {
       "published": "Published",
       "draft": "Draft",
-      "hiddenPost": "hidden"
+      "hiddenPost": "hidden",
+      "pending": "In review",
+      "rejected": "Returned",
+      "rejectedNote": "Returned with a note: {note}",
+      "approved": "Approved"
     },
     "tones": {
       "deep": "Petrol (dark)",
@@ -530,7 +557,7 @@
       "videoSrc": "Video URL",
       "videoPoster": "Poster image URL (optional)",
       "videoDuration": "Length, seconds",
-      "kind": "Post type",
+      "kind": "Type",
       "attachment": "Attachment",
       "photoSrc": "Photo URL (optional)",
       "photoHint": "Without a URL a brand cover is shown.",
@@ -558,7 +585,15 @@
       "imageSrc": "Image URL (optional)",
       "planDate": "Date",
       "mealsHint": "Fill the meals you want to share; empty ones are skipped. English is required, other languages optional.",
-      "notes": "Notes"
+      "notes": "Notes",
+      "equipment": "Equipment",
+      "bodyRegions": "Target areas",
+      "safety": "Safety notes",
+      "safetyHint": "Contraindications and when to stop. Shown before the video. No diagnoses, no promises.",
+      "publishedTrainerHint": "Published items go to review first; they appear in the library after approval.",
+      "reviewStatus": "Review status",
+      "linkedSession": "Library session",
+      "linkedSessionHint": "A programme step can reuse a published session: its video is used when this step has none."
     },
     "errors": {
       "forbidden": "You do not have permission for this.",
@@ -607,7 +642,25 @@
     "commentsIntro": "Latest comments from members. Hide keeps a record; delete removes it.",
     "hide": "Hide",
     "unhide": "Show again",
-    "communityIntro": "Posts by members. Hide keeps the post visible to its author only; delete removes it."
+    "communityIntro": "Posts by members. Hide keeps the post visible to its author only; delete removes it.",
+    "trainerEyebrow": "Trainer cabinet",
+    "suspendedNotice": "Publishing is paused for your account. Your content stays, but new items cannot be saved. Write to the admin if you think this is a mistake.",
+    "submittedNotice": "Sent for review. It appears in the library once an admin approves it.",
+    "trainerTitle": "My cabinet",
+    "noAuthorCard": "Your account has the trainer role but no author card yet. Ask the admin to link one.",
+    "stats": {
+      "published": "Live sessions",
+      "completions": "Completions",
+      "likes": "Likes"
+    },
+    "pendingOwn": "{count, plural, one {# item is} other {# items are}} waiting for review.",
+    "queue": "{count, plural, =0 {Nothing waiting} one {# waiting} other {# waiting}}",
+    "trainersHint": "Cards, verification, publishing status",
+    "trainerRules": "You publish under your own name only. New sessions and programmes go live after an admin's review. No medical claims, no promised results; safety notes are welcome.",
+    "kinds": {
+      "course": "Course (lessons with own videos)",
+      "program": "Programme (sequence of library sessions)"
+    }
   },
   "premium": {
     "eyebrow": "Premium",
@@ -667,7 +720,12 @@
     "statsPosts": "Posts",
     "sessions": "Sessions by the trainer",
     "latestPosts": "Latest posts",
-    "ask": "Write to the trainer"
+    "ask": "Write to the trainer",
+    "qualifications": "Qualification",
+    "years": "{count, plural, one {# year} other {# years}} of practice",
+    "verifiedNote": "Verified by KINEZIS LIVE after checking the documents.",
+    "unverifiedNote": "Qualification as stated by the trainer; not yet verified by KINEZIS LIVE.",
+    "allSessions": "All {count} sessions"
   },
   "compose": {
     "title": "New post",
@@ -1332,5 +1390,187 @@
       "4": "Nothing is shown as connected until data has actually been received."
     },
     "manualNote": "Until the native bridge ships, My health is fully manual: weight, measurements, water and your activity log."
+  },
+  "programs": {
+    "eyebrow": "Programmes",
+    "title": "Programmes",
+    "lead": "Step-by-step sequences from verified trainers. Your place is remembered.",
+    "emptyTitle": "No programmes yet",
+    "emptyBody": "Trainers are assembling the first ones. Single sessions are in the Library.",
+    "toLibrary": "Open the Library",
+    "disclaimer": "Programmes support movement and recovery. They do not treat conditions and promise no results."
+  },
+  "report": {
+    "button": "Report",
+    "title": "Report a problem",
+    "close": "Close",
+    "signIn": "Sign in to send a report.",
+    "thanks": "Thank you. An admin will review it.",
+    "reason": "Reason",
+    "details": "Details (optional)",
+    "note": "Reports are read by an admin, not sent to the author. False reports may be ignored.",
+    "error": "Could not send. Try again.",
+    "send": "Send",
+    "reasons": {
+      "unsafe": "Unsafe instruction",
+      "medical": "Medical claim or promised cure",
+      "misleading": "Misleading information",
+      "inappropriate": "Inappropriate content",
+      "copyright": "Copyright",
+      "other": "Other"
+    },
+    "targets": {
+      "workout": "Session",
+      "post": "Post",
+      "course": "Course",
+      "trainer": "Trainer",
+      "comment": "Comment"
+    }
+  },
+  "trainers": {
+    "apply": {
+      "eyebrow": "For specialists",
+      "title": "Become a trainer",
+      "lead": "Kinesiotherapists, yoga and Pilates instructors, mobility, posture, breathing and recovery specialists. Tell us who you are; an admin checks every application by hand.",
+      "signedOutTitle": "Sign in first",
+      "signedOutBody": "The application is tied to your account.",
+      "signIn": "Sign in",
+      "alreadyTrainer": "You already have trainer access.",
+      "openCabinet": "Open the cabinet",
+      "status": {
+        "draft": "Draft",
+        "submitted": "Sent",
+        "review": "Being reviewed",
+        "approved": "Approved",
+        "rejected": "Not approved"
+      },
+      "statusBody": {
+        "draft": "Saved on your account, not sent yet.",
+        "submitted": "We received it. Until a decision you can prepare, but not publish.",
+        "review": "An admin is checking the details.",
+        "approved": "Welcome. Your cabinet is open.",
+        "rejected": "You can edit and send again."
+      },
+      "adminNote": "Note from the admin",
+      "privacyNote": "Only what you enter here is stored. Documents are visible to you and the admin only and can be removed any time. Nothing is shown publicly before approval.",
+      "photo": "Photo",
+      "photoHint": "A clear portrait. Used on your public card after approval.",
+      "fields": {
+        "fullName": "First and last name",
+        "specialties": "Specialisation",
+        "bio": "About you and your experience",
+        "bioHint": "What you teach, whom you work with, your approach. Up to 1500 characters.",
+        "qualifications": "Education and qualification",
+        "qualificationsHint": "Diplomas, courses, certificates, years of practice.",
+        "experienceYears": "Years of practice",
+        "links": "Professional links",
+        "linksHint": "One per line: website, Instagram, YouTube.",
+        "documents": "Documents",
+        "documentsHint": "Optional: photos or PDFs of diplomas and certificates, up to 5 files, 10 MB each. Private."
+      },
+      "document": "Document {n}",
+      "removeDocument": "Remove document",
+      "addDocument": "Add a document",
+      "uploadFailed": "Upload failed. Check the size and format.",
+      "consent": "I agree to the content rules and the processing of this data for the review.",
+      "consentHint": "No medical claims, no promised results, only your own materials. See the terms.",
+      "submit": "Send the application",
+      "saveDraft": "Save draft",
+      "saved": "Saved.",
+      "errors": {
+        "signedOut": "Sign in first.",
+        "notConfigured": "Accounts are not connected.",
+        "forbidden": "This application can no longer be edited.",
+        "nameRequired": "Enter your name.",
+        "consentRequired": "Please agree to the rules.",
+        "invalid": "Check the values.",
+        "generic": "Could not save. Try again."
+      }
+    },
+    "card": {
+      "title": "My card",
+      "lead": "What members see on your page. Verification is set by the admin only.",
+      "viewPublic": "View public page",
+      "noCard": "No author card is linked to your account yet.",
+      "photo": "Photo",
+      "photoHint": "Square portrait works best.",
+      "cover": "Cover palette",
+      "name": "Name",
+      "bio": "About you",
+      "specialties": "Specialisation",
+      "qualifications": "Qualification",
+      "qualificationsHint": "Shown on your page with a note whether KINEZIS LIVE has verified it.",
+      "experienceYears": "Years of practice",
+      "links": "Links",
+      "linksHint": "One per line, up to 10.",
+      "save": "Save card",
+      "saved": "Saved.",
+      "error": "Could not save. Try again.",
+      "verifiedNote": "The verified badge is given by the admin after checking documents and cannot be set here."
+    },
+    "admin": {
+      "applicationsTitle": "Trainer applications",
+      "applicationsLead": "Check the qualification before approving. Approval creates the author card and opens the cabinet.",
+      "decided": "Done.",
+      "noApplications": "No applications",
+      "noApplicationsBody": "New applications from members appear here.",
+      "status": {
+        "draft": "Draft",
+        "submitted": "Sent",
+        "review": "In review",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "years": "{count, plural, one {# year} other {# years}}",
+      "fields": {
+        "bio": "About",
+        "qualifications": "Qualification",
+        "slug": "Public id (URL)",
+        "note": "Note to the applicant",
+        "resolution": "Resolution note"
+      },
+      "document": "Document {n}",
+      "approve": "Approve",
+      "approveHint": "Creates the author card and grants the trainer role. Verification badge is separate (Trainers).",
+      "reject": "Reject",
+      "markReview": "Mark as in review",
+      "reviewTitle": "Review queue",
+      "reviewLead": "Trainers' sessions and programmes waiting for a decision.",
+      "noReview": "Nothing waiting",
+      "noReviewBody": "New publications from trainers appear here.",
+      "open": "Open",
+      "reviewNote": "Check safety wording, medical claims and video quality. Rejected items return to the author with your note.",
+      "kindProgram": "Programme",
+      "kindCourse": "Course",
+      "reportsTitle": "Reports",
+      "reportsLead": "Members' reports on sessions, posts, trainers and comments.",
+      "reportFilter": {
+        "open": "Open",
+        "resolved": "Resolved",
+        "all": "All"
+      },
+      "noReports": "No reports",
+      "noReportsBody": "Reports from members appear here.",
+      "resolve": "Resolve",
+      "resolveHide": "Resolve and hide",
+      "dismiss": "Dismiss",
+      "reportStatus": {
+        "resolved": "Resolved",
+        "dismissed": "Dismissed"
+      },
+      "trainersTitle": "Trainers",
+      "trainersLead": "Author cards, verification and publishing status.",
+      "noTrainers": "No trainers yet",
+      "noTrainersBody": "Approved applications create cards here.",
+      "linked": "Linked to an account",
+      "unlinked": "No account",
+      "suspended": "Publishing paused",
+      "active": "Active",
+      "verify": "Verify",
+      "unverify": "Remove verification",
+      "activate": "Resume publishing",
+      "suspend": "Pause publishing",
+      "verifyNote": "Verify only after a real check of documents. The badge is shown separately from likes and completions."
+    }
   }
 }

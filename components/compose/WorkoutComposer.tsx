@@ -9,12 +9,13 @@ import { Cover } from "@/components/ui/Cover";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { quickPublishWorkout, type QuickPublishState } from "@/lib/admin/actions";
 import type { AuthorRow } from "@/lib/content/db";
-import { categoryIds, goals, levels } from "@/lib/content/types";
+import { categoryIds, goals, levels, equipmentIds } from "@/lib/content/types";
 import { getBrowserClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 interface WorkoutComposerProps {
   authors: AuthorRow[];
+  isAdmin?: boolean;
   defaultLanguage: string;
 }
 
@@ -26,7 +27,7 @@ const IMAGE_MAX = 5 * 1024 * 1024;
  * One-screen workout publish for the trainer: video → title → category → cover (upload or frame from the video) → preview → publish or draft.
  * Files go straight to Supabase Storage from the browser; the row is written by a server action.
  */
-export function WorkoutComposer({ authors, defaultLanguage }: WorkoutComposerProps) {
+export function WorkoutComposer({ authors, defaultLanguage, isAdmin = false }: WorkoutComposerProps) {
   const t = useTranslations("workoutCompose");
   const ta = useTranslations("admin");
   const tl = useTranslations("library");
@@ -163,16 +164,29 @@ export function WorkoutComposer({ authors, defaultLanguage }: WorkoutComposerPro
               ))}
             </Select>
           </Field>
-          <Field label={ta("fields.author")}>
-            <Select name="author_id" defaultValue={authors[0]?.id ?? ""}>
-              {authors.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.name}
-                </option>
-              ))}
-            </Select>
-          </Field>
+          {isAdmin ? (
+            <Field label={ta("fields.author")}>
+              <Select name="author_id" defaultValue={authors[0]?.id ?? ""}>
+                {authors.map((a) => (
+                  <option key={a.id} value={a.id}>
+                    {a.name}
+                  </option>
+                ))}
+              </Select>
+            </Field>
+          ) : null}
         </div>
+        <fieldset>
+          <legend className="eyebrow mb-2">{ta("fields.equipment")}</legend>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {equipmentIds.map((e) => (
+              <Checkbox key={e} name={`equipment_${e}`} label={tl(`equipment.${e}`)} />
+            ))}
+          </div>
+        </fieldset>
+        <Field label={ta("fields.safety")} hint={ta("fields.safetyHint")}>
+          <Textarea name="safety" rows={2} maxLength={600} />
+        </Field>
         <fieldset>
           <legend className="eyebrow mb-2">{ta("fields.goals")}</legend>
           <div className="flex flex-wrap gap-x-5 gap-y-2">

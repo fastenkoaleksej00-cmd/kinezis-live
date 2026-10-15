@@ -7,7 +7,7 @@ import { listCourses } from "@/lib/content/courses";
 
 export default async function FaceFitnessPage() {
   const t = await getTranslations("faceFitness");
-  const courses = await listCourses();
+  const courses = (await listCourses()).filter((c) => c.kind !== "program");
 
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">

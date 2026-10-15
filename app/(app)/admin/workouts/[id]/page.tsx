@@ -1,3 +1,4 @@
+import { getSessionUser } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { WorkoutForm } from "@/components/admin/WorkoutForm";
@@ -11,12 +12,13 @@ interface PageProps {
 export default async function EditWorkoutPage({ params }: PageProps) {
   const { id } = await params;
   const [workout, authors] = await Promise.all([getWorkoutRow(id), listAuthorRows()]);
+  const isAdmin = (await getSessionUser())?.role === "admin";
   if (!workout) notFound();
   const t = await getTranslations("admin");
   return (
     <div className="space-y-5">
       <SectionHeading as="h1" title={t("editWorkout")} lead={workout.title.en} />
-      <WorkoutForm workout={workout} authors={authors} />
+      <WorkoutForm workout={workout} authors={authors} isAdmin={isAdmin} />
     </div>
   );
 }

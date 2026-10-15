@@ -10,7 +10,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { toCardData } from "@/lib/content/localize";
-import { listWorkouts, parseFilters } from "@/lib/content/workouts";
+import { listAuthors, listWorkouts, parseFilters } from "@/lib/content/workouts";
+import { BookOpen } from "lucide-react";
 
 interface LibraryPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -20,8 +21,10 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
   const t = await getTranslations("library");
   const locale = await getLocale();
   const filters = parseFilters(await searchParams);
-  const [filtered, all] = await Promise.all([listWorkouts(filters), listWorkouts()]);
-  const workouts = filtered.map((w) => toCardData(w, locale));
+  const [filtered, all, authors] = await Promise.all([listWorkouts(filters), listWorkouts(), listAuthors()]);
+  const nameOf = (id: string) => authors.find((a) => a.id === id)?.name;
+  const workouts = filtered.map((w) => toCardData(w, locale, nameOf(w.authorId)));
+  const authorOptions = authors.filter((a) => all.some((w) => w.authorId === a.id)).map((a) => ({ id: a.id, name: a.name }));
   const hasSample = all.some((w) => w.sample);
 
   return (
@@ -31,8 +34,19 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
       </Reveal>
 
       <Suspense fallback={null}>
-        <FilterBar filters={filters} />
+        <FilterBar filters={filters} authors={authorOptions} />
       </Suspense>
+      <Reveal delay={0.04}>
+        <Link href="/programs" className="card group flex items-center gap-4 px-4 py-3 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5">
+          <span className="bg-mint-soft text-mint-deep inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl">
+            <BookOpen className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="text-ink block text-sm font-bold">{t("programsTitle")}</span>
+            <span className="text-steel block text-xs">{t("programsBody")}</span>
+          </span>
+        </Link>
+      </Reveal>
 
       {workouts.length === 0 ? (
         <EmptyState

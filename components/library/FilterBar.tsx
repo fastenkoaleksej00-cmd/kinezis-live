@@ -7,30 +7,34 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
-import { categoryIds, durationBuckets, goals, levels, type WorkoutFilters } from "@/lib/content/types";
+import { categoryIds, durationBuckets, equipmentIds, goals, levels, type WorkoutFilters } from "@/lib/content/types";
+import { regionIds } from "@/lib/body/regions";
 import { cn } from "@/lib/utils";
 
 interface FilterBarProps {
   filters: WorkoutFilters;
+  /** Trainers with at least one published session */
+  authors?: Array<{ id: string; name: string }>;
 }
 
-type Draft = Pick<WorkoutFilters, "duration" | "goal" | "level">;
+type Draft = Pick<WorkoutFilters, "duration" | "goal" | "level" | "author" | "equipment" | "region">;
 
 /** Category chips in a scroll row, plus a bottom sheet for duration, goal and level. Filters live in the URL. */
-export function FilterBar({ filters }: FilterBarProps) {
+export function FilterBar({ filters, authors = [] }: FilterBarProps) {
   const t = useTranslations("library");
+  const tb = useTranslations("body");
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState<Draft>({ duration: filters.duration, goal: filters.goal, level: filters.level });
+  const [draft, setDraft] = useState<Draft>({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region });
 
-  const activeCount = [filters.duration, filters.goal, filters.level].filter(Boolean).length;
+  const activeCount = [filters.duration, filters.goal, filters.level, filters.author, filters.equipment, filters.region].filter(Boolean).length;
 
   function push(next: WorkoutFilters) {
     const q = new URLSearchParams(params.toString());
-    for (const key of ["category", "duration", "goal", "level"] as const) {
+    for (const key of ["category", "duration", "goal", "level", "author", "equipment", "region"] as const) {
       const v = next[key];
       if (v) q.set(key, v);
       else q.delete(key);
@@ -40,7 +44,7 @@ export function FilterBar({ filters }: FilterBarProps) {
   }
 
   function openSheet() {
-    setDraft({ duration: filters.duration, goal: filters.goal, level: filters.level });
+    setDraft({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region });
     setOpen(true);
   }
 
@@ -62,6 +66,9 @@ export function FilterBar({ filters }: FilterBarProps) {
     { key: "duration" as const, title: t("filters.duration"), options: durationBuckets, label: (v: string) => t(`durations.${v as (typeof durationBuckets)[number]}`) },
     { key: "goal" as const, title: t("filters.goal"), options: goals, label: (v: string) => t(`goals.${v as (typeof goals)[number]}`) },
     { key: "level" as const, title: t("filters.level"), options: levels, label: (v: string) => t(`levels.${v as (typeof levels)[number]}`) },
+    ...(authors.length > 1 ? [{ key: "author" as const, title: t("filters.author"), options: authors.map((a) => a.id), label: (v: string) => authors.find((a) => a.id === v)?.name ?? v }] : []),
+    { key: "equipment" as const, title: t("filters.equipment"), options: equipmentIds, label: (v: string) => t(`equipment.${v as (typeof equipmentIds)[number]}`) },
+    { key: "region" as const, title: t("filters.region"), options: regionIds, label: (v: string) => tb(`regions.${v as (typeof regionIds)[number]}`) },
   ];
 
   return (

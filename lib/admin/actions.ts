@@ -2,8 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { categoryIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
+import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
+import { regionIds } from "@/lib/body/regions";
 
 export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic";
 
@@ -14,9 +15,15 @@ export interface AdminState {
 async function staffClient() {
   const user = await getSessionUser();
   if (!user || (user.role !== "trainer" && user.role !== "admin")) return { error: "forbidden" as const };
+  if (user.role === "trainer" && user.authorStatus !== "active") return { error: "forbidden" as const };
   const db = await createServerSupabase();
   if (!db) return { error: "notConfigured" as const };
   return { db, user };
+}
+
+/** Admins pick any author; trainers always publish as themselves (the database enforces the same rule). */
+function authorFor(user: { role: string; authorId: string | null }, requested: string): string | null {
+  return user.role === "admin" ? requested || null : user.authorId;
 }
 
 const str = (fd: FormData, key: string) => String(fd.get(key) ?? "").trim();
@@ -68,6 +75,7 @@ function published(fd: FormData, previous: string | null | undefined) {
 }
 
 function mapDbError(message: string): AdminErrorCode {
+  if (/row-level security|permission denied/i.test(message)) return "forbidden";
   if (message.includes("workouts_slug_key") || message.toLowerCase().includes("duplicate")) return "slugTaken";
   if (message.toLowerCase().includes("violates")) return "invalid";
   return "generic";
@@ -95,8 +103,12 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
     language: inList(["en", "uk", "de", "ru"] as const, str(fd, "language"), "uk"),
     cover_tone: inList(["deep", "mint", "light"] as const, str(fd, "cover_tone"), "deep"),
     video: video(fd),
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
+    equipment: equipmentIds.filter((e) => bool(fd, `equipment_${e}`)),
+    body_regions: regionIds.filter((r) => bool(fd, `region_${r}`)),
+    safety: localized(fd, "safety"),
     ...published(fd, str(fd, "published_at_prev") || null),
+    ...(ctx.user.role === "admin" && str(fd, "review_status") ? { review_status: inList(["draft", "pending", "approved", "rejected"] as const, str(fd, "review_status"), "approved") } : {}),
   };
   const { error } = await ctx.db.from("workouts").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
@@ -141,7 +153,7 @@ export async function savePost(_prev: AdminState, fd: FormData): Promise<AdminSt
   const row = {
     ...(id ? { id } : {}),
     kind: inList(["news", "tip", "session", "video", "photo"] as const, str(fd, "kind"), "news"),
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
     title: localized(fd, "title"),
     body,
     attachment: attachment(fd),
@@ -190,7 +202,8 @@ export async function saveCourse(_prev: AdminState, fd: FormData): Promise<Admin
     level: inList(levels, str(fd, "level"), "beginner"),
     access: str(fd, "access") === "premium" ? "premium" : "free",
     language: inList(languagesList, str(fd, "language"), "uk"),
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
+    kind: str(fd, "kind") === "program" ? "program" : "course",
     ...published(fd, str(fd, "published_at_prev") || null),
   };
   const { data, error } = await ctx.db.from("courses").upsert(row, { onConflict: "id" }).select("id").single();
@@ -266,6 +279,7 @@ export async function saveLesson(_prev: AdminState, fd: FormData): Promise<Admin
     summary: localized(fd, "summary"),
     duration_min: Number.isFinite(duration) && duration > 0 ? duration : null,
     video: video(fd),
+    workout_id: str(fd, "workout_id") || null,
     routine: localizedLines(fd, "routine"),
     recommendations: localized(fd, "recommendations"),
     access: str(fd, "access") === "premium" ? "premium" : "free",
@@ -434,7 +448,7 @@ export async function quickPublish(_prev: QuickPublishState, fd: FormData): Prom
 
   const { error } = await ctx.db.from("posts").insert({
     kind: attachment?.kind === "video" ? (kind === "news" ? "video" : kind) : attachment?.kind === "photo" ? (kind === "news" ? "photo" : kind) : kind,
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
     title: null,
     body,
     attachment,
@@ -473,7 +487,7 @@ export async function saveMealPlan(_prev: AdminState, fd: FormData): Promise<Adm
     plan_date: date || null,
     meals,
     notes: localized(fd, "notes"),
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
     language: inList(languagesList, str(fd, "language"), "uk"),
     access: str(fd, "access") === "premium" ? "premium" : "free",
     ...published(fd, str(fd, "published_at_prev") || null),
@@ -585,12 +599,16 @@ export async function quickPublishWorkout(_prev: QuickPublishState, fd: FormData
     language,
     cover_tone: "deep",
     video: videoPath ? (poster ? { kind: "storage", bucket: "videos", path: videoPath, poster } : { kind: "storage", bucket: "videos", path: videoPath }) : null,
-    author_id: str(fd, "author_id") || null,
+    author_id: authorFor(ctx.user, str(fd, "author_id")),
+    equipment: equipmentIds.filter((e) => bool(fd, `equipment_${e}`)),
+    body_regions: regionIds.filter((r) => bool(fd, `region_${r}`)),
+    safety: description && str(fd, "safety") ? { en: str(fd, "safety"), [language]: str(fd, "safety") } : str(fd, "safety") ? { en: str(fd, "safety"), [language]: str(fd, "safety") } : null,
     published: publish,
     published_at: publish ? new Date().toISOString() : null,
   };
   const { error } = await ctx.db.from("workouts").insert(row);
   if (error) return { error: mapDbError(error.message) };
   revalidatePath("/", "layout");
-  redirect(publish ? `/library/${slug}?published=1` : "/admin/workouts?saved=1");
+  // Trainers' publications wait for review, so send them to their own list instead of a public page that is not live yet
+  redirect(publish && ctx.user.role === "admin" ? `/library/${slug}?published=1` : publish ? "/admin/workouts?submitted=1" : "/admin/workouts?saved=1");
 }

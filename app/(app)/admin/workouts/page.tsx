@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { getSessionUser } from "@/lib/supabase/server";
 import { Plus } from "lucide-react";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -17,7 +18,8 @@ export default async function AdminWorkoutsPage({ searchParams }: PageProps) {
   const tl = await getTranslations("library");
   const tc = await getTranslations("common");
   const params = await searchParams;
-  const workouts = await listAllWorkouts();
+  const viewer = await getSessionUser();
+  const workouts = await listAllWorkouts(viewer?.role === "trainer" ? viewer.authorId : null);
 
   return (
     <div className="space-y-5">
@@ -32,6 +34,7 @@ export default async function AdminWorkoutsPage({ searchParams }: PageProps) {
         }
       />
       {params.saved ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
+      {params.submitted ? <p className="bg-accent-soft text-accent rounded-2xl px-4 py-3 text-sm font-semibold">{t("submittedNotice")}</p> : null}
       {params.deleted ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm font-semibold">{t("deletedNotice")}</p> : null}
 
       {workouts.length === 0 ? (
@@ -47,7 +50,7 @@ export default async function AdminWorkoutsPage({ searchParams }: PageProps) {
                     {tl(`categories.${w.category}`)} · {tc("minutes", { count: w.duration_min })} · {tl(`levels.${w.level}`)}
                   </span>
                 </span>
-                <StatusBadge published={w.published} />
+                <StatusBadge published={w.published} review={w.review_status} />
               </Link>
             </li>
           ))}

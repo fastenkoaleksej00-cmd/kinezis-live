@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Award, Bookmark, ChevronRight, HeartPulse, History, LogOut, MessageCircle, Pencil, Settings, ShieldCheck, Sparkles, UserRound } from "lucide-react";
+import { Award, Bookmark, ChevronRight, HeartPulse, History, LogOut, MessageCircle, Pencil, Settings, ShieldCheck, Sparkles, UserRound, UserRoundCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -175,6 +175,20 @@ export default async function ProfilePage({ searchParams }: PageProps) {
               <ChevronRight className="text-steel h-4 w-4" aria-hidden />
             </Link>
           </li>
+          {user && !isStaff ? (
+            <li>
+              <Link href="/profile/trainer" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
+                <span className="bg-mint-soft text-mint-deep inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                  <UserRoundCheck className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-ink font-semibold">{t("becomeTrainer")}</p>
+                  <p className="text-steel text-sm">{t("becomeTrainerHint")}</p>
+                </div>
+                <ChevronRight className="text-steel h-4 w-4" aria-hidden />
+              </Link>
+            </li>
+          ) : null}
           {isStaff ? (
             <li>
               <Link href="/admin" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">

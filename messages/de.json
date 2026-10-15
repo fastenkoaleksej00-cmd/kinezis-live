@@ -107,7 +107,10 @@
       "any": "Beliebig",
       "apply": "Anwenden",
       "reset": "Zurücksetzen",
-      "close": "Schließen"
+      "close": "Schließen",
+      "author": "Trainer",
+      "equipment": "Ausrüstung",
+      "region": "Körperbereich"
     },
     "durations": {
       "short": "Unter 15 Min.",
@@ -136,7 +139,20 @@
     "noResultsBody": "Probiere eine andere Kategorie oder setze die Filter zurück.",
     "sampleNote": "Beispiel-Einheiten geben der Bibliothek vorerst Form. Die echten Videos der Trainerin ersetzen sie.",
     "publishedNotice": "Veröffentlicht. Die Einheit ist in der Bibliothek.",
-    "recoverAfter": "Mit 3 Minuten Atmen erholen"
+    "recoverAfter": "Mit 3 Minuten Atmen erholen",
+    "equipment": {
+      "none": "Ohne Ausrüstung",
+      "mat": "Matte",
+      "band": "Band",
+      "ball": "Kleiner Ball",
+      "chair": "Stuhl",
+      "blocks": "Blöcke",
+      "dumbbells": "Leichte Hanteln"
+    },
+    "programsTitle": "Programme",
+    "programsBody": "Geordnete Abfolgen von Einheiten mit deinem Fortschritt.",
+    "program": "Programm",
+    "safetyTitle": "Bevor du beginnst"
   },
   "saved": {
     "title": "Gespeichert",
@@ -192,7 +208,9 @@
       "streak": "Serie",
       "minutes": "Minuten"
     },
-    "noStats": "Markiere eine Einheit als erledigt, um deine Statistik zu starten."
+    "noStats": "Markiere eine Einheit als erledigt, um deine Statistik zu starten.",
+    "becomeTrainer": "Trainer werden",
+    "becomeTrainerHint": "Bewirb dich, um eigene Einheiten und Programme zu veröffentlichen."
   },
   "settings": {
     "title": "Einstellungen",
@@ -466,7 +484,12 @@
       "nutrition": "Ernährung",
       "comments": "Kommentare",
       "messages": "Nachrichten",
-      "community": "Community"
+      "community": "Community",
+      "review": "Prüfung",
+      "applications": "Bewerbungen",
+      "trainers": "Trainer",
+      "reports": "Meldungen",
+      "profile": "Meine Karte"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -486,7 +509,11 @@
     "status": {
       "published": "Veröffentlicht",
       "draft": "Entwurf",
-      "hiddenPost": "ausgeblendet"
+      "hiddenPost": "ausgeblendet",
+      "pending": "In Prüfung",
+      "rejected": "Zurückgegeben",
+      "rejectedNote": "Zurückgegeben mit Hinweis: {note}",
+      "approved": "Freigegeben"
     },
     "tones": {
       "deep": "Petrol (dunkel)",
@@ -530,7 +557,7 @@
       "videoSrc": "Video-URL",
       "videoPoster": "Poster-URL (optional)",
       "videoDuration": "Länge, Sekunden",
-      "kind": "Beitragstyp",
+      "kind": "Typ",
       "attachment": "Anhang",
       "photoSrc": "Foto-URL (optional)",
       "photoHint": "Ohne URL wird ein Marken-Cover gezeigt.",
@@ -558,7 +585,15 @@
       "imageSrc": "Bild-URL (optional)",
       "planDate": "Datum",
       "mealsHint": "Fülle die Mahlzeiten aus, die du teilen möchtest; leere werden übersprungen. Englisch ist Pflicht, andere Sprachen optional.",
-      "notes": "Notizen"
+      "notes": "Notizen",
+      "equipment": "Ausrüstung",
+      "bodyRegions": "Zielbereiche",
+      "safety": "Sicherheitshinweise",
+      "safetyHint": "Gegenanzeigen und wann du aufhörst. Wird vor dem Video gezeigt. Keine Diagnosen, keine Versprechen.",
+      "publishedTrainerHint": "Veröffentlichtes geht zuerst in die Prüfung; in der Bibliothek erscheint es nach Freigabe.",
+      "reviewStatus": "Prüfstatus",
+      "linkedSession": "Bibliothekseinheit",
+      "linkedSessionHint": "Ein Programmschritt kann eine veröffentlichte Einheit nutzen: ihr Video wird verwendet, wenn der Schritt keins hat."
     },
     "errors": {
       "forbidden": "Dafür fehlt dir die Berechtigung.",
@@ -607,7 +642,25 @@
     "commentsIntro": "Neueste Kommentare der Mitglieder. Ausblenden behält den Eintrag, Löschen entfernt ihn.",
     "hide": "Ausblenden",
     "unhide": "Wieder anzeigen",
-    "communityIntro": "Beiträge von Mitgliedern. Ausblenden lässt den Beitrag nur für die Autorin sichtbar; Löschen entfernt ihn."
+    "communityIntro": "Beiträge von Mitgliedern. Ausblenden lässt den Beitrag nur für die Autorin sichtbar; Löschen entfernt ihn.",
+    "trainerEyebrow": "Trainer-Bereich",
+    "suspendedNotice": "Das Veröffentlichen ist für dein Konto pausiert. Deine Inhalte bleiben, neue können nicht gespeichert werden. Schreib dem Admin, wenn das ein Fehler ist.",
+    "submittedNotice": "Zur Prüfung gesendet. Erscheint in der Bibliothek, sobald ein Admin es freigibt.",
+    "trainerTitle": "Mein Bereich",
+    "noAuthorCard": "Dein Konto hat die Trainer-Rolle, aber noch keine Autorenkarte. Bitte den Admin, eine zu verknüpfen.",
+    "stats": {
+      "published": "In der Bibliothek",
+      "completions": "Abschlüsse",
+      "likes": "Likes"
+    },
+    "pendingOwn": "{count, plural, one {# Eintrag wartet} other {# Einträge warten}} auf Prüfung.",
+    "queue": "{count, plural, =0 {Nichts offen} one {# offen} other {# offen}}",
+    "trainersHint": "Karten, Verifizierung, Veröffentlichungsstatus",
+    "trainerRules": "Du veröffentlichst nur unter deinem Namen. Neue Einheiten und Programme gehen nach Prüfung durch den Admin live. Keine medizinischen Versprechen; Sicherheitshinweise sind willkommen.",
+    "kinds": {
+      "course": "Kurs (Lektionen mit eigenen Videos)",
+      "program": "Programm (Abfolge von Bibliothekseinheiten)"
+    }
   },
   "premium": {
     "eyebrow": "Premium",
@@ -667,7 +720,12 @@
     "statsPosts": "Beiträge",
     "sessions": "Einheiten der Trainerin",
     "latestPosts": "Neueste Beiträge",
-    "ask": "Der Trainerin schreiben"
+    "ask": "Der Trainerin schreiben",
+    "qualifications": "Qualifikation",
+    "years": "{count, plural, one {# Jahr} other {# Jahre}} Praxis",
+    "verifiedNote": "Von KINEZIS LIVE nach Prüfung der Unterlagen verifiziert.",
+    "unverifiedNote": "Qualifikation laut Trainer; von KINEZIS LIVE noch nicht verifiziert.",
+    "allSessions": "Alle {count} Einheiten"
   },
   "compose": {
     "title": "Neuer Beitrag",
@@ -1332,5 +1390,187 @@
       "4": "Nichts wird als verbunden gezeigt, bevor tatsächlich Daten empfangen wurden."
     },
     "manualNote": "Bis die native Brücke kommt, ist Meine Gesundheit vollständig manuell: Gewicht, Maße, Wasser und dein Aktivitätsprotokoll."
+  },
+  "programs": {
+    "eyebrow": "Programme",
+    "title": "Programme",
+    "lead": "Schritt-für-Schritt-Abfolgen von verifizierten Trainern. Dein Stand wird gemerkt.",
+    "emptyTitle": "Noch keine Programme",
+    "emptyBody": "Trainer stellen die ersten zusammen. Einzelne Einheiten findest du in der Bibliothek.",
+    "toLibrary": "Bibliothek öffnen",
+    "disclaimer": "Programme unterstützen Bewegung und Erholung. Sie behandeln keine Erkrankungen und versprechen keine Ergebnisse."
+  },
+  "report": {
+    "button": "Melden",
+    "title": "Problem melden",
+    "close": "Schließen",
+    "signIn": "Melde dich an, um eine Meldung zu senden.",
+    "thanks": "Danke. Ein Admin prüft sie.",
+    "reason": "Grund",
+    "details": "Details (optional)",
+    "note": "Meldungen liest ein Admin, sie gehen nicht an den Autor. Falsche Meldungen können ignoriert werden.",
+    "error": "Konnte nicht senden. Versuch es nochmal.",
+    "send": "Senden",
+    "reasons": {
+      "unsafe": "Unsichere Anleitung",
+      "medical": "Medizinische Behauptung oder Heilversprechen",
+      "misleading": "Irreführende Information",
+      "inappropriate": "Unangemessener Inhalt",
+      "copyright": "Urheberrecht",
+      "other": "Anderes"
+    },
+    "targets": {
+      "workout": "Einheit",
+      "post": "Beitrag",
+      "course": "Kurs",
+      "trainer": "Trainer",
+      "comment": "Kommentar"
+    }
+  },
+  "trainers": {
+    "apply": {
+      "eyebrow": "Für Fachpersonen",
+      "title": "Trainer werden",
+      "lead": "Kinesiotherapeuten, Yoga- und Pilates-Lehrende, Fachleute für Mobilität, Haltung, Atmung und Regeneration. Erzähl uns, wer du bist; ein Admin prüft jede Bewerbung von Hand.",
+      "signedOutTitle": "Zuerst anmelden",
+      "signedOutBody": "Die Bewerbung ist an dein Konto gebunden.",
+      "signIn": "Anmelden",
+      "alreadyTrainer": "Du hast bereits Trainer-Zugang.",
+      "openCabinet": "Bereich öffnen",
+      "status": {
+        "draft": "Entwurf",
+        "submitted": "Gesendet",
+        "review": "In Prüfung",
+        "approved": "Angenommen",
+        "rejected": "Nicht angenommen"
+      },
+      "statusBody": {
+        "draft": "Im Konto gespeichert, noch nicht gesendet.",
+        "submitted": "Wir haben sie erhalten. Bis zur Entscheidung kannst du vorbereiten, aber nicht veröffentlichen.",
+        "review": "Ein Admin prüft die Angaben.",
+        "approved": "Willkommen. Dein Bereich ist offen.",
+        "rejected": "Du kannst sie bearbeiten und erneut senden."
+      },
+      "adminNote": "Hinweis vom Admin",
+      "privacyNote": "Gespeichert wird nur, was du hier eingibst. Dokumente sehen nur du und der Admin, sie lassen sich jederzeit entfernen. Vor der Freigabe wird nichts öffentlich gezeigt.",
+      "photo": "Foto",
+      "photoHint": "Ein klares Porträt. Nach Freigabe auf deiner öffentlichen Karte.",
+      "fields": {
+        "fullName": "Vor- und Nachname",
+        "specialties": "Spezialisierung",
+        "bio": "Über dich und deine Erfahrung",
+        "bioHint": "Was du unterrichtest, mit wem du arbeitest, dein Ansatz. Bis 1500 Zeichen.",
+        "qualifications": "Ausbildung und Qualifikation",
+        "qualificationsHint": "Diplome, Kurse, Zertifikate, Praxisjahre.",
+        "experienceYears": "Praxisjahre",
+        "links": "Berufliche Links",
+        "linksHint": "Einer pro Zeile: Website, Instagram, YouTube.",
+        "documents": "Dokumente",
+        "documentsHint": "Optional: Fotos oder PDFs von Diplomen und Zertifikaten, bis 5 Dateien à 10 MB. Privat."
+      },
+      "document": "Dokument {n}",
+      "removeDocument": "Dokument entfernen",
+      "addDocument": "Dokument hinzufügen",
+      "uploadFailed": "Upload fehlgeschlagen. Prüfe Größe und Format.",
+      "consent": "Ich stimme den Inhaltsregeln und der Verarbeitung dieser Daten für die Prüfung zu.",
+      "consentHint": "Keine medizinischen Behauptungen, keine Ergebnisversprechen, nur eigene Materialien. Siehe Bedingungen.",
+      "submit": "Bewerbung senden",
+      "saveDraft": "Entwurf speichern",
+      "saved": "Gespeichert.",
+      "errors": {
+        "signedOut": "Zuerst anmelden.",
+        "notConfigured": "Konten sind nicht verbunden.",
+        "forbidden": "Diese Bewerbung kann nicht mehr bearbeitet werden.",
+        "nameRequired": "Gib deinen Namen ein.",
+        "consentRequired": "Bitte stimme den Regeln zu.",
+        "invalid": "Prüfe die Werte.",
+        "generic": "Konnte nicht speichern. Versuch es nochmal."
+      }
+    },
+    "card": {
+      "title": "Meine Karte",
+      "lead": "Was Mitglieder auf deiner Seite sehen. Verifizierung setzt nur der Admin.",
+      "viewPublic": "Öffentliche Seite ansehen",
+      "noCard": "Mit deinem Konto ist noch keine Autorenkarte verknüpft.",
+      "photo": "Foto",
+      "photoHint": "Ein quadratisches Porträt passt am besten.",
+      "cover": "Cover-Palette",
+      "name": "Name",
+      "bio": "Über dich",
+      "specialties": "Spezialisierung",
+      "qualifications": "Qualifikation",
+      "qualificationsHint": "Auf deiner Seite mit Hinweis, ob KINEZIS LIVE sie verifiziert hat.",
+      "experienceYears": "Praxisjahre",
+      "links": "Links",
+      "linksHint": "Einer pro Zeile, bis 10.",
+      "save": "Karte speichern",
+      "saved": "Gespeichert.",
+      "error": "Konnte nicht speichern. Versuch es nochmal.",
+      "verifiedNote": "Das Verifiziert-Abzeichen vergibt der Admin nach Prüfung der Unterlagen; hier lässt es sich nicht setzen."
+    },
+    "admin": {
+      "applicationsTitle": "Trainer-Bewerbungen",
+      "applicationsLead": "Prüfe die Qualifikation vor der Freigabe. Die Freigabe erstellt die Autorenkarte und öffnet den Bereich.",
+      "decided": "Erledigt.",
+      "noApplications": "Keine Bewerbungen",
+      "noApplicationsBody": "Neue Bewerbungen von Mitgliedern erscheinen hier.",
+      "status": {
+        "draft": "Entwurf",
+        "submitted": "Gesendet",
+        "review": "In Prüfung",
+        "approved": "Angenommen",
+        "rejected": "Abgelehnt"
+      },
+      "years": "{count, plural, one {# Jahr} other {# Jahre}}",
+      "fields": {
+        "bio": "Über",
+        "qualifications": "Qualifikation",
+        "slug": "Öffentliche Kennung (URL)",
+        "note": "Hinweis an die bewerbende Person",
+        "resolution": "Hinweis zur Entscheidung"
+      },
+      "document": "Dokument {n}",
+      "approve": "Annehmen",
+      "approveHint": "Erstellt die Autorenkarte und vergibt die Trainer-Rolle. Das Verifiziert-Abzeichen ist getrennt (Trainer).",
+      "reject": "Ablehnen",
+      "markReview": "Als in Prüfung markieren",
+      "reviewTitle": "Prüfwarteschlange",
+      "reviewLead": "Einheiten und Programme von Trainern, die auf eine Entscheidung warten.",
+      "noReview": "Nichts offen",
+      "noReviewBody": "Neue Veröffentlichungen von Trainern erscheinen hier.",
+      "open": "Öffnen",
+      "reviewNote": "Prüfe Sicherheitsformulierungen, medizinische Behauptungen und Videoqualität. Abgelehntes geht mit deinem Hinweis an den Autor zurück.",
+      "kindProgram": "Programm",
+      "kindCourse": "Kurs",
+      "reportsTitle": "Meldungen",
+      "reportsLead": "Meldungen von Mitgliedern zu Einheiten, Beiträgen, Trainern und Kommentaren.",
+      "reportFilter": {
+        "open": "Offen",
+        "resolved": "Erledigt",
+        "all": "Alle"
+      },
+      "noReports": "Keine Meldungen",
+      "noReportsBody": "Meldungen von Mitgliedern erscheinen hier.",
+      "resolve": "Erledigen",
+      "resolveHide": "Erledigen und verbergen",
+      "dismiss": "Verwerfen",
+      "reportStatus": {
+        "resolved": "Erledigt",
+        "dismissed": "Verworfen"
+      },
+      "trainersTitle": "Trainer",
+      "trainersLead": "Autorenkarten, Verifizierung und Veröffentlichungsstatus.",
+      "noTrainers": "Noch keine Trainer",
+      "noTrainersBody": "Angenommene Bewerbungen erstellen hier Karten.",
+      "linked": "Mit Konto verknüpft",
+      "unlinked": "Kein Konto",
+      "suspended": "Veröffentlichen pausiert",
+      "active": "Aktiv",
+      "verify": "Verifizieren",
+      "unverify": "Verifizierung entfernen",
+      "activate": "Veröffentlichen fortsetzen",
+      "suspend": "Veröffentlichen pausieren",
+      "verifyNote": "Verifiziere nur nach echter Prüfung der Unterlagen. Das Abzeichen wird getrennt von Likes und Abschlüssen gezeigt."
+    }
   }
 }

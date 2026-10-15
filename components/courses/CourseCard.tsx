@@ -23,7 +23,7 @@ export async function CourseCard({ course }: CourseCardProps) {
 
   return (
     <Link href={`/face-fitness/${course.slug}`} className="group block">
-      <Cover tone={course.coverTone} ratio="aspect-[16/10]" label={course.sample ? t("sample") : undefined}>
+      <Cover tone={course.coverTone} ratio="aspect-[16/10]" label={course.sample ? t("sample") : course.kind === "program" ? tl("program") : undefined}>
         <div className="absolute top-3 right-3 z-20">
           <SaveButton itemKey={courseKey(course.id)} look="glass" />
         </div>

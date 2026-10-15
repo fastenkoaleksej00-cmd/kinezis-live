@@ -9,6 +9,8 @@ import { SubmitRow } from "./SubmitRow";
 import { VideoField } from "./VideoField";
 
 interface LessonFormProps {
+  /** Published library sessions a programme step can reuse */
+  workouts?: Array<{ id: string; title: string }>;
   courseId: string;
   modules: ModuleRow[];
   lesson?: LessonRow | null;
@@ -21,7 +23,7 @@ function lines(list: Array<{ en?: string; uk?: string; de?: string; ru?: string 
   return (list ?? []).map((s) => s[code] ?? "").join("\n");
 }
 
-export function LessonForm({ courseId, modules, lesson, defaultModuleId }: LessonFormProps) {
+export function LessonForm({ courseId, modules, lesson, defaultModuleId, workouts = [] }: LessonFormProps) {
   const t = useTranslations("admin");
   const [state, action, pending] = useActionState(saveLesson, initial);
   const video = lesson?.video ?? null;
@@ -57,6 +59,21 @@ export function LessonForm({ courseId, modules, lesson, defaultModuleId }: Lesso
           </Field>
         </div>
       </section>
+
+      {workouts.length > 0 ? (
+        <section className="card space-y-2 p-5">
+          <Field label={t("fields.linkedSession")} hint={t("fields.linkedSessionHint")}>
+            <Select name="workout_id" defaultValue={lesson?.workout_id ?? ""}>
+              <option value="">—</option>
+              {workouts.map((w) => (
+                <option key={w.id} value={w.id}>
+                  {w.title}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        </section>
+      ) : null}
 
       <VideoField folder="lessons" value={video} />
 

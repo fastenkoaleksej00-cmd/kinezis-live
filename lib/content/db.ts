@@ -20,6 +20,11 @@ export interface WorkoutRow {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  review_status?: Workout["reviewStatus"];
+  review_note?: string | null;
+  equipment?: string[] | null;
+  body_regions?: string[] | null;
+  safety?: LocalizedText | null;
 }
 
 export interface PostRow {
@@ -52,9 +57,14 @@ export interface AuthorRow {
   verified: boolean;
   avatar_src: string | null;
   instagram: string | null;
+  status?: "active" | "suspended" | null;
+  cover_preset?: string | null;
+  qualifications?: string | null;
+  experience_years?: number | null;
+  links?: string[] | null;
 }
 
-export const authorColumns = "id, user_id, name, role, bio, specialties, verified, avatar_src, instagram";
+export const authorColumns = "id, user_id, name, role, bio, specialties, verified, avatar_src, instagram, status, cover_preset, qualifications, experience_years, links";
 
 export function rowToAuthor(r: AuthorRow): Author {
   return {
@@ -66,11 +76,16 @@ export function rowToAuthor(r: AuthorRow): Author {
     verified: r.verified,
     avatarSrc: r.avatar_src ?? undefined,
     instagram: r.instagram ?? undefined,
+    status: r.status === "suspended" ? "suspended" : "active",
+    coverPreset: r.cover_preset ?? "midnight",
+    qualifications: r.qualifications ?? undefined,
+    experienceYears: r.experience_years ?? undefined,
+    links: r.links ?? [],
   };
 }
 
 export const workoutColumns =
-  "id, slug, title, description, category, duration_min, level, goals, access, language, cover_tone, video, author_id, published, published_at, created_at, updated_at";
+  "id, slug, title, description, category, duration_min, level, goals, access, language, cover_tone, video, author_id, published, published_at, created_at, updated_at, review_status, review_note, equipment, body_regions, safety";
 export const postColumns =
   "id, kind, author_id, user_id, category, hidden, title, body, attachment, language, access, reactions_enabled, comments_enabled, published, published_at, created_at, updated_at";
 
@@ -90,6 +105,10 @@ export function rowToWorkout(r: WorkoutRow): Workout {
     video: r.video ?? null,
     authorId: r.author_id ?? "",
     publishedAt: r.published_at ?? r.created_at,
+    equipment: (r.equipment ?? []) as Workout["equipment"],
+    bodyRegions: r.body_regions ?? [],
+    safety: r.safety ?? undefined,
+    reviewStatus: r.review_status ?? "approved",
   };
 }
 
@@ -137,6 +156,9 @@ export interface CourseRow {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  review_status?: Workout["reviewStatus"];
+  review_note?: string | null;
+  kind?: "course" | "program" | null;
 }
 
 export interface ModuleRow {
@@ -158,6 +180,7 @@ export interface LessonRow {
   recommendations: LocalizedText | null;
   access: Lesson["access"];
   position: number;
+  workout_id?: string | null;
 }
 
 export interface RoutineRow {
@@ -206,9 +229,9 @@ export interface ProductRow {
   updated_at: string;
 }
 
-export const courseColumns = "id, slug, title, description, cover_tone, level, access, language, author_id, published, published_at, created_at, updated_at";
+export const courseColumns = "id, slug, title, description, cover_tone, level, access, language, author_id, published, published_at, created_at, updated_at, review_status, review_note, kind";
 export const moduleColumns = "id, course_id, title, position";
-export const lessonColumns = "id, module_id, slug, title, summary, duration_min, video, routine, recommendations, access, position";
+export const lessonColumns = "id, module_id, slug, title, summary, duration_min, video, routine, recommendations, access, position, workout_id";
 export const routineColumns = "id, slug, title, time_of_day, steps, language, access, published, published_at, created_at, updated_at";
 export const articleColumns = "id, slug, title, body, language, access, published, published_at, created_at, updated_at";
 export const productColumns = "id, slug, name, brand, category, description, ingredients, usage, purchase_url, image_src, language, access, published, published_at, created_at, updated_at";
@@ -224,6 +247,7 @@ export function rowToLesson(r: LessonRow): Lesson {
     routine: r.routine ?? [],
     recommendations: r.recommendations ?? undefined,
     access: r.access,
+    workoutId: r.workout_id ?? undefined,
   };
 }
 
@@ -237,6 +261,7 @@ export function rowsToCourse(c: CourseRow, modules: ModuleRow[], lessons: Lesson
       lessons: lessons.filter((l) => l.module_id === m.id).sort((a, b) => a.position - b.position).map(rowToLesson),
     }));
   return {
+    kind: c.kind ?? "course",
     id: c.id,
     slug: c.slug,
     title: c.title,

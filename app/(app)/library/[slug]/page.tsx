@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, Clock, Play, Signal, Target, UserRound } from "lucide-react";
+import { ArrowLeft, Dumbbell, Clock, Play, Signal, Target, UserRound } from "lucide-react";
 import { workoutKey } from "@/lib/store/keys";
 import { LogActivityButton } from "@/components/health/LogActivityButton";
 import { Comments } from "@/components/social/Comments";
 import { LikeButton } from "@/components/social/LikeButton";
+import { ReportButton } from "@/components/social/ReportButton";
 import { getSocialCounts, listComments } from "@/lib/social/queries";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
 import { getFormatter } from "next-intl/server";
@@ -46,11 +47,12 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
   const counts = social[workout.id];
   const dates = Object.fromEntries(comments.map((c) => [c.id, format.dateTime(new Date(c.createdAt), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })]));
 
-  const facts = [
+  const facts: Array<{ icon: typeof Clock; label: string; value: string; href?: string }> = [
     { icon: Clock, label: t("filters.duration"), value: tc("minutes", { count: workout.durationMin }) },
     { icon: Signal, label: t("filters.level"), value: t(`levels.${workout.level}`) },
     { icon: Target, label: t("filters.goal"), value: workout.goals.map((g) => t(`goals.${g}`)).join(", ") },
-    { icon: UserRound, label: t("trainer"), value: author?.name ?? "—" },
+    { icon: UserRound, label: t("trainer"), value: author?.name ?? "—", href: author ? `/trainers/${author.id}` : undefined },
+    ...(workout.equipment && workout.equipment.length > 0 ? [{ icon: Dumbbell, label: t("filters.equipment"), value: workout.equipment.map((e) => t(`equipment.${e}`)).join(", ") }] : []),
   ];
 
   return (
@@ -86,7 +88,16 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
         </Link>
         <SaveButton itemKey={workoutKey(workout.id)} look="solid" size="md" withLabel />
         {!workout.sample ? <LikeButton targetType="workout" targetId={workout.id} likes={counts.likes} liked={counts.liked} signedIn={Boolean(user)} /> : null}
+        {!workout.sample ? <ReportButton targetType="workout" targetId={workout.id} signedIn={Boolean(user)} /> : null}
       </Reveal>
+      {workout.safety ? (
+        <Reveal delay={0.11}>
+          <div className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
+            <p className="font-semibold">{t("safetyTitle")}</p>
+            <p className="mt-1 whitespace-pre-line">{pick(workout.safety, locale)}</p>
+          </div>
+        </Reveal>
+      ) : null}
 
       <Reveal delay={0.12}>
         <LogActivityButton itemType="workout" itemId={workout.id} title={pick(workout.title, locale)} durationMin={workout.durationMin} back={`/library/${workout.slug}`} logged={Boolean(sp.logged)} />
@@ -94,17 +105,28 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
 
       <Reveal delay={0.14} as="section" className="grid gap-3 sm:grid-cols-2">
         <p className="card text-text px-5 py-4 text-[15px] leading-relaxed sm:col-span-2">{pick(workout.description, locale)}</p>
-        {facts.map(({ icon: Icon, label, value }) => (
-          <div key={label} className="card flex items-center gap-3 px-4 py-3.5">
-            <span className="bg-accent-soft text-accent inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
-              <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
-            </span>
-            <span className="min-w-0">
-              <span className="text-steel block text-[11px] font-semibold tracking-[0.12em] uppercase">{label}</span>
-              <span className="text-ink block truncate text-sm font-semibold">{value}</span>
-            </span>
-          </div>
-        ))}
+        {facts.map(({ icon: Icon, label, value, href }) => {
+          const inner = (
+            <>
+              <span className="bg-accent-soft text-accent inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
+                <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
+              </span>
+              <span className="min-w-0">
+                <span className="text-steel block text-[11px] font-semibold tracking-[0.12em] uppercase">{label}</span>
+                <span className={href ? "text-accent block truncate text-sm font-semibold" : "text-ink block truncate text-sm font-semibold"}>{value}</span>
+              </span>
+            </>
+          );
+          return href ? (
+            <Link key={label} href={href} className="card flex items-center gap-3 px-4 py-3.5 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5">
+              {inner}
+            </Link>
+          ) : (
+            <div key={label} className="card flex items-center gap-3 px-4 py-3.5">
+              {inner}
+            </div>
+          );
+        })}
       </Reveal>
 
       {!workout.sample ? (

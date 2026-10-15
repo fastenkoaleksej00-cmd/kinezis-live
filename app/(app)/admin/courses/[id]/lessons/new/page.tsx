@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { LessonForm } from "@/components/admin/LessonForm";
+import { listWorkouts } from "@/lib/content/workouts";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { getCourseRow, listModuleRows } from "@/lib/admin/queries";
@@ -27,7 +28,7 @@ export default async function NewLessonPage({ params, searchParams }: PageProps)
         {course.title.en}
       </Link>
       <SectionHeading as="h1" title={t("newLesson")} />
-      <LessonForm courseId={id} modules={modules} defaultModuleId={moduleId} />
+      <LessonForm courseId={id} modules={modules} defaultModuleId={moduleId} workouts={(await listWorkouts()).filter((w) => !w.sample).map((w) => ({ id: w.id, title: w.title.en }))} />
     </div>
   );
 }

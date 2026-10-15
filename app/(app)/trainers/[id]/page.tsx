@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, AtSign, MessageCircle } from "lucide-react";
+import { ArrowLeft, AtSign, Award, Link2, MessageCircle } from "lucide-react";
+import { ReportButton } from "@/components/social/ReportButton";
+import { bannerClass } from "@/lib/profile/banner";
+import { normalizeBanner } from "@/lib/profile/banner";
+import { getSessionUser } from "@/lib/supabase/server";
+import { cn } from "@/lib/utils";
 import { PostCard } from "@/components/feed/PostCard";
 import { WorkoutCard } from "@/components/library/WorkoutCard";
 import { TrainerBadge } from "@/components/trainer/TrainerBadge";
@@ -32,8 +37,10 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
   const tl = await getTranslations("library");
   const tn = await getTranslations("nav");
   const locale = await getLocale();
-  const [workouts, posts] = await Promise.all([listWorkouts(), listPosts()]);
+  const [workouts, posts, viewer] = await Promise.all([listWorkouts(), listPosts(), getSessionUser()]);
   const own = workouts.filter((w) => w.authorId === author.id);
+  const preset = normalizeBanner(author.coverPreset);
+  const coverClasses = preset === "midnight" ? "section-deep" : bannerClass(preset);
   const ownPosts = posts.filter((p) => p.authorId === author.id).slice(0, 3);
 
   return (
@@ -46,8 +53,8 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
       </Reveal>
 
       <Reveal delay={0.05}>
-        <section className="section-deep relative overflow-hidden rounded-3xl p-6 text-white sm:p-8">
-          <div className="grid-bg-dark pointer-events-none absolute inset-0" aria-hidden />
+        <section className={cn("relative overflow-hidden rounded-3xl p-6 text-white sm:p-8", coverClasses)}>
+          {preset === "midnight" ? <div className="grid-bg-dark pointer-events-none absolute inset-0" aria-hidden /> : <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/55 to-transparent" aria-hidden />}
           <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
             <span className="glass-dark text-frost inline-flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full text-3xl font-bold">
               {author.avatarSrc ? (
@@ -85,11 +92,32 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
                   <MessageCircle className="h-4 w-4" aria-hidden />
                   {t("ask")}
                 </Link>
+                {author.links.slice(0, 3).map((l) => (
+                  <a key={l} href={l} target="_blank" rel="noopener noreferrer" className="text-mist inline-flex h-10 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold backdrop-blur-md transition-colors hover:text-white">
+                    <Link2 className="h-4 w-4" aria-hidden />
+                    {new URL(l).hostname.replace(/^www\./, "")}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </section>
       </Reveal>
+
+      {author.qualifications || author.experienceYears !== undefined ? (
+        <Reveal delay={0.08}>
+          <div className="card flex items-start gap-4 p-5">
+            <span className="bg-mint-soft text-mint-deep inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl">
+              <Award className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+            </span>
+            <div className="text-sm">
+              <p className="text-ink font-semibold">{t("qualifications")}{author.experienceYears !== undefined ? ` · ${t("years", { count: author.experienceYears })}` : ""}</p>
+              {author.qualifications ? <p className="text-steel mt-1 whitespace-pre-line">{author.qualifications}</p> : null}
+              <p className="text-steel mt-2 text-xs">{author.verified ? t("verifiedNote") : t("unverifiedNote")}</p>
+            </div>
+          </div>
+        </Reveal>
+      ) : null}
 
       <Reveal delay={0.1} as="section" className="grid grid-cols-2 gap-3 sm:max-w-sm">
         <div className="card px-4 py-3.5">
@@ -107,8 +135,8 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
           <SectionHeading
             title={t("sessions")}
             action={
-              <Link href="/library" className={buttonStyles("secondary", "sm")}>
-                {tn("library")}
+              <Link href={`/library?author=${author.id}`} className={buttonStyles("secondary", "sm")}>
+                {t("allSessions", { count: own.length })}
               </Link>
             }
           />
@@ -130,6 +158,9 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
           </div>
         </Reveal>
       ) : null}
+      <Reveal delay={0.2} className="flex justify-end">
+        <ReportButton targetType="trainer" targetId={author.id} signedIn={Boolean(viewer)} />
+      </Reveal>
     </Container>
   );
 }

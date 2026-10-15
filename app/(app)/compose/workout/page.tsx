@@ -18,6 +18,7 @@ export default async function ComposeWorkoutPage() {
   const tn = await getTranslations("nav");
   const locale = await getLocale();
   const authors = await listAuthorRows();
+  const isAdmin = (await getSessionUser())?.role === "admin";
   return (
     <Container as="section" className="max-w-[680px] space-y-5 py-4 sm:py-8">
       <Reveal>
@@ -28,7 +29,7 @@ export default async function ComposeWorkoutPage() {
         <SectionHeading as="h1" title={t("pageTitle")} lead={t("pageLead")} />
       </Reveal>
       <Reveal delay={0.06}>
-        <WorkoutComposer authors={authors} defaultLanguage={locale} />
+        <WorkoutComposer authors={authors} defaultLanguage={locale} isAdmin={isAdmin} />
       </Reveal>
     </Container>
   );

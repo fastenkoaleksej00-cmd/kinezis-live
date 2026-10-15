@@ -34,6 +34,13 @@ export interface SessionUser {
   plan: "free" | "premium" | "premium_plus";
   planUntil: string | null;
   premiumInterest: boolean;
+  /** Author card owned by this account (trainers), null otherwise */
+  authorId: string | null;
+  authorStatus: "active" | "suspended" | null;
+}
+
+export function isAdmin(user: SessionUser | null): boolean {
+  return !!user && user.role === "admin";
 }
 
 export function isStaff(user: SessionUser | null): boolean {
@@ -49,7 +56,10 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const { data: profile } = await supabase.from("profiles").select("display_name, role, plan, plan_until, premium_interest").eq("id", user.id).maybeSingle();
+  const [{ data: profile }, { data: author }] = await Promise.all([
+    supabase.from("profiles").select("display_name, role, plan, plan_until, premium_interest").eq("id", user.id).maybeSingle(),
+    supabase.from("authors").select("id, status").eq("user_id", user.id).maybeSingle(),
+  ]);
   const role = profile?.role === "trainer" || profile?.role === "admin" ? profile.role : "user";
   const plan = profile?.plan === "premium" || profile?.plan === "premium_plus" ? profile.plan : "free";
   const metaName = typeof user.user_metadata?.display_name === "string" ? user.user_metadata.display_name : null;
@@ -60,6 +70,8 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
     displayName: profile?.display_name ?? metaName,
     role,
     plan,
+    authorId: author?.id ?? null,
+    authorStatus: author?.status === "suspended" ? "suspended" : author ? "active" : null,
     planUntil: profile?.plan_until ?? null,
     premiumInterest: Boolean(profile?.premium_interest),
   };

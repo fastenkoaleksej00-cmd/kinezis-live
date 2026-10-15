@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
 import { Comments } from "@/components/social/Comments";
+import { ReportButton } from "@/components/social/ReportButton";
 import { listComments } from "@/lib/social/queries";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
 import { getFormatter } from "next-intl/server";
@@ -44,6 +45,11 @@ export default async function PostPage({ params }: PostPageProps) {
       </Reveal>
       <Reveal delay={0.05}>
         <PostCard post={post} expanded viewerId={user?.id ?? null} />
+        {!post.sample ? (
+          <div className="mt-2 flex justify-end">
+            <ReportButton targetType="post" targetId={post.id} signedIn={Boolean(user)} />
+          </div>
+        ) : null}
       </Reveal>
       {!post.sample ? (
         <Reveal delay={0.1} id="comments">

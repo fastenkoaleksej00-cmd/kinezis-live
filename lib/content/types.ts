@@ -19,6 +19,13 @@ export type Goal = (typeof goals)[number];
 export const durationBuckets = ["short", "medium", "long"] as const;
 export type DurationBucket = (typeof durationBuckets)[number];
 
+/** Equipment a session needs; "none" means bodyweight only. */
+export const equipmentIds = ["none", "mat", "band", "ball", "chair", "blocks", "dumbbells"] as const;
+export type EquipmentId = (typeof equipmentIds)[number];
+
+/** Review state set by an admin; trainers' publications wait as "pending". */
+export type ReviewStatus = "draft" | "pending" | "approved" | "rejected";
+
 /** Free/premium split exists in the model only; no paywall UI until the subscription stage. */
 export type Access = "free" | "premium";
 
@@ -50,6 +57,11 @@ export interface Author {
   verified: boolean;
   avatarSrc?: string;
   instagram?: string;
+  status: "active" | "suspended";
+  coverPreset: string;
+  qualifications?: string;
+  experienceYears?: number;
+  links: string[];
 }
 
 export interface Workout {
@@ -69,6 +81,12 @@ export interface Workout {
   publishedAt: string;
   /** Sample item used to shape the UI before real content exists */
   sample?: boolean;
+  equipment?: EquipmentId[];
+  /** Body-map region ids this session targets */
+  bodyRegions?: string[];
+  /** Author's safety notes and contraindications, shown before the video */
+  safety?: LocalizedText;
+  reviewStatus?: ReviewStatus;
 }
 
 export interface WorkoutFilters {
@@ -76,6 +94,9 @@ export interface WorkoutFilters {
   duration?: DurationBucket;
   goal?: Goal;
   level?: Level;
+  author?: string;
+  equipment?: EquipmentId;
+  region?: string;
 }
 
 /** Flat, already-localised shape that cards and client components can receive. */
@@ -92,6 +113,8 @@ export interface WorkoutCardData {
   goals: Goal[];
   /** Real cover image when the trainer uploaded one */
   poster?: string;
+  authorId: string;
+  authorName?: string;
 }
 
 /* ----------------------------------------------------------------------------
@@ -147,6 +170,8 @@ export interface Lesson {
   /** Free-text recommendations from the author */
   recommendations?: LocalizedText;
   access: Access;
+  /** Programme step that reuses a library session (its video and page) */
+  workoutId?: string;
 }
 
 export interface CourseModule {
@@ -168,6 +193,8 @@ export interface Course {
   modules: CourseModule[];
   publishedAt: string;
   sample?: boolean;
+  /** "program": an ordered sequence of library sessions; "course": lessons with their own videos */
+  kind?: "course" | "program";
 }
 
 /* ----------------------------------------------------------------------------

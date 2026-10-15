@@ -1,3 +1,4 @@
+import { equipmentIds } from "./types";
 import { cache } from "react";
 import { authorColumns, getDb, rowToAuthor, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
 import {
@@ -17,7 +18,7 @@ import {
  */
 
 export const authors: Author[] = [
-  { id: "yuliia", name: "Юлія", role: "trainer", specialties: ["yoga", "stretching", "mobility", "kinesiotherapy"], verified: true, instagram: "https://www.instagram.com/julruz_" },
+  { id: "yuliia", name: "Юлія", role: "trainer", specialties: ["yoga", "stretching", "mobility", "kinesiotherapy"], verified: true, instagram: "https://www.instagram.com/julruz_", status: "active", coverPreset: "midnight", links: [] },
 ];
 
 /** Authors from the database, falling back to the built-in trainer. */
@@ -301,7 +302,7 @@ export function bucketOf(durationMin: number): DurationBucket {
 const fetchAll = cache(async (): Promise<Workout[]> => {
   const db = await getDb();
   if (!db) return sampleWorkouts;
-  const { data, error } = await db.from("workouts").select(workoutColumns).eq("published", true).order("published_at", { ascending: false });
+  const { data, error } = await db.from("workouts").select(workoutColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
   if (error || !data || data.length === 0) return sampleWorkouts;
   return (data as unknown as WorkoutRow[]).map(rowToWorkout);
 });
@@ -313,6 +314,9 @@ export async function listWorkouts(filters: WorkoutFilters = {}): Promise<Workou
     .filter((w) => !filters.duration || bucketOf(w.durationMin) === filters.duration)
     .filter((w) => !filters.goal || w.goals.includes(filters.goal))
     .filter((w) => !filters.level || w.level === filters.level)
+    .filter((w) => !filters.author || w.authorId === filters.author)
+    .filter((w) => !filters.equipment || (filters.equipment === "none" ? (w.equipment ?? []).length === 0 || w.equipment?.includes("none") : w.equipment?.includes(filters.equipment)))
+    .filter((w) => !filters.region || w.bodyRegions?.includes(filters.region))
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
@@ -338,11 +342,16 @@ export function parseFilters(params: SearchParams): WorkoutFilters {
   const level = one(params.level);
   const inList = <T extends string>(list: readonly T[], v: string | undefined): T | undefined =>
     v && (list as readonly string[]).includes(v) ? (v as T) : undefined;
+  const author = one(params.author);
+  const region = one(params.region);
   return {
     category: inList(categoryIds, category),
     duration: inList(durationBuckets, duration),
     goal: inList(goals, goal),
     level: inList(levels, level),
+    author: author && /^[a-z0-9-]{1,60}$/.test(author) ? author : undefined,
+    equipment: inList(equipmentIds, one(params.equipment)),
+    region: region && /^[a-zA-Z]{1,24}$/.test(region) ? region : undefined,
   };
 }
 

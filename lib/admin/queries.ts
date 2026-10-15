@@ -1,10 +1,12 @@
 import { authorColumns, getDb, postColumns, workoutColumns, type AuthorRow, type PostRow, type WorkoutRow } from "@/lib/content/db";
 
-/** Staff reads: RLS lets trainers and admins see drafts too. */
-export async function listAllWorkouts(): Promise<WorkoutRow[]> {
+/** Staff reads. RLS limits trainers to their own rows; pass `authorId` so trainer lists show only their content. */
+export async function listAllWorkouts(authorId?: string | null): Promise<WorkoutRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const { data } = await db.from("workouts").select(workoutColumns).order("updated_at", { ascending: false });
+  let q = db.from("workouts").select(workoutColumns).order("updated_at", { ascending: false });
+  if (authorId) q = q.eq("author_id", authorId);
+  const { data } = await q;
   return (data ?? []) as unknown as WorkoutRow[];
 }
 
@@ -15,10 +17,12 @@ export async function getWorkoutRow(id: string): Promise<WorkoutRow | null> {
   return (data as unknown as WorkoutRow | null) ?? null;
 }
 
-export async function listAllPosts(): Promise<PostRow[]> {
+export async function listAllPosts(authorId?: string | null): Promise<PostRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const { data } = await db.from("posts").select(postColumns).order("updated_at", { ascending: false });
+  let q = db.from("posts").select(postColumns).order("updated_at", { ascending: false });
+  if (authorId) q = q.eq("author_id", authorId);
+  const { data } = await q;
   return (data ?? []) as unknown as PostRow[];
 }
 
@@ -55,10 +59,12 @@ import {
   type RoutineRow,
 } from "@/lib/content/db";
 
-export async function listAllCourses(): Promise<CourseRow[]> {
+export async function listAllCourses(authorId?: string | null): Promise<CourseRow[]> {
   const db = await getDb();
   if (!db) return [];
-  const { data } = await db.from("courses").select(courseColumns).order("updated_at", { ascending: false });
+  let q = db.from("courses").select(courseColumns).order("updated_at", { ascending: false });
+  if (authorId) q = q.eq("author_id", authorId);
+  const { data } = await q;
   return (data ?? []) as unknown as CourseRow[];
 }
 

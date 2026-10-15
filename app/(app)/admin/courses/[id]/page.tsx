@@ -1,3 +1,4 @@
+import { getSessionUser } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CourseForm } from "@/components/admin/CourseForm";
@@ -14,6 +15,7 @@ export default async function EditCoursePage({ params, searchParams }: PageProps
   const { id } = await params;
   const sp = await searchParams;
   const [course, authors, modules] = await Promise.all([getCourseRow(id), listAuthorRows(), listModuleRows(id)]);
+  const isAdmin = (await getSessionUser())?.role === "admin";
   if (!course) notFound();
   const lessons = await listLessonRows(modules.map((m) => m.id));
   const t = await getTranslations("admin");
@@ -24,7 +26,7 @@ export default async function EditCoursePage({ params, searchParams }: PageProps
         <SectionHeading as="h1" title={t("editCourse")} lead={course.title.en} />
         {sp.saved ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
         {sp.deleted ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm font-semibold">{t("deletedNotice")}</p> : null}
-        <CourseForm course={course} authors={authors} />
+        <CourseForm course={course} authors={authors} isAdmin={isAdmin} />
       </div>
       <ModuleEditor courseId={course.id} modules={modules} lessons={lessons} />
     </div>
