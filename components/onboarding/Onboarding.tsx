@@ -14,14 +14,16 @@ import { setLocale } from "@/lib/locale";
 import type { PlayableVideo } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 import { markOnboarded } from "./OnboardingGate";
+import { ThemePicker } from "./ThemePicker";
 
 interface OnboardingProps {
   /** Optional intro video from the trainer; when absent the first slide shows an illustration */
   intro: PlayableVideo | null;
 }
 
-const slides: Array<{ key: "welcome" | "library" | "body" | "care"; illustration: IllustrationKind }> = [
+const slides: Array<{ key: "welcome" | "theme" | "library" | "body" | "care"; illustration: IllustrationKind }> = [
   { key: "welcome", illustration: "sessions" },
+  { key: "theme", illustration: "saved" },
   { key: "library", illustration: "search" },
   { key: "body", illustration: "measurements" },
   { key: "care", illustration: "community" },
@@ -67,6 +69,10 @@ export function Onboarding({ intro }: OnboardingProps) {
             {i === 0 && intro ? (
               <div className="mb-6 text-left">
                 <VideoPlayer workoutId="intro" source={intro} title={t("slides.welcome.title")} />
+              </div>
+            ) : slide.key === "theme" ? (
+              <div className="mb-6 text-left">
+                <ThemePicker />
               </div>
             ) : (
               <Illustration kind={slide.illustration} className="mx-auto mb-6 h-44" />

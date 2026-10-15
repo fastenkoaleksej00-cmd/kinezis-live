@@ -11,7 +11,7 @@ interface ActivityRingProps {
 }
 
 /** Apple-style activity ring that fills to the real value on mount (CSS animation, reduce-motion aware). */
-export function ActivityRing({ value, size = 120, stroke = 12, color = "var(--color-accent)", track = "var(--color-bone-2)", label, center, className }: ActivityRingProps) {
+export function ActivityRing({ value, size = 120, stroke = 12, color = "var(--color-mint-deep)", track = "var(--color-bone-2)", label, center, className }: ActivityRingProps) {
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const v = Math.max(0, Math.min(1, value));
@@ -29,7 +29,7 @@ export function ActivityRing({ value, size = 120, stroke = 12, color = "var(--co
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c * (1 - v)}
-          className="ring-progress"
+          className="ring-progress ring-live"
           style={{ ["--ring-circumference" as string]: `${c}` }}
         />
       </svg>

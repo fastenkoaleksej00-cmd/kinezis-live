@@ -244,14 +244,15 @@
       },
       "reduceMotion": "Weniger Bewegung",
       "reduceMotionHint": "Schaltet Bildschirm- und Tab-Animationen aus.",
-      "theme": "Folgt standardmäßig deinem Gerät.",
+      "theme": "Folgt dem Gerät nur bei „System“.",
       "appearance": "Darstellung",
       "themes": {
         "system": "System",
         "light": "Hell",
         "dark": "Dunkel",
         "mint": "Mint"
-      }
+      },
+      "mintNote": "Mint ist die Signatur von KINEZIS und der Standard. Hell und Dunkel behalten Mint in Buttons, Tabs und Fortschritt."
     },
     "account": {
       "title": "Konto",
@@ -1081,6 +1082,11 @@
         "eyebrow": "Gemeinsam",
         "title": "Deine Trainerin und die Community",
         "body": "Schreib der Trainerin, teile Fortschritte, folge Face-Fitness- und Hautpflege-Routinen. Nichts hier ist medizinischer Rat."
+      },
+      "theme": {
+        "eyebrow": "Darstellung",
+        "title": "Wähle deinen Look",
+        "body": "Mint ist unsere Signatur. Wähle, was dir gefällt; jederzeit in den Einstellungen änderbar."
       }
     }
   }

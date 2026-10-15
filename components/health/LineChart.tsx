@@ -54,8 +54,8 @@ export function LineChart({ points, unit, label, color = "#2a86b4" }: LineChartP
           </text>
         </g>
       ))}
-      <path d={area} fill="url(#chart-fill)" />
-      <path d={path} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+      <path d={area} fill="url(#chart-fill)" className="fade-in" />
+      <path d={path} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" pathLength={1} className="line-in" />
       {points.map((p) => (
         <circle key={p.date} cx={sx(new Date(p.date).getTime())} cy={sy(p.value)} r="3.5" fill="var(--color-ice)" stroke={color} strokeWidth="2">
           <title>

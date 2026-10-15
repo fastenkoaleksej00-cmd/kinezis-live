@@ -156,7 +156,8 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         controls.minPolarAngle = Math.PI * 0.25;
         controls.maxPolarAngle = Math.PI * 0.72;
         controls.enableDamping = true;
-        controls.dampingFactor = 0.08;
+        controls.dampingFactor = 0.055;
+        controls.rotateSpeed = 0.85;
         // Touch screens: the page must scroll freely over the model, so gestures do not drive the camera.
         // Rotation and zoom come from the on-screen buttons (or the optional drag toggle). Mouse users keep drag.
         controls.enablePan = false;

@@ -244,14 +244,15 @@
       },
       "reduceMotion": "Reduce motion",
       "reduceMotionHint": "Turns off screen and tab animations.",
-      "theme": "Follows your device by default.",
+      "theme": "Follows your device only when “System” is chosen.",
       "appearance": "Appearance",
       "themes": {
         "system": "System",
         "light": "Light",
         "dark": "Dark",
         "mint": "Mint"
-      }
+      },
+      "mintNote": "Mint is the KINEZIS signature and the default. Light and Dark keep mint in buttons, tabs and progress."
     },
     "account": {
       "title": "Account",
@@ -1081,6 +1082,11 @@
         "eyebrow": "Together",
         "title": "Your trainer and the community",
         "body": "Write to the trainer, share your progress, follow face fitness and skincare routines. Nothing here is medical advice."
+      },
+      "theme": {
+        "eyebrow": "Appearance",
+        "title": "Choose your look",
+        "body": "Mint is our signature. Pick what feels right; you can change it any time in Settings."
       }
     }
   }

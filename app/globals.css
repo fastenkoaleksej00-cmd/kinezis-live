@@ -549,3 +549,77 @@ html[data-theme="mint"] .cover {
     animation: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Brand accent: mint is the KINEZIS signature in every theme.
+   Primary gradient (buttons, active tabs, chips) and progress use mint.
+--------------------------------------------------------------------------- */
+.from-ink-2 {
+  --tw-gradient-from: #2f7d70;
+}
+.from-ink-3 {
+  --tw-gradient-from: #3a8f80;
+}
+.to-ink {
+  --tw-gradient-to: #1f5a51;
+}
+.to-ink-2 {
+  --tw-gradient-to: #2f7d70;
+}
+html[data-theme="dark"] .from-ink-2 {
+  --tw-gradient-from: #3fa08f;
+}
+html[data-theme="dark"] .to-ink {
+  --tw-gradient-to: #25766a;
+}
+
+/* Theme cross-fade (added for 450 ms by AccessibilityProvider) */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.4s var(--ease-soft), color 0.4s var(--ease-soft), border-color 0.4s var(--ease-soft), fill 0.4s var(--ease-soft) !important;
+}
+
+/* Live value changes on rings; chart draw-in */
+.ring-live {
+  transition: stroke-dashoffset 0.9s var(--ease-out-expo);
+}
+@keyframes line-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.line-in {
+  stroke-dasharray: 1;
+  animation: line-in 1.2s var(--ease-out-expo) both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 1.2s var(--ease-soft) both;
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+.bar-grow {
+  animation: bar-grow 0.8s var(--ease-out-expo) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring-live {
+    transition: none;
+  }
+  .line-in,
+  .fade-in,
+  .bar-grow {
+    animation: none;
+  }
+}

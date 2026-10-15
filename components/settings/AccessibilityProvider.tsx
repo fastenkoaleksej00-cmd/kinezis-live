@@ -12,7 +12,7 @@ interface A11y {
 }
 
 const KEY = "kl_a11y";
-const fallback: A11y = { textSize: "normal", reduceMotion: false, theme: "system" };
+const fallback: A11y = { textSize: "normal", reduceMotion: false, theme: "mint" };
 const listeners = new Set<() => void>();
 let cached: A11y = fallback;
 let cachedRaw: string | null | undefined;
@@ -55,6 +55,11 @@ function resolveTheme(theme: Theme): "light" | "mint" | "dark" {
 
 function apply(a: A11y) {
   const el = document.documentElement;
+  // Cross-fade colours when the theme changes (no flash of a whole new picture)
+  if (el.dataset.theme && el.dataset.theme !== resolveTheme(a.theme) && !a.reduceMotion) {
+    el.classList.add("theme-transition");
+    window.setTimeout(() => el.classList.remove("theme-transition"), 450);
+  }
   el.dataset.textSize = a.textSize;
   if (a.reduceMotion) el.dataset.reduceMotion = "true";
   else delete el.dataset.reduceMotion;

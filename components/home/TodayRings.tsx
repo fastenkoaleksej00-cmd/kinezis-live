@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ActivityRing } from "@/components/health/ActivityRing";
+import { CountUp } from "@/components/ui/CountUp";
 import type { ActivityStats } from "@/lib/health/stats";
 
 interface TodayRingsProps {
@@ -15,8 +16,8 @@ export async function TodayRings({ stats, sessionsTarget, minutesTarget }: Today
   const thisWeek = stats.weeks[stats.weeks.length - 1]?.count ?? 0;
   const weekMinutes = stats.weekMinutes;
   const rings = [
-    { key: "sessions", value: thisWeek / sessionsTarget, color: "var(--color-accent)", big: `${thisWeek}`, small: `/ ${sessionsTarget}` },
-    { key: "minutes", value: weekMinutes / minutesTarget, color: "var(--color-mint-deep)", big: `${weekMinutes}`, small: `/ ${minutesTarget}` },
+    { key: "sessions", value: thisWeek / sessionsTarget, color: "var(--color-mint-deep)", big: `${thisWeek}`, small: `/ ${sessionsTarget}` },
+    { key: "minutes", value: weekMinutes / minutesTarget, color: "var(--color-accent)", big: `${weekMinutes}`, small: `/ ${minutesTarget}` },
     { key: "streak", value: Math.min(1, stats.currentStreak / 7), color: "#e8a24a", big: `${stats.currentStreak}`, small: t("days") },
   ] as const;
 
@@ -37,7 +38,7 @@ export async function TodayRings({ stats, sessionsTarget, minutesTarget }: Today
               label={t(r.key)}
               center={
                 <span className="text-center leading-none">
-                  <span className="text-ink block text-xl font-extrabold">{r.big}</span>
+                  <span className="text-ink block text-xl font-extrabold"><CountUp value={Number(r.big)} /></span>
                   <span className="text-steel mt-0.5 block text-[10px] font-semibold">{r.small}</span>
                 </span>
               }

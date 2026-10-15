@@ -17,7 +17,7 @@ export function BarChart({ bars, ariaLabel }: BarChartProps) {
         const x = pad.l + i * bw + bw * 0.2;
         return (
           <g key={b.label}>
-            <rect x={x} y={h - pad.b - bh} width={bw * 0.6} height={bh} rx="6" fill={b.value > 0 ? "#2a86b4" : "rgba(16,36,43,0.07)"}>
+            <rect x={x} y={h - pad.b - bh} width={bw * 0.6} height={bh} rx="6" className="bar-grow" style={{ transformOrigin: `${x + bw * 0.3}px ${h - pad.b}px`, animationDelay: `${i * 40}ms` }} fill={b.value > 0 ? "#2a86b4" : "rgba(16,36,43,0.07)"}>
               <title>
                 {b.label}: {b.value}
               </title>

@@ -3,14 +3,15 @@
 import { useTranslations } from "next-intl";
 import { useA11y, writeA11y, type TextSize, type Theme } from "./AccessibilityProvider";
 import { Leaf, Monitor, Moon, Sun } from "lucide-react";
+import { ThemePicker } from "@/components/onboarding/ThemePicker";
 import { cn } from "@/lib/utils";
 
 const sizes: TextSize[] = ["normal", "large", "xl"];
 const themes: Array<{ key: Theme; icon: typeof Sun }> = [
-  { key: "system", icon: Monitor },
-  { key: "light", icon: Sun },
   { key: "mint", icon: Leaf },
+  { key: "light", icon: Sun },
   { key: "dark", icon: Moon },
+  { key: "system", icon: Monitor },
 ];
 
 /** Text size and reduced motion, per device. Applied immediately, remembered on this device. */
@@ -23,8 +24,10 @@ export function AccessibilitySettings() {
         <h2 className="text-ink text-base font-bold">{t("title")}</h2>
         <p className="text-steel mt-1 text-sm">{t("lead")}</p>
       </div>
-      <div>
-        <p className="eyebrow mb-2">{t("appearance")}</p>
+      <div className="space-y-3">
+        <p className="eyebrow">{t("appearance")}</p>
+        <ThemePicker />
+        <p className="text-steel text-xs">{t("mintNote")}</p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label={t("appearance")}>
           {themes.map(({ key, icon: Icon }) => (
             <button
