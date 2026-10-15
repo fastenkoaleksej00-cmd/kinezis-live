@@ -70,6 +70,10 @@
     "body": {
       "title": "Body map",
       "body": "Tap an area of the skeleton and find what fits it."
+    },
+    "breathe": {
+      "title": "Breathing",
+      "body": "Calm, recovery and diaphragm work with the evidence behind it."
     }
   },
   "library": {
@@ -121,7 +125,8 @@
     "noResults": "No sessions match these filters",
     "noResultsBody": "Try another category or clear the filters.",
     "sampleNote": "Sample sessions shape the library for now. The trainer's real videos will replace them.",
-    "publishedNotice": "Published. The session is live in the library."
+    "publishedNotice": "Published. The session is live in the library.",
+    "recoverAfter": "Recover with 3 minutes of breathing"
   },
   "saved": {
     "title": "Saved",
@@ -132,7 +137,8 @@
     "sectionPosts": "Posts",
     "sectionCourses": "Courses",
     "sectionMeals": "Nutrition",
-    "sectionAreas": "My areas"
+    "sectionAreas": "My areas",
+    "sectionBreath": "Breathing"
   },
   "profile": {
     "title": "Profile",
@@ -775,7 +781,9 @@
       "sameEmail": "This is already your email."
     },
     "calculatorTitle": "Goal calculator",
-    "calculatorBody": "Maintenance energy, gentle intake and a realistic time window."
+    "calculatorBody": "Maintenance energy, gentle intake and a realistic time window.",
+    "breatheTitle": "Breathing and recovery",
+    "breatheBody": "Short practices, honest about what they can and cannot do."
   },
   "activity": {
     "title": "Activity",
@@ -989,7 +997,8 @@
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "drag": "Drag"
-    }
+    },
+    "breathingLink": "Breathing practice for this area"
   },
   "quickAdd": {
     "add": "Add",
@@ -1088,6 +1097,70 @@
         "title": "Choose your look",
         "body": "Mint is our signature. Pick what feels right; you can change it any time in Settings."
       }
+    }
+  },
+  "breath": {
+    "eyebrow": "Breathing & recovery",
+    "title": "Breathing and recovery",
+    "lead": "Quiet, hold-free practices with the evidence behind each one.",
+    "allGoals": "All",
+    "goals": {
+      "learn": "Learn the basics",
+      "relax": "Relax",
+      "recover": "After a workout",
+      "coordinate": "Breath and movement",
+      "reflux": "Reflux studies",
+      "sleep": "Before sleep",
+      "specialist": "With my specialist"
+    },
+    "categories": {
+      "basics": "Basics",
+      "calm": "Calm and tension",
+      "mobility": "Mobility and kinesiotherapy",
+      "digestive": "Digestive comfort",
+      "recovery": "After training",
+      "rehab": "Breathing rehabilitation"
+    },
+    "pace": "{seconds} s per breath · about {breaths} per minute",
+    "minutes": "{count} min",
+    "ready": "Ready",
+    "done": "Done",
+    "phases": {
+      "inhale": "Inhale",
+      "exhale": "Exhale",
+      "hold": "Hold",
+      "rest": "Relax"
+    },
+    "start": "Start",
+    "again": "Again",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "sound": "Sound cues",
+    "summary": "Nice. {minutes} min of calm breathing, logged to your activity.",
+    "summaryGuest": "Sign in to keep a history.",
+    "safety": "Stop if you feel dizzy, short of breath or any pain. This is a timer, not a medical device.",
+    "cautionsTitle": "Before you start",
+    "widgetEyebrow": "Breathe",
+    "widgetTitle": "Breathe and recover",
+    "widgetBody": "One tap. Slow breath, a little longer exhale, nothing forced.",
+    "widgetLink": "All practices",
+    "rehabTitle": "Breathing rehabilitation for specific conditions",
+    "rehabBody": "Programmes for conditions such as lung disease belong to a specialist and are not in the open library. The architecture allows a kinesiotherapist to add checked programmes later; nothing here replaces that work.",
+    "libraryDisclaimer": "Breathing practices support wellbeing and recovery. They do not diagnose or treat diseases and do not replace medical care. New or worrying symptoms need a doctor first.",
+    "evidence": {
+      "title": "What the science says",
+      "levels": {
+        "established": "Well established",
+        "encouraging": "Encouraging data",
+        "insufficient": "Insufficient data"
+      },
+      "population": "Who was studied",
+      "intervention": "What was done",
+      "outcomes": "What was measured",
+      "limitations": "Limitations",
+      "sources": "{count, plural, one {# source} other {# sources}}",
+      "checked": "Checked on {date}. Levels follow how strong and consistent the evidence is, not how popular the method is."
     }
   }
 }

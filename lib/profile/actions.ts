@@ -132,7 +132,8 @@ export async function deleteMeasurement(fd: FormData): Promise<void> {
 export async function logActivity(fd: FormData): Promise<void> {
   const ctx = await me();
   if ("error" in ctx) return;
-  const itemType = str(fd, "item_type") === "lesson" ? "lesson" : "workout";
+  const raw = str(fd, "item_type");
+  const itemType = raw === "lesson" ? "lesson" : raw === "breath" ? "breath" : "workout";
   const itemId = str(fd, "item_id");
   if (!itemId) return;
   const duration = Number.parseInt(str(fd, "duration_min"), 10);
@@ -146,6 +147,25 @@ export async function logActivity(fd: FormData): Promise<void> {
   revalidateProfile();
   const back = str(fd, "back");
   redirect(back.startsWith("/") ? `${back}?logged=1` : "/profile/activity");
+}
+
+/** Finished breathing session: silent insert, no redirect (called from the timer after it ends) */
+export async function logBreathSession(practiceId: string, title: string, minutes: number): Promise<boolean> {
+  const ctx = await me();
+  if ("error" in ctx) return false;
+  const id = practiceId.replace(/[^a-z0-9-]/g, "").slice(0, 60);
+  if (!id) return false;
+  const duration = Math.min(60, Math.max(1, Math.round(minutes)));
+  const { error } = await ctx.supabase.from("activity_log").insert({
+    user_id: ctx.user.id,
+    item_type: "breath",
+    item_id: id,
+    title: title.slice(0, 120) || null,
+    duration_min: duration,
+  });
+  if (error) return false;
+  revalidateProfile();
+  return true;
 }
 
 export async function deleteActivity(fd: FormData): Promise<void> {

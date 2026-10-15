@@ -70,6 +70,10 @@
     "body": {
       "title": "Körperkarte",
       "body": "Tippe auf eine Stelle des Skeletts und finde Passendes."
+    },
+    "breathe": {
+      "title": "Atmung",
+      "body": "Ruhe, Regeneration und Zwerchfellarbeit mit der Evidenz dahinter."
     }
   },
   "library": {
@@ -121,7 +125,8 @@
     "noResults": "Keine Einheiten für diese Filter",
     "noResultsBody": "Probiere eine andere Kategorie oder setze die Filter zurück.",
     "sampleNote": "Beispiel-Einheiten geben der Bibliothek vorerst Form. Die echten Videos der Trainerin ersetzen sie.",
-    "publishedNotice": "Veröffentlicht. Die Einheit ist in der Bibliothek."
+    "publishedNotice": "Veröffentlicht. Die Einheit ist in der Bibliothek.",
+    "recoverAfter": "Mit 3 Minuten Atmen erholen"
   },
   "saved": {
     "title": "Gespeichert",
@@ -132,7 +137,8 @@
     "sectionPosts": "Beiträge",
     "sectionCourses": "Kurse",
     "sectionMeals": "Ernährung",
-    "sectionAreas": "Meine Bereiche"
+    "sectionAreas": "Meine Bereiche",
+    "sectionBreath": "Atmung"
   },
   "profile": {
     "title": "Profil",
@@ -775,7 +781,9 @@
       "sameEmail": "Das ist bereits deine E-Mail."
     },
     "calculatorTitle": "Zielrechner",
-    "calculatorBody": "Erhaltungsenergie, sanfte Zufuhr und ein realistisches Zeitfenster."
+    "calculatorBody": "Erhaltungsenergie, sanfte Zufuhr und ein realistisches Zeitfenster.",
+    "breatheTitle": "Atmung und Regeneration",
+    "breatheBody": "Kurze Praktiken, ehrlich darüber, was sie können und was nicht."
   },
   "activity": {
     "title": "Aktivität",
@@ -989,7 +997,8 @@
       "zoomIn": "Vergrößern",
       "zoomOut": "Verkleinern",
       "drag": "Ziehen"
-    }
+    },
+    "breathingLink": "Atempraxis für diesen Bereich"
   },
   "quickAdd": {
     "add": "Hinzufügen",
@@ -1088,6 +1097,70 @@
         "title": "Wähle deinen Look",
         "body": "Mint ist unsere Signatur. Wähle, was dir gefällt; jederzeit in den Einstellungen änderbar."
       }
+    }
+  },
+  "breath": {
+    "eyebrow": "Atmung & Regeneration",
+    "title": "Atmung und Regeneration",
+    "lead": "Ruhige Praktiken ohne Atemanhalten, mit der Evidenz hinter jeder.",
+    "allGoals": "Alle",
+    "goals": {
+      "learn": "Grundlagen lernen",
+      "relax": "Entspannen",
+      "recover": "Nach dem Training",
+      "coordinate": "Atem und Bewegung",
+      "reflux": "Reflux-Studien",
+      "sleep": "Vor dem Schlafen",
+      "specialist": "Mit meiner Fachperson"
+    },
+    "categories": {
+      "basics": "Grundlagen",
+      "calm": "Ruhe und Anspannung",
+      "mobility": "Mobilität und Kinesiotherapie",
+      "digestive": "Verdauungskomfort",
+      "recovery": "Nach dem Training",
+      "rehab": "Atemrehabilitation"
+    },
+    "pace": "{seconds} s pro Atemzug · etwa {breaths} pro Minute",
+    "minutes": "{count} Min.",
+    "ready": "Bereit",
+    "done": "Fertig",
+    "phases": {
+      "inhale": "Einatmen",
+      "exhale": "Ausatmen",
+      "hold": "Halten",
+      "rest": "Entspannen"
+    },
+    "start": "Start",
+    "again": "Nochmal",
+    "pause": "Pause",
+    "resume": "Weiter",
+    "stop": "Stopp",
+    "sound": "Tonsignale",
+    "summary": "Schön. {minutes} Min. ruhiges Atmen, in deiner Aktivität erfasst.",
+    "summaryGuest": "Melde dich an, um einen Verlauf zu führen.",
+    "safety": "Hör auf bei Schwindel, Atemnot oder Schmerzen. Das ist ein Timer, kein Medizingerät.",
+    "cautionsTitle": "Bevor du beginnst",
+    "widgetEyebrow": "Atmen",
+    "widgetTitle": "Atmen und erholen",
+    "widgetBody": "Ein Tipp. Langsamer Atem, etwas längeres Ausatmen, nichts erzwungen.",
+    "widgetLink": "Alle Praktiken",
+    "rehabTitle": "Atemrehabilitation bei bestimmten Erkrankungen",
+    "rehabBody": "Programme bei Erkrankungen wie Lungenkrankheiten gehören zu Fachpersonen und sind nicht in der offenen Bibliothek. Die Architektur erlaubt einer Kinesiotherapeutin später geprüfte Programme; nichts hier ersetzt diese Arbeit.",
+    "libraryDisclaimer": "Atempraktiken unterstützen Wohlbefinden und Erholung. Sie diagnostizieren oder behandeln keine Krankheiten und ersetzen keine medizinische Versorgung. Neue oder beunruhigende Symptome gehören zuerst zur Ärztin.",
+    "evidence": {
+      "title": "Was die Wissenschaft sagt",
+      "levels": {
+        "established": "Gut belegt",
+        "encouraging": "Ermutigende Daten",
+        "insufficient": "Unzureichende Daten"
+      },
+      "population": "Wer untersucht wurde",
+      "intervention": "Was gemacht wurde",
+      "outcomes": "Was gemessen wurde",
+      "limitations": "Einschränkungen",
+      "sources": "{count, plural, one {# Quelle} other {# Quellen}}",
+      "checked": "Geprüft am {date}. Die Stufen folgen der Stärke und Konsistenz der Evidenz, nicht der Beliebtheit der Methode."
     }
   }
 }

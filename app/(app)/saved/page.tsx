@@ -1,5 +1,6 @@
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { SavedRegions } from "@/components/body/SavedRegions";
+import { SavedPractices, type SavedPracticeData } from "@/components/breath/SavedPractices";
 import { SavedCourses, type SavedCourseData } from "@/components/courses/SavedCourses";
 import { SavedEmpty } from "@/components/feed/SavedEmpty";
 import { SavedPosts, type SavedPostData } from "@/components/feed/SavedPosts";
@@ -11,6 +12,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { pick, toCardData } from "@/lib/content/localize";
 import { countLessons, listCourses } from "@/lib/content/courses";
 import { listMealPlans } from "@/lib/content/meals";
+import { listPractices } from "@/lib/breath/practices";
 import { listPosts } from "@/lib/content/posts";
 import { listWorkouts } from "@/lib/content/workouts";
 
@@ -44,6 +46,13 @@ export default async function SavedPage() {
     meta: m.date ? format.dateTime(new Date(m.date), { day: "numeric", month: "long" }) : tnu("title"),
   }));
 
+  const tb = await getTranslations("breath");
+  const practices: SavedPracticeData[] = listPractices().map((p) => ({
+    id: p.id,
+    title: pick(p.title, locale),
+    meta: tb(`categories.${p.category}`),
+  }));
+
   return (
     <Container as="section" className="space-y-6 py-6 sm:py-8">
       <Reveal>
@@ -56,6 +65,7 @@ export default async function SavedPage() {
         <SavedCourses courses={courses} />
         <SavedPosts posts={posts} />
         <SavedMeals plans={meals} />
+        <SavedPractices practices={practices} />
       </Reveal>
     </Container>
   );

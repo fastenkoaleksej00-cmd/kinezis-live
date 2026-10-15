@@ -63,7 +63,7 @@ export interface Measurement {
 
 export interface ActivityEntry {
   id: string;
-  itemType: "workout" | "lesson";
+  itemType: "workout" | "lesson" | "breath";
   itemId: string;
   title: string | null;
   durationMin: number | null;

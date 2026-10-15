@@ -14,3 +14,7 @@ export function courseKey(id: string): string {
 export function mealKey(id: string): string {
   return `meal:${id}`;
 }
+
+export function breathKey(id: string): string {
+  return `breath:${id}`;
+}

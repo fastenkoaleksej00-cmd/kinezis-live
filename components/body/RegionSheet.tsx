@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { AlertTriangle, Bookmark, MessageCircle, Play, X } from "lucide-react";
+import { AlertTriangle, Bookmark, MessageCircle, Play, Wind, X } from "lucide-react";
+import { practiceByRegion } from "@/lib/breath/practices";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { concernIds, painKinds, painRedFlags, regionKey, type ConcernId, type PainKind, type RegionId } from "@/lib/body/regions";
 import { recommend } from "@/lib/body/recommend";
@@ -131,6 +132,12 @@ export function RegionSheet({ region, concern, pain, catalogue, signedIn, onConc
 
           {concern === "trainer" || (concern === "pain" && pain && !redFlag) ? <p className="text-steel text-sm">{t("trainerNote")}</p> : null}
 
+          {practiceByRegion[region] ? (
+            <Link href={`/breathe/${practiceByRegion[region]}`} className="bg-mint-soft text-mint-deep flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold">
+              <Wind className="h-4 w-4" aria-hidden />
+              {t("breathingLink")}
+            </Link>
+          ) : null}
           <div className="flex flex-wrap gap-2">
             <button type="button" onClick={() => toggle(regionKey(region))} aria-pressed={saved} className={buttonStyles(saved ? "secondary" : "primary", "md")}>
               <Bookmark className="h-4 w-4" fill={saved ? "currentColor" : "none"} aria-hidden />

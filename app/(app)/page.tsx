@@ -9,6 +9,7 @@ import { RemindersCard } from "@/components/home/RemindersCard";
 import { TodayRings } from "@/components/home/TodayRings";
 import { QuickLinks } from "@/components/home/QuickLinks";
 import { NewSessions } from "@/components/home/NewSessions";
+import { BreathWidget } from "@/components/breath/BreathWidget";
 import { computeActivityStats } from "@/lib/health/stats";
 import { listActivity } from "@/lib/profile/queries";
 import { Container } from "@/components/ui/Container";
@@ -111,6 +112,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           }
         />
         <ContinueCard workouts={workouts} />
+      </Reveal>
+
+      <Reveal delay={0.13}>
+        <BreathWidget signedIn={Boolean(user)} />
       </Reveal>
 
       <Reveal delay={0.14}>

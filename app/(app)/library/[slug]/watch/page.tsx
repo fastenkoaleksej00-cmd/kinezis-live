@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Wind } from "lucide-react";
 import { workoutKey } from "@/lib/store/keys";
 import { SaveButton } from "@/components/library/SaveButton";
 import { VideoPlayer } from "@/components/player/VideoPlayer";
@@ -53,6 +53,10 @@ export default async function WatchPage({ params }: WatchPageProps) {
             {tc("minutes", { count: workout.durationMin })} · {t(`levels.${workout.level}`)} · {author?.name}
           </p>
           <p className="text-mist mt-4 max-w-2xl text-[15px] leading-relaxed">{pick(workout.description, locale)}</p>
+          <Link href="/breathe/recovery?minutes=3" className="glass-dark text-frost mt-5 inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold">
+            <Wind className="h-4 w-4" aria-hidden />
+            {t("recoverAfter")}
+          </Link>
         </div>
       </Container>
     </div>

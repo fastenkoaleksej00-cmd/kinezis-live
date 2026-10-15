@@ -92,7 +92,7 @@ export const listActivity = cache(async (limit = 365): Promise<ActivityEntry[]> 
   const supabase = await createServerSupabase();
   if (!supabase) return [];
   const { data } = await supabase.from("activity_log").select("id, item_type, item_id, title, duration_min, completed_at").order("completed_at", { ascending: false }).limit(limit);
-  return ((data ?? []) as Array<{ id: string; item_type: "workout" | "lesson"; item_id: string; title: string | null; duration_min: number | null; completed_at: string }>).map((a) => ({
+  return ((data ?? []) as Array<{ id: string; item_type: "workout" | "lesson" | "breath"; item_id: string; title: string | null; duration_min: number | null; completed_at: string }>).map((a) => ({
     id: a.id,
     itemType: a.item_type,
     itemId: a.item_id,

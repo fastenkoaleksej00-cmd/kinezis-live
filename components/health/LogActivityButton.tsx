@@ -5,7 +5,7 @@ import { logActivity } from "@/lib/profile/actions";
 import { getSessionUser } from "@/lib/supabase/server";
 
 interface LogActivityButtonProps {
-  itemType: "workout" | "lesson";
+  itemType: "workout" | "lesson" | "breath";
   itemId: string;
   title: string;
   durationMin?: number;

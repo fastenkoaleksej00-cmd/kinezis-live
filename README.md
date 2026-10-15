@@ -54,4 +54,5 @@ Put an mp4 into `public/videos/` and point one sample workout's `video` field in
 18. First-launch onboarding (4 slides, language, optional intro video) and personal weekly targets — done
 19. Stabilisation: body map gestures and context loss, per-request read dedupe, storage-level premium protection, security report (`docs/SECURITY.md`) — done
 20. Mint as default and brand accent, theme picker in onboarding, motion polish (cross-fade, live rings, chart draw-in, count-up, softer 3D inertia) — done
-21. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
+21. Breathing & recovery: evidence-reviewed library (levels on every practice, sources, `docs/BREATHING_EVIDENCE.md`), Home widget, timer screen, body-map and post-session links — done; run migration 0014
+22. Subscription — foundation done (plans, paywall, Premium page, interest list); payments pending the legal-entity decision, see `docs/SUBSCRIPTION.md`
