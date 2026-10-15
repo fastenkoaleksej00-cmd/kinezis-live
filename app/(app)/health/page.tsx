@@ -126,7 +126,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
         </div>
 
         {measurements.length === 0 ? (
-          <EmptyState icon={Scale} title={t("emptyTitle")} body={t("emptyBody")} />
+          <EmptyState icon={Scale} illustration="measurements" title={t("emptyTitle")} body={t("emptyBody")} />
         ) : (
           <div className="space-y-4">
             <div className="card p-4 sm:p-5">

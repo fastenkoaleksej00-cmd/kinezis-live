@@ -37,6 +37,7 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
       {workouts.length === 0 ? (
         <EmptyState
           icon={Film}
+          illustration="search"
           title={t("noResults")}
           body={t("noResultsBody")}
           action={

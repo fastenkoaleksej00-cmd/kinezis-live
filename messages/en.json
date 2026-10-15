@@ -40,6 +40,12 @@
       "minutes": "Minutes",
       "streak": "Streak",
       "days": "days"
+    },
+    "newSessions": "New sessions",
+    "quick": {
+      "body": "Body map",
+      "nutrition": "Nutrition",
+      "library": "Library"
     }
   },
   "explore": {

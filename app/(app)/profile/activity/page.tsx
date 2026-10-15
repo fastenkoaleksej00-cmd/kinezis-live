@@ -59,7 +59,7 @@ export default async function ActivityPage() {
 
       {log.length === 0 ? (
         <Reveal delay={0.1}>
-          <EmptyState icon={History} title={t("emptyTitle")} body={t("emptyBody")} action={<Link href="/library" className={buttonStyles("primary", "md")}>{tn("library")}</Link>} />
+          <EmptyState icon={History} illustration="sessions" title={t("emptyTitle")} body={t("emptyBody")} action={<Link href="/library" className={buttonStyles("primary", "md")}>{tn("library")}</Link>} />
         </Reveal>
       ) : (
         <>

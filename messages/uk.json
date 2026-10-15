@@ -40,6 +40,12 @@
       "minutes": "Хвилини",
       "streak": "Серія",
       "days": "днів"
+    },
+    "newSessions": "Нові заняття",
+    "quick": {
+      "body": "Карта тіла",
+      "nutrition": "Харчування",
+      "library": "Бібліотека"
     }
   },
   "explore": {

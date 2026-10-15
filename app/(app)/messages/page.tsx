@@ -33,7 +33,7 @@ export default async function MessagesPage({ searchParams }: MessagesPageProps) 
     return (
       <Container as="section" className="max-w-[720px] space-y-6 py-6 sm:py-8">
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
-        <EmptyState icon={MessageCircle} title={t("signedOutTitle")} body={t("signedOutBody")} action={<Link href="/auth/sign-in" className={buttonStyles("primary", "md")}>{t("signIn")}</Link>} />
+        <EmptyState icon={MessageCircle} illustration="messages" title={t("signedOutTitle")} body={t("signedOutBody")} action={<Link href="/auth/sign-in" className={buttonStyles("primary", "md")}>{t("signIn")}</Link>} />
       </Container>
     );
   }

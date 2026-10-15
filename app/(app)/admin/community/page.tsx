@@ -18,7 +18,7 @@ export default async function AdminCommunityPage() {
     <div className="space-y-5">
       <SectionHeading as="h1" title={t("nav.community")} lead={t("communityIntro")} />
       {posts.length === 0 ? (
-        <EmptyState icon={Users} title={t("emptyList")} body={t("communityIntro")} />
+        <EmptyState icon={Users} illustration="community" title={t("emptyList")} body={t("communityIntro")} />
       ) : (
         <ul className="card divide-ink/8 divide-y overflow-hidden">
           {posts.map((p) => {

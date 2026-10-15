@@ -18,7 +18,7 @@ export default async function AdminMessagesPage() {
     <div className="space-y-5">
       <SectionHeading as="h1" title={ta("nav.messages")} lead={t("inboxLead")} />
       {sorted.length === 0 ? (
-        <EmptyState icon={MessageCircle} title={t("inboxEmptyTitle")} body={t("inboxEmptyBody")} />
+        <EmptyState icon={MessageCircle} illustration="messages" title={t("inboxEmptyTitle")} body={t("inboxEmptyBody")} />
       ) : (
         <ul className="card divide-ink/8 divide-y overflow-hidden">
           {sorted.map((c) => (

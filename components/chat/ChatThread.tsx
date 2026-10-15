@@ -7,6 +7,7 @@ import { markRead } from "@/lib/chat/actions";
 import type { ChatMessage } from "@/lib/chat/types";
 import { getBrowserClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { Illustration } from "@/components/ui/Illustration";
 
 interface ChatThreadProps {
   conversationId: string;
@@ -97,7 +98,12 @@ export function ChatThread({ conversationId, initial, meId, staff, counterpartNa
       </div>
 
       <div className="flex-1 space-y-2 overflow-y-auto px-4 py-4">
-        {messages.length === 0 ? <p className="text-steel py-10 text-center text-sm">{staff ? t("emptyStaff") : t("emptyMember")}</p> : null}
+        {messages.length === 0 ? (
+          <div className="flex flex-col items-center py-8 text-center">
+            <Illustration kind="messages" className="pop-in mb-2 h-28" />
+            <p className="text-steel text-sm">{staff ? t("emptyStaff") : t("emptyMember")}</p>
+          </div>
+        ) : null}
         {messages.map((m, i) => {
           const mine = m.senderId === meId;
           const showDay = i === 0 || dayOf(messages[i - 1].createdAt) !== dayOf(m.createdAt);

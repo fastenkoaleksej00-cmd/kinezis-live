@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Newspaper, Play } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
 import { QuickPostButton } from "@/components/feed/QuickPostButton";
 import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
 import { RemindersCard } from "@/components/home/RemindersCard";
 import { TodayRings } from "@/components/home/TodayRings";
+import { QuickLinks } from "@/components/home/QuickLinks";
+import { NewSessions } from "@/components/home/NewSessions";
 import { computeActivityStats } from "@/lib/health/stats";
 import { listActivity } from "@/lib/profile/queries";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
@@ -49,6 +52,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <Reveal>
         <p className="eyebrow mb-2">{t("greeting")}</p>
         <h1 className="text-[1.9rem] leading-[1.05] font-extrabold sm:text-[2.4rem]">{t("intro")}</h1>
+      </Reveal>
+
+      <Reveal delay={0.05}>
+        <QuickLinks />
       </Reveal>
 
       {stats ? (
@@ -106,6 +113,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <ContinueCard workouts={workouts} />
       </Reveal>
 
+      <Reveal delay={0.14}>
+        <NewSessions workouts={workouts} />
+      </Reveal>
+
       <section className="space-y-4">
         <Reveal delay={0.16}>
           <SectionHeading title={feed === "community" ? tf("filters.community") : t("feedTitle")} />
@@ -118,7 +129,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </div>
         </Reveal>
         <div className="mx-auto max-w-[720px] space-y-4">
-          {posts.length === 0 && feed === "community" ? <p className="card text-steel px-5 py-4 text-sm">{tf("communityEmpty")}</p> : null}
+          {posts.length === 0 && feed === "community" ? <EmptyState icon={Newspaper} illustration="community" title={tf("filters.community")} body={tf("communityEmpty")} /> : null}
           {posts.map((post, i) => (
             <Reveal key={post.id} delay={Math.min(i, 4) * 0.05}>
               <PostCard post={post} social={social[post.id]} signedIn={Boolean(user)} member={post.userId ? (members[post.userId] ?? null) : null} viewerId={user?.id ?? null} />

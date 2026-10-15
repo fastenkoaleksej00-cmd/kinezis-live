@@ -40,6 +40,12 @@
       "minutes": "Minuten",
       "streak": "Serie",
       "days": "Tage"
+    },
+    "newSessions": "Neue Einheiten",
+    "quick": {
+      "body": "Körperkarte",
+      "nutrition": "Ernährung",
+      "library": "Bibliothek"
     }
   },
   "explore": {

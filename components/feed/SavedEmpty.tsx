@@ -15,6 +15,7 @@ export function SavedEmpty() {
   return (
     <EmptyState
       icon={Bookmark}
+      illustration="saved"
       title={t("title")}
       body={t("empty")}
       action={
