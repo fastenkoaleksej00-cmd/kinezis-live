@@ -1036,7 +1036,17 @@
       "zoomOut": "Zoom out",
       "drag": "Drag"
     },
-    "breathingLink": "Breathing practice for this area"
+    "breathingLink": "Breathing practice for this area",
+    "loadingTitle": "Preparing the body map",
+    "loadingStages": {
+      "model": "Loading the model",
+      "regions": "Preparing the anatomical areas",
+      "finish": "Finishing up"
+    },
+    "loadingSlow": "Taking longer than usual. The model is 2.4 MB; on a slow connection it can take a while. Next time it opens from cache.",
+    "loadErrorTitle": "The model did not load",
+    "loadErrorBody": "Check the connection and try again. Meanwhile the simplified map below works.",
+    "retry": "Retry"
   },
   "quickAdd": {
     "add": "Add",
@@ -1213,7 +1223,11 @@
     "goalSave": "Save",
     "goalNote": "Your own goal. Needs differ with body, activity, weather and health; this is not a medical norm.",
     "week": "Last 7 days",
-    "disclaimer": "Manual log. The app does not measure what you drink."
+    "disclaimer": "Manual log. The app does not measure what you drink.",
+    "remove": "Remove {ml} ml",
+    "totalLabel": "Today's total, ml",
+    "rapidWarning": "A lot of water in a short time can be risky. Take a break and do not keep drinking for the sake of the goal.",
+    "overGoalNote": "You have already had plenty relative to your goal. The goal is not a norm you must reach: go by thirst and your specialist's advice, never force it."
   },
   "goal": {
     "eyebrow": "My goal",

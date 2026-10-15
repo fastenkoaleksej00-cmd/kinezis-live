@@ -1036,7 +1036,17 @@
       "zoomOut": "Verkleinern",
       "drag": "Ziehen"
     },
-    "breathingLink": "Atempraxis für diesen Bereich"
+    "breathingLink": "Atempraxis für diesen Bereich",
+    "loadingTitle": "Körperkarte wird vorbereitet",
+    "loadingStages": {
+      "model": "Modell wird geladen",
+      "regions": "Anatomische Bereiche werden vorbereitet",
+      "finish": "Abschluss"
+    },
+    "loadingSlow": "Dauert länger als üblich. Das Modell hat 2,4 MB; bei langsamer Verbindung kann es etwas dauern. Beim nächsten Mal kommt es aus dem Cache.",
+    "loadErrorTitle": "Das Modell wurde nicht geladen",
+    "loadErrorBody": "Prüfe die Verbindung und versuch es nochmal. Solange funktioniert die vereinfachte Karte unten.",
+    "retry": "Nochmal"
   },
   "quickAdd": {
     "add": "Hinzufügen",
@@ -1213,7 +1223,11 @@
     "goalSave": "Speichern",
     "goalNote": "Dein eigenes Ziel. Der Bedarf hängt von Körper, Belastung, Wetter und Gesundheit ab; das ist keine medizinische Norm.",
     "week": "Letzte 7 Tage",
-    "disclaimer": "Manuelles Protokoll. Die App misst nicht, was du trinkst."
+    "disclaimer": "Manuelles Protokoll. Die App misst nicht, was du trinkst.",
+    "remove": "{ml} ml entfernen",
+    "totalLabel": "Heutige Summe, ml",
+    "rapidWarning": "Viel Wasser in kurzer Zeit kann riskant sein. Mach eine Pause und trink nicht weiter, nur um das Ziel zu erreichen.",
+    "overGoalNote": "Du hast im Verhältnis zu deinem Ziel schon reichlich getrunken. Das Ziel ist keine Pflichtnorm: richte dich nach Durst und dem Rat deiner Fachperson, nie mit Zwang."
   },
   "goal": {
     "eyebrow": "Mein Ziel",

@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Droplets, Minus, Plus, Settings2 } from "lucide-react";
-import { addWater, localDay, setWaterGoal, setWaterPortion, undoWater, waterPortions, waterStore } from "@/lib/store/water";
+import { AlertTriangle, Droplets, Minus, Plus, Settings2, Undo2 } from "lucide-react";
+import { addWater, localDay, recentIntake, removeWater, setTodayTotal, setWaterGoal, setWaterPortion, undoWater, waterPortions, waterStore } from "@/lib/store/water";
 import { cn } from "@/lib/utils";
 
 interface WaterWidgetProps {
@@ -18,7 +18,12 @@ export function WaterWidget({ variant = "home", id }: WaterWidgetProps) {
   const s = waterStore.useStore();
   const [editing, setEditing] = useState(false);
   const [goalDraft, setGoalDraft] = useState("");
+  const [totalDraft, setTotalDraft] = useState("");
   const today = s.days[localDay()] ?? 0;
+  const events = Array.isArray(s.events) ? s.events : [];
+  // Cautions: a lot in a short time is the one that matters; far over the goal gets a gentle note only
+  const rapid = recentIntake({ ...s, events }, 60) >= 1500 || recentIntake({ ...s, events }, 120) >= 2200;
+  const overGoal = !rapid && today >= Math.max(s.goal * 1.5, s.goal + 1000);
   const pct = Math.min(100, Math.round((today / s.goal) * 100));
   const now = new Date();
   const week = Array.from({ length: 7 }, (_, i) => {
@@ -42,6 +47,7 @@ export function WaterWidget({ variant = "home", id }: WaterWidgetProps) {
           type="button"
           onClick={() => {
             setGoalDraft(String(s.goal));
+            setTotalDraft(String(today));
             setEditing((e) => !e);
           }}
           aria-expanded={editing}
@@ -69,35 +75,53 @@ export function WaterWidget({ variant = "home", id }: WaterWidgetProps) {
             ))}
           </div>
           <div className="mt-3 flex items-center gap-2">
+            <button type="button" onClick={() => removeWater(s.portion)} disabled={today === 0} aria-label={t("remove", { ml: s.portion })} className="border-ink/10 text-ink inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 transition-transform active:scale-95 disabled:opacity-40">
+              <Minus className="h-4 w-4" strokeWidth={2.5} aria-hidden />
+            </button>
             <button type="button" onClick={() => addWater(s.portion)} className="bg-linear-to-b from-ink-2 to-ink inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white shadow-[var(--shadow-card)] transition-transform active:scale-95">
               <Plus className="h-4 w-4" strokeWidth={2.5} aria-hidden />
               {t("add", { ml: s.portion })}
             </button>
-            <button type="button" onClick={undoWater} disabled={s.lastAdds.length === 0} aria-label={t("undo")} className="border-ink/10 text-ink inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 disabled:opacity-40">
-              <Minus className="h-4 w-4" aria-hidden />
+            <button type="button" onClick={undoWater} disabled={events.length === 0} aria-label={t("undo")} className="border-ink/10 text-ink inline-flex h-10 w-10 items-center justify-center rounded-full border bg-white/70 disabled:opacity-40">
+              <Undo2 className="h-4 w-4" aria-hidden />
             </button>
           </div>
         </div>
       </div>
 
+      {rapid ? (
+        <div role="alert" className="mt-4 flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-3 text-sm text-[#8a2f2f]">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p>{t("rapidWarning")}</p>
+        </div>
+      ) : overGoal ? (
+        <p className="bg-frost/70 text-steel mt-4 rounded-2xl p-3 text-sm">{t("overGoalNote")}</p>
+      ) : null}
+
       {editing ? (
         <form
-          className="bg-frost/70 mt-4 flex flex-wrap items-end gap-3 rounded-2xl p-3"
+          className="bg-frost/70 mt-4 grid gap-3 rounded-2xl p-3 sm:grid-cols-2"
           onSubmit={(e) => {
             e.preventDefault();
-            const n = Number(goalDraft);
-            if (Number.isFinite(n) && n > 0) setWaterGoal(n);
+            const g = Number(goalDraft);
+            if (Number.isFinite(g) && g > 0) setWaterGoal(g);
+            const total = Number(totalDraft);
+            if (Number.isFinite(total) && total >= 0) setTodayTotal(total);
             setEditing(false);
           }}
         >
-          <label className="flex-1">
+          <label className="block">
             <span className="text-steel mb-1 block text-xs font-semibold">{t("goalLabel")}</span>
             <input type="number" inputMode="numeric" min={200} max={10000} step={50} value={goalDraft} onChange={(e) => setGoalDraft(e.target.value)} className="border-ink/10 text-ink h-10 w-full rounded-xl border bg-white px-3 text-sm" />
           </label>
-          <button type="submit" className="bg-linear-to-b from-ink-2 to-ink inline-flex h-10 items-center rounded-full px-4 text-sm font-semibold text-white">
+          <label className="block">
+            <span className="text-steel mb-1 block text-xs font-semibold">{t("totalLabel")}</span>
+            <input type="number" inputMode="numeric" min={0} max={20000} step={10} value={totalDraft} onChange={(e) => setTotalDraft(e.target.value)} className="border-ink/10 text-ink h-10 w-full rounded-xl border bg-white px-3 text-sm" />
+          </label>
+          <button type="submit" className="bg-linear-to-b from-ink-2 to-ink inline-flex h-10 items-center justify-self-start rounded-full px-4 text-sm font-semibold text-white">
             {t("goalSave")}
           </button>
-          <p className="text-steel w-full text-xs">{t("goalNote")}</p>
+          <p className="text-steel text-xs sm:col-span-2">{t("goalNote")}</p>
         </form>
       ) : null}
 

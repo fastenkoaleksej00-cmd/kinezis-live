@@ -254,6 +254,44 @@
       linear-gradient(160deg, #10242b 0%, #19343d 55%, #31525d 100%);
   }
 
+  /* Body map loading: breathing skeleton outline + indeterminate bar (no fake percentages) */
+  .skeleton-pulse {
+    animation: skeleton-pulse 1.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(0.98);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+  .loading-indeterminate {
+    animation: loading-indeterminate 1.4s var(--ease-out-expo) infinite;
+  }
+  @keyframes loading-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-pulse,
+    .loading-indeterminate {
+      animation: none;
+    }
+    .loading-indeterminate {
+      width: 100%;
+      opacity: 0.5;
+    }
+  }
+
   /* Water glass fill */
   .water-fill {
     transition: height 700ms var(--ease-out-expo);

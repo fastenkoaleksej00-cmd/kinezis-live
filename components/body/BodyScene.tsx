@@ -6,6 +6,14 @@ import { regionAt, regionIds, regions, type RegionId } from "@/lib/body/regions"
 
 export type SceneStatus = "loading" | "ready" | "error";
 
+export type SceneStage = "model" | "regions" | "finish";
+export interface SceneProgress {
+  stage: SceneStage;
+  /** Bytes, only when the server reports a computable length; otherwise undefined (no invented percentages) */
+  loaded?: number;
+  total?: number;
+}
+
 export interface BodySceneApi {
   rotateBy: (deg: number) => void;
   zoomBy: (factor: number) => void;
@@ -22,6 +30,9 @@ interface BodySceneProps {
   dark: boolean;
   onSelect: (id: RegionId | null) => void;
   onStatus: (s: SceneStatus) => void;
+  onProgress?: (p: SceneProgress) => void;
+  /** Bump to rebuild the scene after an error */
+  attempt?: number;
   labels: Record<RegionId, string>;
 }
 
@@ -32,7 +43,7 @@ const HEIGHT = 1.75;
  * so a tap selects the area the hit point falls in, not an individual bone. Vertices inside the
  * selected region are tinted through vertex colours, the rest is dimmed.
  */
-export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, labels, onApi }: BodySceneProps) {
+export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSelect, onStatus, onProgress, attempt = 0, labels, onApi }: BodySceneProps) {
   const dotRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const hostRef = useRef<HTMLDivElement>(null);
   const api = useRef<{ paint: (i: number) => void; setView: (v: "front" | "back", instant: boolean) => void; setDark: (d: boolean) => void; rotateBy: (deg: number) => void; zoomBy: (factor: number) => void; setDrag: (on: boolean) => void } | null>(null);
@@ -77,7 +88,11 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         rim.position.set(0, 1.8, -2.4);
         scene.add(hemi, key, fill, rim);
 
-        const gltf = await new GLTFLoader().loadAsync(modelUrl);
+        onProgress?.({ stage: "model" });
+        const gltf = await new GLTFLoader().loadAsync(modelUrl, (ev) => {
+          if (disposed) return;
+          onProgress?.(ev.lengthComputable && ev.total > 0 ? { stage: "model", loaded: ev.loaded, total: ev.total } : { stage: "model" });
+        });
         if (disposed) {
           renderer.dispose();
           renderer.domElement.remove();
@@ -114,6 +129,9 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
         scene.add(wrap);
 
         // Tag vertices with their region (first match wins, same order as `regions`)
+        onProgress?.({ stage: "regions" });
+        await new Promise((r) => setTimeout(r, 0));
+        if (disposed) return;
         const painters = meshes.map((mesh) => {
           const geo = mesh.geometry as T.BufferGeometry;
           const pos = geo.attributes.position;
@@ -130,6 +148,50 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
           return { geo, zone, colors, n };
         });
+
+        /**
+         * Marker anchors live ON the model surface, derived from the vertices tagged for each region:
+         * take the region's vertices on the authored side (left/right), find their centre, then snap to the
+         * outermost vertex near that centre facing the front (+z) and the back (-z). The marker uses whichever
+         * side faces the camera, so zooming, panning and rotating never let it drift off the bone.
+         */
+        const anchorsFront: T.Vector3[] = [];
+        const anchorsBack: T.Vector3[] = [];
+        {
+          const v = new THREE.Vector3();
+          regions.forEach((r, zi) => {
+            const pts: T.Vector3[] = [];
+            const side = Math.sign(r.anchor[0]);
+            for (const mesh of meshes) {
+              const p = painters[meshes.indexOf(mesh)];
+              const pos = (mesh.geometry as T.BufferGeometry).attributes.position;
+              for (let i = 0; i < p.n; i++) {
+                if (p.zone[i] !== zi) continue;
+                v.fromBufferAttribute(pos, i).applyMatrix4(mesh.matrixWorld);
+                if (side !== 0 && Math.sign(v.x) !== side && Math.abs(v.x) > 0.03) continue;
+                pts.push(v.clone());
+              }
+            }
+            const authored = new THREE.Vector3(...r.anchor);
+            if (pts.length === 0) {
+              anchorsFront.push(authored);
+              anchorsBack.push(authored);
+              return;
+            }
+            const centre = pts.reduce((acc, q) => acc.add(q), new THREE.Vector3()).multiplyScalar(1 / pts.length);
+            // Prefer the authored height so paired regions (e.g. elbows) sit at the joint, not the limb's middle
+            centre.y = r.anchor[1];
+            const near = (radius: number) => pts.filter((q) => Math.hypot(q.x - centre.x, q.y - centre.y) <= radius);
+            let ring = near(0.03);
+            if (ring.length < 4) ring = near(0.06);
+            if (ring.length < 4) ring = pts;
+            const front = ring.reduce((best, q) => (q.z > best.z ? q : best), ring[0]);
+            const back = ring.reduce((best, q) => (q.z < best.z ? q : best), ring[0]);
+            anchorsFront.push(front.clone());
+            anchorsBack.push(back.clone());
+          });
+        }
+        onProgress?.({ stage: "finish" });
 
         let isDark = dark;
         const paint = (zoneIndex: number) => {
@@ -293,11 +355,12 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
           // Project every region anchor to the screen; hide dots that face away from the camera
           const rect = renderer.domElement.getBoundingClientRect();
           const sel = selectedRef.current;
+          const fromFront = camera.position.z >= 0;
           regions.forEach((r, i) => {
             const el = dotRefs.current[i];
             if (!el) return;
-            anchor.set(...r.anchor).project(camera);
-            const facing = r.view === "both" || r.anchor[2] * camera.position.z >= 0;
+            anchor.copy(fromFront ? anchorsFront[i] : anchorsBack[i]).project(camera);
+            const facing = r.view === "both" || (r.view === "front") === fromFront;
             const visible = facing && anchor.z < 1;
             el.style.transform = `translate(${((anchor.x + 1) / 2) * rect.width}px, ${((1 - anchor.y) / 2) * rect.height}px) translate(-50%, -50%)`;
             el.style.opacity = visible ? "1" : "0";
@@ -348,9 +411,9 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
       disposed = true;
       cleanup?.();
     };
-    // Scene is built once; selection, view and theme are pushed through `api`
+    // Scene is built once per attempt; selection, view and theme are pushed through `api`
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modelUrl]);
+  }, [modelUrl, attempt]);
 
   useEffect(() => {
     api.current?.paint(selected ? regionIds.indexOf(selected) : -1);
@@ -381,13 +444,13 @@ export function BodyScene({ modelUrl, selected, view, reduceMotion, dark, onSele
             e.stopPropagation();
             onSelect(selected === r.id ? null : r.id);
           }}
-          className="group absolute top-0 left-0 flex items-center gap-2 opacity-0 transition-opacity duration-300 data-[active=true]:z-10"
+          className="group absolute top-0 left-0 flex h-9 w-9 items-center justify-center opacity-0 transition-opacity duration-300 data-[active=true]:z-10"
         >
           <span className="relative block h-5 w-5">
             <span className="bg-accent absolute inset-0 rounded-full opacity-25 transition-transform duration-300 group-data-[active=true]:scale-[1.9]" />
             <span className="absolute inset-[5px] rounded-full border-2 border-white bg-accent shadow-[0_2px_8px_rgba(16,36,43,0.35)] transition-transform duration-300 group-hover:scale-110 group-data-[active=true]:inset-[3px]" />
           </span>
-          <span className="pointer-events-none hidden rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink shadow-[var(--shadow-card)] backdrop-blur-md group-data-[active=true]:block">
+          <span className={`pointer-events-none absolute top-1/2 hidden -translate-y-1/2 rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink shadow-[var(--shadow-card)] backdrop-blur-md group-data-[active=true]:block ${r.anchor[0] < 0 ? "right-full mr-1" : "left-full ml-1"}`}>
             {labels[r.id]}
           </span>
         </button>
