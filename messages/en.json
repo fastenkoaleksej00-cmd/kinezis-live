@@ -399,7 +399,8 @@
       "courses": "Courses",
       "skincare": "Skincare",
       "nutrition": "Nutrition",
-      "comments": "Comments"
+      "comments": "Comments",
+      "messages": "Messages"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -594,11 +595,11 @@
   "trainer": {
     "verified": "Verified trainer",
     "bioPending": "The trainer's story and specialisation will appear here.",
-    "askLater": "Ask a question (Premium, soon)",
     "statsSessions": "Sessions",
     "statsPosts": "Posts",
     "sessions": "Sessions by the trainer",
-    "latestPosts": "Latest posts"
+    "latestPosts": "Latest posts",
+    "ask": "Write to the trainer"
   },
   "compose": {
     "title": "New post",
@@ -786,6 +787,36 @@
       "tooLong": "Up to 1000 characters.",
       "disabled": "Comments are off here.",
       "generic": "Could not send. Try again."
+    }
+  },
+  "chat": {
+    "title": "Chat with the trainer",
+    "lead": "Questions about training, nutrition, recovery and self-care.",
+    "signIn": "Sign in",
+    "signedOutTitle": "Sign in to write to the trainer",
+    "signedOutBody": "Your conversation is private and stays in your account.",
+    "premiumTitle": "Chat is part of Premium",
+    "premiumBody": "Premium is launching soon. Until then the chat is closed.",
+    "premiumCta": "What is Premium",
+    "live": "Live",
+    "connecting": "Connecting…",
+    "emptyMember": "Say hello. The trainer replies when available.",
+    "emptyStaff": "No messages yet.",
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "prelaunchNote": "Open to all members during pre-launch. Later the chat becomes part of Premium.",
+    "replyNote": "The trainer replies when available; reply times are not guaranteed.",
+    "disclaimer": "The trainer is not a doctor. For pregnancy, illness or pain consult a specialist.",
+    "member": "Member",
+    "unread": "Unread",
+    "unreadCount": "{count, plural, one {# new message} other {# new messages}}",
+    "noMessagesYet": "No messages yet",
+    "inboxLead": "Private conversations with members. Unread first.",
+    "inboxEmptyTitle": "No conversations yet",
+    "inboxEmptyBody": "When a member writes to you, the thread appears here.",
+    "errors": {
+      "notConfigured": "Chat is not connected.",
+      "sendFailed": "Could not send. Check your connection and try again."
     }
   }
 }

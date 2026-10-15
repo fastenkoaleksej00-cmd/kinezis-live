@@ -81,9 +81,9 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
                     Instagram
                   </a>
                 ) : null}
-                <Link href="/premium" className="text-mist inline-flex h-10 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold backdrop-blur-md transition-colors hover:text-white">
+                <Link href="/messages" className="text-mist inline-flex h-10 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold backdrop-blur-md transition-colors hover:text-white">
                   <MessageCircle className="h-4 w-4" aria-hidden />
-                  {t("askLater")}
+                  {t("ask")}
                 </Link>
               </div>
             </div>

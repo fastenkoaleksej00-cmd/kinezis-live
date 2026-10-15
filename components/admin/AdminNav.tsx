@@ -13,6 +13,7 @@ const items = [
   { key: "skincare", href: "/admin/skincare" },
   { key: "nutrition", href: "/admin/nutrition" },
   { key: "comments", href: "/admin/comments" },
+  { key: "messages", href: "/admin/messages" },
 ] as const;
 
 export function AdminNav() {

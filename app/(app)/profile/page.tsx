@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { signOut } from "@/lib/auth/actions";
+import { countMyUnread } from "@/lib/chat/queries";
 import { computeActivityStats } from "@/lib/health/stats";
 import { getMyProfile, listActivity } from "@/lib/profile/queries";
 import { getSupabaseEnv } from "@/lib/supabase/env";
@@ -24,7 +25,8 @@ export default async function ProfilePage({ searchParams }: PageProps) {
   const tl = await getTranslations("library");
   const tpe = await getTranslations("profileEdit");
   const sp = await searchParams;
-  const [user, profile, log] = await Promise.all([getSessionUser(), getMyProfile(), listActivity()]);
+  const [user, profile, log, unread] = await Promise.all([getSessionUser(), getMyProfile(), listActivity(), countMyUnread()]);
+  const tch = await getTranslations("chat");
   const configured = getSupabaseEnv() !== null;
   const stats = computeActivityStats(log);
   const isStaff = Boolean(user && (user.role === "trainer" || user.role === "admin"));
@@ -157,14 +159,18 @@ export default async function ProfilePage({ searchParams }: PageProps) {
               </Link>
             </li>
           ))}
-          <li className="flex items-center gap-4 px-5 py-4">
-            <span className="bg-accent-soft text-accent inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
-              <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-ink font-semibold">{t("support")}</p>
-              <p className="text-steel text-sm">{t("supportHint")}</p>
-            </div>
+          <li>
+            <Link href="/messages" className="hover:bg-frost/60 flex items-center gap-4 px-5 py-4 transition-colors">
+              <span className="bg-accent-soft text-accent inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full">
+                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-ink font-semibold">{tch("title")}</p>
+                <p className="text-steel text-sm">{unread > 0 ? tch("unreadCount", { count: unread }) : tch("lead")}</p>
+              </div>
+              {unread > 0 ? <span className="bg-accent inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1.5 text-xs font-bold text-white">{unread}</span> : null}
+              <ChevronRight className="text-steel h-4 w-4" aria-hidden />
+            </Link>
           </li>
           {isStaff ? (
             <li>

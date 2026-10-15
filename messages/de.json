@@ -399,7 +399,8 @@
       "courses": "Kurse",
       "skincare": "Hautpflege",
       "nutrition": "Ernährung",
-      "comments": "Kommentare"
+      "comments": "Kommentare",
+      "messages": "Nachrichten"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -594,11 +595,11 @@
   "trainer": {
     "verified": "Verifizierte Trainerin",
     "bioPending": "Hier erscheinen Geschichte und Spezialisierung der Trainerin.",
-    "askLater": "Frage stellen (Premium, bald)",
     "statsSessions": "Einheiten",
     "statsPosts": "Beiträge",
     "sessions": "Einheiten der Trainerin",
-    "latestPosts": "Neueste Beiträge"
+    "latestPosts": "Neueste Beiträge",
+    "ask": "Der Trainerin schreiben"
   },
   "compose": {
     "title": "Neuer Beitrag",
@@ -786,6 +787,36 @@
       "tooLong": "Bis zu 1000 Zeichen.",
       "disabled": "Kommentare sind hier aus.",
       "generic": "Konnte nicht senden. Versuche es erneut."
+    }
+  },
+  "chat": {
+    "title": "Chat mit der Trainerin",
+    "lead": "Fragen zu Training, Ernährung, Regeneration und Pflege.",
+    "signIn": "Anmelden",
+    "signedOutTitle": "Melde dich an, um der Trainerin zu schreiben",
+    "signedOutBody": "Dein Gespräch ist privat und bleibt in deinem Konto.",
+    "premiumTitle": "Der Chat gehört zu Premium",
+    "premiumBody": "Premium startet bald. Bis dahin ist der Chat geschlossen.",
+    "premiumCta": "Was ist Premium",
+    "live": "Live",
+    "connecting": "Verbinde…",
+    "emptyMember": "Sag Hallo. Die Trainerin antwortet, sobald sie kann.",
+    "emptyStaff": "Noch keine Nachrichten.",
+    "placeholder": "Nachricht schreiben…",
+    "send": "Senden",
+    "prelaunchNote": "Vor dem Start für alle Mitglieder offen. Später wird der Chat Teil von Premium.",
+    "replyNote": "Die Trainerin antwortet, sobald sie kann; Antwortzeiten sind nicht garantiert.",
+    "disclaimer": "Die Trainerin ist keine Ärztin. Bei Schwangerschaft, Krankheit oder Schmerzen bitte Fachpersonen aufsuchen.",
+    "member": "Mitglied",
+    "unread": "Ungelesen",
+    "unreadCount": "{count, plural, one {# neue Nachricht} other {# neue Nachrichten}}",
+    "noMessagesYet": "Noch keine Nachrichten",
+    "inboxLead": "Private Gespräche mit Mitgliedern. Ungelesene zuerst.",
+    "inboxEmptyTitle": "Noch keine Gespräche",
+    "inboxEmptyBody": "Wenn ein Mitglied dir schreibt, erscheint der Verlauf hier.",
+    "errors": {
+      "notConfigured": "Chat ist nicht verbunden.",
+      "sendFailed": "Konnte nicht senden. Prüfe die Verbindung und versuche es erneut."
     }
   }
 }
