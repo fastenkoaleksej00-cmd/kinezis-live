@@ -371,7 +371,18 @@
     "resumedFrom": "Fortgesetzt bei {time}",
     "playOnYouTube": "„{title}“ auf YouTube ansehen",
     "resumeFrom": "Weiter bei {time}",
-    "youtubeNote": "Das Video lädt erst nach dem Tippen von YouTube. YouTube kann Werbung zeigen und nach eigenen Regeln Cookies setzen."
+    "youtubeNote": "Das Video lädt erst nach dem Tippen von YouTube. YouTube kann Werbung zeigen und nach eigenen Regeln Cookies setzen.",
+    "complete": {
+      "title": "Geschafft! Einheit zählen?",
+      "body": "Wir tragen sie in deine Aktivität ein; Wochenringe und Serie werden aktualisiert.",
+      "guest": "Melde dich an, damit die Einheit in deiner Aktivität erscheint.",
+      "count": "Zählen",
+      "signIn": "Anmelden",
+      "doneTitle": "Gezählt",
+      "doneBody": "Gute Arbeit. Deine Wochenringe sind aktualisiert.",
+      "activity": "Aktivität",
+      "error": "Konnte nicht speichern. Versuch es nochmal."
+    }
   },
   "feed": {
     "kinds": {
@@ -2090,5 +2101,13 @@
         "action": "Rechner öffnen"
       }
     }
+  },
+  "errors": {
+    "title": "Etwas ist schiefgelaufen",
+    "body": "Die Seite konnte nicht geladen werden. Prüfe die Verbindung und versuch es erneut.",
+    "retry": "Erneut versuchen",
+    "home": "Zur Startseite",
+    "notFoundTitle": "Seite nicht gefunden",
+    "notFoundBody": "Der Link ist vielleicht veraltet oder der Inhalt wurde entfernt."
   }
 }

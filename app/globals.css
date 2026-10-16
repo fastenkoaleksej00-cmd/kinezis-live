@@ -311,6 +311,20 @@
     }
   }
 
+  /* Touch targets (Apple HIG 44 pt): small round icon buttons keep their look but get a 44×44 hit area */
+  :is(button, a).inline-flex.rounded-full:is(.h-8.w-8, .h-9.w-9, .h-7.w-7):not(.absolute, .fixed) {
+    position: relative;
+  }
+  :is(button, a).inline-flex.rounded-full:is(.h-8.w-8, .h-9.w-9, .h-7.w-7)::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
   /* Water glass fill */
   .water-fill {
     transition: height 700ms var(--ease-out-expo);

@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createServerClient } from "@supabase/ssr";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { getSupabaseEnv } from "./env";
 
@@ -24,6 +24,14 @@ export const createServerSupabase = cache(async (): Promise<SupabaseClient | nul
       },
     },
   });
+});
+
+/** The signed-in auth user for this request, fetched once (React cache) instead of once per query module. */
+export const getAuthUser = cache(async (): Promise<User | null> => {
+  const supabase = await createServerSupabase();
+  if (!supabase) return null;
+  const { data } = await supabase.auth.getUser();
+  return data.user ?? null;
 });
 
 export interface SessionUser {
@@ -51,9 +59,7 @@ export function isStaff(user: SessionUser | null): boolean {
 export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   const supabase = await createServerSupabase();
   if (!supabase) return null;
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return null;
 
   const [{ data: profile }, { data: author }] = await Promise.all([

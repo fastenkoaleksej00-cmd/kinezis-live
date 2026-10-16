@@ -43,6 +43,6 @@
     "mobile",
     "node_modules",
     "scripts",
-    "skelet"
+    "skelet", "improvement-plan"
   ]
 }

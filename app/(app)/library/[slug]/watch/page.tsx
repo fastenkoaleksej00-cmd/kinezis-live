@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, Wind } from "lucide-react";
 import { MusicSuggestion } from "@/components/audio/MusicSuggestion";
+import { CompletePrompt } from "@/components/player/CompletePrompt";
 import { musicFor } from "@/lib/audio/catalog";
 import { workoutKey } from "@/lib/store/keys";
 import { SaveButton } from "@/components/library/SaveButton";
@@ -47,6 +48,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
         </div>
 
         {allowed ? <VideoPlayer workoutId={workout.id} source={playable} title={title} /> : <Paywall />}
+        {allowed ? <CompletePrompt workoutId={workout.id} title={title} minutes={workout.durationMin} signedIn={Boolean(user)} /> : null}
 
         <div>
           <p className="text-glow text-[11px] font-semibold tracking-[0.3em] uppercase">{t(`categories.${workout.category}`)}</p>

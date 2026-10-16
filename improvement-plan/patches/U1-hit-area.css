@@ -1,0 +1,22 @@
+/* PROPOSED (not applied). Append to app/globals.css inside @layer components.
+   Gives small icon buttons a 44×44 touch area (Apple HIG) without changing how they look.
+   Usage: add className="hit-44" to icon-only buttons that are 32–36 px. */
+.hit-44 {
+  position: relative;
+}
+.hit-44::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(44px, 100%);
+  height: max(44px, 100%);
+  transform: translate(-50%, -50%);
+}
+
+/* Candidates found 2026-10-16 (grep "h-8 w-8" / "h-9 w-9"):
+   - components/library/SaveButton.tsx (glass look on cards)
+   - components/home/WaterWidget.tsx (undo, minus)
+   - components/mind/StepTimer.tsx, components/breath/BreathSession.tsx (sound toggle)
+   - components/social/ReportButton.tsx, components/shop/ShopCatalog.tsx (close)
+   - app/(app)/community/page.tsx (clear search), components/nutrition/ShoppingList.tsx (remove item) */

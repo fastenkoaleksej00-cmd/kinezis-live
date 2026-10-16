@@ -11,6 +11,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { signOut } from "@/lib/auth/actions";
+import { SignOutForm } from "@/components/auth/SignOutForm";
 import { getMyProfile } from "@/lib/profile/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 
@@ -110,12 +111,12 @@ export default async function SettingsPage({ searchParams }: PageProps) {
               </a>
             </div>
             <AccountForms email={user.email} />
-            <form action={signOut} className="card flex items-center justify-between gap-4 p-5">
+            <SignOutForm action={signOut} className="card flex items-center justify-between gap-4 p-5">
               <span className="text-steel text-sm">{t("account.signOutHint")}</span>
               <button type="submit" className={buttonStyles("secondary", "md")}>
                 {ta("signOut")}
               </button>
-            </form>
+            </SignOutForm>
           </>
         ) : (
           <div className="card flex flex-wrap items-center justify-between gap-3 p-5">

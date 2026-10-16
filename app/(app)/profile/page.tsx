@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { signOut } from "@/lib/auth/actions";
+import { SignOutForm } from "@/components/auth/SignOutForm";
 import { countMyUnread } from "@/lib/chat/queries";
 import { computeActivityStats } from "@/lib/health/stats";
 import { bannerClass } from "@/lib/profile/banner";
@@ -217,12 +218,12 @@ export default async function ProfilePage({ searchParams }: PageProps) {
       {user ? (
         <Reveal delay={0.18} className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-steel text-xs">{t("syncNote")}</p>
-          <form action={signOut}>
+          <SignOutForm action={signOut}>
             <button type="submit" className={buttonStyles("ghost", "sm")}>
               <LogOut className="h-4 w-4" aria-hidden />
               {ta("signOut")}
             </button>
-          </form>
+          </SignOutForm>
         </Reveal>
       ) : null}
     </Container>

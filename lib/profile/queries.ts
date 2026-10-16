@@ -1,6 +1,6 @@
 import { normalizeBanner } from "./banner";
 import { cache } from "react";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { createServerSupabase, getAuthUser } from "@/lib/supabase/server";
 import {
   activityLevels,
   primaryGoals,
@@ -45,9 +45,7 @@ const inList = <T extends string>(list: readonly T[], v: string | null | undefin
 export const getMyProfile = cache(async (): Promise<UserProfile | null> => {
   const supabase = await createServerSupabase();
   if (!supabase) return null;
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return null;
   const { data } = await supabase
     .from("profiles")

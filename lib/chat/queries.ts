@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { createServerSupabase, getAuthUser } from "@/lib/supabase/server";
 import type { ChatMessage, Conversation, InboxItem } from "./types";
 
 interface ConvRow {
@@ -30,9 +30,7 @@ const toMsg = (r: MsgRow): ChatMessage => ({ id: r.id, conversationId: r.convers
 export async function getOrCreateMyConversation(): Promise<Conversation | null> {
   const supabase = await createServerSupabase();
   if (!supabase) return null;
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return null;
   const { data } = await supabase.from("conversations").select(convColumns).eq("user_id", user.id).maybeSingle();
   if (data) return toConv(data as ConvRow);
@@ -58,9 +56,7 @@ export async function listMessages(conversationId: string, limit = 200): Promise
 export const countMyUnread = cache(async (): Promise<number> => {
   const supabase = await createServerSupabase();
   if (!supabase) return 0;
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getAuthUser();
   if (!user) return 0;
   const { data: conv } = await supabase.from("conversations").select("id, last_read_by_user_at").eq("user_id", user.id).maybeSingle();
   if (!conv) return 0;

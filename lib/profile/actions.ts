@@ -194,6 +194,24 @@ export async function logBreathSession(practiceId: string, title: string, minute
   return true;
 }
 
+/** Workout watched to the end and confirmed by the member: silent insert, no redirect */
+export async function logWorkoutSession(workoutId: string, title: string, minutes: number): Promise<boolean> {
+  const ctx = await me();
+  if ("error" in ctx) return false;
+  const id = workoutId.slice(0, 80);
+  if (!id) return false;
+  const { error } = await ctx.supabase.from("activity_log").insert({
+    user_id: ctx.user.id,
+    item_type: "workout",
+    item_id: id,
+    title: title.slice(0, 120) || null,
+    duration_min: Math.min(240, Math.max(1, Math.round(minutes))),
+  });
+  if (error) return false;
+  revalidateProfile();
+  return true;
+}
+
 /** Finished mind practice (meditation, screen break, evening ritual): silent insert, no redirect */
 export async function logMindSession(practiceId: string, title: string, minutes: number): Promise<boolean> {
   const ctx = await me();

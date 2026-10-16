@@ -371,7 +371,18 @@
     "resumedFrom": "Resumed from {time}",
     "playOnYouTube": "Watch \"{title}\" on YouTube",
     "resumeFrom": "Resume at {time}",
-    "youtubeNote": "The video loads from YouTube when you tap play. YouTube may show ads and set cookies under its own rules."
+    "youtubeNote": "The video loads from YouTube when you tap play. YouTube may show ads and set cookies under its own rules.",
+    "complete": {
+      "title": "Done! Count this session?",
+      "body": "We'll log it in your activity; the weekly rings and streak will update.",
+      "guest": "Sign in to add the session to your activity.",
+      "count": "Count it",
+      "signIn": "Sign in",
+      "doneTitle": "Counted",
+      "doneBody": "Great work. Your weekly rings are updated.",
+      "activity": "Activity",
+      "error": "Could not save. Try again."
+    }
   },
   "feed": {
     "kinds": {
@@ -2090,5 +2101,13 @@
         "action": "Open the calculator"
       }
     }
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "body": "The page could not load. Check the connection and try again.",
+    "retry": "Try again",
+    "home": "Go to Home",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The link may be old or the item was removed."
   }
 }

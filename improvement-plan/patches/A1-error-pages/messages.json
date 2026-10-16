@@ -1,0 +1,7 @@
+{
+  "_note": "Add as top-level key \"errors\" to messages/{en,uk,de,ru}.json",
+  "en": { "title": "Something went wrong", "body": "The page could not load. Check the connection and try again.", "retry": "Try again", "home": "Go to Home", "notFoundTitle": "Page not found", "notFoundBody": "The link may be old or the item was removed." },
+  "ru": { "title": "Что-то пошло не так", "body": "Страница не загрузилась. Проверьте соединение и попробуйте ещё раз.", "retry": "Повторить", "home": "На главную", "notFoundTitle": "Страница не найдена", "notFoundBody": "Возможно, ссылка устарела или материал удалён." },
+  "uk": { "title": "Щось пішло не так", "body": "Сторінка не завантажилася. Перевірте з'єднання і спробуйте ще раз.", "retry": "Повторити", "home": "На головну", "notFoundTitle": "Сторінку не знайдено", "notFoundBody": "Можливо, посилання застаріло або матеріал видалено." },
+  "de": { "title": "Etwas ist schiefgelaufen", "body": "Die Seite konnte nicht geladen werden. Prüfe die Verbindung und versuch es erneut.", "retry": "Erneut versuchen", "home": "Zur Startseite", "notFoundTitle": "Seite nicht gefunden", "notFoundBody": "Der Link ist vielleicht veraltet oder der Inhalt wurde entfernt." }
+}
