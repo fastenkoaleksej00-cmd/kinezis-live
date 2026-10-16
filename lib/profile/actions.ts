@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { ownStorageUrl, safePath } from "@/lib/security";
 import {
   activityLevels,
   bannerPresets,
@@ -57,8 +58,8 @@ export async function updateProfile(_prev: ProfileState, fd: FormData): Promise<
   const bio = str(fd, "bio").slice(0, 300);
   const interests = interestOptions.filter((i) => fd.get(`interest_${i}`) === "on");
   const bannerPreset = inList(bannerPresets, str(fd, "banner_preset")) ?? "mint";
-  const bannerSrc = str(fd, "banner_src") || null;
-  const avatarSrc = str(fd, "avatar_src") || null;
+  const bannerSrc = ownStorageUrl(str(fd, "banner_src"));
+  const avatarSrc = ownStorageUrl(str(fd, "avatar_src"));
   const pos = Number.parseInt(str(fd, "banner_position"), 10);
   const { error } = await ctx.supabase
     .from("profiles")
@@ -170,7 +171,8 @@ export async function logActivity(fd: FormData): Promise<void> {
   });
   revalidateProfile();
   const back = str(fd, "back");
-  redirect(back.startsWith("/") ? `${back}?logged=1` : "/profile/activity");
+  const target = safePath(back, "");
+  redirect(target ? `${target}?logged=1` : "/profile/activity");
 }
 
 /** Finished breathing session: silent insert, no redirect (called from the timer after it ends) */

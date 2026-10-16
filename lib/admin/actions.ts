@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { regionIds } from "@/lib/body/regions";
+import { ownStorageUrl } from "@/lib/security";
 import { parseYouTubeId, youTubeThumb } from "@/lib/video/youtube";
 import { communityTopics, normalizeTags, postTypes, riskyText } from "@/lib/community/types";
 
@@ -490,7 +491,7 @@ export async function quickPublish(_prev: QuickPublishState, fd: FormData): Prom
   const kind = inList(["news", "tip", "session", "video", "photo"] as const, str(fd, "kind"), "news");
   const mediaKind = str(fd, "media_kind");
   const mediaPath = str(fd, "media_path");
-  const mediaUrl = str(fd, "media_url");
+  const mediaUrl = ownStorageUrl(str(fd, "media_url")) ?? "";
   const tone = inList(tones, str(fd, "tone"), "deep");
 
   let attachment: PostAttachment | null = null;
@@ -576,7 +577,7 @@ export async function memberPublish(_prev: QuickPublishState, fd: FormData): Pro
   const language = inList(languagesList, str(fd, "language"), "uk");
   const mediaKind = str(fd, "media_kind");
   const mediaPath = str(fd, "media_path");
-  const mediaUrl = str(fd, "media_url");
+  const mediaUrl = ownStorageUrl(str(fd, "media_url")) ?? "";
   let attachment: PostAttachment | null = null;
   if (mediaKind === "photo" && mediaUrl) attachment = { kind: "photo", coverTone: "deep", alt: { en: caption.slice(0, 80) }, src: mediaUrl };
   if (mediaKind === "video" && mediaPath) attachment = { kind: "video", coverTone: "deep", source: { kind: "storage", bucket: "member-videos", path: mediaPath } };

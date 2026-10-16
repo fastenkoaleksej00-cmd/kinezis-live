@@ -1,12 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { safePath } from "@/lib/security";
 
 /** Email confirmation and magic links land here; the code is exchanged for a session. */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/profile";
-  const safeNext = next.startsWith("/") ? next : "/profile";
+  const safeNext = safePath(next, "/profile");
 
   if (code) {
     const supabase = await createServerSupabase();

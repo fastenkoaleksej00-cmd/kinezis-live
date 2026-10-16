@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { categoryIds } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
+import { ownStorageUrl } from "@/lib/security";
 import { reportReasons, type ReportReason, type ReportTarget } from "./types";
 
 export type TrainerErrorCode = "signedOut" | "notConfigured" | "forbidden" | "nameRequired" | "consentRequired" | "invalid" | "generic";
@@ -54,7 +55,7 @@ export async function saveTrainerApplication(_prev: TrainerState, fd: FormData):
   const row = {
     user_id: ctx.user.id,
     full_name: fullName,
-    photo_src: str(fd, "photo_src") || null,
+    photo_src: ownStorageUrl(str(fd, "photo_src")),
     specialties: categoryIds.filter((c) => fd.get(`spec_${c}`) === "on") as string[],
     bio: str(fd, "bio").slice(0, 1500),
     qualifications: str(fd, "qualifications").slice(0, 1500),
@@ -149,7 +150,7 @@ export async function updateMyAuthor(_prev: TrainerState, fd: FormData): Promise
       name,
       bio: bio.en ? bio : null,
       specialties: categoryIds.filter((c) => fd.get(`spec_${c}`) === "on"),
-      avatar_src: str(fd, "avatar_src") || null,
+      avatar_src: ownStorageUrl(str(fd, "avatar_src")),
       instagram: instagram && safeUrl(instagram) ? instagram : null,
       qualifications: str(fd, "qualifications").slice(0, 1500) || null,
       experience_years: Number.isFinite(years) ? Math.min(70, Math.max(0, years)) : null,
