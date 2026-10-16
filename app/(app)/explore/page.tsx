@@ -15,6 +15,7 @@ const directions = [
   { key: "body", href: "/body", tone: "deep", image: null },
   { key: "breathe", href: "/breathe", tone: "mint", image: null },
   { key: "mind", href: "/mind", tone: "deep", image: null },
+  { key: "shop", href: "/shop", tone: "mint", image: null },
 ] as const;
 
 /** Explore: the directions of the platform. */

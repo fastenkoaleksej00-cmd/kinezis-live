@@ -19,7 +19,8 @@
     "back": "Back",
     "open": "Open",
     "seeAll": "See all",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "shop": "Shop"
   },
   "home": {
     "greeting": "Hello",
@@ -58,7 +59,11 @@
       "reset": "Reset to default",
       "mind": "Mind",
       "journal": "Journal",
-      "sounds": "Sounds"
+      "sounds": "Sounds",
+      "shop": "Shop",
+      "homeWidgets": "Widgets on Home",
+      "widget_water": "Water",
+      "widget_checkin": "Check-in"
     }
   },
   "explore": {
@@ -91,6 +96,10 @@
     "mind": {
       "title": "Mind and rest",
       "body": "Meditation, journal, evening ritual and calm sounds."
+    },
+    "shop": {
+      "title": "Shop",
+      "body": "Mats, blocks, bands and everything for home practice."
     }
   },
   "library": {
@@ -159,7 +168,9 @@
     "programsTitle": "Programmes",
     "programsBody": "Ordered sequences of sessions with your progress.",
     "program": "Programme",
-    "safetyTitle": "Before you start"
+    "safetyTitle": "Before you start",
+    "youWillNeed": "You will need",
+    "youWillNeedHint": "Tap to find the equipment in the shop."
   },
   "saved": {
     "title": "Saved",
@@ -496,7 +507,8 @@
       "applications": "Applications",
       "trainers": "Trainers",
       "reports": "Reports",
-      "profile": "My card"
+      "profile": "My card",
+      "shop": "Shop"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -1681,7 +1693,8 @@
       "historyTitle": "Last 14 days",
       "disclaimer": "The journal is for noticing patterns, not for diagnosis. If low mood or poor sleep lasts more than two weeks, talk to a doctor.",
       "privacySigned": "Saved to your account. Only you can see it; it is never shown to trainers or other members.",
-      "privacyGuest": "Saved on this device only. Sign in to keep it across devices."
+      "privacyGuest": "Saved on this device only. Sign in to keep it across devices.",
+      "notToday": "Not today"
     },
     "challenges": {
       "title": "Gentle challenges",
@@ -1730,7 +1743,101 @@
       "volume": "Volume",
       "stop": "Stop",
       "play": "Play",
-      "note": "Keep the volume low. The sound fades out when the timer ends."
+      "note": "Keep the volume low. The sound fades out when the timer ends.",
+      "recorded": "recording",
+      "generated": "generated"
+    }
+  },
+  "shop": {
+    "eyebrow": "Shop",
+    "title": "Everything for practice",
+    "lead": "Equipment for home practice, chosen to match the KINEZIS LIVE sessions.",
+    "widgetTitle": "Everything for home practice",
+    "widgetBody": "Mats, blocks, bands and whatever the library sessions call for.",
+    "open": "Open the shop",
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "featured": "Recommended",
+    "emptyTitle": "The shop opens soon",
+    "emptyBody": "We are choosing products and partners. The categories are ready; the first items will appear here.",
+    "emptyCategoryTitle": "Nothing here yet",
+    "emptyCategoryBody": "Products for this category are still being chosen.",
+    "howItWorks": "You buy on the partner's site, where price, delivery and returns are shown. KINEZIS LIVE may earn a commission; your price stays the same.",
+    "suspensionNote": "Mount suspension systems only as the manufacturer instructs and to a solid anchor. If unsure, ask a professional installer.",
+    "priceAtPartner": "Price at partner",
+    "soldBy": "Sold by {partner}",
+    "buy": "Buy",
+    "soon": "Soon",
+    "categories": {
+      "mats": {
+        "title": "Mats",
+        "hint": "TPE, rubber, cork, travel",
+        "lead": "Yoga and Pilates mats, covers, bags and cleaning sprays."
+      },
+      "props": {
+        "title": "Blocks and props",
+        "hint": "Blocks, straps, bolsters",
+        "lead": "Blocks, straps, bolsters, meditation cushions and knee pads."
+      },
+      "bands": {
+        "title": "Bands",
+        "hint": "Loops, fabric bands, rehab",
+        "lead": "Resistance loops, fabric bands, latex bands and rehab expanders."
+      },
+      "balance": {
+        "title": "Balls and balance",
+        "hint": "Fitballs, BOSU, cushions",
+        "lead": "Fitballs, small balls, half-domes, balance boards and cushions."
+      },
+      "weights": {
+        "title": "Weights",
+        "hint": "Dumbbells, ankle weights, medballs",
+        "lead": "Light dumbbells, wrist and ankle weights, medicine balls and soft balls."
+      },
+      "recovery": {
+        "title": "Recovery and release",
+        "hint": "Rollers, balls, Duoball",
+        "lead": "Foam rollers, massage balls, Duoball and spiky balls."
+      },
+      "suspension": {
+        "title": "Suspension",
+        "hint": "TRX, rings, door anchors",
+        "lead": "Suspension trainers, gymnastic rings, door anchors and aerial hammocks."
+      },
+      "accessories": {
+        "title": "Accessories",
+        "hint": "Socks, gloves, ropes",
+        "lead": "Grip socks, gloves, jump ropes and hand grippers."
+      }
+    },
+    "admin": {
+      "listTitle": "Shop",
+      "listLead": "Items are visible to everyone once published. Buying happens via the partner link.",
+      "new": "New item",
+      "edit": "Edit item",
+      "empty": "No items yet",
+      "emptyBody": "Add the first item with a photo and a purchase link.",
+      "featured": "Recommended",
+      "title": "Name",
+      "description": "Description",
+      "category": "Category",
+      "price": "Price",
+      "priceHint": "Optional. Without a price, \"Price at partner\" is shown.",
+      "currency": "Currency",
+      "url": "Purchase link",
+      "urlHint": "The product page at the supplier or partner, starting with https://",
+      "partner": "Partner or store",
+      "position": "Order",
+      "photo": "Photo",
+      "upload": "Upload photo",
+      "uploadFailed": "Upload failed. JPG, PNG or WebP up to 5 MB.",
+      "photoHint": "Real product photos from the supplier only, on a light background.",
+      "published": "Published",
+      "errors": {
+        "forbidden": "Admins only.",
+        "titleRequired": "The English name is required.",
+        "invalid": "Check the price and the link.",
+        "generic": "Could not save."
+      }
     }
   }
 }

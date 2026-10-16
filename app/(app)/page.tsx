@@ -9,8 +9,8 @@ import { RemindersCard } from "@/components/home/RemindersCard";
 import { TodayRings } from "@/components/home/TodayRings";
 import { QuickAccess } from "@/components/home/QuickAccess";
 import { GoalWidget } from "@/components/home/GoalWidget";
-import { WaterWidget } from "@/components/home/WaterWidget";
-import { CheckInCard } from "@/components/mind/Journal";
+import { HomeCheckInSlot, HomeWaterSlot } from "@/components/home/HomeSlots";
+import { ShopWidget } from "@/components/shop/ShopWidget";
 import { NewSessions } from "@/components/home/NewSessions";
 import { BreathWidget } from "@/components/breath/BreathWidget";
 import { computeActivityStats } from "@/lib/health/stats";
@@ -79,12 +79,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       ) : null}
 
       <Reveal delay={0.075}>
-        <WaterWidget />
+        <ShopWidget />
       </Reveal>
 
-      <Reveal delay={0.078}>
-        <CheckInCard />
-      </Reveal>
+      <HomeWaterSlot />
 
       {today ? (
         <Reveal delay={0.08}>
@@ -163,6 +161,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           ))}
         </div>
       </section>
+      <Reveal>
+        <HomeCheckInSlot />
+      </Reveal>
       <QuickPostButton />
     </Container>
   );

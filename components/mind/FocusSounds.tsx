@@ -30,8 +30,44 @@ export function FocusSounds() {
   const nodes = useRef<AudioNode[]>([]);
   const endAt = useRef(0);
   const tick = useRef<number | null>(null);
+  // Real recordings win when present: drop CC0 files at public/sounds/<kind>.mp3
+  const [files, setFiles] = useState<Partial<Record<Kind, boolean>>>({});
+  const audioEl = useRef<HTMLAudioElement | null>(null);
+  const fade = useRef<number | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    for (const { id } of kinds) {
+      fetch(`/sounds/${id}.mp3`, { method: "HEAD" })
+        .then((r) => alive && r.ok && (r.headers.get("content-type") ?? "").startsWith("audio") && setFiles((f) => ({ ...f, [id]: true })))
+        .catch(() => undefined);
+    }
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  function fadeTo(el: HTMLAudioElement, target: number, ms: number, done?: () => void) {
+    if (fade.current) window.clearInterval(fade.current);
+    const steps = Math.max(1, Math.round(ms / 50));
+    const from = el.volume;
+    let i = 0;
+    fade.current = window.setInterval(() => {
+      i += 1;
+      el.volume = Math.min(1, Math.max(0, from + ((target - from) * i) / steps));
+      if (i >= steps) {
+        if (fade.current) window.clearInterval(fade.current);
+        fade.current = null;
+        done?.();
+      }
+    }, 50);
+  }
 
   function teardown() {
+    if (audioEl.current) {
+      audioEl.current.pause();
+      audioEl.current = null;
+    }
     for (const n of nodes.current) {
       try {
         (n as AudioScheduledSourceNode).stop?.();
@@ -60,8 +96,29 @@ export function FocusSounds() {
     return buf;
   }
 
+  function startTimer() {
+    endAt.current = minutes > 0 ? Date.now() + minutes * 60000 : 0;
+    setLeft(minutes * 60);
+    tick.current = window.setInterval(() => {
+      if (!endAt.current) return;
+      const remain = Math.max(0, Math.round((endAt.current - Date.now()) / 1000));
+      setLeft(remain);
+      if (remain <= 0) stop();
+    }, 1000);
+  }
+
   function start(k: Kind) {
     teardown();
+    if (files[k]) {
+      const el = new Audio(`/sounds/${k}.mp3`);
+      el.loop = true;
+      el.volume = 0;
+      audioEl.current = el;
+      void el.play().then(() => fadeTo(el, volume, 1500)).catch(() => undefined);
+      startTimer();
+      setPlaying(true);
+      return;
+    }
     const ctx = (ctxRef.current ??= new AudioContext());
     void ctx.resume();
     const gain = ctx.createGain();
@@ -99,18 +156,22 @@ export function FocusSounds() {
     nodes.current = [src, filter, shaped, ...extra, gain];
     const now = ctx.currentTime;
     gain.gain.exponentialRampToValueAtTime(Math.max(0.0002, volume * 0.6), now + 1.5);
-    endAt.current = minutes > 0 ? Date.now() + minutes * 60000 : 0;
-    setLeft(minutes * 60);
-    tick.current = window.setInterval(() => {
-      if (!endAt.current) return;
-      const remain = Math.max(0, Math.round((endAt.current - Date.now()) / 1000));
-      setLeft(remain);
-      if (remain <= 0) stop();
-    }, 1000);
+    startTimer();
     setPlaying(true);
   }
 
   function stop() {
+    if (audioEl.current) {
+      const el = audioEl.current;
+      fadeTo(el, 0, 1200, () => {
+        el.pause();
+        if (audioEl.current === el) audioEl.current = null;
+      });
+      if (tick.current) window.clearInterval(tick.current);
+      tick.current = null;
+      setPlaying(false);
+      return;
+    }
     const ctx = ctxRef.current;
     const gain = master.current;
     if (ctx && gain) {
@@ -126,12 +187,14 @@ export function FocusSounds() {
   }
 
   useEffect(() => {
+    if (playing && audioEl.current && !fade.current) audioEl.current.volume = volume;
     const ctx = ctxRef.current;
     if (playing && ctx && master.current) master.current.gain.setTargetAtTime(Math.max(0.0002, volume * 0.6), ctx.currentTime, 0.2);
   }, [volume, playing]);
 
   useEffect(
     () => () => {
+      if (fade.current) window.clearInterval(fade.current);
       teardown();
       void ctxRef.current?.close();
     },
@@ -156,6 +219,7 @@ export function FocusSounds() {
               <Icon className={cn("h-5 w-5", playing && kind === id && "breath-pulse")} strokeWidth={1.8} aria-hidden />
             </span>
             <span className="text-ink text-sm font-semibold">{t(`kinds.${id}`)}</span>
+            <span className="text-steel text-[10px] font-semibold">{files[id] ? t("recorded") : t("generated")}</span>
           </button>
         ))}
       </div>

@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Bookmark, Calculator, Droplets, Headphones, HeartPulse, History, NotebookPen, PersonStanding, Play, Settings2, Sparkles, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
+import { Bookmark, Calculator, Droplets, Headphones, HeartPulse, History, NotebookPen, PersonStanding, Play, Settings2, ShoppingBag, Sparkles, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
 import { createLocalStore } from "@/lib/store/localStore";
+import { homePrefsStore } from "@/lib/store/home";
 import { cn } from "@/lib/utils";
 
 const catalogue = [
@@ -19,6 +20,7 @@ const catalogue = [
   { id: "nutrition", href: "/nutrition", icon: UtensilsCrossed, tone: "mint" },
   { id: "appleHealth", href: "/health/connect", icon: Watch, tone: "sky" },
   { id: "mind", href: "/mind", icon: Sparkles, tone: "mint" },
+  { id: "shop", href: "/shop", icon: ShoppingBag, tone: "warm" },
   { id: "journal", href: "/mind/journal", icon: NotebookPen, tone: "warm" },
   { id: "sounds", href: "/mind/sounds", icon: Headphones, tone: "sky" },
 ] as const satisfies ReadonlyArray<{ id: string; href: string; icon: LucideIcon; tone: string }>;
@@ -43,6 +45,7 @@ export function QuickAccess() {
   const ids = raw.filter((id) => catalogue.some((c) => c.id === id));
   const shown = (ids.length >= MIN ? ids : defaults).slice(0, MAX);
   const [open, setOpen] = useState(false);
+  const prefs = homePrefsStore.useStore();
 
   function toggle(id: QuickId) {
     if (shown.includes(id)) {
@@ -88,6 +91,17 @@ export function QuickAccess() {
                 </button>
               );
             })}
+          </div>
+          <div className="border-ink/8 space-y-2 border-t pt-3">
+            <p className="text-steel text-xs">{t("homeWidgets")}</p>
+            <div className="flex flex-wrap gap-2">
+              {(["water", "checkin"] as const).map((k) => (
+                <button key={k} type="button" aria-pressed={prefs[k]} onClick={() => homePrefsStore.write({ ...prefs, [k]: !prefs[k] })} className={cn("inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-semibold transition-colors", prefs[k] ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}>
+                  {k === "water" ? <Droplets className="h-3.5 w-3.5" aria-hidden /> : <NotebookPen className="h-3.5 w-3.5" aria-hidden />}
+                  {t(`widget_${k}`)}
+                </button>
+              ))}
+            </div>
           </div>
           <button type="button" onClick={() => quickStore.write(defaults)} className="text-accent text-xs font-semibold hover:underline">
             {t("reset")}

@@ -19,7 +19,8 @@
     "back": "Zurück",
     "open": "Öffnen",
     "seeAll": "Alle",
-    "minutes": "{count} Min."
+    "minutes": "{count} Min.",
+    "shop": "Shop"
   },
   "home": {
     "greeting": "Hallo",
@@ -58,7 +59,11 @@
       "reset": "Standard wiederherstellen",
       "mind": "Geist",
       "journal": "Tagebuch",
-      "sounds": "Klänge"
+      "sounds": "Klänge",
+      "shop": "Shop",
+      "homeWidgets": "Widgets auf Home",
+      "widget_water": "Wasser",
+      "widget_checkin": "Befinden"
     }
   },
   "explore": {
@@ -91,6 +96,10 @@
     "mind": {
       "title": "Geist und Ruhe",
       "body": "Meditation, Tagebuch, Abendritual und ruhige Klänge."
+    },
+    "shop": {
+      "title": "Shop",
+      "body": "Matten, Blöcke, Bänder und alles fürs Training zu Hause."
     }
   },
   "library": {
@@ -159,7 +168,9 @@
     "programsTitle": "Programme",
     "programsBody": "Geordnete Abfolgen von Einheiten mit deinem Fortschritt.",
     "program": "Programm",
-    "safetyTitle": "Bevor du beginnst"
+    "safetyTitle": "Bevor du beginnst",
+    "youWillNeed": "Du brauchst",
+    "youWillNeedHint": "Tippe, um die Ausrüstung im Shop zu finden."
   },
   "saved": {
     "title": "Gespeichert",
@@ -496,7 +507,8 @@
       "applications": "Bewerbungen",
       "trainers": "Trainer",
       "reports": "Meldungen",
-      "profile": "Meine Karte"
+      "profile": "Meine Karte",
+      "shop": "Shop"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -1681,7 +1693,8 @@
       "historyTitle": "Letzte 14 Tage",
       "disclaimer": "Das Tagebuch hilft, Muster zu bemerken, nicht zu diagnostizieren. Wenn gedrückte Stimmung oder schlechter Schlaf länger als zwei Wochen anhalten, sprich mit einer Ärztin.",
       "privacySigned": "In deinem Konto gespeichert. Nur du siehst es; Trainern und anderen Mitgliedern wird es nie gezeigt.",
-      "privacyGuest": "Nur auf diesem Gerät gespeichert. Melde dich an, um es auf allen Geräten zu haben."
+      "privacyGuest": "Nur auf diesem Gerät gespeichert. Melde dich an, um es auf allen Geräten zu haben.",
+      "notToday": "Heute nicht"
     },
     "challenges": {
       "title": "Sanfte Challenges",
@@ -1730,7 +1743,101 @@
       "volume": "Lautstärke",
       "stop": "Stopp",
       "play": "Abspielen",
-      "note": "Halte die Lautstärke niedrig. Der Klang blendet aus, wenn der Timer endet."
+      "note": "Halte die Lautstärke niedrig. Der Klang blendet aus, wenn der Timer endet.",
+      "recorded": "Aufnahme",
+      "generated": "generiert"
+    }
+  },
+  "shop": {
+    "eyebrow": "Shop",
+    "title": "Alles für die Praxis",
+    "lead": "Ausrüstung fürs Training zu Hause, passend zu den KINEZIS LIVE Einheiten.",
+    "widgetTitle": "Alles fürs Training zu Hause",
+    "widgetBody": "Matten, Blöcke, Bänder und alles, was die Einheiten der Bibliothek brauchen.",
+    "open": "Shop öffnen",
+    "itemsCount": "{count, plural, one {# Artikel} other {# Artikel}}",
+    "featured": "Empfohlen",
+    "emptyTitle": "Der Shop öffnet bald",
+    "emptyBody": "Wir wählen Produkte und Partner aus. Die Kategorien stehen; die ersten Artikel erscheinen hier.",
+    "emptyCategoryTitle": "Hier ist noch nichts",
+    "emptyCategoryBody": "Produkte für diese Kategorie werden noch ausgewählt.",
+    "howItWorks": "Du kaufst auf der Seite des Partners; Preis, Lieferung und Rückgabe stehen dort. KINEZIS LIVE kann eine Provision erhalten; dein Preis bleibt gleich.",
+    "suspensionNote": "Hängesysteme nur nach Herstelleranleitung und an einem stabilen Anker befestigen. Im Zweifel eine Fachkraft fragen.",
+    "priceAtPartner": "Preis beim Partner",
+    "soldBy": "Verkauf: {partner}",
+    "buy": "Kaufen",
+    "soon": "Bald",
+    "categories": {
+      "mats": {
+        "title": "Matten",
+        "hint": "TPE, Kautschuk, Kork, Reise",
+        "lead": "Yoga- und Pilatesmatten, Hüllen, Taschen und Reinigungssprays."
+      },
+      "props": {
+        "title": "Blöcke und Hilfsmittel",
+        "hint": "Blöcke, Gurte, Bolster",
+        "lead": "Blöcke, Gurte, Bolster, Meditationskissen und Kniepads."
+      },
+      "bands": {
+        "title": "Bänder",
+        "hint": "Loops, Stoffbänder, Reha",
+        "lead": "Widerstandsloops, Stoffbänder, Latexbänder und Reha-Expander."
+      },
+      "balance": {
+        "title": "Bälle und Balance",
+        "hint": "Fitbälle, BOSU, Kissen",
+        "lead": "Fitbälle, kleine Bälle, Halbkugeln, Balance-Boards und Kissen."
+      },
+      "weights": {
+        "title": "Gewichte",
+        "hint": "Hanteln, Manschetten, Medizinbälle",
+        "lead": "Leichte Hanteln, Arm- und Beingewichte, Medizinbälle und Softbälle."
+      },
+      "recovery": {
+        "title": "Regeneration und Faszien",
+        "hint": "Rollen, Bälle, Duoball",
+        "lead": "Faszienrollen, Massagebälle, Duoball und Igelbälle."
+      },
+      "suspension": {
+        "title": "Schlingentraining",
+        "hint": "TRX, Ringe, Türanker",
+        "lead": "Schlingentrainer, Turnringe, Türanker und Aerial-Hängematten."
+      },
+      "accessories": {
+        "title": "Zubehör",
+        "hint": "Socken, Handschuhe, Seile",
+        "lead": "Rutschfeste Socken, Handschuhe, Springseile und Handtrainer."
+      }
+    },
+    "admin": {
+      "listTitle": "Shop",
+      "listLead": "Artikel sind nach Veröffentlichung für alle sichtbar. Gekauft wird über den Partnerlink.",
+      "new": "Neuer Artikel",
+      "edit": "Artikel bearbeiten",
+      "empty": "Noch keine Artikel",
+      "emptyBody": "Füge den ersten Artikel mit Foto und Kauflink hinzu.",
+      "featured": "Empfohlen",
+      "title": "Name",
+      "description": "Beschreibung",
+      "category": "Kategorie",
+      "price": "Preis",
+      "priceHint": "Optional. Ohne Preis wird „Preis beim Partner“ angezeigt.",
+      "currency": "Währung",
+      "url": "Kauflink",
+      "urlHint": "Produktseite beim Lieferanten oder Partner, beginnt mit https://",
+      "partner": "Partner oder Shop",
+      "position": "Reihenfolge",
+      "photo": "Foto",
+      "upload": "Foto hochladen",
+      "uploadFailed": "Upload fehlgeschlagen. JPG, PNG oder WebP bis 5 MB.",
+      "photoHint": "Nur echte Produktfotos vom Lieferanten, auf hellem Hintergrund.",
+      "published": "Veröffentlicht",
+      "errors": {
+        "forbidden": "Nur für Admins.",
+        "titleRequired": "Der englische Name ist erforderlich.",
+        "invalid": "Prüfe Preis und Link.",
+        "generic": "Konnte nicht speichern."
+      }
     }
   }
 }

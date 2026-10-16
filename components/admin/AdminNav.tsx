@@ -20,6 +20,7 @@ const items = [
   { key: "comments", href: "/admin/comments", admin: true },
   { key: "skincare", href: "/admin/skincare", admin: true },
   { key: "nutrition", href: "/admin/nutrition", admin: true },
+  { key: "shop", href: "/admin/shop", admin: true },
 ] as const;
 
 /** Trainers see their own tools; admins additionally get review, applications, trainers, reports and brand sections. */

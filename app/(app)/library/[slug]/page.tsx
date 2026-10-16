@@ -7,6 +7,8 @@ import { LogActivityButton } from "@/components/health/LogActivityButton";
 import { Comments } from "@/components/social/Comments";
 import { LikeButton } from "@/components/social/LikeButton";
 import { ReportButton } from "@/components/social/ReportButton";
+import { equipmentToCategory } from "@/lib/shop/types";
+import { ShoppingBag } from "lucide-react";
 import { getSocialCounts, listComments } from "@/lib/social/queries";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
 import { getFormatter } from "next-intl/server";
@@ -90,6 +92,31 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
         {!workout.sample ? <LikeButton targetType="workout" targetId={workout.id} likes={counts.likes} liked={counts.liked} signedIn={Boolean(user)} /> : null}
         {!workout.sample ? <ReportButton targetType="workout" targetId={workout.id} signedIn={Boolean(user)} /> : null}
       </Reveal>
+      {workout.equipment && workout.equipment.some((e) => e !== "none") ? (
+        <Reveal delay={0.105} as="section" className="card space-y-3 p-4">
+          <p className="eyebrow inline-flex items-center gap-2">
+            <ShoppingBag className="h-3.5 w-3.5" aria-hidden />
+            {t("youWillNeed")}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {workout.equipment
+              .filter((e) => e !== "none")
+              .map((e) => {
+                const cat = equipmentToCategory[e];
+                return cat ? (
+                  <Link key={e} href={`/shop/${cat}`} className="bg-mint-soft text-mint-deep inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-transform active:scale-95">
+                    {t(`equipment.${e}`)}
+                  </Link>
+                ) : (
+                  <span key={e} className="bg-bone-2 text-steel inline-flex h-9 items-center rounded-full px-3 text-sm font-semibold">
+                    {t(`equipment.${e}`)}
+                  </span>
+                );
+              })}
+          </div>
+          <p className="text-steel text-xs">{t("youWillNeedHint")}</p>
+        </Reveal>
+      ) : null}
       {workout.safety ? (
         <Reveal delay={0.11}>
           <div className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
