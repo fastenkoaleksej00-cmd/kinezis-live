@@ -54,6 +54,59 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const stats = user ? computeActivityStats(log) : null;
   const workouts = allWorkouts.map((w) => toCardData(w, locale));
 
+  // Personalised order (U5): signals come from the person's own activity log, nothing is inferred beyond it
+  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const recent = log.filter((e) => Date.parse(e.completedAt) >= weekAgo);
+  const comeback = Boolean(user) && recent.length === 0;
+  const breathFan = recent.filter((e) => e.itemType === "breath").length >= 3;
+
+  const todayBlock = today ? (
+    <Reveal delay={0.08}>
+      <Link href={`/library/${today.slug}`} className="group block">
+        <Cover tone={today.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t("todayEyebrow")} imageSrc={today.video?.poster}>
+          <div className="flex h-full flex-col justify-end p-5 sm:p-7">
+            <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel text-xs font-semibold tracking-[0.3em] uppercase" : "text-glow text-xs font-semibold tracking-[0.3em] uppercase"}>
+              {tl(`categories.${today.category}`)}
+            </p>
+            <h2 className={today.coverTone === "light" && !today.video?.poster ? "text-ink mt-1.5 text-2xl leading-tight font-bold sm:text-3xl" : "text-frost mt-1.5 text-2xl leading-tight font-bold sm:text-3xl"}>
+              {pick(today.title, locale)}
+            </h2>
+            <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel mt-2 max-w-md text-sm sm:text-base" : "text-mist mt-2 max-w-md text-sm sm:text-base"}>
+              {tc("minutes", { count: today.durationMin })} · {tl(`levels.${today.level}`)}
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5" : "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5"}>
+                <Play className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden />
+              </span>
+              <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink text-sm font-semibold" : "text-frost text-sm font-semibold"}>{tl("start")}</span>
+            </div>
+          </div>
+        </Cover>
+      </Link>
+    </Reveal>
+  ) : null;
+
+  const continueBlock = (
+    <Reveal delay={0.12} as="section" className="space-y-4">
+      <SectionHeading
+        title={t("continueTitle")}
+        action={
+          <Link href="/library" className={buttonStyles("secondary", "sm")}>
+            {tc("open")}
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        }
+      />
+      <ContinueCard workouts={workouts} />
+    </Reveal>
+  );
+
+  const breathBlock = (
+    <Reveal delay={0.13}>
+      <BreathWidget signedIn={Boolean(user)} />
+    </Reveal>
+  );
+
   return (
     <Container as="section" className="space-y-8 py-6 sm:py-8">
       {sp.posted ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("posted")}</p> : null}
@@ -69,6 +122,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       </Reveal>
 
       <StarterWeek />
+
+      {comeback ? todayBlock : null}
+      {comeback ? continueBlock : null}
+      {breathFan ? breathBlock : null}
 
       {stats ? (
         <Reveal delay={0.06}>
@@ -88,31 +145,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       <HomeWaterSlot />
 
-      {today ? (
-        <Reveal delay={0.08}>
-          <Link href={`/library/${today.slug}`} className="group block">
-            <Cover tone={today.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t("todayEyebrow")} imageSrc={today.video?.poster}>
-              <div className="flex h-full flex-col justify-end p-5 sm:p-7">
-                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel text-xs font-semibold tracking-[0.3em] uppercase" : "text-glow text-xs font-semibold tracking-[0.3em] uppercase"}>
-                  {tl(`categories.${today.category}`)}
-                </p>
-                <h2 className={today.coverTone === "light" && !today.video?.poster ? "text-ink mt-1.5 text-2xl leading-tight font-bold sm:text-3xl" : "text-frost mt-1.5 text-2xl leading-tight font-bold sm:text-3xl"}>
-                  {pick(today.title, locale)}
-                </h2>
-                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel mt-2 max-w-md text-sm sm:text-base" : "text-mist mt-2 max-w-md text-sm sm:text-base"}>
-                  {tc("minutes", { count: today.durationMin })} · {tl(`levels.${today.level}`)}
-                </p>
-                <div className="mt-5 flex items-center gap-3">
-                  <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5" : "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5"}>
-                    <Play className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden />
-                  </span>
-                  <span className={today.coverTone === "light" && !today.video?.poster ? "text-ink text-sm font-semibold" : "text-frost text-sm font-semibold"}>{tl("start")}</span>
-                </div>
-              </div>
-            </Cover>
-          </Link>
-        </Reveal>
-      ) : null}
+      {comeback ? null : todayBlock}
 
       {profile ? (
         <Reveal delay={0.09}>
@@ -124,22 +157,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <PremiumBanner user={user} />
       </Reveal>
 
-      <Reveal delay={0.12} as="section" className="space-y-4">
-        <SectionHeading
-          title={t("continueTitle")}
-          action={
-            <Link href="/library" className={buttonStyles("secondary", "sm")}>
-              {tc("open")}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          }
-        />
-        <ContinueCard workouts={workouts} />
-      </Reveal>
+      {comeback ? null : continueBlock}
 
-      <Reveal delay={0.13}>
-        <BreathWidget signedIn={Boolean(user)} />
-      </Reveal>
+      {breathFan ? null : breathBlock}
 
       <Reveal delay={0.14}>
         <NewSessions workouts={workouts} />
