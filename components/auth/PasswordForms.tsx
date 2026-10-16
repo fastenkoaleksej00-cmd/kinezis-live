@@ -34,7 +34,7 @@ export function ForgotForm() {
         <input name="email" type="email" required autoComplete="email" inputMode="email" className={field} />
       </label>
       {state.error ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {t(`errors.${state.error}`)}
         </p>
       ) : null}
@@ -62,7 +62,7 @@ export function ResetForm() {
         <span className="text-steel mt-1.5 block text-xs">{t("passwordHint")}</span>
       </label>
       {state.error ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {t(`errors.${state.error}`)}
           {state.error === "expired" ? (
             <>

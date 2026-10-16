@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Search } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Cover } from "@/components/ui/Cover";
 import { Reveal } from "@/components/ui/Reveal";
@@ -28,6 +28,12 @@ export default async function ExplorePage() {
     <Container as="section" className="space-y-6 py-6 sm:py-8">
       <Reveal>
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
+      </Reveal>
+      <Reveal delay={0.02}>
+        <Link href="/search" className="card text-steel flex items-center gap-2 px-4 py-3 text-sm transition-colors hover:bg-white">
+          <Search className="h-4 w-4" aria-hidden />
+          {t("searchHint")}
+        </Link>
       </Reveal>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {directions.map(({ key, href, tone, image }, i) => {

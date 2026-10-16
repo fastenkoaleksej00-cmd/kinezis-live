@@ -57,7 +57,7 @@ export default async function SettingsPage({ searchParams }: PageProps) {
         </nav>
       </Reveal>
 
-      {sp.error === "delete" ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t("account.errors.generic")}</p> : null}
+      {sp.error === "delete" ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t("account.errors.generic")}</p> : null}
 
       <Reveal delay={0.06} as="section" id="language" className="card space-y-4 p-5">
         <div>

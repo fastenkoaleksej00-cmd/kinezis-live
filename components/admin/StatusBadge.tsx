@@ -9,7 +9,7 @@ export async function StatusBadge({ published, review }: { published: boolean; r
   const waiting = published && review === "pending";
   const rejected = review === "rejected";
   return (
-    <span className={cn("inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold tracking-wide uppercase", rejected ? "bg-[#fde8ea] text-[#b9344a]" : waiting ? "bg-accent-soft text-accent" : published ? "bg-mint-soft text-mint-deep" : "bg-bone-2 text-steel")}>
+    <span className={cn("inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold tracking-wide uppercase", rejected ? "bg-alert-soft text-alert" : waiting ? "bg-accent-soft text-accent" : published ? "bg-mint-soft text-mint-deep" : "bg-bone-2 text-steel")}>
       {rejected ? t("rejected") : waiting ? t("pending") : published ? t("published") : t("draft")}
     </span>
   );

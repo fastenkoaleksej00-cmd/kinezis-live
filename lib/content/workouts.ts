@@ -1,6 +1,8 @@
 import { equipmentIds } from "./types";
 import { cache } from "react";
-import { authorColumns, getDb, rowToAuthor, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
+import { unstable_cache } from "next/cache";
+import { getPublicDb } from "@/lib/supabase/public";
+import { authorColumns, rowToAuthor, rowToWorkout, workoutColumns, type AuthorRow, type WorkoutRow } from "./db";
 import {
   categoryIds,
   durationBuckets,
@@ -22,13 +24,19 @@ export const authors: Author[] = [
 ];
 
 /** Authors from the database, falling back to the built-in trainer. */
-export const listAuthors = cache(async (): Promise<Author[]> => {
-  const db = await getDb();
-  if (!db) return authors;
-  const { data } = await db.from("authors").select(authorColumns).order("created_at");
-  const rows = (data ?? []) as AuthorRow[];
-  return rows.length > 0 ? rows.map(rowToAuthor) : authors;
-});
+export const listAuthors = cache(
+  unstable_cache(
+    async (): Promise<Author[]> => {
+      const db = getPublicDb();
+      if (!db) return authors;
+      const { data } = await db.from("authors").select(authorColumns).order("created_at");
+      const rows = (data ?? []) as AuthorRow[];
+      return rows.length > 0 ? rows.map(rowToAuthor) : authors;
+    },
+    ["public-authors"],
+    { revalidate: 60, tags: ["authors"] },
+  ),
+);
 
 export async function getAuthor(id: string): Promise<Author | undefined> {
   return (await listAuthors()).find((a) => a.id === id);
@@ -299,13 +307,20 @@ export function bucketOf(durationMin: number): DurationBucket {
   return "long";
 }
 
-const fetchAll = cache(async (): Promise<Workout[]> => {
-  const db = await getDb();
-  if (!db) return sampleWorkouts;
-  const { data, error } = await db.from("workouts").select(workoutColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
-  if (error || !data || data.length === 0) return sampleWorkouts;
-  return (data as unknown as WorkoutRow[]).map(rowToWorkout);
-});
+/** Published, approved sessions: same for everyone, cached for a minute and dropped on any admin change */
+const fetchAll = cache(
+  unstable_cache(
+    async (): Promise<Workout[]> => {
+      const db = getPublicDb();
+      if (!db) return sampleWorkouts;
+      const { data, error } = await db.from("workouts").select(workoutColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
+      if (error || !data || data.length === 0) return sampleWorkouts;
+      return (data as unknown as WorkoutRow[]).map(rowToWorkout);
+    },
+    ["public-workouts"],
+    { revalidate: 60, tags: ["workouts"] },
+  ),
+);
 
 export async function listWorkouts(filters: WorkoutFilters = {}): Promise<Workout[]> {
   const all = await fetchAll();

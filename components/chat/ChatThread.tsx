@@ -148,7 +148,7 @@ export function ChatThread({ conversationId, initial, meId, staff, counterpartNa
           <Send className="h-4 w-4" aria-hidden />
         </button>
       </form>
-      {error ? <p className="px-4 pb-3 text-sm text-[#8a2f2f]">{error}</p> : null}
+      {error ? <p className="px-4 pb-3 text-sm text-danger">{error}</p> : null}
     </div>
   );
 }

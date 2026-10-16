@@ -9,6 +9,7 @@ import { deleteShopItem, saveShopItem, type ShopState } from "@/lib/shop/actions
 import type { ShopItemRow, ShopOfferRow } from "@/lib/shop/queries";
 import { OFFER_ROWS, shopCategories, shopCollections, shopCountries, shopCurrencies, shopSources } from "@/lib/shop/types";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 
 const initial: ShopState = {};
 
@@ -23,6 +24,7 @@ export function ShopItemForm({ item, offers = [] }: { item?: ShopItemRow | null;
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
+    file = await compressImage(file);
     const supabase = getBrowserClient();
     if (!supabase || file.size > 5 * 1024 * 1024) return setUploadError(true);
     setBusy(true);
@@ -89,7 +91,7 @@ export function ShopItemForm({ item, offers = [] }: { item?: ShopItemRow | null;
               {t("upload")}
             </button>
           </div>
-          {uploadError ? <p className="mt-2 text-sm text-[#8a2f2f]">{t("uploadFailed")}</p> : null}
+          {uploadError ? <p className="mt-2 text-sm text-danger">{t("uploadFailed")}</p> : null}
           <p className="text-steel mt-2 text-xs">{t("photoHint")}</p>
         </div>
       </section>
@@ -154,7 +156,7 @@ export function ShopItemForm({ item, offers = [] }: { item?: ShopItemRow | null;
         </div>
         <Checkbox name="featured" label={t("featured")} defaultChecked={item?.featured ?? false} />
         <Checkbox name="published" label={t("published")} defaultChecked={item?.published ?? false} />
-        {state.error ? <p className="text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p> : null}
+        {state.error ? <p className="text-sm text-danger">{t(`errors.${state.error}`)}</p> : null}
       </section>
       <SubmitRow pending={pending} deleteAction={item ? deleteShopItem : undefined} id={item?.id} />
     </form>

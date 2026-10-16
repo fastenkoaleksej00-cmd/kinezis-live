@@ -65,7 +65,7 @@ export function Comments({ targetType, targetId, path, comments, signedIn, staff
                 <form action={deleteComment}>
                   <input type="hidden" name="id" value={c.id} />
                   <input type="hidden" name="path" value={path} />
-                  <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+                  <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-danger-soft hover:text-danger">
                     <Trash2 className="h-4 w-4" aria-hidden />
                   </button>
                 </form>
@@ -82,7 +82,7 @@ export function Comments({ targetType, targetId, path, comments, signedIn, staff
             <input type="hidden" name="target_id" value={targetId} />
             <input type="hidden" name="path" value={path} />
             <textarea name="body" required maxLength={1000} rows={3} placeholder={t("placeholder")} className="text-ink placeholder:text-steel/60 w-full resize-none bg-transparent text-[15px] outline-none" />
-            {state.error ? <p role="alert" className="text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p> : null}
+            {state.error ? <p role="alert" className="text-sm text-danger">{t(`errors.${state.error}`)}</p> : null}
             <div className="flex items-center justify-between gap-3">
               <span className="text-steel text-xs">{t("rules")}</span>
               <Button type="submit" size="sm" disabled={pending}>

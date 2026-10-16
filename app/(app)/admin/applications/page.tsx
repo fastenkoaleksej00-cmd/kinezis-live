@@ -57,7 +57,7 @@ export default async function AdminApplicationsPage({ searchParams }: PageProps)
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-ink font-bold">{a.fullName || "—"}</p>
-                    <span className={`inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold uppercase ${a.status === "approved" ? "bg-mint-soft text-mint-deep" : a.status === "rejected" ? "bg-[#fde8ea] text-[#b9344a]" : "bg-accent-soft text-accent"}`}>{t(`status.${a.status}`)}</span>
+                    <span className={`inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold uppercase ${a.status === "approved" ? "bg-mint-soft text-mint-deep" : a.status === "rejected" ? "bg-alert-soft text-alert" : "bg-accent-soft text-accent"}`}>{t(`status.${a.status}`)}</span>
                   </div>
                   <p className="text-steel text-xs">{a.submittedAt ? format.dateTime(new Date(a.submittedAt), { day: "numeric", month: "short", year: "numeric" }) : ""}{a.experienceYears !== null ? ` · ${t("years", { count: a.experienceYears })}` : ""}</p>
                   {a.specialties.length > 0 ? <p className="text-steel mt-1 text-xs">{a.specialties.map((s) => tl(`categories.${s as "yoga"}`)).join(" · ")}</p> : null}

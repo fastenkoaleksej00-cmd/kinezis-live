@@ -69,7 +69,7 @@ export function ReportButton({ targetType, targetId, signedIn, className }: { ta
                     <Textarea name="details" rows={3} maxLength={1000} />
                   </label>
                   <p className="text-steel text-xs">{t("note")}</p>
-                  {state.error ? <p className="text-sm text-[#8a2f2f]">{t("error")}</p> : null}
+                  {state.error ? <p className="text-sm text-danger">{t("error")}</p> : null}
                   <Button type="submit" size="md" disabled={pending}>
                     {t("send")}
                   </Button>

@@ -70,7 +70,7 @@ export default async function PracticePage({ params, searchParams }: PageProps) 
         </ol>
       </Reveal>
 
-      <Reveal delay={0.14} as="section" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
+      <Reveal delay={0.14} as="section" className="rounded-2xl border border-danger-line bg-danger-soft p-4 text-sm text-danger">
         <p className="font-semibold">{t("cautionsTitle")}</p>
         <ul className="mt-1.5 list-disc space-y-1 pl-5">
           {practice.cautions.map((c, i) => (

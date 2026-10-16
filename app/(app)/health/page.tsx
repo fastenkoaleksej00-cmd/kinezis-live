@@ -97,7 +97,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
         <WaterWidget id="water" variant="full" />
         <Link href="/health/connect" className="card group flex flex-col justify-between gap-4 p-5 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-0.5">
           <div className="flex items-start justify-between gap-3">
-            <span className="bg-[#fde8ea] text-[#b9344a] inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl">
+            <span className="bg-alert-soft text-alert inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl">
               <Watch className="h-5 w-5" strokeWidth={1.8} aria-hidden />
             </span>
             <ArrowUpRight className="text-steel group-hover:text-ink h-4 w-4 transition-colors" aria-hidden />

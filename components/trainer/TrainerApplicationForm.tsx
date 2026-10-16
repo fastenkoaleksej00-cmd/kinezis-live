@@ -7,6 +7,7 @@ import { Checkbox, Field, Input, Textarea } from "@/components/admin/fields";
 import { Button } from "@/components/ui/Button";
 import { categoryIds } from "@/lib/content/types";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 import { saveTrainerApplication, type TrainerState } from "@/lib/trainers/actions";
 import type { TrainerApplication } from "@/lib/trainers/queries";
 
@@ -28,6 +29,7 @@ export function TrainerApplicationForm({ userId, application }: { userId: string
   const locked = application?.status === "submitted" || application?.status === "review" || application?.status === "approved";
 
   async function uploadPhoto(file: File) {
+    file = await compressImage(file);
     const supabase = getBrowserClient();
     if (!supabase || file.size > MAX_PHOTO) return setUploadError(t("uploadFailed"));
     setBusy("photo");
@@ -124,7 +126,7 @@ export function TrainerApplicationForm({ userId, application }: { userId: string
             ) : null}
           </div>
         </div>
-        {uploadError ? <p className="text-sm text-[#8a2f2f]">{uploadError}</p> : null}
+        {uploadError ? <p className="text-sm text-danger">{uploadError}</p> : null}
       </section>
 
       {!locked ? (
@@ -142,7 +144,7 @@ export function TrainerApplicationForm({ userId, application }: { userId: string
             </Button>
           </div>
           {state.ok ? <p className="text-mint-deep text-sm font-semibold">{t("saved")}</p> : null}
-          {state.error ? <p className="text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p> : null}
+          {state.error ? <p className="text-sm text-danger">{t(`errors.${state.error}`)}</p> : null}
         </section>
       ) : null}
     </form>

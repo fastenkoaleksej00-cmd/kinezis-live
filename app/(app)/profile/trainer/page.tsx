@@ -54,7 +54,7 @@ export default async function TrainerApplyPage() {
         <>
           {application && application.status !== "draft" ? (
             <Reveal delay={0.05}>
-              <div className={`rounded-2xl px-4 py-3 text-sm ${application.status === "rejected" ? "bg-[#fdf2f2] text-[#8a2f2f]" : "bg-accent-soft text-accent"}`}>
+              <div className={`rounded-2xl px-4 py-3 text-sm ${application.status === "rejected" ? "bg-danger-soft text-danger" : "bg-accent-soft text-accent"}`}>
                 <p className="font-semibold">{t(`status.${application.status}`)}</p>
                 <p className="mt-0.5">{t(`statusBody.${application.status}`)}</p>
                 {application.status === "rejected" && application.adminNote ? <p className="mt-1 text-xs">{t("adminNote")}: {application.adminNote}</p> : null}

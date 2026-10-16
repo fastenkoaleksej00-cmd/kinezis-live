@@ -80,7 +80,7 @@ export function PreferencesForm({ profile }: { profile: UserProfile }) {
       </section>
 
       {state.ok ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
-      {state.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`account.errors.${state.error}`)}</p> : null}
+      {state.error ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`account.errors.${state.error}`)}</p> : null}
       <Button type="submit" size="lg" disabled={pending} className="w-full sm:w-auto">
         {t("save")}
       </Button>

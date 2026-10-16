@@ -85,7 +85,7 @@ export default async function ActivityPage() {
                   </span>
                   <form action={deleteActivity}>
                     <input type="hidden" name="id" value={e.id} />
-                    <button type="submit" className="text-steel text-xs font-semibold hover:text-[#8a2f2f]">
+                    <button type="submit" className="text-steel text-xs font-semibold hover:text-danger">
                       {t("remove")}
                     </button>
                   </form>

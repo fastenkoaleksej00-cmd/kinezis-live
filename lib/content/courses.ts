@@ -1,5 +1,7 @@
 import { cache } from "react";
-import { courseColumns, getDb, lessonColumns, moduleColumns, rowsToCourse, type CourseRow, type LessonRow, type ModuleRow } from "./db";
+import { unstable_cache } from "next/cache";
+import { getPublicDb } from "@/lib/supabase/public";
+import { courseColumns, lessonColumns, moduleColumns, rowsToCourse, type CourseRow, type LessonRow, type ModuleRow } from "./db";
 import type { Course, Lesson } from "./types";
 
 /**
@@ -66,25 +68,32 @@ const sampleCourses: Course[] = [
   },
 ];
 
-const fetchAll = cache(async (): Promise<Course[]> => {
-  const db = await getDb();
-  if (!db) return sampleCourses;
-  const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
-  if (error || !courses || courses.length === 0) return sampleCourses;
-  const ids = (courses as unknown as CourseRow[]).map((c) => c.id);
-  const { data: modules } = await db.from("course_modules").select(moduleColumns).in("course_id", ids);
-  const moduleIds = ((modules ?? []) as ModuleRow[]).map((m) => m.id);
-  const { data: lessons } = moduleIds.length > 0 ? await db.from("lessons").select(lessonColumns).in("module_id", moduleIds) : { data: [] };
-  const lessonRows = (lessons ?? []) as unknown as LessonRow[];
-  // Programme steps linked to a library session borrow its video (and poster) when they have none of their own
-  const linked = lessonRows.map((l) => l.workout_id).filter((id): id is string => Boolean(id));
-  if (linked.length > 0) {
-    const { data: ws } = await db.from("workouts").select("id, video").in("id", linked).eq("published", true).eq("review_status", "approved");
-    const videoById = new Map(((ws ?? []) as Array<{ id: string; video: LessonRow["video"] }>).map((w) => [w.id, w.video]));
-    for (const l of lessonRows) if (l.workout_id && !l.video) l.video = videoById.get(l.workout_id) ?? null;
-  }
-  return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], lessonRows));
-});
+/** Published, approved courses and programmes with modules and lessons: cached like the library */
+const fetchAll = cache(
+  unstable_cache(
+    async (): Promise<Course[]> => {
+      const db = getPublicDb();
+      if (!db) return sampleCourses;
+      const { data: courses, error } = await db.from("courses").select(courseColumns).eq("published", true).eq("review_status", "approved").order("published_at", { ascending: false });
+      if (error || !courses || courses.length === 0) return sampleCourses;
+      const ids = (courses as unknown as CourseRow[]).map((c) => c.id);
+      const { data: modules } = await db.from("course_modules").select(moduleColumns).in("course_id", ids);
+      const moduleIds = ((modules ?? []) as ModuleRow[]).map((m) => m.id);
+      const { data: lessons } = moduleIds.length > 0 ? await db.from("lessons").select(lessonColumns).in("module_id", moduleIds) : { data: [] };
+      const lessonRows = (lessons ?? []) as unknown as LessonRow[];
+      // Programme steps linked to a library session borrow its video (and poster) when they have none of their own
+      const linked = lessonRows.map((l) => l.workout_id).filter((id): id is string => Boolean(id));
+      if (linked.length > 0) {
+        const { data: ws } = await db.from("workouts").select("id, video").in("id", linked).eq("published", true).eq("review_status", "approved");
+        const videoById = new Map(((ws ?? []) as Array<{ id: string; video: LessonRow["video"] }>).map((w) => [w.id, w.video]));
+        for (const l of lessonRows) if (l.workout_id && !l.video) l.video = videoById.get(l.workout_id) ?? null;
+      }
+      return (courses as unknown as CourseRow[]).map((c) => rowsToCourse(c, (modules ?? []) as ModuleRow[], lessonRows));
+    },
+    ["public-courses"],
+    { revalidate: 60, tags: ["courses", "workouts"] },
+  ),
+);
 
 export async function listCourses(): Promise<Course[]> {
   return (await fetchAll()).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));

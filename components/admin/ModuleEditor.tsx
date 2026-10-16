@@ -48,7 +48,7 @@ export async function ModuleEditor({ courseId, modules, lessons }: ModuleEditorP
               <button type="submit" className={buttonStyles("secondary", "md")}>
                 {t("save")}
               </button>
-              <button type="submit" formAction={deleteModule} formNoValidate className="text-steel inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-semibold hover:text-[#8a2f2f]" aria-label={t("deleteModule")}>
+              <button type="submit" formAction={deleteModule} formNoValidate className="text-steel inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm font-semibold hover:text-danger" aria-label={t("deleteModule")}>
                 <Trash2 className="h-4 w-4" aria-hidden />
               </button>
             </form>

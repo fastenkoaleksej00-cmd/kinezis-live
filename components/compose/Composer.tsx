@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { quickPublish, type QuickPublishState } from "@/lib/admin/actions";
 import type { AuthorRow } from "@/lib/content/db";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 import { cn } from "@/lib/utils";
 
 interface ComposerProps {
@@ -35,6 +36,7 @@ export function Composer({ authors, defaultLanguage }: ComposerProps) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
+    file = await compressImage(file);
     const supabase = getBrowserClient();
     if (!supabase) {
       setErrorKey("notConfigured");
@@ -107,7 +109,7 @@ export function Composer({ authors, defaultLanguage }: ComposerProps) {
             <span className="text-steel text-xs">{t("mediaHint")}</span>
           </button>
         )}
-        {status === "error" && errorKey ? <p className="px-5 pb-4 text-sm text-[#8a2f2f]">{ta(`upload.errors.${errorKey}`)}</p> : null}
+        {status === "error" && errorKey ? <p className="px-5 pb-4 text-sm text-danger">{ta(`upload.errors.${errorKey}`)}</p> : null}
       </div>
 
       <label className="card block p-4">
@@ -168,7 +170,7 @@ export function Composer({ authors, defaultLanguage }: ComposerProps) {
       </div>
 
       {state.error ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {ta(`errors.${state.error}`)}
         </p>
       ) : null}

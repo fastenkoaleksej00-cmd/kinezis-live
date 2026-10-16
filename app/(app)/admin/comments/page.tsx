@@ -41,7 +41,7 @@ export default async function AdminCommentsPage() {
                 <form action={deleteComment}>
                   <input type="hidden" name="id" value={c.id} />
                   <input type="hidden" name="path" value="/admin/comments" />
-                  <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+                  <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-danger-soft hover:text-danger">
                     <Trash2 className="h-4 w-4" aria-hidden />
                   </button>
                 </form>

@@ -77,7 +77,7 @@ export function YouTubeImport({ suggestions }: { suggestions: Array<{ id: string
             <Plus className="h-4 w-4" aria-hidden />
             {t("add")}
           </Button>
-          {state.error ? <p className="text-sm text-[#8a2f2f]">{t(state.error === "invalid" ? "invalid" : "failed")}</p> : null}
+          {state.error ? <p className="text-sm text-danger">{t(state.error === "invalid" ? "invalid" : "failed")}</p> : null}
         </div>
         <p className="text-steel text-xs sm:col-span-2">{t("note")}</p>
       </form>

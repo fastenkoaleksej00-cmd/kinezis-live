@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { revalidatePublicContent } from "@/lib/content/revalidate";
 import { redirect } from "next/navigation";
 import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
@@ -123,7 +124,7 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
   };
   const { error } = await ctx.db.from("workouts").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/workouts?saved=1");
 }
 
@@ -174,7 +175,7 @@ export async function deleteWorkout(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("workouts").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/workouts?deleted=1");
 }
 
@@ -218,7 +219,7 @@ export async function savePost(_prev: AdminState, fd: FormData): Promise<AdminSt
   };
   const { error } = await ctx.db.from("posts").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/posts?saved=1");
 }
 
@@ -227,7 +228,7 @@ export async function deletePost(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("posts").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/posts?deleted=1");
 }
 
@@ -261,7 +262,7 @@ export async function saveCourse(_prev: AdminState, fd: FormData): Promise<Admin
   };
   const { data, error } = await ctx.db.from("courses").upsert(row, { onConflict: "id" }).select("id").single();
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/admin/courses/${data.id}?saved=1`);
 }
 
@@ -270,7 +271,7 @@ export async function deleteCourse(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("courses").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/courses?deleted=1");
 }
 
@@ -283,7 +284,7 @@ export async function saveModule(fd: FormData): Promise<void> {
   const id = str(fd, "id") || undefined;
   const position = Number.parseInt(str(fd, "position"), 10);
   await ctx.db.from("course_modules").upsert({ ...(id ? { id } : {}), course_id: courseId, title, position: Number.isFinite(position) ? position : 0 }, { onConflict: "id" });
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/admin/courses/${courseId}?saved=1`);
 }
 
@@ -293,7 +294,7 @@ export async function deleteModule(fd: FormData): Promise<void> {
   const id = str(fd, "id");
   const courseId = str(fd, "course_id");
   if (id) await ctx.db.from("course_modules").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/admin/courses/${courseId}?deleted=1`);
 }
 
@@ -340,7 +341,7 @@ export async function saveLesson(_prev: AdminState, fd: FormData): Promise<Admin
   };
   const { error } = await ctx.db.from("lessons").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/admin/courses/${courseId}?saved=1`);
 }
 
@@ -350,7 +351,7 @@ export async function deleteLesson(fd: FormData): Promise<void> {
   const id = str(fd, "id");
   const courseId = str(fd, "course_id");
   if (id) await ctx.db.from("lessons").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/admin/courses/${courseId}?deleted=1`);
 }
 
@@ -379,7 +380,7 @@ export async function saveRoutine(_prev: AdminState, fd: FormData): Promise<Admi
   };
   const { error } = await ctx.db.from("skin_routines").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?saved=1");
 }
 
@@ -388,7 +389,7 @@ export async function deleteRoutine(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("skin_routines").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?deleted=1");
 }
 
@@ -412,7 +413,7 @@ export async function saveArticle(_prev: AdminState, fd: FormData): Promise<Admi
   };
   const { error } = await ctx.db.from("skin_articles").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?saved=1");
 }
 
@@ -421,7 +422,7 @@ export async function deleteArticle(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("skin_articles").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?deleted=1");
 }
 
@@ -457,7 +458,7 @@ export async function saveProduct(_prev: AdminState, fd: FormData): Promise<Admi
   };
   const { error } = await ctx.db.from("products").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?saved=1");
 }
 
@@ -466,7 +467,7 @@ export async function deleteProduct(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("products").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/skincare?deleted=1");
 }
 
@@ -513,7 +514,7 @@ export async function quickPublish(_prev: QuickPublishState, fd: FormData): Prom
     published_at: new Date().toISOString(),
   });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/?posted=1");
 }
 
@@ -547,7 +548,7 @@ export async function saveMealPlan(_prev: AdminState, fd: FormData): Promise<Adm
   };
   const { error } = await ctx.db.from("meal_plans").upsert(row, { onConflict: "id" });
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/nutrition?saved=1");
 }
 
@@ -556,7 +557,7 @@ export async function deleteMealPlan(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   if (id) await ctx.db.from("meal_plans").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/nutrition?deleted=1");
 }
 
@@ -608,7 +609,7 @@ export async function memberPublish(_prev: QuickPublishState, fd: FormData): Pro
     published_at: new Date().toISOString(),
   });
   if (error) return { error: /rate_limit/.test(error.message) ? "rateLimit" : /links_new_account/.test(error.message) ? "linksNew" : mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect(`/community?posted=1${flagged ? "&review=1" : ""}&topic=${topic}`);
 }
 
@@ -618,7 +619,7 @@ export async function deleteOwnPost(fd: FormData): Promise<void> {
   if (!supabase) return;
   const id = str(fd, "id");
   if (id) await supabase.from("posts").delete().eq("id", id);
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/?deleted=1");
 }
 
@@ -631,7 +632,7 @@ export async function setPostHidden(fd: FormData): Promise<void> {
     await ctx.db.from("posts").update({ hidden }).eq("id", id);
     await logModeration(ctx.db, ctx.user.id, hidden ? "hide_post" : "unhide_post", "post", id);
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/community");
 }
 
@@ -673,7 +674,7 @@ export async function quickPublishWorkout(_prev: QuickPublishState, fd: FormData
   };
   const { error } = await ctx.db.from("workouts").insert(row);
   if (error) return { error: mapDbError(error.message) };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   // Trainers' publications wait for review, so send them to their own list instead of a public page that is not live yet
   redirect(publish && ctx.user.role === "admin" ? `/library/${slug}?published=1` : publish ? "/admin/workouts?submitted=1" : "/admin/workouts?saved=1");
 }

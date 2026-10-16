@@ -85,7 +85,7 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
           {mine && expanded ? (
             <form action={deleteOwnPost}>
               <input type="hidden" name="id" value={post.id} />
-              <button type="submit" aria-label={t("deleteOwn")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+              <button type="submit" aria-label={t("deleteOwn")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-danger-soft hover:text-danger">
                 <Trash2 className="h-4 w-4" aria-hidden />
               </button>
             </form>
@@ -131,7 +131,7 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
         ) : null}
         {post.userId && expanded ? <p className="text-steel text-xs">{endorser ? tcm("endorsedNote") : tcm("personalNote")}</p> : null}
         {redFlag ? (
-          <div className="flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-3 text-sm text-[#8a2f2f]">
+          <div className="flex items-start gap-3 rounded-2xl border border-danger-line bg-danger-soft p-3 text-sm text-danger">
             <Stethoscope className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
             <p>{tcm("redFlag")}</p>
           </div>

@@ -126,7 +126,7 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
       ) : null}
       {workout.safety ? (
         <Reveal delay={0.11}>
-          <div className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
+          <div className="rounded-2xl border border-danger-line bg-danger-soft p-4 text-sm text-danger">
             <p className="font-semibold">{t("safetyTitle")}</p>
             <p className="mt-1 whitespace-pre-line">{pick(workout.safety, locale)}</p>
           </div>

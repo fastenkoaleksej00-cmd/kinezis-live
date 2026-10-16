@@ -7,6 +7,15 @@
    Added for the app: a soft mint tone reserved for Face Fitness and Skincare.
 --------------------------------------------------------------------------- */
 @theme {
+  /* Status colours (light); dark and cyber override them below so notices read well in every theme */
+  --color-danger: #8a2f2f;
+  --color-danger-soft: #fdf2f2;
+  --color-danger-line: #e3b4b4;
+  --color-warning: #7a5418;
+  --color-warning-soft: #fdf6ea;
+  --color-warning-line: #e8c48a;
+  --color-alert: #b9344a;
+  --color-alert-soft: #fde8ea;
   --color-ink: #10242b;
   --color-ink-2: #19343d;
   --color-ink-3: #31525d;
@@ -410,6 +419,14 @@ html[data-reduce-motion="true"] *::after {
 --------------------------------------------------------------------------- */
 html[data-theme="dark"] {
   color-scheme: dark;
+  --color-danger: #ffb4b4;
+  --color-danger-soft: #3a1f24;
+  --color-danger-line: #6b3038;
+  --color-warning: #f3cf8f;
+  --color-warning-soft: #3a2f1c;
+  --color-warning-line: #6b5530;
+  --color-alert: #ff9fb0;
+  --color-alert-soft: #3d1d27;
   --color-ice: #0d171c;
   --color-sky: #182a31;
   --color-steel: #97adb6;
@@ -516,20 +533,7 @@ html[data-theme="dark"] .to-ink {
 html[data-theme="dark"] .to-ink-2 {
   --tw-gradient-to: #2a6f90;
 }
-/* Error and like tints */
-html[data-theme="dark"] .bg-\[\#fdf2f2\] {
-  background-color: #3a1c1f;
-}
-html[data-theme="dark"] .border-\[\#e3b4b4\] {
-  border-color: #6b3a3a;
-}
-html[data-theme="dark"] .text-\[\#8a2f2f\],
-html[data-theme="dark"] .hover\:text-\[\#8a2f2f\]:hover {
-  color: #f3a6a6;
-}
-html[data-theme="dark"] .hover\:bg-\[\#fdf2f2\]:hover {
-  background-color: #3a1c1f;
-}
+/* Error tints come from the --color-danger* tokens now; like tint below */
 html[data-theme="dark"] .bg-\[\#fdeef0\] {
   background-color: #3a1c22;
 }

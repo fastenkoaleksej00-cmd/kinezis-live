@@ -132,13 +132,13 @@ export function BodyMap({ modelUrl, catalogue, signedIn, initialRegion }: BodyMa
             </div>
           ) : null}
           {status === "error" ? (
-            <div className="absolute inset-x-3 top-3 z-20 flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2]/95 p-3 text-sm text-[#8a2f2f] backdrop-blur-md">
+            <div className="absolute inset-x-3 top-3 z-20 flex items-start gap-3 rounded-2xl border border-danger-line bg-danger-soft/95 p-3 text-sm text-danger backdrop-blur-md">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               <div className="min-w-0 flex-1">
                 <p className="font-semibold">{t("loadErrorTitle")}</p>
                 <p className="mt-0.5 text-xs">{t("loadErrorBody")}</p>
               </div>
-              <button type="button" onClick={retry} className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-white px-3 text-xs font-semibold text-[#8a2f2f]">
+              <button type="button" onClick={retry} className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-white px-3 text-xs font-semibold text-danger">
                 <RefreshCw className="h-3.5 w-3.5" aria-hidden />
                 {t("retry")}
               </button>

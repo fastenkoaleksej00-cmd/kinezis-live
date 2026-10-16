@@ -81,11 +81,11 @@ export function GoalCalculator({ defaults }: GoalCalculatorProps) {
           {t("fillIn")}
         </p>
       ) : !result ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {t("invalid")}
         </p>
       ) : result.warnings.includes("minor") ? (
-        <div className="flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
+        <div className="flex items-start gap-3 rounded-2xl border border-danger-line bg-danger-soft p-4 text-sm text-danger">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
           <p>{t("warnings.minor")}</p>
         </div>
@@ -118,7 +118,7 @@ export function GoalCalculator({ defaults }: GoalCalculatorProps) {
             {t("result.bmi", { now: result.bmiNow, target: result.bmiTarget })}
           </p>
           {result.warnings.filter((w) => w !== "minor").map((w) => (
-            <div key={w} className="flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-4 text-sm text-[#8a2f2f]">
+            <div key={w} className="flex items-start gap-3 rounded-2xl border border-danger-line bg-danger-soft p-4 text-sm text-danger">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               <p>{t(`warnings.${w}`)}</p>
             </div>

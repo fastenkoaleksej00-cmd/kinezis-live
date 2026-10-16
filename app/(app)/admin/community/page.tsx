@@ -23,8 +23,8 @@ export default async function AdminCommunityPage() {
     <div className="space-y-5">
       <SectionHeading as="h1" title={t("nav.community")} lead={t("communityIntro")} />
       {flagged.length > 0 ? (
-        <section className="space-y-2 rounded-3xl border border-[#e8c48a]/70 bg-[#fdf6ea] p-4">
-          <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#7a5418]">
+        <section className="space-y-2 rounded-3xl border border-warning-line/70 bg-warning-soft p-4">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold text-warning">
             <ShieldAlert className="h-4 w-4" aria-hidden />
             {tcm("admin.flaggedTitle", { count: flagged.length })}
           </p>
@@ -43,7 +43,7 @@ export default async function AdminCommunityPage() {
               </li>
             ))}
           </ul>
-          <p className="text-xs text-[#7a5418]">{tcm("admin.flaggedHint")}</p>
+          <p className="text-xs text-warning">{tcm("admin.flaggedHint")}</p>
         </section>
       ) : null}
       {posts.length === 0 ? (
@@ -74,7 +74,7 @@ export default async function AdminCommunityPage() {
                   </form>
                   <form action={deleteOwnPost}>
                     <input type="hidden" name="id" value={p.id} />
-                    <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+                    <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-danger-soft hover:text-danger">
                       <Trash2 className="h-4 w-4" aria-hidden />
                     </button>
                   </form>

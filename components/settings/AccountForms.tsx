@@ -23,7 +23,7 @@ export function AccountForms({ email }: { email: string | null }) {
           <Input name="email" type="email" required autoComplete="email" />
         </Field>
         {emailState.checkEmail ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("emailSent")}</p> : null}
-        {emailState.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`errors.${emailState.error}`)}</p> : null}
+        {emailState.error ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`errors.${emailState.error}`)}</p> : null}
         <Button type="submit" variant="secondary" disabled={emailPending}>
           {t("emailCta")}
         </Button>
@@ -35,15 +35,15 @@ export function AccountForms({ email }: { email: string | null }) {
           <Input name="password" type="password" required minLength={8} autoComplete="new-password" />
         </Field>
         {passState.ok ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("passwordSaved")}</p> : null}
-        {passState.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`errors.${passState.error}`)}</p> : null}
+        {passState.error ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`errors.${passState.error}`)}</p> : null}
         <Button type="submit" variant="secondary" disabled={passPending}>
           {t("passwordCta")}
         </Button>
       </form>
 
-      <form action={deleteAccount} className="card space-y-4 border-[#e3b4b4]/60 p-5">
+      <form action={deleteAccount} className="card space-y-4 border-danger-line/60 p-5">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-[#8a2f2f]" aria-hidden />
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-danger" aria-hidden />
           <div>
             <h2 className="text-ink text-base font-bold">{t("deleteTitle")}</h2>
             <p className="text-steel mt-1 text-sm">{t("deleteBody")}</p>

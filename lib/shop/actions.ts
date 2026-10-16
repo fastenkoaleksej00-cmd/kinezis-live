@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { revalidatePublicContent } from "@/lib/content/revalidate";
 import { redirect } from "next/navigation";
 import type { LocalizedText } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
@@ -103,8 +104,8 @@ export async function saveShopItem(_prev: ShopState, fd: FormData): Promise<Shop
     const ins = await db.from("shop_offers").insert(offers.map((o) => ({ ...o, item_id: itemId })));
     if (ins.error) return { error: "generic" };
   }
-  revalidatePath("/shop", "layout");
-  revalidatePath("/", "layout");
+  revalidatePath("/shop", "layout"); revalidatePublicContent();
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/shop?saved=1");
 }
 
@@ -113,6 +114,6 @@ export async function deleteShopItem(fd: FormData): Promise<void> {
   if (!db) return;
   const id = str(fd, "id");
   if (id) await db.from("shop_items").delete().eq("id", id);
-  revalidatePath("/shop", "layout");
+  revalidatePath("/shop", "layout"); revalidatePublicContent();
   redirect("/admin/shop?deleted=1");
 }

@@ -10,6 +10,7 @@ import { categoryIds } from "@/lib/content/types";
 import { bannerPresets } from "@/lib/profile/types";
 import { bannerClass } from "@/lib/profile/banner";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 import { updateMyAuthor, type TrainerState } from "@/lib/trainers/actions";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +28,7 @@ export function AuthorCardForm({ author, userId }: { author: AuthorRow; userId: 
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
+    file = await compressImage(file);
     const supabase = getBrowserClient();
     if (!supabase || file.size > 5 * 1024 * 1024) return;
     setBusy(true);
@@ -106,7 +108,7 @@ export function AuthorCardForm({ author, userId }: { author: AuthorRow; userId: 
             {t("save")}
           </Button>
           {state.ok ? <p className="text-mint-deep text-sm font-semibold">{t("saved")}</p> : null}
-          {state.error ? <p className="text-sm text-[#8a2f2f]">{t("error")}</p> : null}
+          {state.error ? <p className="text-sm text-danger">{t("error")}</p> : null}
         </div>
         <p className="text-steel text-xs">{t("verifiedNote")}</p>
       </section>

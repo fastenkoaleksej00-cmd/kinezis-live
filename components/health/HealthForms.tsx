@@ -13,7 +13,7 @@ const initial: ProfileState = {};
 function Notice({ state }: { state: ProfileState }) {
   const t = useTranslations("health");
   if (state.ok) return <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("saved")}</p>;
-  if (state.error) return <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p>;
+  if (state.error) return <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`errors.${state.error}`)}</p>;
   return null;
 }
 
@@ -125,7 +125,7 @@ export function MeasurementRow({ m, dateLabel }: { m: Measurement; dateLabel: st
       </span>
       <form action={deleteMeasurement}>
         <input type="hidden" name="id" value={m.id} />
-        <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#fdf2f2] hover:text-[#8a2f2f]">
+        <button type="submit" aria-label={t("delete")} className="text-steel inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-danger-soft hover:text-danger">
           <Trash2 className="h-4 w-4" aria-hidden />
         </button>
       </form>

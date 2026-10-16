@@ -9,12 +9,14 @@ import { updateProfile, type ProfileState } from "@/lib/profile/actions";
 import { bannerClass } from "@/lib/profile/banner";
 import { bannerPresets, interestOptions, type BannerPreset, type UserProfile } from "@/lib/profile/types";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 import { cn } from "@/lib/utils";
 
 const initial: ProfileState = {};
 const MAX = 5 * 1024 * 1024;
 
 async function uploadImage(userId: string, kind: "avatar" | "banner", file: File): Promise<string | null> {
+  file = await compressImage(file);
   const supabase = getBrowserClient();
   if (!supabase || file.size > MAX) return null;
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
@@ -97,7 +99,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
             </button>
             <p className="text-steel pb-2 text-xs">{t("avatarHint")}</p>
           </div>
-          {uploadError ? <p className="mt-3 text-sm text-[#8a2f2f]">{uploadError}</p> : null}
+          {uploadError ? <p className="mt-3 text-sm text-danger">{uploadError}</p> : null}
         </div>
       </section>
 
@@ -158,7 +160,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
         </fieldset>
       </section>
 
-      {state.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p> : null}
+      {state.error ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`errors.${state.error}`)}</p> : null}
       <Button type="submit" size="lg" disabled={pending || busy !== null} className="w-full sm:w-auto">
         {pending ? t("saving") : t("save")}
       </Button>

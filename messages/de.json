@@ -20,7 +20,8 @@
     "open": "Öffnen",
     "seeAll": "Alle",
     "minutes": "{count} Min.",
-    "shop": "Shop"
+    "shop": "Shop",
+    "search": "Suche"
   },
   "home": {
     "greeting": "Hallo",
@@ -109,7 +110,8 @@
     "youtube": {
       "title": "Yuliias Videos auf YouTube",
       "body": "Pilates, Yoga und Rücken von ihrem Kanal, auf Russisch."
-    }
+    },
+    "searchHint": "In der ganzen App suchen"
   },
   "library": {
     "title": "Bibliothek",
@@ -2138,5 +2140,27 @@
     "home": "Zur Startseite",
     "notFoundTitle": "Seite nicht gefunden",
     "notFoundBody": "Der Link ist vielleicht veraltet oder der Inhalt wurde entfernt."
+  },
+  "search": {
+    "title": "Suche",
+    "lead": "Einheiten, Programme, Atmung und Meditation, Community und Shop an einem Ort.",
+    "placeholder": "z. B. Rücken, Dehnen, Matte",
+    "go": "Suchen",
+    "suggestions": [
+      "Rücken",
+      "Pilates",
+      "Morgen",
+      "Atmung",
+      "Schlaf",
+      "Hüfte"
+    ],
+    "emptyTitle": "Nichts gefunden für „{q}“",
+    "emptyBody": "Versuch ein anderes Wort oder öffne die Bibliothek mit Filtern.",
+    "sessions": "Einheiten",
+    "programs": "Programme und Kurse",
+    "practices": "Atmung und Meditation",
+    "community": "Community",
+    "shop": "Shop",
+    "all": "Alle Ergebnisse"
   }
 }

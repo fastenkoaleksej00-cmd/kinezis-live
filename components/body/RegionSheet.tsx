@@ -91,7 +91,7 @@ export function RegionSheet({ region, concern, pain, catalogue, signedIn, onConc
                 ))}
               </div>
               {redFlag ? (
-                <div className="flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-3 text-sm text-[#8a2f2f]">
+                <div className="flex items-start gap-3 rounded-2xl border border-danger-line bg-danger-soft p-3 text-sm text-danger">
                   <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
                   <p>{t("pain.redFlag")}</p>
                 </div>

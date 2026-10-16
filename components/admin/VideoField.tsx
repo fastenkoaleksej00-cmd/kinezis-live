@@ -103,7 +103,7 @@ export function VideoField({ name = "video", folder, value }: VideoFieldProps) {
               </>
             )}
           </div>
-          {status === "error" && errorKey ? <p className="mt-2 text-sm text-[#8a2f2f]">{t(`upload.errors.${errorKey}`)}</p> : null}
+          {status === "error" && errorKey ? <p className="mt-2 text-sm text-danger">{t(`upload.errors.${errorKey}`)}</p> : null}
         </div>
       ) : null}
 

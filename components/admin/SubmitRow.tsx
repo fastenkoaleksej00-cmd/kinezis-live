@@ -18,7 +18,7 @@ export function SubmitRow({ pending, error, deleteAction, id }: SubmitRowProps) 
   return (
     <div className="space-y-3">
       {error ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {t(`errors.${error}`)}
         </p>
       ) : null}
@@ -34,7 +34,7 @@ export function SubmitRow({ pending, error, deleteAction, id }: SubmitRowProps) 
             onClick={(e) => {
               if (!window.confirm(t("confirmDelete"))) e.preventDefault();
             }}
-            className="text-steel inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors hover:bg-[#fdf2f2] hover:text-[#8a2f2f]"
+            className="text-steel inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors hover:bg-danger-soft hover:text-danger"
           >
             <Trash2 className="h-4 w-4" aria-hidden />
             {t("delete")}

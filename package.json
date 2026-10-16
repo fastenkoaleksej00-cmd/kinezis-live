@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "cap:sync": "cap sync",
     "cap:ios": "cap open ios",
-    "cap:android": "cap open android"
+    "cap:android": "cap open android",
+    "test": "vitest run"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.2",
@@ -40,6 +41,7 @@
     "eslint-config-next": "^15.5.27",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.2.7"
   }
 }

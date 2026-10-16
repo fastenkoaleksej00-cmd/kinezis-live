@@ -1,4 +1,6 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
+import { getPublicDb } from "@/lib/supabase/public";
 import { getDb } from "@/lib/content/db";
 import type { LocalizedText } from "@/lib/content/types";
 import { shopCategories, shopCollections, type ShopCategory, type ShopCollection, type ShopCurrency, type ShopItem, type ShopOffer, type ShopSource } from "./types";
@@ -70,16 +72,22 @@ export function rowToShopItem(r: ShopItemRow, offers: ShopOfferRow[] = []): Shop
 }
 
 /** Published items only. Empty until the admin adds real products: nothing is invented. */
-export const listShopItems = cache(async (): Promise<ShopItem[]> => {
-  const db = await getDb();
-  if (!db) return [];
-  const { data, error } = await db.from("shop_items").select(shopColumns).eq("published", true).order("position").order("created_at", { ascending: false });
-  if (error || !data) return [];
-  const rows = data as unknown as ShopItemRow[];
-  // Offers table arrives with migration 0019; without it items keep their single legacy link
-  const { data: offers } = rows.length > 0 ? await db.from("shop_offers").select(offerColumns).in("item_id", rows.map((r) => r.id)) : { data: [] };
-  return rows.map((r) => rowToShopItem(r, (offers ?? []) as unknown as ShopOfferRow[]));
-});
+export const listShopItems = cache(
+  unstable_cache(
+    async (): Promise<ShopItem[]> => {
+      const db = getPublicDb();
+      if (!db) return [];
+      const { data, error } = await db.from("shop_items").select(shopColumns).eq("published", true).order("position").order("created_at", { ascending: false });
+      if (error || !data) return [];
+      const rows = data as unknown as ShopItemRow[];
+      // Offers table arrives with migration 0019; without it items keep their single legacy link
+      const { data: offers } = rows.length > 0 ? await db.from("shop_offers").select(offerColumns).in("item_id", rows.map((r) => r.id)) : { data: [] };
+      return rows.map((r) => rowToShopItem(r, (offers ?? []) as unknown as ShopOfferRow[]));
+    },
+    ["public-shop"],
+    { revalidate: 60, tags: ["shop"] },
+  ),
+);
 
 export async function countByCategory(): Promise<Record<ShopCategory, number>> {
   const items = await listShopItems();

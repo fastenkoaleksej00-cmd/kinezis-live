@@ -140,7 +140,7 @@ export function WorkoutForm({ workout, authors, isAdmin = false }: WorkoutFormPr
             </Select>
           </Field>
         ) : null}
-        {workout?.review_status === "rejected" && workout.review_note ? <p className="text-sm text-[#8a2f2f]">{t("status.rejectedNote", { note: workout.review_note })}</p> : null}
+        {workout?.review_status === "rejected" && workout.review_note ? <p className="text-sm text-danger">{t("status.rejectedNote", { note: workout.review_note })}</p> : null}
       </section>
 
       <SubmitRow pending={pending} error={state.error} deleteAction={workout ? deleteWorkout : undefined} id={workout?.id} />

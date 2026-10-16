@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { revalidatePublicContent } from "@/lib/content/revalidate";
 import { redirect } from "next/navigation";
 import { categoryIds } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
@@ -95,7 +96,7 @@ export async function decideApplication(fd: FormData): Promise<void> {
     await ctx.supabase.from("trainer_applications").update({ status: "review" }).eq("id", id);
     await logModeration(ctx.supabase, ctx.user.id, "review_application", "application", id);
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/applications?decided=1");
 }
 
@@ -108,7 +109,7 @@ export async function setAuthorStatus(fd: FormData): Promise<void> {
     await ctx.supabase.rpc("set_author_status", { aid: id, new_status: status });
     await logModeration(ctx.supabase, ctx.user.id, status === "suspended" ? "suspend_trainer" : "activate_trainer", "trainer", id);
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/trainers?saved=1");
 }
 
@@ -121,7 +122,7 @@ export async function setAuthorVerified(fd: FormData): Promise<void> {
     await ctx.supabase.from("authors").update({ verified }).eq("id", id);
     await logModeration(ctx.supabase, ctx.user.id, verified ? "verify_trainer" : "unverify_trainer", "trainer", id);
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/trainers?saved=1");
 }
 
@@ -135,7 +136,7 @@ export async function reviewContent(fd: FormData): Promise<void> {
     await ctx.supabase.from(table).update({ review_status: decision, review_note: decision === "rejected" ? str(fd, "note").slice(0, 1000) || null : null }).eq("id", id);
     await logModeration(ctx.supabase, ctx.user.id, decision === "approved" ? "approve_content" : "reject_content", table === "courses" ? "course" : "workout", id, str(fd, "note"));
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/review?decided=1");
 }
 
@@ -174,7 +175,7 @@ export async function updateMyAuthor(_prev: TrainerState, fd: FormData): Promise
     })
     .eq("id", ctx.user.authorId);
   if (error) return { error: "generic" };
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   return { ok: true };
 }
 
@@ -213,6 +214,6 @@ export async function resolveReport(fd: FormData): Promise<void> {
     if (targetType === "course") await ctx.supabase.from("courses").update({ review_status: "rejected", review_note: "report" }).eq("id", targetId);
     if (targetType === "comment") await ctx.supabase.from("comments").update({ hidden: true }).eq("id", targetId);
   }
-  revalidatePath("/", "layout");
+  revalidatePath("/", "layout"); revalidatePublicContent();
   redirect("/admin/reports?decided=1");
 }

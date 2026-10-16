@@ -7,6 +7,7 @@ import { communityTopics, postTypes, sensitiveTopics, type CommunityTopic, type 
 import { Button } from "@/components/ui/Button";
 import { memberPublish, type QuickPublishState } from "@/lib/admin/actions";
 import { getBrowserClient } from "@/lib/supabase/client";
+import { compressImage } from "@/lib/image/compress";
 import { cn } from "@/lib/utils";
 
 const initial: QuickPublishState = {};
@@ -29,6 +30,7 @@ export function MemberComposer({ userId, defaultLanguage, initialType = "story" 
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
+    file = await compressImage(file);
     const supabase = getBrowserClient();
     if (!supabase) {
       setErrorKey("notConfigured");
@@ -105,7 +107,7 @@ export function MemberComposer({ userId, defaultLanguage, initialType = "story" 
             <span className="text-steel text-xs">{t("mediaHint")}</span>
           </button>
         )}
-        {status === "error" && errorKey ? <p className="px-5 pb-4 text-sm text-[#8a2f2f]">{ta(`upload.errors.${errorKey}`)}</p> : null}
+        {status === "error" && errorKey ? <p className="px-5 pb-4 text-sm text-danger">{ta(`upload.errors.${errorKey}`)}</p> : null}
       </div>
 
       <label className="card block p-4">
@@ -141,7 +143,7 @@ export function MemberComposer({ userId, defaultLanguage, initialType = "story" 
       </div>
 
       {sensitiveTopics.includes(topic) ? (
-        <div className="flex items-start gap-3 rounded-2xl border border-[#e8c48a]/70 bg-[#fdf6ea] p-4 text-sm text-[#7a5418]">
+        <div className="flex items-start gap-3 rounded-2xl border border-warning-line/70 bg-warning-soft p-4 text-sm text-warning">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
           <div>
             <p className="font-semibold">{tc("rules.title")}</p>
@@ -154,7 +156,7 @@ export function MemberComposer({ userId, defaultLanguage, initialType = "story" 
         </div>
       ) : null}
 
-      {state.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{ta(`errors.${state.error}`)}</p> : null}
+      {state.error ? <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{ta(`errors.${state.error}`)}</p> : null}
       <Button type="submit" size="lg" disabled={pending || status === "uploading"} className="w-full">
         {pending ? t("publishing") : t("publish")}
       </Button>

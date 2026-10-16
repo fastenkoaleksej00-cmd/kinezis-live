@@ -61,7 +61,7 @@ export function AuthForm({ mode, googleEnabled = false }: AuthFormProps) {
       </label>
 
       {state.error ? (
-        <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">
+        <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">
           {t(`errors.${state.error}`)}
           {state.error === "invalid" && googleEnabled ? ` ${t("errors.invalidHint")}` : ""}
         </p>

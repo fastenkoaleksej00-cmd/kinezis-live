@@ -64,7 +64,7 @@ export function GoalPicker({ profile, currentKg }: { profile: UserProfile; curre
           {t("save")}
         </Button>
         {state.ok ? <p className="text-mint-deep text-sm font-semibold">{t("saved")}</p> : null}
-        {state.error ? <p className="text-sm text-[#8a2f2f]">{t(`errors.${state.error === "invalid" ? "invalid" : "generic"}`)}</p> : null}
+        {state.error ? <p className="text-sm text-danger">{t(`errors.${state.error === "invalid" ? "invalid" : "generic"}`)}</p> : null}
       </div>
       <p className="text-steel text-xs">{t("pickerNote")}</p>
     </form>

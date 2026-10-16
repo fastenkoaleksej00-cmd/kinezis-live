@@ -29,7 +29,7 @@ export default async function Page({ searchParams }: PageProps) {
       </Reveal>
       {errorCode ? (
         <Reveal delay={0.03}>
-          <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{t(`errors.${errorCode}`)}</p>
+          <p role="alert" className="rounded-2xl border border-danger-line bg-danger-soft px-4 py-3 text-sm text-danger">{t(`errors.${errorCode}`)}</p>
         </Reveal>
       ) : null}
       {passwordUpdated ? (

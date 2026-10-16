@@ -20,7 +20,8 @@
     "open": "Open",
     "seeAll": "See all",
     "minutes": "{count} min",
-    "shop": "Shop"
+    "shop": "Shop",
+    "search": "Search"
   },
   "home": {
     "greeting": "Hello",
@@ -109,7 +110,8 @@
     "youtube": {
       "title": "Yuliia's videos on YouTube",
       "body": "Pilates, yoga and back care from her channel, in Russian."
-    }
+    },
+    "searchHint": "Search the whole app"
   },
   "library": {
     "title": "Library",
@@ -2138,5 +2140,27 @@
     "home": "Go to Home",
     "notFoundTitle": "Page not found",
     "notFoundBody": "The link may be old or the item was removed."
+  },
+  "search": {
+    "title": "Search",
+    "lead": "Sessions, programmes, breathing and meditation, community and shop in one place.",
+    "placeholder": "e.g. back, stretching, mat",
+    "go": "Search",
+    "suggestions": [
+      "back",
+      "pilates",
+      "morning",
+      "breathing",
+      "sleep",
+      "hips"
+    ],
+    "emptyTitle": "Nothing found for \"{q}\"",
+    "emptyBody": "Try another word or open the Library with filters.",
+    "sessions": "Sessions",
+    "programs": "Programmes and courses",
+    "practices": "Breathing and meditation",
+    "community": "Community",
+    "shop": "Shop",
+    "all": "All results"
   }
 }
