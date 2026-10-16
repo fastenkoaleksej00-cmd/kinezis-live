@@ -20,6 +20,8 @@ const caveat = Caveat({
   weight: ["500"],
   variable: "--font-caveat",
   display: "swap",
+  // Not used on any screen right now: no preload, the browser fetches it only if an element asks for it
+  preload: false,
 });
 
 export async function generateMetadata(): Promise<Metadata> {
