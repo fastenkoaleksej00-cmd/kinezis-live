@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useA11y, writeA11y, type TextSize, type Theme } from "./AccessibilityProvider";
-import { Droplet, Gem, Leaf, Monitor, Moon, Sparkles, Sun, Zap } from "lucide-react";
+import { Droplet, Gem, Orbit, Leaf, Monitor, Moon, Sparkles, Sun, Zap } from "lucide-react";
 import { ThemePicker } from "@/components/onboarding/ThemePicker";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const themes: Array<{ key: Theme; icon: typeof Sun }> = [
   { key: "cyber", icon: Zap },
   { key: "neomint", icon: Sparkles },
   { key: "pearl", icon: Droplet },
+  { key: "aurora", icon: Orbit },
   { key: "system", icon: Monitor },
 ];
 

@@ -1149,3 +1149,209 @@ html[data-skin="pearl"] nav [aria-current="page"] svg {
     -webkit-backdrop-filter: blur(9px) saturate(150%);
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Liquid Glass Aurora (data-skin="aurora" on the dark base).
+   Layered translucent glass over a still aurora (teal, blue, violet, a touch of pink).
+   Static backdrop: no animation, so nothing flickers and the WebGL body map is untouched.
+   Lighter blur on touch screens; solid surfaces with reduced motion or reduced transparency.
+--------------------------------------------------------------------------- */
+html[data-skin="aurora"] {
+  --color-ice: #070b1f;
+  --color-sky: #0d1330;
+  --color-steel: #a9b3d6;
+  --color-text: #e6ebff;
+  --color-bone: rgba(255, 255, 255, 0.06);
+  --color-bone-2: rgba(255, 255, 255, 0.1);
+  --color-accent: #8ab4ff;
+  --color-accent-soft: rgba(138, 180, 255, 0.16);
+  --color-mint-soft: rgba(94, 234, 212, 0.14);
+  --color-mint-deep: #6ff0dc;
+  --dark-surface: rgba(255, 255, 255, 0.07);
+  --dark-surface-2: rgba(22, 28, 64, 0.92);
+  --dark-fg: #f4f6ff;
+  --dark-line: rgba(255, 255, 255, 0.14);
+  --aurora-glass: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.08) 100%);
+  --aurora-edge: rgba(255, 255, 255, 0.2);
+  --aurora-blur: blur(18px) saturate(170%);
+  background: var(--color-ice);
+}
+html[data-skin="aurora"] body {
+  background: transparent;
+}
+html[data-skin="aurora"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(48% 34% at 12% 4%, rgba(45, 226, 230, 0.34) 0%, transparent 70%),
+    radial-gradient(42% 36% at 92% 22%, rgba(139, 92, 246, 0.4) 0%, transparent 70%),
+    radial-gradient(40% 30% at 70% 62%, rgba(59, 130, 246, 0.26) 0%, transparent 70%),
+    radial-gradient(46% 32% at 8% 92%, rgba(244, 114, 182, 0.2) 0%, transparent 70%),
+    linear-gradient(180deg, #080d26 0%, #070b1f 50%, #0b0820 100%);
+}
+html[data-skin="aurora"] :focus-visible {
+  outline-color: #b8d0ff;
+}
+html[data-skin="aurora"] ::selection {
+  background: rgba(139, 92, 246, 0.4);
+  color: #fff;
+}
+
+/* Glass surfaces: cards, top/bottom bars, dialogs and sheets */
+html[data-skin="aurora"] .card,
+html[data-skin="aurora"] [role="dialog"] {
+  background: var(--aurora-glass), rgba(14, 19, 48, 0.42);
+  border-color: var(--aurora-edge);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 44px -24px rgba(5, 8, 30, 0.85);
+  backdrop-filter: var(--aurora-blur);
+  -webkit-backdrop-filter: var(--aurora-blur);
+}
+html[data-skin="aurora"] .glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05)), rgba(10, 14, 38, 0.6);
+  border-color: var(--aurora-edge);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 -10px 40px -20px rgba(139, 92, 246, 0.45);
+}
+html[data-skin="aurora"] .glass::before {
+  background: linear-gradient(90deg, transparent, rgba(45, 226, 230, 0.55), rgba(139, 92, 246, 0.55), transparent);
+}
+/* Scrims behind sheets and menus: a little deeper and violet-tinted */
+html[data-skin="aurora"] .bg-ink\/40,
+html[data-skin="aurora"] .bg-ink\/25 {
+  background-color: rgba(4, 6, 20, 0.55);
+}
+/* Translucent chips, tabs, secondary buttons */
+html[data-skin="aurora"] :is(.bg-white\/55, .bg-white\/60, .bg-white\/70, .bg-white\/80, .bg-white\/85, .bg-frost\/60, .bg-frost\/70) {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--aurora-edge);
+}
+html[data-skin="aurora"] :is(.hover\:bg-white:hover, .hover\:bg-white\/85:hover) {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Primary buttons and active tabs/chips: liquid gel with a top reflection, inner depth and a soft glow */
+html[data-skin="aurora"] .bg-linear-to-b.from-ink-2.to-ink {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0) 52%),
+    linear-gradient(120deg, #2563eb 0%, #5b5cf0 50%, #8b4dea 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -3px 6px rgba(20, 10, 70, 0.35),
+    0 10px 24px -10px rgba(91, 92, 240, 0.75);
+}
+html[data-skin="aurora"] .bg-linear-to-b.from-ink-2.to-ink:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -3px 6px rgba(20, 10, 70, 0.3),
+    0 12px 30px -10px rgba(139, 92, 246, 0.85);
+}
+html[data-skin="aurora"] .bg-linear-to-b.from-ink-2.to-ink:active {
+  box-shadow:
+    inset 0 2px 6px rgba(20, 10, 70, 0.45),
+    0 4px 12px -6px rgba(91, 92, 240, 0.6);
+}
+/* Other gradients that use the brand pair (progress bars, rings, badges) */
+html[data-skin="aurora"] .from-ink-2 {
+  --tw-gradient-from: #2dd4e6;
+}
+html[data-skin="aurora"] .to-ink {
+  --tw-gradient-to: #7c5cf0;
+}
+html[data-skin="aurora"] .to-ink-2 {
+  --tw-gradient-to: #5b8cff;
+}
+
+/* Fields: frosted wells with a bright edge on focus */
+html[data-skin="aurora"] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), textarea, select) {
+  background-color: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--dark-fg);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+html[data-skin="aurora"] :is(input, textarea, select):focus {
+  border-color: rgba(138, 180, 255, 0.7);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(138, 180, 255, 0.22);
+}
+html[data-skin="aurora"] select option {
+  background: #121838;
+  color: #f4f6ff;
+}
+html[data-skin="aurora"] :is(input[type="checkbox"], input[type="radio"], input[type="range"]) {
+  accent-color: #7c8cff;
+}
+
+/* Covers, deep sections and profile banners keep their photos; placeholders get the aurora */
+html[data-skin="aurora"] .cover,
+html[data-skin="aurora"] .cover-mint,
+html[data-skin="aurora"] .cover-light {
+  background:
+    radial-gradient(70% 60% at 85% 10%, rgba(255, 255, 255, 0.22) 0%, transparent 60%),
+    radial-gradient(60% 55% at 10% 100%, rgba(244, 114, 182, 0.28) 0%, transparent 60%),
+    linear-gradient(150deg, #0f3d63 0%, #2c3a9e 45%, #5b2fb0 80%, #7a2f8f 100%);
+}
+html[data-skin="aurora"] .section-deep {
+  background:
+    radial-gradient(60% 60% at 90% 0%, rgba(139, 92, 246, 0.38) 0%, transparent 70%),
+    radial-gradient(60% 60% at 0% 100%, rgba(45, 226, 230, 0.26) 0%, transparent 70%),
+    linear-gradient(160deg, #0b1030 0%, #151b48 100%);
+  border: 1px solid var(--aurora-edge);
+}
+html[data-skin="aurora"] .text-accent,
+html[data-skin="aurora"] .text-mint-deep {
+  text-shadow: 0 0 14px rgba(138, 180, 255, 0.3);
+}
+
+/* Icon tiles: small glass orbs with a reflection, same 3D language as the buttons */
+html[data-skin="aurora"] :is(span, div, a).rounded-2xl:has(> svg:only-child),
+html[data-skin="aurora"] :is(span, div, a).rounded-xl:has(> svg:only-child) {
+  background:
+    radial-gradient(120% 80% at 30% 0%, rgba(255, 255, 255, 0.4) 0%, transparent 48%),
+    linear-gradient(150deg, rgba(45, 226, 230, 0.35) 0%, rgba(91, 92, 240, 0.4) 55%, rgba(139, 77, 234, 0.45) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -4px 8px rgba(20, 10, 70, 0.35),
+    0 8px 18px -8px rgba(91, 92, 240, 0.6);
+}
+html[data-skin="aurora"] :is(span, div, a).rounded-2xl:has(> svg:only-child) > svg,
+html[data-skin="aurora"] :is(span, div, a).rounded-xl:has(> svg:only-child) > svg {
+  filter: drop-shadow(0 1px 1px rgba(10, 5, 50, 0.5));
+}
+/* Bottom/side navigation: the active tab icon is lit */
+html[data-skin="aurora"] nav [aria-current="page"] svg {
+  color: #c9d8ff;
+  filter: drop-shadow(0 0 6px rgba(138, 180, 255, 0.7));
+}
+
+/* Lighter effects: touch screens get less blur; reduced motion / reduced transparency get solid glass */
+@media (pointer: coarse) {
+  html[data-skin="aurora"] {
+    --aurora-blur: blur(10px) saturate(150%);
+  }
+}
+html[data-skin="aurora"][data-reduce-motion="true"] {
+  --aurora-blur: none;
+}
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
+  html[data-skin="aurora"] {
+    --aurora-blur: none;
+  }
+}
+html[data-skin="aurora"][data-reduce-motion="true"] :is(.card, [role="dialog"]) {
+  background: rgba(20, 26, 62, 0.94);
+}
+@media (prefers-reduced-transparency: reduce) {
+  html[data-skin="aurora"] :is(.card, [role="dialog"], .glass) {
+    background: #141a3e;
+  }
+}

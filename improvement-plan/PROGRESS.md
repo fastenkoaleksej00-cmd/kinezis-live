@@ -36,6 +36,7 @@
 | 19c | Разделение админ-действий (A2) | готово | `lib/admin/actions.ts` (666 строк) → `shared.ts` + 5 файлов по разделам; код перенесён без изменений (построчная сверка), `slugify` больше не публичный server action |
 | 19d | S9 (видео участников только у видимых постов, миграция 0027), P2-5 (Caveat без предзагрузки) | применено в коде 2026-10-16, миграцию 0027 запускает владелец | `supabase/migrations/0027_member_video_visibility.sql`, `app/layout.tsx` |
 | 19e | Тема Neo Mint, подсказка «Подобрать по телу», U8 (ошибка у поля в админ-формах) | применено 2026-10-16 | `app/globals.css`, `components/onboarding/FeatureTip.tsx`, `components/admin/SubmitRow.tsx` |
+| 19f | Темы Mint Pearl и Liquid Glass Aurora | применено 2026-10-16 | `app/globals.css`, `AccessibilityProvider`, `ThemePicker`, `AccessibilitySettings`, `app/layout.tsx`, `messages/*` |
 | 20 | Дальше | ждёт | аудио в AAC (команда владельца), Playwright, веб-пуш (M3), нативная iOS-сборка (10) |
 
 ## Главное, что нужно знать владельцу

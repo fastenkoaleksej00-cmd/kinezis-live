@@ -3,9 +3,9 @@
 import { useEffect, useSyncExternalStore } from "react";
 
 export type TextSize = "normal" | "large" | "xl";
-export type Theme = "system" | "light" | "mint" | "dark" | "glass" | "cyber" | "neomint" | "pearl";
+export type Theme = "system" | "light" | "mint" | "dark" | "glass" | "cyber" | "neomint" | "pearl" | "aurora";
 /** Skins sit on a base theme: Web3 Glass on light, Cyber Dark on dark. They change colours, surfaces and glow only. */
-const skinBase: Partial<Record<Theme, "light" | "dark">> = { glass: "light", cyber: "dark", neomint: "dark", pearl: "light" };
+const skinBase: Partial<Record<Theme, "light" | "dark">> = { glass: "light", cyber: "dark", neomint: "dark", pearl: "light", aurora: "dark" };
 
 interface A11y {
   textSize: TextSize;
@@ -57,8 +57,8 @@ function resolveTheme(theme: Theme): "light" | "mint" | "dark" {
   return theme === "light" || theme === "dark" ? theme : "mint";
 }
 
-function skinOf(theme: Theme): "glass" | "cyber" | "neomint" | "pearl" | undefined {
-  return theme === "glass" || theme === "cyber" || theme === "neomint" || theme === "pearl" ? theme : undefined;
+function skinOf(theme: Theme): "glass" | "cyber" | "neomint" | "pearl" | "aurora" | undefined {
+  return theme === "glass" || theme === "cyber" || theme === "neomint" || theme === "pearl" || theme === "aurora" ? theme : undefined;
 }
 
 function apply(a: A11y) {
@@ -76,7 +76,7 @@ function apply(a: A11y) {
   el.dataset.theme = resolved;
   if (skin) el.dataset.skin = skin;
   else delete el.dataset.skin;
-  const color = skin === "pearl" ? "#f1fbf8" : skin === "neomint" ? "#03110e" : skin === "cyber" ? "#070a12" : skin === "glass" ? "#e8edfb" : resolved === "dark" ? "#0d171c" : resolved === "mint" ? "#eef7f4" : "#f5f8f8";
+  const color = skin === "aurora" ? "#070b1f" : skin === "pearl" ? "#f1fbf8" : skin === "neomint" ? "#03110e" : skin === "cyber" ? "#070a12" : skin === "glass" ? "#e8edfb" : resolved === "dark" ? "#0d171c" : resolved === "mint" ? "#eef7f4" : "#f5f8f8";
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", color);
 }
 
