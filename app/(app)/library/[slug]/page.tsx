@@ -8,6 +8,8 @@ import { Comments } from "@/components/social/Comments";
 import { LikeButton } from "@/components/social/LikeButton";
 import { ReportButton } from "@/components/social/ReportButton";
 import { equipmentToCategory } from "@/lib/shop/types";
+import { MusicSuggestion } from "@/components/audio/MusicSuggestion";
+import { musicFor } from "@/lib/audio/catalog";
 import { ShoppingBag } from "lucide-react";
 import { getSocialCounts, listComments } from "@/lib/social/queries";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
@@ -92,6 +94,11 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
         {!workout.sample ? <LikeButton targetType="workout" targetId={workout.id} likes={counts.likes} liked={counts.liked} signedIn={Boolean(user)} /> : null}
         {!workout.sample ? <ReportButton targetType="workout" targetId={workout.id} signedIn={Boolean(user)} /> : null}
       </Reveal>
+      {musicFor(workout.category).length > 0 ? (
+        <Reveal delay={0.102}>
+          <MusicSuggestion trackIds={musicFor(workout.category).map((m) => m.id)} />
+        </Reveal>
+      ) : null}
       {workout.equipment && workout.equipment.some((e) => e !== "none") ? (
         <Reveal delay={0.105} as="section" className="card space-y-3 p-4">
           <p className="eyebrow inline-flex items-center gap-2">

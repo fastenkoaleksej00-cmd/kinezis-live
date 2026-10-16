@@ -3,6 +3,8 @@ import { getLocale } from "next-intl/server";
 import { MindEvidence } from "@/components/mind/MindEvidence";
 import { MindPage } from "@/components/mind/MindPage";
 import { MeditationPlayer } from "@/components/mind/MindPlayers";
+import { MusicSuggestion } from "@/components/audio/MusicSuggestion";
+import { natureTracks } from "@/lib/audio/catalog";
 import type { Locale } from "@/i18n/config";
 import { pick } from "@/lib/content/localize";
 import { meditationById } from "@/lib/mind/content";
@@ -33,8 +35,11 @@ export default async function MeditatePage({ params }: PageProps) {
         </div>
       }
     >
-      <div className="card p-5 sm:p-6">
-        <MeditationPlayer id={m.id} signedIn={Boolean(user)} />
+      <div className="space-y-3">
+        <MusicSuggestion trackIds={natureTracks.map((n) => n.id)} variant="nature" />
+        <div className="card p-5 sm:p-6">
+          <MeditationPlayer id={m.id} signedIn={Boolean(user)} />
+        </div>
       </div>
     </MindPage>
   );

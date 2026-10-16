@@ -1731,21 +1731,17 @@
       }
     },
     "sounds": {
-      "title": "Fokus-Klänge",
-      "lead": "Regen, Wellen oder ein tiefes Brummen, direkt in der App erzeugt. Funktioniert offline.",
-      "kinds": {
-        "rain": "Regen",
-        "waves": "Wellen",
-        "deep": "Tiefes Brummen"
-      },
+      "title": "Klänge und Musik",
+      "lead": "Regen, Meer, Wind und ruhige Musik ohne Worte. Sie laufen weiter, wenn du andere Bildschirme öffnest.",
       "noTimer": "Ohne Timer",
       "timer": "{count} Min.",
       "volume": "Lautstärke",
-      "stop": "Stopp",
-      "play": "Abspielen",
-      "note": "Halte die Lautstärke niedrig. Der Klang blendet aus, wenn der Timer endet.",
-      "recorded": "Aufnahme",
-      "generated": "generiert"
+      "note": "Halte die Lautstärke niedrig. Mit Timer blendet der Klang von selbst aus.",
+      "natureTitle": "Naturklänge",
+      "musicTitle": "Musik für die Praxis",
+      "timerTitle": "Timer und Lautstärke",
+      "stopsIn": "Stoppt in {time}",
+      "credits": "Quellen: {list}"
     }
   },
   "shop": {
@@ -1839,5 +1835,19 @@
         "generic": "Konnte nicht speichern."
       }
     }
+  },
+  "audio": {
+    "player": "Player",
+    "music": "Musik ohne Worte",
+    "nature": "Naturklänge",
+    "pause": "Pause",
+    "play": "Abspielen",
+    "next": "Nächster Titel",
+    "close": "Ausschalten",
+    "stop": "Ausschalten",
+    "suggestMusic": "Ruhige Musik einschalten",
+    "suggestMusicHint": "Ohne Gesang, läuft im Hintergrund, während du übst. Leise stellen, um die Trainerin zu hören.",
+    "suggestNature": "Naturklänge für die Praxis",
+    "suggestNatureHint": "Regen, Meer oder Wind im Hintergrund. Jederzeit ausschaltbar."
   }
 }

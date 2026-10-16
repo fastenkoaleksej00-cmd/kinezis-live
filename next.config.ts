@@ -52,6 +52,8 @@ const nextConfig: NextConfig = {
       { source: "/(.*)", headers: securityHeaders },
       // The skeleton is 2.4 MB and never changes in place (rename the file to ship a new one), so browsers keep it
       { source: "/models/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+      // Audio files are versioned by name: rename to replace, so browsers can keep them for a month
+      { source: "/audio/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=2592000" }] },
     ];
   },
 };

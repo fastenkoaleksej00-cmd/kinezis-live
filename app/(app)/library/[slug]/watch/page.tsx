@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, Wind } from "lucide-react";
+import { MusicSuggestion } from "@/components/audio/MusicSuggestion";
+import { musicFor } from "@/lib/audio/catalog";
 import { workoutKey } from "@/lib/store/keys";
 import { SaveButton } from "@/components/library/SaveButton";
 import { VideoPlayer } from "@/components/player/VideoPlayer";
@@ -53,6 +55,11 @@ export default async function WatchPage({ params }: WatchPageProps) {
             {tc("minutes", { count: workout.durationMin })} · {t(`levels.${workout.level}`)} · {author?.name}
           </p>
           <p className="text-mist mt-4 max-w-2xl text-[15px] leading-relaxed">{pick(workout.description, locale)}</p>
+          {musicFor(workout.category).length > 0 ? (
+            <div className="mt-5 max-w-md">
+              <MusicSuggestion trackIds={musicFor(workout.category).map((m) => m.id)} />
+            </div>
+          ) : null}
           <Link href="/breathe/recovery?minutes=3" className="glass-dark text-frost mt-5 inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold">
             <Wind className="h-4 w-4" aria-hidden />
             {t("recoverAfter")}

@@ -1731,21 +1731,17 @@
       }
     },
     "sounds": {
-      "title": "Focus sounds",
-      "lead": "Rain, waves or a deep hum, generated right in the app. Works offline.",
-      "kinds": {
-        "rain": "Rain",
-        "waves": "Waves",
-        "deep": "Deep hum"
-      },
+      "title": "Sounds and music",
+      "lead": "Rain, sea, wind and calm music without words. They keep playing when you move to other screens.",
       "noTimer": "No timer",
       "timer": "{count} min",
       "volume": "Volume",
-      "stop": "Stop",
-      "play": "Play",
-      "note": "Keep the volume low. The sound fades out when the timer ends.",
-      "recorded": "recording",
-      "generated": "generated"
+      "note": "Keep the volume low. With a timer the sound fades out on its own.",
+      "natureTitle": "Nature sounds",
+      "musicTitle": "Music for practice",
+      "timerTitle": "Timer and volume",
+      "stopsIn": "Stops in {time}",
+      "credits": "Sources: {list}"
     }
   },
   "shop": {
@@ -1839,5 +1835,19 @@
         "generic": "Could not save."
       }
     }
+  },
+  "audio": {
+    "player": "Player",
+    "music": "Music without words",
+    "nature": "Nature sounds",
+    "pause": "Pause",
+    "play": "Play",
+    "next": "Next track",
+    "close": "Turn off",
+    "stop": "Turn off",
+    "suggestMusic": "Play calm music",
+    "suggestMusicHint": "No lyrics, plays in the background while you practise. Keep it low to hear the trainer.",
+    "suggestNature": "Nature sounds for practice",
+    "suggestNatureHint": "Rain, sea or wind in the background. Turn off any time."
   }
 }
