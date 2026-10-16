@@ -98,6 +98,15 @@ export default async function SettingsPage({ searchParams }: PageProps) {
         <h2 className="text-ink text-xl font-bold">{t("account.title")}</h2>
         {user ? (
           <>
+            <div className="card flex flex-wrap items-center justify-between gap-4 p-5">
+              <span className="min-w-0 flex-1">
+                <span className="text-ink block font-semibold">{t("account.exportTitle")}</span>
+                <span className="text-steel block text-sm">{t("account.exportBody")}</span>
+              </span>
+              <a href="/api/export" download className={buttonStyles("secondary", "md")}>
+                {t("account.exportButton")}
+              </a>
+            </div>
             <AccountForms email={user.email} />
             <form action={signOut} className="card flex items-center justify-between gap-4 p-5">
               <span className="text-steel text-sm">{t("account.signOutHint")}</span>

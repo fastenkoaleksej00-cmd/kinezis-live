@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, AtSign, Award, Link2, MessageCircle } from "lucide-react";
+import { ArrowLeft, AtSign, Award, CalendarCheck, Link2, MessageCircle } from "lucide-react";
 import { ReportButton } from "@/components/social/ReportButton";
 import { bannerClass } from "@/lib/profile/banner";
 import { normalizeBanner } from "@/lib/profile/banner";
@@ -86,6 +86,12 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
                   <a href={author.instagram} target="_blank" rel="noopener noreferrer" className="text-mist inline-flex h-10 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold backdrop-blur-md transition-colors hover:text-white">
                     <AtSign className="h-4 w-4" aria-hidden />
                     Instagram
+                  </a>
+                ) : null}
+                {author.bookingUrl ? (
+                  <a href={author.bookingUrl} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-[#10242b] shadow-[var(--shadow-card)] transition-transform active:scale-95">
+                    <CalendarCheck className="h-4 w-4" aria-hidden />
+                    {t("book")}
                   </a>
                 ) : null}
                 <Link href="/messages" className="text-mist inline-flex h-10 items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-semibold backdrop-blur-md transition-colors hover:text-white">

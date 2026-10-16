@@ -94,6 +94,9 @@ export function AuthorCardForm({ author, userId }: { author: AuthorRow; userId: 
             <Input name="instagram" type="url" defaultValue={author.instagram ?? ""} placeholder="https://www.instagram.com/…" />
           </Field>
         </div>
+        <Field label={t("booking")} hint={t("bookingHint")}>
+          <Input name="booking_url" type="url" defaultValue={author.booking_url ?? ""} placeholder="https://cal.com/…" />
+        </Field>
         <Field label={t("links")} hint={t("linksHint")}>
           <Textarea name="links" rows={2} defaultValue={(author.links ?? []).join("\n")} />
         </Field>

@@ -332,7 +332,10 @@
         "generic": "Konnte nicht speichern. Versuche es erneut.",
         "weakPassword": "Mindestens 8 Zeichen.",
         "sameEmail": "Das ist bereits deine E-Mail."
-      }
+      },
+      "exportTitle": "Meine Daten herunterladen",
+      "exportBody": "Profil, Messungen, Aktivität, Wasser, Tagebuch, Beiträge, Kommentare und Nachrichten in einer JSON-Datei.",
+      "exportButton": "Herunterladen"
     },
     "showIntro": "Willkommensbildschirme erneut zeigen"
   },
@@ -746,7 +749,8 @@
     "years": "{count, plural, one {# Jahr} other {# Jahre}} Praxis",
     "verifiedNote": "Von KINEZIS LIVE nach Prüfung der Unterlagen verifiziert.",
     "unverifiedNote": "Qualifikation laut Trainer; von KINEZIS LIVE noch nicht verifiziert.",
-    "allSessions": "Alle {count} Einheiten"
+    "allSessions": "Alle {count} Einheiten",
+    "book": "Termin buchen"
   },
   "compose": {
     "title": "Neuer Beitrag",
@@ -786,7 +790,19 @@
       "dinner": "Abendessen",
       "snacks": "Snacks"
     },
-    "notes": "Notizen"
+    "notes": "Notizen",
+    "list": {
+      "title": "Einkaufsliste",
+      "lead": "Erstelle eine Liste aus den Mahlzeiten dieses Tages und passe sie an.",
+      "make": "Liste erstellen",
+      "left": "{count, plural, =0 {Alles erledigt} other {Noch #}}",
+      "remove": "Entfernen",
+      "add": "Artikel hinzufügen",
+      "copy": "Liste kopieren",
+      "copied": "Kopiert",
+      "reset": "Neu beginnen",
+      "note": "Die Liste wird automatisch aus den Beschreibungen erstellt. Prüfe und passe sie an; sie ist kein Ernährungsplan für dich."
+    }
   },
   "health": {
     "eyebrow": "Privat",
@@ -1528,7 +1544,9 @@
       "save": "Karte speichern",
       "saved": "Gespeichert.",
       "error": "Konnte nicht speichern. Versuch es nochmal.",
-      "verifiedNote": "Das Verifiziert-Abzeichen vergibt der Admin nach Prüfung der Unterlagen; hier lässt es sich nicht setzen."
+      "verifiedNote": "Das Verifiziert-Abzeichen vergibt der Admin nach Prüfung der Unterlagen; hier lässt es sich nicht setzen.",
+      "booking": "Buchungslink",
+      "bookingHint": "Dein Buchungskalender: Cal.com, Calendly oder ähnlich. Mitglieder sehen „Termin buchen“."
     },
     "admin": {
       "applicationsTitle": "Trainer-Bewerbungen",

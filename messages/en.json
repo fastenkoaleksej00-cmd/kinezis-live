@@ -332,7 +332,10 @@
         "generic": "Could not save. Try again.",
         "weakPassword": "At least 8 characters.",
         "sameEmail": "This is already your email."
-      }
+      },
+      "exportTitle": "Download my data",
+      "exportBody": "Profile, measurements, activity, water, journal, posts, comments and messages in one JSON file.",
+      "exportButton": "Download"
     },
     "showIntro": "Show the welcome screens again"
   },
@@ -746,7 +749,8 @@
     "years": "{count, plural, one {# year} other {# years}} of practice",
     "verifiedNote": "Verified by KINEZIS LIVE after checking the documents.",
     "unverifiedNote": "Qualification as stated by the trainer; not yet verified by KINEZIS LIVE.",
-    "allSessions": "All {count} sessions"
+    "allSessions": "All {count} sessions",
+    "book": "Book a session"
   },
   "compose": {
     "title": "New post",
@@ -786,7 +790,19 @@
       "dinner": "Dinner",
       "snacks": "Snacks"
     },
-    "notes": "Notes"
+    "notes": "Notes",
+    "list": {
+      "title": "Shopping list",
+      "lead": "Build a list from this day's meals and edit it as you like.",
+      "make": "Make a list",
+      "left": "{count, plural, =0 {All done} other {# left}}",
+      "remove": "Remove",
+      "add": "Add an item",
+      "copy": "Copy the list",
+      "copied": "Copied",
+      "reset": "Start over",
+      "note": "The list is built automatically from the meal descriptions. Check it and adapt it; it is not a meal plan for you."
+    }
   },
   "health": {
     "eyebrow": "Private",
@@ -1528,7 +1544,9 @@
       "save": "Save card",
       "saved": "Saved.",
       "error": "Could not save. Try again.",
-      "verifiedNote": "The verified badge is given by the admin after checking documents and cannot be set here."
+      "verifiedNote": "The verified badge is given by the admin after checking documents and cannot be set here.",
+      "booking": "Booking link",
+      "bookingHint": "Your booking calendar: Cal.com, Calendly or similar. Members see a \"Book a session\" button."
     },
     "admin": {
       "applicationsTitle": "Trainer applications",

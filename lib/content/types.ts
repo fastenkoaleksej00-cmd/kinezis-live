@@ -62,6 +62,8 @@ export interface Author {
   qualifications?: string;
   experienceYears?: number;
   links: string[];
+  /** Trainer's own booking page (https), shown as "Book a session" */
+  bookingUrl?: string;
 }
 
 export interface Workout {

@@ -12,6 +12,7 @@ import { getMealPlan } from "@/lib/content/meals";
 import type { MealSlot } from "@/lib/content/types";
 import { getAuthor } from "@/lib/content/workouts";
 import { mealKey } from "@/lib/store/keys";
+import { ShoppingList } from "@/components/nutrition/ShoppingList";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -71,6 +72,9 @@ export default async function MealPlanPage({ params }: PageProps) {
             );
           })}
         </ul>
+      </Reveal>
+      <Reveal delay={0.14}>
+        <ShoppingList planId={plan.id} texts={plan.meals.map((m) => pick(m.text, locale))} />
       </Reveal>
       {plan.notes ? (
         <Reveal delay={0.16} as="section" className="card px-5 py-4">

@@ -62,9 +62,10 @@ export interface AuthorRow {
   qualifications?: string | null;
   experience_years?: number | null;
   links?: string[] | null;
+  booking_url?: string | null;
 }
 
-export const authorColumns = "id, user_id, name, role, bio, specialties, verified, avatar_src, instagram, status, cover_preset, qualifications, experience_years, links";
+export const authorColumns = "id, user_id, name, role, bio, specialties, verified, avatar_src, instagram, status, cover_preset, qualifications, experience_years, links, booking_url";
 
 export function rowToAuthor(r: AuthorRow): Author {
   return {
@@ -81,6 +82,7 @@ export function rowToAuthor(r: AuthorRow): Author {
     qualifications: r.qualifications ?? undefined,
     experienceYears: r.experience_years ?? undefined,
     links: r.links ?? [],
+    bookingUrl: r.booking_url ?? undefined,
   };
 }
 

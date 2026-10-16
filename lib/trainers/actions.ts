@@ -155,6 +155,7 @@ export async function updateMyAuthor(_prev: TrainerState, fd: FormData): Promise
       experience_years: Number.isFinite(years) ? Math.min(70, Math.max(0, years)) : null,
       links: lines(fd, "links").filter(safeUrl),
       cover_preset: ["mint", "ocean", "lavender", "sunset", "forest", "midnight"].includes(preset) ? preset : "midnight",
+      booking_url: /^https:\/\/\S{3,300}$/.test(str(fd, "booking_url")) ? str(fd, "booking_url") : null,
     })
     .eq("id", ctx.user.authorId);
   if (error) return { error: "generic" };
