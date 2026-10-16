@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { deleteCourse, saveCourse, type AdminState } from "@/lib/admin/actions";
+import { deleteCourse, saveCourse } from "@/lib/admin/coursesActions";
+import type { AdminState } from "@/lib/admin/shared";
 import type { AuthorRow, CourseRow } from "@/lib/content/db";
 import { levels } from "@/lib/content/types";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";

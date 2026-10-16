@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { deleteMealPlan, saveMealPlan, type AdminState } from "@/lib/admin/actions";
+import { deleteMealPlan, saveMealPlan } from "@/lib/admin/mealsActions";
+import type { AdminState } from "@/lib/admin/shared";
 import type { AuthorRow, MealPlanRow } from "@/lib/content/db";
 import { mealSlots } from "@/lib/content/types";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";

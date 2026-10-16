@@ -32,7 +32,7 @@ skincare, saved items, profile and a future subscription. Sibling of the KINEZIS
 - `components/player/VideoPlayer.tsx` — HTML5 player with resume; honest empty state when `video` is null
 - `components/home/ContinueCard.tsx` — last unfinished session from local progress
 - `lib/content/` — `types.ts`, `db.ts` (row types + mappers), `workouts.ts` / `posts.ts` (async repositories: published rows from Supabase, sample fallback while the table is empty), `localize.ts`
-- `lib/admin/` — `queries.ts` (staff reads incl. drafts), `actions.ts` (saveWorkout/deleteWorkout/savePost/deletePost; staff check + RLS)
+- `lib/admin/` — `queries.ts` (staff reads incl. drafts); server actions split by area: `workoutsActions.ts` (save/delete/importYouTube/quickPublishWorkout), `postsActions.ts` (posts, quickPublish, memberPublish, deleteOwnPost, setPostHidden), `coursesActions.ts`, `skincareActions.ts`, `mealsActions.ts`; shared helpers and state types in `shared.ts` (no "use server", so helpers like `slugify` are not public endpoints). Staff check + RLS.
 - `components/admin/` + `app/(app)/admin/**` — trainer panel: overview; workouts, posts, courses (with ModuleEditor: modules inline, lessons via LessonForm), skincare (routines, articles, products). Layout redirects non-staff to /profile.
 - `lib/store/` — localStorage stores for favourites (`kl_favorites`, keys from `keys.ts`: `workout:<id>`, `post:<id>`, `course:<id>`), watch progress (`kl_progress`) and completed lessons (`kl_lessons`); same API will sync to accounts later
 - `lib/supabase/` — `env.ts` (null when not configured), `client.ts` (browser), `server.ts` (cookies + `getSessionUser()`), `middleware.ts` (session refresh, wired in root `middleware.ts`)

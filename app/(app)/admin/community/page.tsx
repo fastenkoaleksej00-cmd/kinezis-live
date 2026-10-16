@@ -3,7 +3,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { Eye, EyeOff, Trash2, Users } from "lucide-react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { deleteOwnPost, setPostHidden } from "@/lib/admin/actions";
+import { deleteOwnPost, setPostHidden } from "@/lib/admin/postsActions";
 import { listAllPosts } from "@/lib/admin/queries";
 import { clearReview } from "@/lib/community/actions";
 import { listFlaggedPosts } from "@/lib/community/queries";

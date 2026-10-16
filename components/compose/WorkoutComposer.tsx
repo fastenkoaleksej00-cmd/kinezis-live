@@ -8,7 +8,8 @@ import { Checkbox, Field, Input, Select, Textarea } from "@/components/admin/fie
 import { Button } from "@/components/ui/Button";
 import { Cover } from "@/components/ui/Cover";
 import { ProgressBar } from "@/components/ui/ProgressBar";
-import { quickPublishWorkout, type QuickPublishState } from "@/lib/admin/actions";
+import { quickPublishWorkout } from "@/lib/admin/workoutsActions";
+import type { QuickPublishState } from "@/lib/admin/shared";
 import type { AuthorRow } from "@/lib/content/db";
 import { categoryIds, goals, levels, equipmentIds } from "@/lib/content/types";
 import { getBrowserClient } from "@/lib/supabase/client";

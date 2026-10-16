@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { deleteLesson, saveLesson, type AdminState } from "@/lib/admin/actions";
+import { deleteLesson, saveLesson } from "@/lib/admin/coursesActions";
+import type { AdminState } from "@/lib/admin/shared";
 import type { LessonRow, ModuleRow } from "@/lib/content/db";
 import { Field, Input, LocalizedInputs, Select, Textarea } from "./fields";
 import { SubmitRow } from "./SubmitRow";

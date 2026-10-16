@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import type { AdminErrorCode } from "@/lib/admin/actions";
+import type { AdminErrorCode } from "@/lib/admin/shared";
 
 interface SubmitRowProps {
   pending: boolean;

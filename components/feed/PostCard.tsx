@@ -16,7 +16,7 @@ import { MessageCircle } from "lucide-react";
 import { getSocialCounts } from "@/lib/social/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 import { getPublicMembers } from "@/lib/profile/public";
-import { deleteOwnPost } from "@/lib/admin/actions";
+import { deleteOwnPost } from "@/lib/admin/postsActions";
 import { BadgeCheck, Stethoscope, Trash2 } from "lucide-react";
 import { redFlagText } from "@/lib/community/types";
 

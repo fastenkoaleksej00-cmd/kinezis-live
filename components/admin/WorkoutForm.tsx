@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { deleteWorkout, saveWorkout, type AdminState } from "@/lib/admin/actions";
+import { deleteWorkout, saveWorkout } from "@/lib/admin/workoutsActions";
+import type { AdminState } from "@/lib/admin/shared";
 import type { AuthorRow, WorkoutRow } from "@/lib/content/db";
 import { categoryIds, equipmentIds, goals, levels } from "@/lib/content/types";
 import { regionIds } from "@/lib/body/regions";

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Plus, Trash2 } from "lucide-react";
-import { deleteModule, saveModule } from "@/lib/admin/actions";
+import { deleteModule, saveModule } from "@/lib/admin/coursesActions";
 import type { LessonRow, ModuleRow } from "@/lib/content/db";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { Input } from "./fields";

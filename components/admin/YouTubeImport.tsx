@@ -5,7 +5,8 @@ import { useActionState, useState } from "react";
 import { Plus } from "lucide-react";
 import { Field, Input, Select } from "@/components/admin/fields";
 import { Button } from "@/components/ui/Button";
-import { importYouTube, type AdminState } from "@/lib/admin/actions";
+import { importYouTube } from "@/lib/admin/workoutsActions";
+import type { AdminState } from "@/lib/admin/shared";
 import { categoryIds, levels } from "@/lib/content/types";
 
 const initial: AdminState = {};

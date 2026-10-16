@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
-import { deletePost, savePost, type AdminState } from "@/lib/admin/actions";
+import { deletePost, savePost } from "@/lib/admin/postsActions";
+import type { AdminState } from "@/lib/admin/shared";
 import type { AuthorRow, PostRow, WorkoutRow } from "@/lib/content/db";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "./fields";
 import { SubmitRow } from "./SubmitRow";
