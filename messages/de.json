@@ -192,7 +192,8 @@
       "uk": "Українська",
       "en": "English",
       "de": "Deutsch"
-    }
+    },
+    "pickByBody": "Nach Körperbereich wählen"
   },
   "saved": {
     "title": "Gespeichert",
@@ -326,7 +327,9 @@
         "dark": "Dunkel",
         "mint": "Mint",
         "glass": "Web3 Glass",
-        "cyber": "Cyber Dark"
+        "cyber": "Cyber Dark",
+        "neomint": "Neo Mint",
+        "pearl": "Mint Pearl"
       },
       "mintNote": "Mint ist die Signatur von KINEZIS und der Standard. Hell und Dunkel behalten Mint in Buttons, Tabs und Fortschritt."
     },
@@ -2139,6 +2142,11 @@
         "title": "Ziel und Wasser",
         "body": "Setze ein Ziel im Rechner: es erscheint als Ring auf Home. Wasser wird von Hand erfasst, bis 3 L am Tag.",
         "action": "Rechner öffnen"
+      },
+      "bodyPick": {
+        "title": "Unsicher, was passt?",
+        "body": "Öffne den Tab „Körper“, tippe auf die Stelle, die dich stört, und wähle, was du spürst. Du bekommst passende Einheiten aus der Bibliothek oder den Hinweis, ärztlichen Rat einzuholen, wenn etwas ernst klingt.",
+        "action": "Körperkarte öffnen"
       }
     }
   },

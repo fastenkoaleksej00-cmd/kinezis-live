@@ -35,6 +35,7 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       </Reveal>
       <FeatureTip id="library" href="/programs" />
+      <FeatureTip id="bodyPick" href="/body" after="library" />
 
       {filters.source === "youtube" ? (
         <Reveal delay={0.02}>
@@ -81,9 +82,14 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           title={t("noResults")}
           body={t("noResultsBody")}
           action={
-            <Link href="/library" className={buttonStyles("secondary", "md")}>
-              {t("filters.reset")}
-            </Link>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Link href="/library" className={buttonStyles("secondary", "md")}>
+                {t("filters.reset")}
+              </Link>
+              <Link href="/body" className={buttonStyles("primary", "md")}>
+                {t("pickByBody")}
+              </Link>
+            </div>
           }
         />
       ) : (

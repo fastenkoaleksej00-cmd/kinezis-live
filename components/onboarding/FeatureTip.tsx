@@ -10,7 +10,8 @@ import { dismissTip, tipsStore, type TipId } from "@/lib/store/tips";
  * One-time tip on a screen, part of the same introduction as /welcome. Hidden until the first-launch
  * introduction is done, once dismissed, or when tips are switched off in Settings.
  */
-export function FeatureTip({ id, href }: { id: TipId; href?: string }) {
+/** `after`: wait until that tip was closed, so two tips never stack on one screen. */
+export function FeatureTip({ id, href, after }: { id: TipId; href?: string; after?: TipId }) {
   const t = useTranslations("tips");
   const s = tipsStore.useStore();
   const [ready, setReady] = useState(false);
@@ -23,7 +24,7 @@ export function FeatureTip({ id, href }: { id: TipId; href?: string }) {
     }
     setReady(onboarded);
   }, []);
-  if (!ready || s.off || s.seen.includes(id)) return null;
+  if (!ready || s.off || s.seen.includes(id) || (after && !s.seen.includes(after))) return null;
 
   return (
     <aside className="pop-in card relative flex items-start gap-3 border-[color:var(--color-mint-deep)]/25 p-4 pr-10" role="note" aria-label={t("label")}>

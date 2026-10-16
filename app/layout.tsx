@@ -60,7 +60,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="font-sans">
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var a=JSON.parse(localStorage.getItem("kl_a11y")||"{}");var d=document.documentElement;if(a.textSize)d.dataset.textSize=a.textSize;if(a.reduceMotion)d.dataset.reduceMotion="true";var t=a.theme||"mint";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}if(t==="glass"){d.dataset.skin="glass";t="light"}if(t==="cyber"){d.dataset.skin="cyber";t="dark"}d.dataset.theme=t;}catch(e){}`,
+            __html: `try{var a=JSON.parse(localStorage.getItem("kl_a11y")||"{}");var d=document.documentElement;if(a.textSize)d.dataset.textSize=a.textSize;if(a.reduceMotion)d.dataset.reduceMotion="true";var t=a.theme||"mint";if(t==="system"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}if(t==="glass"){d.dataset.skin="glass";t="light"}if(t==="cyber"){d.dataset.skin="cyber";t="dark"}if(t==="neomint"){d.dataset.skin="neomint";t="dark"}if(t==="pearl"){d.dataset.skin="pearl";t="light"}d.dataset.theme=t;}catch(e){}`,
           }}
         />
         <noscript>

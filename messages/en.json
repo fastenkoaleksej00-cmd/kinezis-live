@@ -192,7 +192,8 @@
       "uk": "Українська",
       "en": "English",
       "de": "Deutsch"
-    }
+    },
+    "pickByBody": "Pick by body area"
   },
   "saved": {
     "title": "Saved",
@@ -326,7 +327,9 @@
         "dark": "Dark",
         "mint": "Mint",
         "glass": "Web3 Glass",
-        "cyber": "Cyber Dark"
+        "cyber": "Cyber Dark",
+        "neomint": "Neo Mint",
+        "pearl": "Mint Pearl"
       },
       "mintNote": "Mint is the KINEZIS signature and the default. Light and Dark keep mint in buttons, tabs and progress."
     },
@@ -2139,6 +2142,11 @@
         "title": "Goal and water",
         "body": "Set a goal in the calculator: it appears as a ring on Home. Water is logged by hand, up to 3 L a day.",
         "action": "Open the calculator"
+      },
+      "bodyPick": {
+        "title": "Not sure what to pick?",
+        "body": "Open the Body tab, tap the area that bothers you and choose what you feel. You get sessions from the library for that area, or a note to see a doctor when something sounds serious.",
+        "action": "Open the body map"
       }
     }
   },
