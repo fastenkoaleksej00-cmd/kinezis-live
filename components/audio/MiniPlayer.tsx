@@ -20,7 +20,7 @@ export function MiniPlayer() {
       </span>
       <span className="min-w-0 flex-1">
         <span className="text-ink block truncate text-sm font-semibold">{pick(current.title, locale)}</span>
-        <span className="text-steel block truncate text-[11px]">{current.kind === "music" ? t("music") : t("nature")}</span>
+        <span className="text-steel block truncate text-xs">{current.kind === "music" ? t("music") : t("nature")}</span>
       </span>
       <button type="button" onClick={toggle} aria-label={playing ? t("pause") : t("play")} className="bg-linear-to-b from-ink-2 to-ink inline-flex h-9 w-9 items-center justify-center rounded-full text-white">
         {playing ? <Pause className="h-4 w-4" fill="currentColor" aria-hidden /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden />}

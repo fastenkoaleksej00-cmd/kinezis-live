@@ -59,7 +59,7 @@ export function LocalizedInputs({
       <legend className="eyebrow mb-2">{label}</legend>
       {locales.map((l) => (
         <div key={l.code} className="flex items-start gap-2.5">
-          <span className="text-steel mt-3.5 w-7 shrink-0 text-[11px] font-bold tracking-wider uppercase">{l.code}</span>
+          <span className="text-steel mt-3.5 w-7 shrink-0 text-xs font-bold tracking-wider uppercase">{l.code}</span>
           {multiline ? (
             <Textarea name={`${name}_${l.code}`} defaultValue={value?.[l.code] ?? ""} required={required && l.code === "en"} lang={l.code} aria-label={`${label} (${l.title})`} />
           ) : (

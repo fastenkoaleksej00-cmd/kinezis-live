@@ -149,7 +149,7 @@ export function StepTimer({ steps, locale, bodyLabels, onFinished, compact = fal
           center={
             <span className="leading-none">
               <span className="text-ink block text-2xl font-extrabold tabular-nums">{clock}</span>
-              <span className="text-steel mt-1 block text-[11px] font-semibold">{active ? t("step", { n: index + 1, total: steps.length }) : status === "done" ? t("done") : t("ready")}</span>
+              <span className="text-steel mt-1 block text-xs font-semibold">{active ? t("step", { n: index + 1, total: steps.length }) : status === "done" ? t("done") : t("ready")}</span>
             </span>
           }
         />

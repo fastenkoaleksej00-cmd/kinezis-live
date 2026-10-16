@@ -6,6 +6,7 @@ import { categoryIds } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { ownStorageUrl } from "@/lib/security";
 import { reportReasons, type ReportReason, type ReportTarget } from "./types";
+import { logModeration } from "@/lib/admin/moderationLog";
 
 export type TrainerErrorCode = "signedOut" | "notConfigured" | "forbidden" | "nameRequired" | "consentRequired" | "invalid" | "generic";
 export interface TrainerState {
@@ -86,10 +87,13 @@ export async function decideApplication(fd: FormData): Promise<void> {
   if (!id) return;
   if (decision === "approve") {
     await ctx.supabase.rpc("approve_trainer_application", { app_id: id, author_slug: str(fd, "author_slug").slice(0, 40) });
+    await logModeration(ctx.supabase, ctx.user.id, "approve_application", "application", id);
   } else if (decision === "reject") {
     await ctx.supabase.rpc("reject_trainer_application", { app_id: id, note: str(fd, "note").slice(0, 1000) });
+    await logModeration(ctx.supabase, ctx.user.id, "reject_application", "application", id, str(fd, "note"));
   } else if (decision === "review") {
     await ctx.supabase.from("trainer_applications").update({ status: "review" }).eq("id", id);
+    await logModeration(ctx.supabase, ctx.user.id, "review_application", "application", id);
   }
   revalidatePath("/", "layout");
   redirect("/admin/applications?decided=1");
@@ -100,7 +104,10 @@ export async function setAuthorStatus(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   const status = str(fd, "status") === "suspended" ? "suspended" : "active";
-  if (id) await ctx.supabase.rpc("set_author_status", { aid: id, new_status: status });
+  if (id) {
+    await ctx.supabase.rpc("set_author_status", { aid: id, new_status: status });
+    await logModeration(ctx.supabase, ctx.user.id, status === "suspended" ? "suspend_trainer" : "activate_trainer", "trainer", id);
+  }
   revalidatePath("/", "layout");
   redirect("/admin/trainers?saved=1");
 }
@@ -109,7 +116,11 @@ export async function setAuthorVerified(fd: FormData): Promise<void> {
   const ctx = await admin();
   if ("error" in ctx) return;
   const id = str(fd, "id");
-  if (id) await ctx.supabase.from("authors").update({ verified: str(fd, "verified") === "true" }).eq("id", id);
+  if (id) {
+    const verified = str(fd, "verified") === "true";
+    await ctx.supabase.from("authors").update({ verified }).eq("id", id);
+    await logModeration(ctx.supabase, ctx.user.id, verified ? "verify_trainer" : "unverify_trainer", "trainer", id);
+  }
   revalidatePath("/", "layout");
   redirect("/admin/trainers?saved=1");
 }
@@ -120,7 +131,10 @@ export async function reviewContent(fd: FormData): Promise<void> {
   const table = str(fd, "table") === "courses" ? "courses" : "workouts";
   const id = str(fd, "id");
   const decision = str(fd, "decision") === "approve" ? "approved" : "rejected";
-  if (id) await ctx.supabase.from(table).update({ review_status: decision, review_note: decision === "rejected" ? str(fd, "note").slice(0, 1000) || null : null }).eq("id", id);
+  if (id) {
+    await ctx.supabase.from(table).update({ review_status: decision, review_note: decision === "rejected" ? str(fd, "note").slice(0, 1000) || null : null }).eq("id", id);
+    await logModeration(ctx.supabase, ctx.user.id, decision === "approved" ? "approve_content" : "reject_content", table === "courses" ? "course" : "workout", id, str(fd, "note"));
+  }
   revalidatePath("/", "layout");
   redirect("/admin/review?decided=1");
 }
@@ -185,7 +199,10 @@ export async function resolveReport(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   const status = str(fd, "status") === "dismissed" ? "dismissed" : "resolved";
-  if (id) await ctx.supabase.from("content_reports").update({ status, resolution: str(fd, "resolution").slice(0, 1000) || null, decided_at: new Date().toISOString() }).eq("id", id);
+  if (id) {
+    await ctx.supabase.from("content_reports").update({ status, resolution: str(fd, "resolution").slice(0, 1000) || null, decided_at: new Date().toISOString() }).eq("id", id);
+    await logModeration(ctx.supabase, ctx.user.id, status === "dismissed" ? "dismiss_report" : "resolve_report", "report", id, str(fd, "resolution"));
+  }
   // Optional moderation action on the target: hide a post, reject a workout/course
   const action = str(fd, "action");
   const targetType = str(fd, "target_type");

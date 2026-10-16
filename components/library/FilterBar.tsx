@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -10,6 +10,7 @@ import { Chip } from "@/components/ui/Chip";
 import { categoryIds, durationBuckets, equipmentIds, goals, levels, type WorkoutFilters } from "@/lib/content/types";
 import { regionIds } from "@/lib/body/regions";
 import { cn } from "@/lib/utils";
+import { useDialogFocus } from "@/lib/useDialogFocus";
 
 interface FilterBarProps {
   filters: WorkoutFilters;
@@ -28,6 +29,8 @@ export function FilterBar({ filters, authors = [] }: FilterBarProps) {
   const params = useSearchParams();
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(dialogRef, open);
   const [draft, setDraft] = useState<Draft>({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region, language: filters.language });
 
   const activeCount = [filters.duration, filters.goal, filters.level, filters.author, filters.equipment, filters.region, filters.language].filter(Boolean).length;
@@ -97,7 +100,7 @@ export function FilterBar({ filters, authors = [] }: FilterBarProps) {
         >
           <SlidersHorizontal className="h-4 w-4" strokeWidth={1.9} aria-hidden />
           {t("filters.title")}
-          {activeCount > 0 ? <span className="bg-accent inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[11px] text-white">{activeCount}</span> : null}
+          {activeCount > 0 ? <span className="bg-accent inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs text-white">{activeCount}</span> : null}
         </button>
       </div>
 
@@ -113,6 +116,7 @@ export function FilterBar({ filters, authors = [] }: FilterBarProps) {
             onClick={() => setOpen(false)}
           >
             <motion.div
+              ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-label={t("filters.title")}

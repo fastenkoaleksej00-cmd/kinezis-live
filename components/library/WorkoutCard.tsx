@@ -37,14 +37,14 @@ export async function WorkoutCard({ workout }: WorkoutCardProps) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-[#0b1a1f]/80 via-[#0b1a1f]/35 to-transparent" aria-hidden />
 
         <div className="absolute inset-x-3 top-3 z-20 flex items-start justify-between gap-2">
-          <span className="truncate rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.16em] text-white uppercase backdrop-blur-md">{t(`categories.${workout.category}`)}</span>
+          <span className="truncate rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.16em] text-white uppercase backdrop-blur-md">{t(`categories.${workout.category}`)}</span>
           <SaveButton itemKey={workoutKey(workout.id)} look="glass" />
         </div>
 
         <div className="relative flex h-full flex-col justify-end p-3.5">
           <h3 className="line-clamp-2 text-[15px] leading-snug font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.35)]">{workout.title}</h3>
           <div className="mt-1.5 flex items-end justify-between gap-2">
-            <div className="min-w-0 text-[11px] leading-tight font-medium text-white/85">
+            <div className="min-w-0 text-xs leading-tight font-medium text-white/85">
               <p className="truncate">
                 {tc("minutes", { count: workout.durationMin })} · {t(`levels.${workout.level}`)}
               </p>

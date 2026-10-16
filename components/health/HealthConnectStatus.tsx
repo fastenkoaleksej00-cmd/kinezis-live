@@ -28,7 +28,7 @@ export function HealthConnectStatus() {
       <div className="text-sm">
         <p className="text-ink font-semibold">{t(`${key}.title`)}</p>
         <p className="text-steel mt-1">{t(`${key}.body`)}</p>
-        <p className="bg-bone-2 text-steel mt-2 inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">{t("notConnected")}</p>
+        <p className="bg-bone-2 text-steel mt-2 inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold">{t("notConnected")}</p>
       </div>
     </div>
   );

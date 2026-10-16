@@ -34,7 +34,7 @@ export default async function SkincareProductsPage() {
                   <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.imageSrc} alt={p.name} className="h-full w-full object-cover" />
-                    <span className="absolute top-3 left-3 rounded-full border border-white/60 bg-white/70 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase backdrop-blur-md">{t(`categories.${p.category}`)}</span>
+                    <span className="absolute top-3 left-3 rounded-full border border-white/60 bg-white/70 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase backdrop-blur-md">{t(`categories.${p.category}`)}</span>
                   </div>
                 ) : (
                   <Cover tone="mint" ratio="aspect-[4/5]" label={t(`categories.${p.category}`)} />

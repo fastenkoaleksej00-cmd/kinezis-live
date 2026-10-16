@@ -57,7 +57,7 @@ export default async function AdminApplicationsPage({ searchParams }: PageProps)
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-ink font-bold">{a.fullName || "—"}</p>
-                    <span className={`inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold uppercase ${a.status === "approved" ? "bg-mint-soft text-mint-deep" : a.status === "rejected" ? "bg-[#fde8ea] text-[#b9344a]" : "bg-accent-soft text-accent"}`}>{t(`status.${a.status}`)}</span>
+                    <span className={`inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold uppercase ${a.status === "approved" ? "bg-mint-soft text-mint-deep" : a.status === "rejected" ? "bg-[#fde8ea] text-[#b9344a]" : "bg-accent-soft text-accent"}`}>{t(`status.${a.status}`)}</span>
                   </div>
                   <p className="text-steel text-xs">{a.submittedAt ? format.dateTime(new Date(a.submittedAt), { day: "numeric", month: "short", year: "numeric" }) : ""}{a.experienceYears !== null ? ` · ${t("years", { count: a.experienceYears })}` : ""}</p>
                   {a.specialties.length > 0 ? <p className="text-steel mt-1 text-xs">{a.specialties.map((s) => tl(`categories.${s as "yoga"}`)).join(" · ")}</p> : null}
@@ -65,11 +65,11 @@ export default async function AdminApplicationsPage({ searchParams }: PageProps)
               </div>
               <div className="grid gap-3 text-sm sm:grid-cols-2">
                 <div className="bg-frost/70 rounded-2xl p-3">
-                  <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{t("fields.bio")}</p>
+                  <p className="text-steel text-xs font-semibold tracking-[0.12em] uppercase">{t("fields.bio")}</p>
                   <p className="text-text mt-1 whitespace-pre-line">{a.bio || "—"}</p>
                 </div>
                 <div className="bg-frost/70 rounded-2xl p-3">
-                  <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{t("fields.qualifications")}</p>
+                  <p className="text-steel text-xs font-semibold tracking-[0.12em] uppercase">{t("fields.qualifications")}</p>
                   <p className="text-text mt-1 whitespace-pre-line">{a.qualifications || "—"}</p>
                   {a.links.length > 0 ? (
                     <ul className="mt-2 space-y-1">

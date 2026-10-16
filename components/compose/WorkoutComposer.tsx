@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Film, ImagePlus, Loader2, Play, Scissors, X } from "lucide-react";
@@ -35,6 +36,8 @@ export function WorkoutComposer({ authors, defaultLanguage, isAdmin = false }: W
   const [state, action, pending] = useActionState(quickPublishWorkout, initial);
   const [video, setVideo] = useState<{ path: string; name: string; objectUrl: string; size: number } | null>(null);
   const [videoStatus, setVideoStatus] = useState<"idle" | "uploading" | "error">("idle");
+  // Files over the storage limit: point the trainer to the YouTube import instead of a dead end
+  const [tooLarge, setTooLarge] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
   const [posterStatus, setPosterStatus] = useState<"idle" | "uploading" | "error">("idle");
   const [frameAt, setFrameAt] = useState(2);
@@ -55,7 +58,11 @@ export function WorkoutComposer({ authors, defaultLanguage, isAdmin = false }: W
   async function uploadVideo(file: File) {
     const supabase = getBrowserClient();
     if (!supabase) return setError(ta("upload.errors.notConfigured"));
-    if (file.size > VIDEO_MAX) return setError(ta("upload.errors.tooLarge"));
+    if (file.size > VIDEO_MAX) {
+      setTooLarge(true);
+      return setError(null);
+    }
+    setTooLarge(false);
     setError(null);
     setVideoStatus("uploading");
     const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, "-").replace(/^-+|-+$/g, "");
@@ -266,6 +273,15 @@ export function WorkoutComposer({ authors, defaultLanguage, isAdmin = false }: W
         </div>
       </section>
 
+      {tooLarge ? (
+        <div role="alert" className="rounded-2xl border border-[#e8c48a]/70 bg-[#fdf6ea] px-4 py-3 text-sm text-[#7a5418]">
+          <p className="font-semibold">{t("tooLargeTitle")}</p>
+          <p className="mt-1">{t("tooLargeBody")}</p>
+          <Link href="/admin/workouts" className="mt-2 inline-block font-semibold underline">
+            {t("tooLargeAction")}
+          </Link>
+        </div>
+      ) : null}
       {error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{error}</p> : null}
       {state.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{ta(`errors.${state.error}`)}</p> : null}
 

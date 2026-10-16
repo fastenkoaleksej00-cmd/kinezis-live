@@ -65,7 +65,7 @@ export default async function TrainerPage({ params }: TrainerPageProps) {
               )}
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-glow text-[11px] font-semibold tracking-[0.3em] uppercase">{tl("trainer")}</p>
+              <p className="text-glow text-xs font-semibold tracking-[0.3em] uppercase">{tl("trainer")}</p>
               <h1 className="text-frost mt-1 flex items-center gap-2 text-3xl font-extrabold">
                 {author.name}
                 {author.verified ? <TrainerBadge label={t("verified")} className="[&_svg]:text-mint [&_svg]:h-6 [&_svg]:w-6" /> : null}

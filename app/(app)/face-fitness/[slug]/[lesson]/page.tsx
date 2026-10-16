@@ -45,7 +45,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {allowed ? <VideoPlayer workoutId={lesson.id} source={playable} title={title} /> : <Paywall />}
 
         <div>
-          <p className="text-mint text-[11px] font-semibold tracking-[0.3em] uppercase">{t("lesson")}</p>
+          <p className="text-mint text-xs font-semibold tracking-[0.3em] uppercase">{t("lesson")}</p>
           <h1 className="text-frost mt-1.5 text-2xl leading-tight font-extrabold sm:text-3xl">{title}</h1>
           {lesson.summary ? <p className="text-mist mt-3 max-w-2xl text-[15px] leading-relaxed">{pick(lesson.summary, locale)}</p> : null}
         </div>

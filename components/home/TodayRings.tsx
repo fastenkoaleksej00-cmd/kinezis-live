@@ -39,7 +39,7 @@ export async function TodayRings({ stats, sessionsTarget, minutesTarget }: Today
               center={
                 <span className="text-center leading-none">
                   <span className="text-ink block text-xl font-extrabold"><CountUp value={Number(r.big)} /></span>
-                  <span className="text-steel mt-0.5 block text-[10px] font-semibold">{r.small}</span>
+                  <span className="text-steel mt-0.5 block text-[0.6875rem] font-semibold">{r.small}</span>
                 </span>
               }
             />

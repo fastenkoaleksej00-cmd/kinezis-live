@@ -51,7 +51,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
         {allowed ? <CompletePrompt workoutId={workout.id} title={title} minutes={workout.durationMin} signedIn={Boolean(user)} /> : null}
 
         <div>
-          <p className="text-glow text-[11px] font-semibold tracking-[0.3em] uppercase">{t(`categories.${workout.category}`)}</p>
+          <p className="text-glow text-xs font-semibold tracking-[0.3em] uppercase">{t(`categories.${workout.category}`)}</p>
           <h1 className="text-frost mt-1.5 text-2xl leading-tight font-extrabold sm:text-3xl">{title}</h1>
           <p className="text-mist mt-2 text-sm">
             {tc("minutes", { count: workout.durationMin })} · {t(`levels.${workout.level}`)} · {author?.name}

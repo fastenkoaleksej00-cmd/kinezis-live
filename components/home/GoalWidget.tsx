@@ -88,7 +88,7 @@ export async function GoalWidget({ profile, stats, log, measurements }: GoalWidg
         center={
           <span className="text-center leading-none">
             <span className="text-ink block text-lg font-extrabold">{Number.isFinite(Number(big)) && big !== "—" ? <CountUp value={Number(big)} /> : big}</span>
-            {small ? <span className="text-steel mt-0.5 block text-[10px] font-semibold">{small}</span> : null}
+            {small ? <span className="text-steel mt-0.5 block text-[0.6875rem] font-semibold">{small}</span> : null}
           </span>
         }
       />

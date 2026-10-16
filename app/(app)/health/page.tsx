@@ -84,7 +84,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
         {cards.map((c) => (
           <div key={c.label} className="card px-4 py-3.5">
             <div className="flex items-start justify-between gap-2">
-              <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{c.label}</p>
+              <p className="text-steel text-xs font-semibold tracking-[0.12em] uppercase">{c.label}</p>
               <SourceBadge source={c.source} />
             </div>
             <p className="text-ink mt-1 text-2xl font-extrabold">{c.value}</p>
@@ -107,7 +107,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
             <p className="text-steel mt-1 text-sm">{t("connectBody")}</p>
             <ul className="mt-3 flex flex-wrap gap-1.5">
               {(["steps", "distance", "heartRate", "sleep"] as const).map((k) => (
-                <li key={k} className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">
+                <li key={k} className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold">
                   {t(`pending.${k}`)}
                 </li>
               ))}

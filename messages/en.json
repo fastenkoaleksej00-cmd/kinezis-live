@@ -548,7 +548,8 @@
       "trainers": "Trainers",
       "reports": "Reports",
       "profile": "My card",
-      "shop": "Shop"
+      "shop": "Shop",
+      "moderation": "Log"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -735,6 +736,31 @@
       "invalid": "Not a YouTube link, the video cannot be embedded, or the length is out of range.",
       "failed": "Could not add. The video may already be in the library.",
       "note": "Nothing is downloaded: the library stores only the link to the video."
+    },
+    "moderationLog": {
+      "title": "Moderation log",
+      "lead": "The last 100 decisions: who, what and why. Used to explain a decision to a member.",
+      "empty": "No entries yet",
+      "emptyBody": "Hides, approvals, rejections and report decisions will appear here.",
+      "by": "Decided by {name}",
+      "actions": {
+        "hide_post": "Post hidden",
+        "unhide_post": "Post restored",
+        "hide_comment": "Comment hidden",
+        "unhide_comment": "Comment restored",
+        "approve_content": "Publication approved",
+        "reject_content": "Publication rejected",
+        "suspend_trainer": "Trainer paused",
+        "activate_trainer": "Trainer activated",
+        "verify_trainer": "Trainer verified",
+        "unverify_trainer": "Verification removed",
+        "approve_application": "Application approved",
+        "reject_application": "Application rejected",
+        "review_application": "Application in review",
+        "resolve_report": "Report resolved",
+        "dismiss_report": "Report dismissed",
+        "clear_review": "Post checked"
+      }
     }
   },
   "premium": {
@@ -1227,7 +1253,10 @@
     "publish": "Publish",
     "publishing": "Publishing…",
     "saveDraft": "Save as draft",
-    "note": "Publishing needs a video; a draft can be saved without one. Files are stored in Supabase Storage (50 MB per file on the free plan)."
+    "note": "Publishing needs a video; a draft can be saved without one. Files are stored in Supabase Storage (50 MB per file on the free plan).",
+    "tooLargeTitle": "Video over 50 MB",
+    "tooLargeBody": "This video does not fit in storage. Upload it to your YouTube (unlisted is fine) and add it by link: the views go to your channel.",
+    "tooLargeAction": "Add from YouTube"
   },
   "calculator": {
     "title": "Goal calculator",

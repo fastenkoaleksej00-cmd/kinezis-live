@@ -63,7 +63,7 @@ export function AuthorCardForm({ author, userId }: { author: AuthorRow; userId: 
             {bannerPresets.map((p) => (
               <button key={p} type="button" onClick={() => setPreset(p)} aria-pressed={preset === p} className="group flex flex-col items-center gap-1.5">
                 <span className={cn("block h-10 w-full rounded-xl border-2 transition-[border-color]", bannerClass(p), preset === p ? "border-accent" : "border-transparent")} aria-hidden />
-                <span className={cn("text-[11px] font-semibold", preset === p ? "text-ink" : "text-steel")}>{tp(`presets.${p}`)}</span>
+                <span className={cn("text-xs font-semibold", preset === p ? "text-ink" : "text-steel")}>{tp(`presets.${p}`)}</span>
               </button>
             ))}
           </div>

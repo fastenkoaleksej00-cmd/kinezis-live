@@ -154,7 +154,7 @@
 @layer components {
   /* Small technical label: uppercase with tracking and an accent dot */
   .eyebrow {
-    @apply text-steel text-[11px] font-semibold uppercase;
+    @apply text-steel text-xs font-semibold uppercase;
     letter-spacing: 0.14em;
   }
   .eyebrow::before {

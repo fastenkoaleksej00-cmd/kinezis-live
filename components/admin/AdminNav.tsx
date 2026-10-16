@@ -21,6 +21,7 @@ const items = [
   { key: "skincare", href: "/admin/skincare", admin: true },
   { key: "nutrition", href: "/admin/nutrition", admin: true },
   { key: "shop", href: "/admin/shop", admin: true },
+  { key: "moderation", href: "/admin/moderation", admin: true },
 ] as const;
 
 /** Trainers see their own tools; admins additionally get review, applications, trainers, reports and brand sections. */

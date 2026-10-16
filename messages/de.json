@@ -548,7 +548,8 @@
       "trainers": "Trainer",
       "reports": "Meldungen",
       "profile": "Meine Karte",
-      "shop": "Shop"
+      "shop": "Shop",
+      "moderation": "Protokoll"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -735,6 +736,31 @@
       "invalid": "Kein YouTube-Link, das Video ist nicht einbettbar oder die Länge liegt außerhalb des Bereichs.",
       "failed": "Konnte nicht hinzufügen. Das Video ist vielleicht schon in der Bibliothek.",
       "note": "Nichts wird heruntergeladen: Die Bibliothek speichert nur den Link zum Video."
+    },
+    "moderationLog": {
+      "title": "Moderationsprotokoll",
+      "lead": "Die letzten 100 Entscheidungen: wer, was und warum. Damit lässt sich eine Entscheidung erklären.",
+      "empty": "Noch keine Einträge",
+      "emptyBody": "Ausblendungen, Freigaben, Ablehnungen und Meldungsentscheidungen erscheinen hier.",
+      "by": "Entschieden von {name}",
+      "actions": {
+        "hide_post": "Beitrag ausgeblendet",
+        "unhide_post": "Beitrag wiederhergestellt",
+        "hide_comment": "Kommentar ausgeblendet",
+        "unhide_comment": "Kommentar wiederhergestellt",
+        "approve_content": "Veröffentlichung freigegeben",
+        "reject_content": "Veröffentlichung abgelehnt",
+        "suspend_trainer": "Trainer pausiert",
+        "activate_trainer": "Trainer aktiviert",
+        "verify_trainer": "Trainer verifiziert",
+        "unverify_trainer": "Verifizierung entfernt",
+        "approve_application": "Bewerbung angenommen",
+        "reject_application": "Bewerbung abgelehnt",
+        "review_application": "Bewerbung in Prüfung",
+        "resolve_report": "Meldung erledigt",
+        "dismiss_report": "Meldung verworfen",
+        "clear_review": "Beitrag geprüft"
+      }
     }
   },
   "premium": {
@@ -1227,7 +1253,10 @@
     "publish": "Veröffentlichen",
     "publishing": "Wird veröffentlicht…",
     "saveDraft": "Als Entwurf speichern",
-    "note": "Zum Veröffentlichen ist ein Video nötig; ein Entwurf geht auch ohne. Dateien liegen in Supabase Storage (50 MB pro Datei im kostenlosen Tarif)."
+    "note": "Zum Veröffentlichen ist ein Video nötig; ein Entwurf geht auch ohne. Dateien liegen in Supabase Storage (50 MB pro Datei im kostenlosen Tarif).",
+    "tooLargeTitle": "Video über 50 MB",
+    "tooLargeBody": "Dieses Video passt nicht in den Speicher. Lade es auf dein YouTube hoch (auch als „nicht gelistet“) und füge es per Link hinzu: die Aufrufe gehen an deinen Kanal.",
+    "tooLargeAction": "Von YouTube hinzufügen"
   },
   "calculator": {
     "title": "Zielrechner",

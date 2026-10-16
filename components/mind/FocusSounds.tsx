@@ -101,7 +101,7 @@ export function FocusSounds() {
       </section>
 
       <p className="text-steel text-xs">{t("note")}</p>
-      {credits.length > 0 ? <p className="text-steel text-[11px]">{t("credits", { list: credits.map((c) => `${pick(c.title, locale)}: ${c.credit}`).join(" · ") })}</p> : null}
+      {credits.length > 0 ? <p className="text-steel text-xs">{t("credits", { list: credits.map((c) => `${pick(c.title, locale)}: ${c.credit}`).join(" · ") })}</p> : null}
     </div>
   );
 }

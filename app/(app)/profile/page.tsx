@@ -141,7 +141,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
               {badges.map((b) => (
                 <li key={b.key} className={cn("flex flex-col items-center gap-1.5 rounded-2xl px-2 py-3 text-center", b.earned ? "bg-mint-soft" : "bg-bone")}>
                   <Award className={cn("h-5 w-5", b.earned ? "text-mint-deep" : "text-mist-2")} strokeWidth={1.9} aria-hidden />
-                  <span className={cn("text-[11px] leading-tight font-semibold", b.earned ? "text-ink" : "text-steel")}>{t(`badges.${b.key}`)}</span>
+                  <span className={cn("text-xs leading-tight font-semibold", b.earned ? "text-ink" : "text-steel")}>{t(`badges.${b.key}`)}</span>
                 </li>
               ))}
             </ul>

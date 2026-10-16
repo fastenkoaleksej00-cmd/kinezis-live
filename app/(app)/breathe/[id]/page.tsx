@@ -93,7 +93,7 @@ export default async function PracticePage({ params, searchParams }: PageProps) 
             ["limitations", ev.limitations],
           ] as const).map(([k, v]) => (
             <div key={k} className="bg-frost/70 rounded-2xl px-3.5 py-2.5">
-              <dt className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{t(`evidence.${k}`)}</dt>
+              <dt className="text-steel text-xs font-semibold tracking-[0.12em] uppercase">{t(`evidence.${k}`)}</dt>
               <dd className="text-text mt-0.5">{pick(v, locale)}</dd>
             </div>
           ))}

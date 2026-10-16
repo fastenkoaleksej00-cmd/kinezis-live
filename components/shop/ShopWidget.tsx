@@ -41,7 +41,7 @@ export async function ShopWidget() {
                     <Icon className="h-6 w-6" aria-hidden />
                   </span>
                 )}
-                <span className="text-ink block truncate px-2 pb-2 text-[11px] font-semibold">{pick(i.title, locale)}</span>
+                <span className="text-ink block truncate px-2 pb-2 text-xs font-semibold">{pick(i.title, locale)}</span>
               </Link>
             );
           })}

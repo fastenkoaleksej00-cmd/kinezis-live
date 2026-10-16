@@ -99,7 +99,7 @@ export function GoalCalculator({ defaults }: GoalCalculatorProps) {
               { label: t("result.time"), value: result.weeks ? `${result.weeks.fast}–${result.weeks.slow}` : "—", unit: result.weeks ? t("result.weeks") : "" },
             ].map((c) => (
               <div key={c.label} className="card px-4 py-3.5">
-                <p className="text-steel text-[11px] font-semibold tracking-[0.12em] uppercase">{c.label}</p>
+                <p className="text-steel text-xs font-semibold tracking-[0.12em] uppercase">{c.label}</p>
                 <p className="text-ink mt-1 text-xl font-extrabold">{c.value}</p>
                 <p className="text-steel text-xs">{c.unit}</p>
               </div>

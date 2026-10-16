@@ -138,7 +138,7 @@ export function WaterWidget({ variant = "home", id }: WaterWidgetProps) {
                 <div className="bg-bone-2 flex h-14 w-full items-end overflow-hidden rounded-md">
                   <div className="water-fill w-full" style={{ height: `${Math.min(100, Math.round((Math.min(MAX_DAY, d.ml) / goal) * 100))}%` }} aria-hidden />
                 </div>
-                <span className="text-steel text-[10px] font-semibold">{d.label}</span>
+                <span className="text-steel text-[0.6875rem] font-semibold">{d.label}</span>
               </div>
             ))}
           </div>

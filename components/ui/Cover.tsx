@@ -32,7 +32,7 @@ export function Cover({ tone = "deep", ratio = "aspect-[4/5]", label, imageSrc, 
         </>
       ) : null}
       {label ? (
-        <span className="absolute top-3 left-3 z-10 rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-md">
+        <span className="absolute top-3 left-3 z-10 rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-md">
           {label}
         </span>
       ) : null}

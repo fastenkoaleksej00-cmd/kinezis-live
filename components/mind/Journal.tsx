@@ -50,7 +50,7 @@ export function CheckInForm({ compact = false }: { compact?: boolean }) {
               );
             })}
           </div>
-          {today?.[scale] ? <p className="text-steel mt-1 text-[11px]">{t(`levels.${scale}.${today[scale]}` as "levels.mood.1")}</p> : null}
+          {today?.[scale] ? <p className="text-steel mt-1 text-xs">{t(`levels.${scale}.${today[scale]}` as "levels.mood.1")}</p> : null}
         </fieldset>
       ))}
     </div>
@@ -127,7 +127,7 @@ export function JournalHistory() {
             <tr>
               <th className="w-20" />
               {days.map((d) => (
-                <th key={d.key} className="text-steel text-[10px] font-semibold">
+                <th key={d.key} className="text-steel text-[0.6875rem] font-semibold">
                   <span className="block">{d.weekday}</span>
                   {d.label}
                 </th>
@@ -137,11 +137,11 @@ export function JournalHistory() {
           <tbody>
             {checkinScales.map((scale) => (
               <tr key={scale}>
-                <th className="text-steel pr-1 text-left text-[11px] font-semibold">{t(`scales.${scale}`)}</th>
+                <th className="text-steel pr-1 text-left text-xs font-semibold">{t(`scales.${scale}`)}</th>
                 {days.map((d) => {
                   const v = s.days[d.key]?.[scale];
                   return (
-                    <td key={d.key} className={cn("h-7 rounded-md text-[11px] font-bold", v ? tone(scale, v) : "bg-bone-2/60")} title={v ? t(`levels.${scale}.${v}` as "levels.mood.1") : undefined}>
+                    <td key={d.key} className={cn("h-7 rounded-md text-xs font-bold", v ? tone(scale, v) : "bg-bone-2/60")} title={v ? t(`levels.${scale}.${v}` as "levels.mood.1") : undefined}>
                       {v ?? ""}
                     </td>
                   );

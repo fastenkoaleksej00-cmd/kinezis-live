@@ -90,7 +90,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <Link href={`/library/${today.slug}`} className="group block">
             <Cover tone={today.coverTone} ratio="aspect-[4/3] sm:aspect-[21/9]" label={t("todayEyebrow")} imageSrc={today.video?.poster}>
               <div className="flex h-full flex-col justify-end p-5 sm:p-7">
-                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel text-[11px] font-semibold tracking-[0.3em] uppercase" : "text-glow text-[11px] font-semibold tracking-[0.3em] uppercase"}>
+                <p className={today.coverTone === "light" && !today.video?.poster ? "text-steel text-xs font-semibold tracking-[0.3em] uppercase" : "text-glow text-xs font-semibold tracking-[0.3em] uppercase"}>
                   {tl(`categories.${today.category}`)}
                 </p>
                 <h2 className={today.coverTone === "light" && !today.video?.poster ? "text-ink mt-1.5 text-2xl leading-tight font-bold sm:text-3xl" : "text-frost mt-1.5 text-2xl leading-tight font-bold sm:text-3xl"}>

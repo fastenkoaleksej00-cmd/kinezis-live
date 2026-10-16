@@ -6,6 +6,7 @@ import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type G
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { regionIds } from "@/lib/body/regions";
 import { ownStorageUrl } from "@/lib/security";
+import { logModeration } from "./moderationLog";
 import { parseYouTubeId, youTubeThumb } from "@/lib/video/youtube";
 import { communityTopics, normalizeTags, postTypes, riskyText } from "@/lib/community/types";
 
@@ -626,7 +627,10 @@ export async function setPostHidden(fd: FormData): Promise<void> {
   if ("error" in ctx) return;
   const id = str(fd, "id");
   const hidden = str(fd, "hidden") === "true";
-  if (id) await ctx.db.from("posts").update({ hidden }).eq("id", id);
+  if (id) {
+    await ctx.db.from("posts").update({ hidden }).eq("id", id);
+    await logModeration(ctx.db, ctx.user.id, hidden ? "hide_post" : "unhide_post", "post", id);
+  }
   revalidatePath("/", "layout");
   redirect("/admin/community");
 }

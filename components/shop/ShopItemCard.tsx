@@ -38,7 +38,7 @@ export function ShopItemCard({ item, country }: { item: ShopItem; country: strin
             </div>
           </Cover>
         )}
-        {soon ? <span className="bg-accent-soft text-accent absolute top-2 left-2 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] uppercase">{t("collections.soon.badge")}</span> : null}
+        {soon ? <span className="bg-accent-soft text-accent absolute top-2 left-2 rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.12em] uppercase">{t("collections.soon.badge")}</span> : null}
       </div>
       <div className="flex flex-1 flex-col gap-1.5 p-4">
         <p className="eyebrow">{t(`categories.${item.category}.title`)}</p>
@@ -59,7 +59,7 @@ export function ShopItemCard({ item, country }: { item: ShopItem; country: strin
                   <ExternalLink className="h-3.5 w-3.5" aria-hidden />
                 </a>
               </div>
-              <p className="text-steel mt-1 inline-flex items-center gap-1 text-[11px]">
+              <p className="text-steel mt-1 inline-flex items-center gap-1 text-xs">
                 <Truck className="h-3 w-3 shrink-0" aria-hidden />
                 {offer.deliveryMax !== undefined
                   ? t("deliveryStated", { min: offer.deliveryMin ?? offer.deliveryMax, max: offer.deliveryMax })
@@ -73,7 +73,7 @@ export function ShopItemCard({ item, country }: { item: ShopItem; country: strin
             <div className="flex items-end justify-between gap-2">
               <div>
                 {legacy.price !== undefined ? <p className="text-ink text-lg font-extrabold">{money(locale, legacy.price, legacy.currency)}</p> : <p className="text-steel text-sm">{t("priceAtPartner")}</p>}
-                {legacy.store ? <p className="text-steel text-[11px]">{t("soldBy", { partner: legacy.store })}</p> : null}
+                {legacy.store ? <p className="text-steel text-xs">{t("soldBy", { partner: legacy.store })}</p> : null}
               </div>
               <a href={legacy.url} target="_blank" rel="sponsored noopener noreferrer" className="bg-linear-to-b from-ink-2 to-ink inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-sm font-semibold text-white">
                 {t("buy")}

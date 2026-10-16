@@ -46,8 +46,8 @@ export default async function AdminReportsPage({ searchParams }: PageProps) {
           {reports.map((r) => (
             <li key={r.id} className="card space-y-3 p-5">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="bg-[#fde8ea] text-[#b9344a] inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold uppercase">{tr(`reasons.${r.reason}`)}</span>
-                <span className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold uppercase">{tr(`targets.${r.targetType}`)}</span>
+                <span className="bg-[#fde8ea] text-[#b9344a] inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold uppercase">{tr(`reasons.${r.reason}`)}</span>
+                <span className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold uppercase">{tr(`targets.${r.targetType}`)}</span>
                 <span className="text-steel text-xs">{format.dateTime(new Date(r.createdAt), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
                 <Link href={targetHref(r.targetType, r.targetId)} className="text-accent ml-auto text-xs font-semibold hover:underline">
                   {t("open")}

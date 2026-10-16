@@ -146,7 +146,7 @@ export default async function WorkoutPage({ params, searchParams }: WorkoutPageP
                 <Icon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
               </span>
               <span className="min-w-0">
-                <span className="text-steel block text-[11px] font-semibold tracking-[0.12em] uppercase">{label}</span>
+                <span className="text-steel block text-xs font-semibold tracking-[0.12em] uppercase">{label}</span>
                 <span className={href ? "text-accent block truncate text-sm font-semibold" : "text-ink block truncate text-sm font-semibold"}>{value}</span>
               </span>
             </>

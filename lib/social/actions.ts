@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createServerSupabase, getSessionUser, isStaff } from "@/lib/supabase/server";
 import type { CommentTarget, ReactionTarget } from "./types";
+import { logModeration } from "@/lib/admin/moderationLog";
 
 const reactionTargets: ReactionTarget[] = ["post", "workout", "course", "meal"];
 const commentTargets: CommentTarget[] = ["post", "workout"];
@@ -75,6 +76,7 @@ export async function setCommentHidden(fd: FormData): Promise<void> {
   const supabase = await createServerSupabase();
   if (!supabase) return;
   await supabase.from("comments").update({ hidden }).eq("id", id);
+  if (user) await logModeration(supabase, user.id, hidden ? "hide_comment" : "unhide_comment", "comment", id);
   revalidatePath(path);
   revalidatePath("/", "layout");
 }

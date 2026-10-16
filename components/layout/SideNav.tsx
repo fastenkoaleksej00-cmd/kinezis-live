@@ -64,7 +64,7 @@ export function SideNav() {
           <Settings className="h-[18px] w-[18px]" strokeWidth={1.8} aria-hidden />
           {tc("settings")}
         </Link>
-        <p className="text-mist-2 px-3.5 text-[11px] font-semibold tracking-[0.2em] uppercase">{tb("tagline")}</p>
+        <p className="text-mist-2 px-3.5 text-xs font-semibold tracking-[0.2em] uppercase">{tb("tagline")}</p>
       </div>
     </aside>
   );

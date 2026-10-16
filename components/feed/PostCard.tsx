@@ -96,19 +96,19 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
 
       {post.userId && (post.topic || post.postType || endorser) ? (
         <div className="flex flex-wrap items-center gap-1.5 px-4 pb-2 sm:px-5">
-          {post.postType ? <span className="bg-accent-soft text-accent inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">{tcm(`types.${post.postType as "story"}`)}</span> : null}
+          {post.postType ? <span className="bg-accent-soft text-accent inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold">{tcm(`types.${post.postType as "story"}`)}</span> : null}
           {post.topic ? (
-            <Link href={`/community?topic=${post.topic}`} className="bg-mint-soft text-mint-deep inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">
+            <Link href={`/community?topic=${post.topic}`} className="bg-mint-soft text-mint-deep inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold">
               {tcm(`topics.${post.topic as "general"}`)}
             </Link>
           ) : null}
           {endorser ? (
-            <span className="inline-flex h-6 items-center gap-1 rounded-full bg-[#e4f6f1] px-2.5 text-[11px] font-semibold text-[#2f7d70]">
+            <span className="inline-flex h-6 items-center gap-1 rounded-full bg-[#e4f6f1] px-2.5 text-xs font-semibold text-[#2f7d70]">
               <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
               {tcm("endorsedBy", { name: endorser.name })}
             </span>
           ) : (
-            <span className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">{tcm("personal")}</span>
+            <span className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-xs font-semibold">{tcm("personal")}</span>
           )}
         </div>
       ) : null}
@@ -162,7 +162,7 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
                 <span className="glass-dark absolute right-3 bottom-3 z-10 rounded-full px-2.5 py-1 text-xs font-semibold text-white">{formatTime(post.attachment.durationSec)}</span>
               ) : null}
               {!post.attachment.source ? (
-                <span className="absolute bottom-3 left-3 z-10 rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-md">{t("videoPending")}</span>
+                <span className="absolute bottom-3 left-3 z-10 rounded-full border border-white/40 bg-white/15 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-md">{t("videoPending")}</span>
               ) : null}
             </Cover>
             </Link>

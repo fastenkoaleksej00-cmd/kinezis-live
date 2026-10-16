@@ -25,7 +25,7 @@ export default async function PremiumPage() {
           <div className="grid-bg-dark pointer-events-none absolute inset-0" aria-hidden />
           <div className="pointer-events-none absolute -top-24 -right-16 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(169,223,210,0.35)_0%,rgba(169,223,210,0)_70%)] blur-2xl" aria-hidden />
           <div className="relative">
-            <p className="text-mint inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.3em] uppercase">
+            <p className="text-mint inline-flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase">
               <Sparkles className="h-3.5 w-3.5" aria-hidden />
               {t("eyebrow")}
             </p>
@@ -61,7 +61,7 @@ export default async function PremiumPage() {
           </ul>
         </div>
         <div className="card border-mint-deep/30 relative p-5 sm:p-6">
-          <span className="bg-mint-soft text-mint-deep absolute top-4 right-4 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">{t("soonShort")}</span>
+          <span className="bg-mint-soft text-mint-deep absolute top-4 right-4 rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.18em] uppercase">{t("soonShort")}</span>
           <p className="eyebrow mb-2">{t("plans.premium")}</p>
           <p className="text-ink text-2xl font-extrabold">
             ${planPrices.premium.monthly.toFixed(2)} <span className="text-steel text-sm font-semibold">{t("plans.perMonth")}</span>

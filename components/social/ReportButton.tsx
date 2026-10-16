@@ -1,11 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Flag, X } from "lucide-react";
 import { Select, Textarea } from "@/components/admin/fields";
 import { Button } from "@/components/ui/Button";
+import { useDialogFocus } from "@/lib/useDialogFocus";
 import { submitReport, type TrainerState } from "@/lib/trainers/actions";
 import { reportReasons, type ReportTarget } from "@/lib/trainers/types";
 
@@ -15,6 +16,8 @@ const initial: TrainerState = {};
 export function ReportButton({ targetType, targetId, signedIn, className }: { targetType: ReportTarget; targetId: string; signedIn: boolean; className?: string }) {
   const t = useTranslations("report");
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(dialogRef, open);
   const [state, action, pending] = useActionState(submitReport, initial);
   const reduce = useReducedMotion();
 
@@ -36,7 +39,7 @@ export function ReportButton({ targetType, targetId, signedIn, className }: { ta
       <AnimatePresence>
         {open ? (
           <motion.div key="overlay" className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 backdrop-blur-sm md:items-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 0.25 }} onClick={() => setOpen(false)}>
-            <motion.div role="dialog" aria-modal="true" aria-label={t("title")} className="pb-safe w-full max-w-lg rounded-t-3xl bg-white p-5 shadow-[var(--shadow-card)] md:rounded-3xl" initial={reduce ? { opacity: 0 } : { y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={reduce ? { opacity: 0 } : { y: 40, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} onClick={(e) => e.stopPropagation()}>
+            <motion.div ref={dialogRef} role="dialog" aria-modal="true" aria-label={t("title")} className="pb-safe w-full max-w-lg rounded-t-3xl bg-white p-5 shadow-[var(--shadow-card)] md:rounded-3xl" initial={reduce ? { opacity: 0 } : { y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={reduce ? { opacity: 0 } : { y: 40, opacity: 0 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }} onClick={(e) => e.stopPropagation()}>
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-ink text-lg font-bold">{t("title")}</h2>
                 <button type="button" onClick={() => setOpen(false)} aria-label={t("close")} className="text-ink hover:bg-frost inline-flex h-9 w-9 items-center justify-center rounded-full">

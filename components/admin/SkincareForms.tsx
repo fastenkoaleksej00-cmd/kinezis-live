@@ -67,7 +67,7 @@ export function RoutineForm({ routine }: { routine?: RoutineRow | null }) {
           <p className="text-steel text-xs">{t("fields.stepsHint")}</p>
           {(["en", "uk", "de", "ru"] as const).map((code) => (
             <div key={code} className="flex items-start gap-2.5">
-              <span className="text-steel mt-3.5 w-7 shrink-0 text-[11px] font-bold tracking-wider uppercase">{code}</span>
+              <span className="text-steel mt-3.5 w-7 shrink-0 text-xs font-bold tracking-wider uppercase">{code}</span>
               <Textarea name={`steps_${code}`} defaultValue={lines(routine?.steps, code)} rows={5} required={code === "en"} lang={code} aria-label={`${t("fields.routineSteps")} (${code})`} />
             </div>
           ))}

@@ -116,7 +116,7 @@ export function ProfileEditForm({ profile }: { profile: UserProfile }) {
               className="group flex flex-col items-center gap-1.5"
             >
               <span className={cn("block h-12 w-full rounded-xl border-2 transition-[transform,border-color] duration-300 group-active:scale-95", bannerClass(p), !banner && preset === p ? "border-accent" : "border-transparent")} aria-hidden />
-              <span className={cn("text-[11px] font-semibold", !banner && preset === p ? "text-ink" : "text-steel")}>{t(`presets.${p}`)}</span>
+              <span className={cn("text-xs font-semibold", !banner && preset === p ? "text-ink" : "text-steel")}>{t(`presets.${p}`)}</span>
             </button>
           ))}
         </div>

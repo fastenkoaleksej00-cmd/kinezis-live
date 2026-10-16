@@ -26,7 +26,7 @@ export function Logo({ tone = "auto", withWord = true, className, markClassName 
           {withWord ? (
             <span className="inline-flex items-baseline gap-1.5">
               <Image src={`/brand/logo-word${suffix}.png`} alt="KINEZIS" width={840} height={118} priority className="h-[13px] w-auto" />
-              <span className={cn("text-[11px] leading-none font-semibold tracking-[0.3em]", suffix ? "text-glow" : "text-accent")}>LIVE</span>
+              <span className={cn("text-xs leading-none font-semibold tracking-[0.3em]", suffix ? "text-glow" : "text-accent")}>LIVE</span>
             </span>
           ) : null}
         </span>

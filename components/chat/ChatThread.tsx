@@ -109,11 +109,11 @@ export function ChatThread({ conversationId, initial, meId, staff, counterpartNa
           const showDay = i === 0 || dayOf(messages[i - 1].createdAt) !== dayOf(m.createdAt);
           return (
             <div key={m.id}>
-              {showDay ? <p className="text-steel my-3 text-center text-[11px] font-semibold tracking-[0.12em] uppercase">{dayOf(m.createdAt)}</p> : null}
+              {showDay ? <p className="text-steel my-3 text-center text-xs font-semibold tracking-[0.12em] uppercase">{dayOf(m.createdAt)}</p> : null}
               <div className={cn("flex", mine ? "justify-end" : "justify-start")}>
                 <div className={cn("max-w-[82%] rounded-3xl px-4 py-2.5 text-[15px] leading-relaxed whitespace-pre-line", mine ? "rounded-br-md bg-linear-to-b from-ink-2 to-ink text-white" : "bg-frost text-text rounded-bl-md")}>
                   {m.body}
-                  <span className={cn("mt-1 block text-[10px] tabular-nums", mine ? "text-mist" : "text-steel")}>{fmt(m.createdAt)}</span>
+                  <span className={cn("mt-1 block text-[0.6875rem] tabular-nums", mine ? "text-mist" : "text-steel")}>{fmt(m.createdAt)}</span>
                 </div>
               </div>
             </div>

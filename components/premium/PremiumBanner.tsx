@@ -24,7 +24,7 @@ export async function PremiumBanner({ user }: PremiumBannerProps) {
         <div className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(142,220,240,0.3)_0%,rgba(142,220,240,0)_70%)] blur-2xl" aria-hidden />
 
         <div className="relative">
-          <p className="text-mint inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.3em] uppercase">
+          <p className="text-mint inline-flex items-center gap-2 text-xs font-semibold tracking-[0.3em] uppercase">
             <Sparkles className="h-3.5 w-3.5" aria-hidden />
             {t("eyebrow")}
           </p>
