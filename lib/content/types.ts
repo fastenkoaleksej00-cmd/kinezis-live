@@ -154,6 +154,13 @@ export interface Post {
   reactionsEnabled: boolean;
   commentsEnabled: boolean;
   sample?: boolean;
+  /** Community (migration 0021) */
+  topic?: string;
+  postType?: string;
+  tags?: string[];
+  /** Author id of the verified trainer who checked this member post */
+  endorsedBy?: string;
+  needsReview?: boolean;
 }
 
 /* ----------------------------------------------------------------------------

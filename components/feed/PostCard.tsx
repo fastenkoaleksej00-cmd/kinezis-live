@@ -17,7 +17,8 @@ import { getSocialCounts } from "@/lib/social/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 import { getPublicMembers } from "@/lib/profile/public";
 import { deleteOwnPost } from "@/lib/admin/actions";
-import { Trash2 } from "lucide-react";
+import { BadgeCheck, Stethoscope, Trash2 } from "lucide-react";
+import { redFlagText } from "@/lib/community/types";
 
 interface PostCardProps {
   post: Post;
@@ -49,6 +50,10 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
   const counts = social ?? (await getSocialCounts("post", [post.id]))[post.id];
   const isSignedIn = signedIn ?? Boolean(await getSessionUser());
   const ts = await getTranslations("social");
+  const tcm = await getTranslations("community");
+  const bodyText = pick(post.body, locale);
+  const endorser = post.userId && post.endorsedBy ? await getAuthor(post.endorsedBy) : undefined;
+  const redFlag = Boolean(post.userId && expanded && redFlagText(bodyText));
 
   return (
     <article className="card overflow-hidden">
@@ -89,13 +94,48 @@ export async function PostCard({ post, expanded = false, social, signedIn, membe
         </div>
       </div>
 
+      {post.userId && (post.topic || post.postType || endorser) ? (
+        <div className="flex flex-wrap items-center gap-1.5 px-4 pb-2 sm:px-5">
+          {post.postType ? <span className="bg-accent-soft text-accent inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">{tcm(`types.${post.postType as "story"}`)}</span> : null}
+          {post.topic ? (
+            <Link href={`/community?topic=${post.topic}`} className="bg-mint-soft text-mint-deep inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">
+              {tcm(`topics.${post.topic as "general"}`)}
+            </Link>
+          ) : null}
+          {endorser ? (
+            <span className="inline-flex h-6 items-center gap-1 rounded-full bg-[#e4f6f1] px-2.5 text-[11px] font-semibold text-[#2f7d70]">
+              <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+              {tcm("endorsedBy", { name: endorser.name })}
+            </span>
+          ) : (
+            <span className="bg-bone-2 text-steel inline-flex h-6 items-center rounded-full px-2.5 text-[11px] font-semibold">{tcm("personal")}</span>
+          )}
+        </div>
+      ) : null}
+
       <div className="space-y-3 px-4 sm:px-5">
         {title ? (
           <h3 className="text-ink text-lg leading-snug font-bold">
             {expanded ? title : <Link href={`/posts/${post.id}`} className="hover:text-accent transition-colors">{title}</Link>}
           </h3>
         ) : null}
-        <p className={expanded ? "text-text text-[15px] leading-relaxed" : "text-text line-clamp-3 text-[15px] leading-relaxed"}>{pick(post.body, locale)}</p>
+        <p className={expanded ? "text-text text-[15px] leading-relaxed whitespace-pre-line" : "text-text line-clamp-3 text-[15px] leading-relaxed"}>{bodyText}</p>
+        {post.tags && post.tags.length > 0 ? (
+          <div className="flex flex-wrap gap-x-2 gap-y-1">
+            {post.tags.map((tag) => (
+              <Link key={tag} href={`/community?tag=${encodeURIComponent(tag)}`} className="text-accent text-xs font-semibold hover:underline">
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        ) : null}
+        {post.userId && expanded ? <p className="text-steel text-xs">{endorser ? tcm("endorsedNote") : tcm("personalNote")}</p> : null}
+        {redFlag ? (
+          <div className="flex items-start gap-3 rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] p-3 text-sm text-[#8a2f2f]">
+            <Stethoscope className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+            <p>{tcm("redFlag")}</p>
+          </div>
+        ) : null}
       </div>
 
       {post.attachment ? (

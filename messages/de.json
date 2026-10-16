@@ -63,7 +63,8 @@
       "shop": "Shop",
       "homeWidgets": "Widgets auf Home",
       "widget_water": "Wasser",
-      "widget_checkin": "Befinden"
+      "widget_checkin": "Befinden",
+      "community": "Community"
     }
   },
   "explore": {
@@ -100,6 +101,10 @@
     "shop": {
       "title": "Shop",
       "body": "Matten, Blöcke, Bänder und alles fürs Training zu Hause."
+    },
+    "community": {
+      "title": "Community",
+      "body": "Erfahrungen, Fragen und Tipps von Mitgliedern nach Themen."
     }
   },
   "library": {
@@ -379,7 +384,8 @@
       "nutrition": "Ernährung",
       "motivation": "Motivation",
       "other": "Sonstiges"
-    }
+    },
+    "openCommunity": "Community öffnen: Themen, Suche, Hilfreiches"
   },
   "faceFitness": {
     "eyebrow": "Beauty",
@@ -626,7 +632,9 @@
       "bodyRequired": "Der englische Text ist erforderlich.",
       "slugTaken": "Dieser Slug wird bereits von einem anderen Workout verwendet.",
       "invalid": "Einige Werte sind nicht erlaubt. Prüfe die Felder.",
-      "generic": "Konnte nicht speichern. Versuche es erneut."
+      "generic": "Konnte nicht speichern. Versuche es erneut.",
+      "rateLimit": "Zu viele Beiträge in dieser Stunde. Versuch es später.",
+      "linksNew": "Beiträge mit Links sind am ersten Tag nicht möglich."
     },
     "newCourse": "Neuer Kurs",
     "editCourse": "Kurs bearbeiten",
@@ -996,7 +1004,8 @@
       "empty": "Schreib zuerst etwas.",
       "tooLong": "Bis zu 1000 Zeichen.",
       "disabled": "Kommentare sind hier aus.",
-      "generic": "Konnte nicht senden. Versuche es erneut."
+      "generic": "Konnte nicht senden. Versuche es erneut.",
+      "rateLimit": "Zu viele Kommentare hintereinander. Warte ein paar Minuten."
     }
   },
   "chat": {
@@ -1919,5 +1928,73 @@
     "suggestMusicHint": "Ohne Gesang, läuft im Hintergrund, während du übst. Leise stellen, um die Trainerin zu hören.",
     "suggestNature": "Naturklänge für die Praxis",
     "suggestNatureHint": "Regen, Meer oder Wind im Hintergrund. Jederzeit ausschaltbar."
+  },
+  "community": {
+    "eyebrow": "Community",
+    "title": "Community",
+    "lead": "Erfahrungen, Fragen und Tipps von Mitgliedern zu Rücken, Mobilität, Regeneration und Ernährung.",
+    "write": "Schreiben",
+    "posted": "Veröffentlicht.",
+    "flagged": "Veröffentlicht und zur Prüfung an die Moderation gesendet: Der Beitrag enthält Formulierungen wie ein Heilversprechen oder den Rat, eine Behandlung abzubrechen. Teile bitte deine Erfahrung ohne Versprechen an andere.",
+    "searchPlaceholder": "In der Community suchen",
+    "clear": "Löschen",
+    "allTopics": "Alle Themen",
+    "allTypes": "Alle",
+    "sortNew": "Neu",
+    "sortBest": "Hilfreich",
+    "emptyTitle": "Hier ist es noch ruhig",
+    "emptyFiltered": "Nichts gefunden",
+    "emptyBody": "Teile deine Erfahrung oder stell die erste Frage.",
+    "personal": "Persönliche Erfahrung",
+    "personalNote": "Das ist die persönliche Erfahrung eines Mitglieds, keine medizinische Empfehlung. Was einer Person geholfen hat, passt vielleicht nicht zu dir.",
+    "endorsedBy": "Geprüft von {name}",
+    "endorsedNote": "Eine Fachperson von KINEZIS LIVE hat den Beitrag gelesen und keinen unsicheren Rat gesehen. Keine persönliche Empfehlung.",
+    "redFlag": "Taubheit, Schwäche oder starke bzw. plötzliche Schmerzen gehören zuerst zur Ärztin. Wähle keine Übungen nach Community-Tipps.",
+    "endorse": "Als geprüft markieren",
+    "unendorse": "Prüfung entfernen",
+    "topics": {
+      "back": "Rücken und Nacken",
+      "mobility": "Mobilität",
+      "recovery": "Regeneration",
+      "nutrition": "Ernährung",
+      "breath": "Atmung",
+      "mind": "Schlaf und Stress",
+      "face": "Gesicht und Pflege",
+      "general": "Allgemein"
+    },
+    "types": {
+      "story": "Erfahrung",
+      "question": "Frage",
+      "tip": "Tipp"
+    },
+    "typesPlural": {
+      "story": "Erfahrungen",
+      "question": "Fragen",
+      "tip": "Tipps"
+    },
+    "composer": {
+      "type": "Art",
+      "topic": "Thema",
+      "tags": "Tags",
+      "tagsPlaceholder": "z. B. unterer Rücken, Morgen, Pilates"
+    },
+    "rules": {
+      "1": "Schreib über deine Erfahrung; versprich anderen keine Ergebnisse.",
+      "2": "Rate niemandem, eine Behandlung oder Medikamente abzusetzen.",
+      "3": "Starke oder plötzliche Schmerzen, Taubheit oder Schwäche gehören zuerst zur Ärztin.",
+      "title": "Vor dem Posten"
+    },
+    "rulesTitle": "Community-Regeln",
+    "rulesList": {
+      "1": "Wir teilen Erfahrungen, keine Diagnosen oder Heilversprechen.",
+      "2": "Keine Ratschläge zum Absetzen von Behandlungen, kein Verkauf.",
+      "3": "Respekt: keine Beleidigungen, kein Druck.",
+      "4": "Unsicheren Rat gesehen? Tippe auf der Beitragsseite auf „Melden“."
+    },
+    "admin": {
+      "flaggedTitle": "In Prüfung: {count}",
+      "checked": "Geprüft",
+      "flaggedHint": "Beiträge mit Formulierungen wie „heilt“, „garantiert“, „Medikamente absetzen“. Mitglieder sehen sie; verbirg unsichere oder markiere sie als geprüft."
+    }
   }
 }

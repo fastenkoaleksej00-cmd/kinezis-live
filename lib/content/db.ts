@@ -45,6 +45,12 @@ export interface PostRow {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  topic?: string | null;
+  post_type?: string | null;
+  tags?: string[] | null;
+  endorsed_by?: string | null;
+  needs_review?: boolean | null;
+  review_reason?: string | null;
 }
 
 export interface AuthorRow {
@@ -88,8 +94,8 @@ export function rowToAuthor(r: AuthorRow): Author {
 
 export const workoutColumns =
   "id, slug, title, description, category, duration_min, level, goals, access, language, cover_tone, video, author_id, published, published_at, created_at, updated_at, review_status, review_note, equipment, body_regions, safety";
-export const postColumns =
-  "id, kind, author_id, user_id, category, hidden, title, body, attachment, language, access, reactions_enabled, comments_enabled, published, published_at, created_at, updated_at";
+/** "*" so community columns (migration 0021) arrive when present without breaking reads before it runs */
+export const postColumns = "*";
 
 export function rowToWorkout(r: WorkoutRow): Workout {
   return {
@@ -130,6 +136,11 @@ export function rowToPost(r: PostRow): Post {
     publishedAt: r.published_at ?? r.created_at,
     reactionsEnabled: r.reactions_enabled,
     commentsEnabled: r.comments_enabled,
+    topic: r.topic ?? undefined,
+    postType: r.post_type ?? undefined,
+    tags: r.tags ?? [],
+    endorsedBy: r.endorsed_by ?? undefined,
+    needsReview: r.needs_review ?? false,
   };
 }
 

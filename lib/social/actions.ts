@@ -36,7 +36,7 @@ export async function toggleLike(targetType: ReactionTarget, targetId: string): 
 }
 
 export interface CommentState {
-  error?: "signedOut" | "empty" | "tooLong" | "disabled" | "generic";
+  error?: "signedOut" | "empty" | "tooLong" | "disabled" | "generic" | "rateLimit";
   ok?: boolean;
 }
 
@@ -51,7 +51,7 @@ export async function addComment(_prev: CommentState, fd: FormData): Promise<Com
   const ctx = await me();
   if (!ctx) return { error: "signedOut" };
   const { error } = await ctx.supabase.from("comments").insert({ user_id: ctx.user.id, target_type: targetType, target_id: targetId, body });
-  if (error) return { error: "generic" };
+  if (error) return { error: /rate_limit/.test(error.message) ? "rateLimit" : "generic" };
   revalidatePath(path);
   return { ok: true };
 }

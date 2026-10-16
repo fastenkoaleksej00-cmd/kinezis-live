@@ -5,8 +5,9 @@ import { redirect } from "next/navigation";
 import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { regionIds } from "@/lib/body/regions";
+import { communityTopics, normalizeTags, postTypes, riskyText } from "@/lib/community/types";
 
-export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic";
+export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic" | "rateLimit" | "linksNew";
 
 export interface AdminState {
   error?: AdminErrorCode;
@@ -529,8 +530,17 @@ export async function memberPublish(_prev: QuickPublishState, fd: FormData): Pro
   let attachment: PostAttachment | null = null;
   if (mediaKind === "photo" && mediaUrl) attachment = { kind: "photo", coverTone: "deep", alt: { en: caption.slice(0, 80) }, src: mediaUrl };
   if (mediaKind === "video" && mediaPath) attachment = { kind: "video", coverTone: "deep", source: { kind: "storage", bucket: "member-videos", path: mediaPath } };
-  const category = inList(memberCategories, str(fd, "category"), "other");
+  const topic = inList(communityTopics, str(fd, "topic"), "general");
+  const postType = inList(postTypes, str(fd, "post_type"), "story");
+  const tags = normalizeTags(str(fd, "tags"));
+  const flagged = riskyText(caption);
+  const category = topic === "face" ? "face" : topic === "nutrition" ? "nutrition" : topic === "mind" ? "motivation" : topic === "general" ? inList(memberCategories, str(fd, "category"), "other") : "workouts";
   const { error } = await supabase.from("posts").insert({
+    topic,
+    post_type: postType,
+    tags,
+    needs_review: flagged,
+    review_reason: flagged ? "keywords" : null,
     kind: attachment?.kind === "video" ? "video" : attachment?.kind === "photo" ? "photo" : "news",
     author_id: null,
     user_id: user.id,
@@ -545,9 +555,9 @@ export async function memberPublish(_prev: QuickPublishState, fd: FormData): Pro
     published: true,
     published_at: new Date().toISOString(),
   });
-  if (error) return { error: mapDbError(error.message) };
+  if (error) return { error: /rate_limit/.test(error.message) ? "rateLimit" : /links_new_account/.test(error.message) ? "linksNew" : mapDbError(error.message) };
   revalidatePath("/", "layout");
-  redirect("/?posted=1&feed=community");
+  redirect(`/community?posted=1${flagged ? "&review=1" : ""}&topic=${topic}`);
 }
 
 /** Owner deletes their own post; staff may delete any. RLS enforces both. */

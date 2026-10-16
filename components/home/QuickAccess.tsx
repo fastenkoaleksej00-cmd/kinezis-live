@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Bookmark, Calculator, Droplets, Headphones, HeartPulse, History, NotebookPen, PersonStanding, Play, Settings2, ShoppingBag, Sparkles, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
+import { Bookmark, Calculator, Droplets, Headphones, HeartPulse, MessagesSquare, History, NotebookPen, PersonStanding, Play, Settings2, ShoppingBag, Sparkles, UtensilsCrossed, Watch, Wind, type LucideIcon } from "lucide-react";
 import { createLocalStore } from "@/lib/store/localStore";
 import { homePrefsStore } from "@/lib/store/home";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,7 @@ const catalogue = [
   { id: "appleHealth", href: "/health/connect", icon: Watch, tone: "sky" },
   { id: "mind", href: "/mind", icon: Sparkles, tone: "mint" },
   { id: "shop", href: "/shop", icon: ShoppingBag, tone: "warm" },
+  { id: "community", href: "/community", icon: MessagesSquare, tone: "accent" },
   { id: "journal", href: "/mind/journal", icon: NotebookPen, tone: "warm" },
   { id: "sounds", href: "/mind/sounds", icon: Headphones, tone: "sky" },
 ] as const satisfies ReadonlyArray<{ id: string; href: string; icon: LucideIcon; tone: string }>;

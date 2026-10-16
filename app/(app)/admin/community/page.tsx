@@ -5,6 +5,9 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { deleteOwnPost, setPostHidden } from "@/lib/admin/actions";
 import { listAllPosts } from "@/lib/admin/queries";
+import { clearReview } from "@/lib/community/actions";
+import { listFlaggedPosts } from "@/lib/community/queries";
+import { ShieldAlert } from "lucide-react";
 import { getPublicMembers } from "@/lib/profile/public";
 
 /** Moderation of member posts: hide (keeps it for the author) or delete. */
@@ -14,9 +17,35 @@ export default async function AdminCommunityPage() {
   const format = await getFormatter();
   const posts = (await listAllPosts()).filter((p) => p.user_id);
   const members = await getPublicMembers(posts.map((p) => p.user_id ?? ""));
+  const flagged = await listFlaggedPosts();
+  const tcm = await getTranslations("community");
   return (
     <div className="space-y-5">
       <SectionHeading as="h1" title={t("nav.community")} lead={t("communityIntro")} />
+      {flagged.length > 0 ? (
+        <section className="space-y-2 rounded-3xl border border-[#e8c48a]/70 bg-[#fdf6ea] p-4">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold text-[#7a5418]">
+            <ShieldAlert className="h-4 w-4" aria-hidden />
+            {tcm("admin.flaggedTitle", { count: flagged.length })}
+          </p>
+          <ul className="space-y-2">
+            {flagged.map((p) => (
+              <li key={p.id} className="card flex flex-wrap items-center gap-3 px-4 py-3">
+                <Link href={`/posts/${p.id}`} className="text-ink min-w-0 flex-1 truncate text-sm hover:underline">
+                  {p.body.en.slice(0, 140)}
+                </Link>
+                <form action={clearReview}>
+                  <input type="hidden" name="id" value={p.id} />
+                  <button type="submit" className="text-mint-deep text-xs font-semibold hover:underline">
+                    {tcm("admin.checked")}
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-[#7a5418]">{tcm("admin.flaggedHint")}</p>
+        </section>
+      ) : null}
       {posts.length === 0 ? (
         <EmptyState icon={Users} illustration="community" title={t("emptyList")} body={t("communityIntro")} />
       ) : (

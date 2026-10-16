@@ -5,6 +5,10 @@ import { ArrowLeft } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
 import { Comments } from "@/components/social/Comments";
 import { ReportButton } from "@/components/social/ReportButton";
+import { endorsePost } from "@/lib/community/actions";
+import { getAuthor } from "@/lib/content/workouts";
+import { BadgeCheck } from "lucide-react";
+import { getTranslations as getT } from "next-intl/server";
 import { listComments } from "@/lib/social/queries";
 import { getSessionUser, isStaff } from "@/lib/supabase/server";
 import { getFormatter } from "next-intl/server";
@@ -46,7 +50,17 @@ export default async function PostPage({ params }: PostPageProps) {
       <Reveal delay={0.05}>
         <PostCard post={post} expanded viewerId={user?.id ?? null} />
         {!post.sample ? (
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2 flex flex-wrap items-center justify-end gap-2">
+            {post.userId && user?.authorId && (await getAuthor(user.authorId))?.verified && user.authorStatus === "active" ? (
+              <form action={endorsePost}>
+                <input type="hidden" name="id" value={post.id} />
+                <input type="hidden" name="on" value={post.endorsedBy === user.authorId ? "false" : "true"} />
+                <button type="submit" className="border-ink/10 text-mint-deep inline-flex h-9 items-center gap-1.5 rounded-full border bg-white/70 px-3 text-xs font-semibold">
+                  <BadgeCheck className="h-4 w-4" aria-hidden />
+                  {post.endorsedBy === user.authorId ? (await getT("community"))("unendorse") : (await getT("community"))("endorse")}
+                </button>
+              </form>
+            ) : null}
             <ReportButton targetType="post" targetId={post.id} signedIn={Boolean(user)} />
           </div>
         ) : null}

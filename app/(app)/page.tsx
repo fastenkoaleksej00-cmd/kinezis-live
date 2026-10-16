@@ -153,6 +153,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </div>
         </Reveal>
         <div className="mx-auto max-w-[720px] space-y-4">
+          {feed === "community" ? (
+            <Link href="/community" className="card text-accent flex items-center justify-between px-4 py-3 text-sm font-semibold">
+              {tf("openCommunity")}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          ) : null}
           {posts.length === 0 && feed === "community" ? <EmptyState icon={Newspaper} illustration="community" title={tf("filters.community")} body={tf("communityEmpty")} /> : null}
           {posts.map((post, i) => (
             <Reveal key={post.id} delay={Math.min(i, 4) * 0.05}>

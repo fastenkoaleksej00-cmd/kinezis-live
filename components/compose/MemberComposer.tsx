@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState, useRef, useState } from "react";
-import { CheckCircle2, ImagePlus, Loader2, Video, X } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ImagePlus, Loader2, Video, X } from "lucide-react";
+import { communityTopics, postTypes, sensitiveTopics, type CommunityTopic, type PostType } from "@/lib/community/types";
 import { Button } from "@/components/ui/Button";
 import { memberPublish, type QuickPublishState } from "@/lib/admin/actions";
 import { getBrowserClient } from "@/lib/supabase/client";
@@ -11,7 +12,6 @@ import { cn } from "@/lib/utils";
 const initial: QuickPublishState = {};
 const VIDEO_MAX = 50 * 1024 * 1024;
 const PHOTO_MAX = 5 * 1024 * 1024;
-const categories = ["workouts", "face", "skincare", "nutrition", "motivation", "other"] as const;
 
 /** Member composer: photo or video, caption, category. Publishes to the community feed. */
 export function MemberComposer({ userId, defaultLanguage }: { userId: string; defaultLanguage: string }) {
@@ -21,7 +21,11 @@ export function MemberComposer({ userId, defaultLanguage }: { userId: string; de
   const [media, setMedia] = useState<{ kind: "photo" | "video"; path: string; url: string; name: string; preview?: string } | null>(null);
   const [status, setStatus] = useState<"idle" | "uploading" | "error">("idle");
   const [errorKey, setErrorKey] = useState<"tooLarge" | "failed" | "notConfigured" | null>(null);
-  const [category, setCategory] = useState<(typeof categories)[number]>("other");
+  // Category is derived from the topic on the server; "other" is sent for older readers
+  const category = "other";
+  const [topic, setTopic] = useState<CommunityTopic>("general");
+  const [postType, setPostType] = useState<PostType>("story");
+  const tc = useTranslations("community");
   const fileRef = useRef<HTMLInputElement>(null);
 
   async function upload(file: File) {
@@ -61,6 +65,8 @@ export function MemberComposer({ userId, defaultLanguage }: { userId: string; de
       <input type="hidden" name="media_url" value={media?.url ?? ""} />
       <input type="hidden" name="language" value={defaultLanguage} />
       <input type="hidden" name="category" value={category} />
+      <input type="hidden" name="topic" value={topic} />
+      <input type="hidden" name="post_type" value={postType} />
       <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm" className="sr-only" onChange={(e) => e.target.files?.[0] && void upload(e.target.files[0])} />
 
       <div className="card overflow-hidden">
@@ -107,16 +113,46 @@ export function MemberComposer({ userId, defaultLanguage }: { userId: string; de
         <textarea name="caption" required maxLength={1000} rows={4} placeholder={t("memberPlaceholder")} className="text-ink placeholder:text-steel/60 w-full resize-none bg-transparent text-[15px] outline-none" />
       </label>
 
-      <div className="card p-4">
-        <span className="eyebrow mb-2 block">{t("category")}</span>
-        <div className="scroll-row -mx-4 flex gap-2 overflow-x-auto px-4">
-          {categories.map((c) => (
-            <button key={c} type="button" onClick={() => setCategory(c)} aria-pressed={category === c} className={cn("inline-flex h-9 shrink-0 items-center rounded-full px-4 text-sm font-semibold transition-colors", category === c ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}>
-              {t(`categories.${c}`)}
-            </button>
-          ))}
+      <div className="card space-y-4 p-4">
+        <div>
+          <span className="eyebrow mb-2 block">{tc("composer.type")}</span>
+          <div className="flex flex-wrap gap-2">
+            {postTypes.map((p) => (
+              <button key={p} type="button" onClick={() => setPostType(p)} aria-pressed={postType === p} className={cn("inline-flex h-9 items-center rounded-full px-4 text-sm font-semibold transition-colors", postType === p ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}>
+                {tc(`types.${p}`)}
+              </button>
+            ))}
+          </div>
         </div>
+        <div>
+          <span className="eyebrow mb-2 block">{tc("composer.topic")}</span>
+          <div className="scroll-row -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
+            {communityTopics.map((c) => (
+              <button key={c} type="button" onClick={() => setTopic(c)} aria-pressed={topic === c} className={cn("inline-flex h-9 shrink-0 items-center rounded-full px-4 text-sm font-semibold transition-colors", topic === c ? "bg-linear-to-b from-ink-2 to-ink text-white" : "border-ink/10 text-ink border bg-white/70")}>
+                {tc(`topics.${c}`)}
+              </button>
+            ))}
+          </div>
+        </div>
+        <label className="block">
+          <span className="eyebrow mb-2 block">{tc("composer.tags")}</span>
+          <input name="tags" maxLength={120} placeholder={tc("composer.tagsPlaceholder")} className="border-ink/10 text-ink h-10 w-full rounded-xl border bg-white/80 px-3 text-sm" />
+        </label>
       </div>
+
+      {sensitiveTopics.includes(topic) ? (
+        <div className="flex items-start gap-3 rounded-2xl border border-[#e8c48a]/70 bg-[#fdf6ea] p-4 text-sm text-[#7a5418]">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <div>
+            <p className="font-semibold">{tc("rules.title")}</p>
+            <ul className="mt-1 list-disc space-y-0.5 pl-4">
+              <li>{tc("rules.1")}</li>
+              <li>{tc("rules.2")}</li>
+              <li>{tc("rules.3")}</li>
+            </ul>
+          </div>
+        </div>
+      ) : null}
 
       {state.error ? <p role="alert" className="rounded-2xl border border-[#e3b4b4] bg-[#fdf2f2] px-4 py-3 text-sm text-[#8a2f2f]">{ta(`errors.${state.error}`)}</p> : null}
       <Button type="submit" size="lg" disabled={pending || status === "uploading"} className="w-full">

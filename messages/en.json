@@ -63,7 +63,8 @@
       "shop": "Shop",
       "homeWidgets": "Widgets on Home",
       "widget_water": "Water",
-      "widget_checkin": "Check-in"
+      "widget_checkin": "Check-in",
+      "community": "Community"
     }
   },
   "explore": {
@@ -100,6 +101,10 @@
     "shop": {
       "title": "Shop",
       "body": "Mats, blocks, bands and everything for home practice."
+    },
+    "community": {
+      "title": "Community",
+      "body": "Members' stories, questions and tips by topic."
     }
   },
   "library": {
@@ -379,7 +384,8 @@
       "nutrition": "Nutrition",
       "motivation": "Motivation",
       "other": "Other"
-    }
+    },
+    "openCommunity": "Open the community: topics, search, most helpful"
   },
   "faceFitness": {
     "eyebrow": "Beauty",
@@ -626,7 +632,9 @@
       "bodyRequired": "The English text is required.",
       "slugTaken": "This URL slug is already used by another workout.",
       "invalid": "Some values are not allowed. Check the fields.",
-      "generic": "Could not save. Try again."
+      "generic": "Could not save. Try again.",
+      "rateLimit": "Too many posts this hour. Try later.",
+      "linksNew": "Posts with links are not available on your first day."
     },
     "newCourse": "New course",
     "editCourse": "Edit course",
@@ -996,7 +1004,8 @@
       "empty": "Write something first.",
       "tooLong": "Up to 1000 characters.",
       "disabled": "Comments are off here.",
-      "generic": "Could not send. Try again."
+      "generic": "Could not send. Try again.",
+      "rateLimit": "Too many comments in a row. Wait a few minutes."
     }
   },
   "chat": {
@@ -1919,5 +1928,73 @@
     "suggestMusicHint": "No lyrics, plays in the background while you practise. Keep it low to hear the trainer.",
     "suggestNature": "Nature sounds for practice",
     "suggestNatureHint": "Rain, sea or wind in the background. Turn off any time."
+  },
+  "community": {
+    "eyebrow": "Community",
+    "title": "Community",
+    "lead": "Members' stories, questions and tips on back care, mobility, recovery and nutrition.",
+    "write": "Write",
+    "posted": "Published.",
+    "flagged": "Published and sent to a moderator: it contains phrases that look like a cure claim or advice to stop treatment. Please share your own experience without promises to others.",
+    "searchPlaceholder": "Search the community",
+    "clear": "Clear",
+    "allTopics": "All topics",
+    "allTypes": "All",
+    "sortNew": "New",
+    "sortBest": "Most helpful",
+    "emptyTitle": "Quiet here so far",
+    "emptyFiltered": "Nothing found",
+    "emptyBody": "Share your experience or ask the first question.",
+    "personal": "Personal experience",
+    "personalNote": "This is a member's personal experience, not medical advice. What helped one person may not suit you.",
+    "endorsedBy": "Checked by {name}",
+    "endorsedNote": "A KINEZIS LIVE specialist read this post and saw no unsafe advice. It is not a personal recommendation.",
+    "redFlag": "Numbness, weakness, or sharp or sudden pain need a doctor first. Do not choose exercises based on community tips.",
+    "endorse": "Mark as checked",
+    "unendorse": "Remove my check",
+    "topics": {
+      "back": "Back and neck",
+      "mobility": "Mobility",
+      "recovery": "Recovery",
+      "nutrition": "Nutrition",
+      "breath": "Breathing",
+      "mind": "Sleep and stress",
+      "face": "Face and care",
+      "general": "General"
+    },
+    "types": {
+      "story": "Story",
+      "question": "Question",
+      "tip": "Tip"
+    },
+    "typesPlural": {
+      "story": "Stories",
+      "question": "Questions",
+      "tip": "Tips"
+    },
+    "composer": {
+      "type": "Type",
+      "topic": "Topic",
+      "tags": "Tags",
+      "tagsPlaceholder": "e.g. lower back, morning, pilates"
+    },
+    "rules": {
+      "1": "Write about your own experience; do not promise results to others.",
+      "2": "Do not advise anyone to stop treatment or medication.",
+      "3": "Severe or sudden pain, numbness or weakness need a doctor first.",
+      "title": "Before you post"
+    },
+    "rulesTitle": "Community rules",
+    "rulesList": {
+      "1": "We share personal experience, not diagnoses or cure claims.",
+      "2": "No advice to stop treatment and no selling.",
+      "3": "Respect for members: no insults or pressure.",
+      "4": "See unsafe advice? Tap \"Report\" on the post page."
+    },
+    "admin": {
+      "flaggedTitle": "In review: {count}",
+      "checked": "Checked",
+      "flaggedHint": "Posts with phrases like \"cures\", \"guaranteed\", \"stop your meds\". Members can see them; hide unsafe ones or mark them checked."
+    }
   }
 }
