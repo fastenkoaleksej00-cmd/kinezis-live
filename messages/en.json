@@ -302,7 +302,9 @@
         "system": "System",
         "light": "Light",
         "dark": "Dark",
-        "mint": "Mint"
+        "mint": "Mint",
+        "glass": "Web3 Glass",
+        "cyber": "Cyber Dark"
       },
       "mintNote": "Mint is the KINEZIS signature and the default. Light and Dark keep mint in buttons, tabs and progress."
     },

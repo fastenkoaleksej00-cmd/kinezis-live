@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useA11y, writeA11y, type TextSize, type Theme } from "./AccessibilityProvider";
-import { Leaf, Monitor, Moon, Sun } from "lucide-react";
+import { Gem, Leaf, Monitor, Moon, Sun, Zap } from "lucide-react";
 import { ThemePicker } from "@/components/onboarding/ThemePicker";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,8 @@ const themes: Array<{ key: Theme; icon: typeof Sun }> = [
   { key: "mint", icon: Leaf },
   { key: "light", icon: Sun },
   { key: "dark", icon: Moon },
+  { key: "glass", icon: Gem },
+  { key: "cyber", icon: Zap },
   { key: "system", icon: Monitor },
 ];
 
@@ -28,7 +30,7 @@ export function AccessibilitySettings() {
         <p className="eyebrow">{t("appearance")}</p>
         <ThemePicker />
         <p className="text-steel text-xs">{t("mintNote")}</p>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label={t("appearance")}>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup" aria-label={t("appearance")}>
           {themes.map(({ key, icon: Icon }) => (
             <button
               key={key}

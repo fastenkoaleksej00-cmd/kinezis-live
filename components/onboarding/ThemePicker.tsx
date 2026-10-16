@@ -6,13 +6,15 @@ import { useA11y, writeA11y, type Theme } from "@/components/settings/Accessibil
 import { cn } from "@/lib/utils";
 
 /** Self-contained palettes so each preview shows its own theme regardless of the active one */
-const palettes: Record<"mint" | "light" | "dark", { page: string; card: string; text: string; muted: string; accent: string; ring: string; nav: string; cover: string }> = {
+const palettes: Record<"mint" | "light" | "dark" | "glass" | "cyber", { page: string; card: string; text: string; muted: string; accent: string; ring: string; nav: string; cover: string }> = {
   mint: { page: "#eef7f4", card: "#ffffff", text: "#10242b", muted: "#4f6f68", accent: "#2f8f7e", ring: "#2f8f7e", nav: "rgba(255,255,255,0.85)", cover: "linear-gradient(160deg,#1f4a45,#6fa89c)" },
   light: { page: "#f5f8f8", card: "#ffffff", text: "#10242b", muted: "#4f6b76", accent: "#2f7d70", ring: "#2f7d70", nav: "rgba(255,255,255,0.85)", cover: "linear-gradient(160deg,#19343d,#769aa8)" },
   dark: { page: "#0d171c", card: "#142127", text: "#e7f4f7", muted: "#97adb6", accent: "#3fa08f", ring: "#8fd3c4", nav: "rgba(26,43,50,0.9)", cover: "linear-gradient(160deg,#19343d,#31525d)" },
+  glass: { page: "radial-gradient(120% 80% at 0% 0%,#b9f0ea 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#d9c8ff 0%,transparent 55%),#e8edfb", card: "rgba(255,255,255,0.5)", text: "#1a2140", muted: "#5b6488", accent: "#5b74f2", ring: "#14b8a6", nav: "rgba(255,255,255,0.45)", cover: "linear-gradient(135deg,#14b8a6,#5b74f2 55%,#8b5cf6)" },
+  cyber: { page: "radial-gradient(90% 60% at 100% 0%,rgba(168,85,247,0.35),transparent 60%),radial-gradient(90% 60% at 0% 100%,rgba(0,229,255,0.25),transparent 60%),#070a12", card: "rgba(16,22,40,0.92)", text: "#eef3ff", muted: "#8a95b8", accent: "#00e5ff", ring: "#c084fc", nav: "rgba(10,14,26,0.9)", cover: "linear-gradient(135deg,#0b1026,#2a0f55 55%,#06343f)" },
 };
 
-const order: Array<"mint" | "light" | "dark"> = ["mint", "light", "dark"];
+const order: Array<"mint" | "light" | "dark" | "glass" | "cyber"> = ["mint", "light", "dark", "glass", "cyber"];
 
 /** Three live miniature screens; tapping one applies the theme instantly with a cross-fade. Mint is preselected. */
 export function ThemePicker() {
@@ -21,7 +23,7 @@ export function ThemePicker() {
   const current: Theme = a11y.theme === "system" ? "mint" : a11y.theme;
 
   return (
-    <div className="grid grid-cols-3 gap-3" role="radiogroup" aria-label={t("appearance")}>
+    <div className="grid grid-cols-3 gap-3 sm:grid-cols-5" role="radiogroup" aria-label={t("appearance")}>
       {order.map((key) => {
         const p = palettes[key];
         const active = current === key;
@@ -39,7 +41,7 @@ export function ThemePicker() {
                 <span className="h-1.5 w-8 rounded-full" style={{ background: p.text, opacity: 0.7 }} />
                 <span className="h-3 w-3 rounded-full" style={{ background: p.accent, opacity: 0.6 }} />
               </div>
-              <div className="mx-2.5 mt-2 flex items-center gap-2 rounded-xl p-2" style={{ background: p.card }}>
+              <div className="mx-2.5 mt-2 flex items-center gap-2 rounded-xl p-2" style={{ background: p.card, border: key === "cyber" ? "1px solid rgba(0,229,255,0.35)" : key === "glass" ? "1px solid rgba(255,255,255,0.8)" : undefined, boxShadow: key === "cyber" ? "0 0 12px rgba(0,229,255,0.25)" : undefined }}>
                 <svg viewBox="0 0 32 32" className="h-7 w-7 shrink-0 -rotate-90" aria-hidden>
                   <circle cx="16" cy="16" r="12" fill="none" stroke={p.text} strokeOpacity="0.1" strokeWidth="5" />
                   <circle cx="16" cy="16" r="12" fill="none" stroke={p.ring} strokeWidth="5" strokeLinecap="round" strokeDasharray="75" strokeDashoffset="25" />

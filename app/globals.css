@@ -719,3 +719,183 @@ html.theme-transition *::after {
     animation: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Optional skins (Settings → Appearance). They sit on a base theme set by
+   AccessibilityProvider: html[data-skin="glass"] on light, html[data-skin="cyber"]
+   on dark, so every existing light/dark rule still applies. Skins change only
+   colours, backgrounds, transparency, shadows and glow; layout is untouched.
+   The fixed backdrop is a pseudo-element (iOS ignores background-attachment: fixed).
+--------------------------------------------------------------------------- */
+
+/* Web3 Glass: frosted translucent panels over a teal–blue–violet field */
+html[data-skin="glass"] {
+  --color-ice: #e8edfb;
+  --color-frost: #eef2ff;
+  --color-steel: #5b6488;
+  --color-text: #1f2747;
+  --color-bone: rgba(255, 255, 255, 0.45);
+  --color-bone-2: rgba(91, 116, 242, 0.12);
+  --color-accent: #5b74f2;
+  --color-accent-soft: rgba(91, 116, 242, 0.14);
+  --color-mint-soft: rgba(20, 184, 166, 0.14);
+  --color-mint-deep: #0f9488;
+}
+/* Root paints the base colour; body stays transparent so the fixed backdrop below shows through */
+html[data-skin="glass"] {
+  background: var(--color-ice);
+}
+html[data-skin="glass"] body {
+  background: transparent;
+}
+html[data-skin="glass"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 45% at 8% 6%, rgba(45, 212, 191, 0.42) 0%, transparent 70%),
+    radial-gradient(55% 45% at 95% 30%, rgba(99, 102, 241, 0.32) 0%, transparent 70%),
+    radial-gradient(60% 50% at 70% 100%, rgba(168, 85, 247, 0.32) 0%, transparent 70%),
+    linear-gradient(180deg, #eaf6fb 0%, #e8edfb 50%, #efe9fd 100%);
+}
+html[data-skin="glass"] :is(h1, h2, h3),
+html[data-skin="glass"] .text-ink {
+  color: #1a2140;
+}
+html[data-skin="glass"] .card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 10px 36px -14px rgba(76, 86, 190, 0.28);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+html[data-skin="glass"] .glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.28));
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 40px -16px rgba(76, 86, 190, 0.35);
+}
+html[data-skin="glass"] .bg-white\/70,
+html[data-skin="glass"] .bg-white\/80,
+html[data-skin="glass"] .bg-white\/85 {
+  background-color: rgba(255, 255, 255, 0.45);
+}
+html[data-skin="glass"] .bg-frost\/70,
+html[data-skin="glass"] .bg-frost\/60 {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+html[data-skin="glass"] .from-ink-2 {
+  --tw-gradient-from: #14b8a6;
+}
+html[data-skin="glass"] .to-ink {
+  --tw-gradient-to: #6366f1;
+}
+html[data-skin="glass"] .to-ink-2 {
+  --tw-gradient-to: #5b74f2;
+}
+html[data-skin="glass"] .cover,
+html[data-skin="glass"] .cover-mint {
+  background:
+    radial-gradient(70% 60% at 85% 10%, rgba(255, 255, 255, 0.35) 0%, transparent 65%),
+    linear-gradient(135deg, #0f766e 0%, #4f46e5 55%, #7c3aed 100%);
+}
+html[data-skin="glass"] .section-deep {
+  background:
+    radial-gradient(60% 60% at 90% 0%, rgba(168, 85, 247, 0.45) 0%, transparent 70%),
+    radial-gradient(60% 60% at 0% 100%, rgba(45, 212, 191, 0.4) 0%, transparent 70%),
+    linear-gradient(160deg, #1e1b4b 0%, #312e81 55%, #134e4a 100%);
+}
+
+/* Cyber Dark: near-black, neon cyan and violet accents, thin glowing edges */
+html[data-skin="cyber"] {
+  --color-ice: #070a12;
+  --color-sky: #0e1424;
+  --color-steel: #8a95b8;
+  --color-text: #d9e1ff;
+  --color-bone: #0e1424;
+  --color-bone-2: #18203a;
+  --color-accent: #00e5ff;
+  --color-accent-soft: rgba(0, 229, 255, 0.12);
+  --color-mint-soft: rgba(61, 255, 197, 0.1);
+  --color-mint-deep: #3dffc5;
+  --dark-surface: rgba(13, 18, 33, 0.92);
+  --dark-surface-2: #121a2e;
+  --dark-fg: #f1f5ff;
+  --dark-line: rgba(0, 229, 255, 0.16);
+}
+/* Root paints the base colour; body stays transparent so the fixed backdrop below shows through */
+html[data-skin="cyber"] {
+  background: var(--color-ice);
+}
+html[data-skin="cyber"] body {
+  background: transparent;
+}
+html[data-skin="cyber"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 40% at 100% 0%, rgba(168, 85, 247, 0.22) 0%, transparent 70%),
+    radial-gradient(50% 40% at 0% 100%, rgba(0, 229, 255, 0.16) 0%, transparent 70%),
+    linear-gradient(to right, rgba(0, 229, 255, 0.04) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(to bottom, rgba(0, 229, 255, 0.04) 1px, transparent 1px) 0 0 / 44px 44px,
+    #070a12;
+}
+html[data-skin="cyber"] .card {
+  border-color: rgba(0, 229, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(168, 85, 247, 0.06),
+    0 16px 40px -22px rgba(0, 229, 255, 0.35);
+}
+html[data-skin="cyber"] .glass {
+  background: linear-gradient(160deg, rgba(14, 20, 38, 0.88), rgba(8, 11, 22, 0.82));
+  border-color: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 -1px 0 rgba(0, 229, 255, 0.25), 0 12px 40px -18px rgba(0, 0, 0, 0.8);
+}
+html[data-skin="cyber"] .glass::before {
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+}
+html[data-skin="cyber"] .from-ink-2 {
+  --tw-gradient-from: #00c8e6;
+}
+html[data-skin="cyber"] .to-ink {
+  --tw-gradient-to: #8b5cf6;
+}
+html[data-skin="cyber"] .to-ink-2 {
+  --tw-gradient-to: #a855f7;
+}
+html[data-skin="cyber"] .bg-linear-to-b.from-ink-2.to-ink {
+  box-shadow: 0 0 18px -4px rgba(0, 229, 255, 0.55);
+}
+html[data-skin="cyber"] .cover,
+html[data-skin="cyber"] .cover-mint,
+html[data-skin="cyber"] .cover-light {
+  background:
+    radial-gradient(70% 60% at 85% 10%, rgba(0, 229, 255, 0.28) 0%, transparent 65%),
+    radial-gradient(60% 55% at 10% 100%, rgba(168, 85, 247, 0.35) 0%, transparent 60%),
+    linear-gradient(160deg, #0b1026 0%, #1b0f3a 55%, #06343f 100%);
+}
+html[data-skin="cyber"] .section-deep {
+  background:
+    radial-gradient(60% 60% at 90% 0%, rgba(168, 85, 247, 0.3) 0%, transparent 70%),
+    radial-gradient(60% 60% at 0% 100%, rgba(0, 229, 255, 0.22) 0%, transparent 70%),
+    linear-gradient(160deg, #0a0e1c 0%, #121a33 100%);
+  border: 1px solid rgba(0, 229, 255, 0.16);
+}
+html[data-skin="cyber"] .text-accent,
+html[data-skin="cyber"] .text-mint-deep {
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+}
+/* Phones: lighter blur keeps scrolling smooth on the glass skin */
+@media (pointer: coarse) {
+  html[data-skin="glass"] .card {
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+  }
+}

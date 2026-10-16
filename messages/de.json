@@ -302,7 +302,9 @@
         "system": "System",
         "light": "Hell",
         "dark": "Dunkel",
-        "mint": "Mint"
+        "mint": "Mint",
+        "glass": "Web3 Glass",
+        "cyber": "Cyber Dark"
       },
       "mintNote": "Mint ist die Signatur von KINEZIS und der Standard. Hell und Dunkel behalten Mint in Buttons, Tabs und Fortschritt."
     },
