@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { MessagesSquare, PenSquare, Search, ShieldCheck, X } from "lucide-react";
@@ -57,6 +58,7 @@ export default async function CommunityPage({ searchParams }: PageProps) {
           }
         />
       </Reveal>
+      <FeatureTip id="community" />
       {sp.posted ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("posted")}</p> : null}
       {sp.review ? <p className="rounded-2xl border border-[#e8c48a]/70 bg-[#fdf6ea] px-4 py-3 text-sm text-[#7a5418]">{t("flagged")}</p> : null}
 

@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Award, Bookmark, ChevronRight, HeartPulse, History, LogOut, MessageCircle, Pencil, Settings, ShieldCheck, Sparkles, UserRound, UserRoundCheck } from "lucide-react";
@@ -59,6 +60,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
       <Reveal>
         <SectionHeading as="h1" title={t("title")} />
       </Reveal>
+      <FeatureTip id="profile" href="/health" />
       {sp.saved ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
 
       <Reveal delay={0.06}>

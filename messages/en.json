@@ -1281,6 +1281,11 @@
         "eyebrow": "Appearance",
         "title": "Choose your look",
         "body": "Mint is our signature. Pick what feels right; you can change it any time in Settings."
+      },
+      "more": {
+        "eyebrow": "And more",
+        "title": "Programmes, breathing, rest and a shop",
+        "body": "Step-by-step programmes and trainers' videos, breathing practices, meditation and sounds, a well-being journal and equipment for home. Short tips will appear on screens; you can switch them off in Settings."
       }
     }
   },
@@ -2027,6 +2032,58 @@
       "flaggedTitle": "In review: {count}",
       "checked": "Checked",
       "flaggedHint": "Posts with phrases like \"cures\", \"guaranteed\", \"stop your meds\". Members can see them; hide unsafe ones or mark them checked."
+    }
+  },
+  "tips": {
+    "label": "Tip",
+    "gotIt": "Got it",
+    "turnOff": "Don't show tips",
+    "close": "Close",
+    "settingsTitle": "Screen tips",
+    "settingsBody": "Short explanations the first time you open a section.",
+    "show": "Show",
+    "replay": "Show again",
+    "items": {
+      "home": {
+        "title": "Home, your way",
+        "body": "Tap \"Customise\" under the shortcuts to pick quick actions and turn water or the check-in on for Home.",
+        "action": ""
+      },
+      "library": {
+        "title": "Finding sessions",
+        "body": "Categories at the top, the rest in \"Filters\": goal, length, trainer, equipment, video language. Series live in \"Programmes\".",
+        "action": "Open programmes"
+      },
+      "mind": {
+        "title": "Where to start",
+        "body": "Try a screen break or 3 minutes of breath awareness. Sounds and music keep playing on any screen.",
+        "action": "Sounds and music"
+      },
+      "nutrition": {
+        "title": "Shopping list",
+        "body": "Open a trainer's day and tap \"Make a list\" to get a checklist of foods.",
+        "action": ""
+      },
+      "community": {
+        "title": "How it works",
+        "body": "Pick a topic, search by words, switch between \"New\" and \"Most helpful\". Share your experience with \"Write\".",
+        "action": ""
+      },
+      "shop": {
+        "title": "Delivery country first",
+        "body": "Choose a country to see items that ship there. You buy on the store's site.",
+        "action": ""
+      },
+      "profile": {
+        "title": "Everything about you",
+        "body": "Health and goal, activity, saved items, chat with the trainer and settings. Specialists can apply to become a trainer.",
+        "action": "My health"
+      },
+      "health": {
+        "title": "Goal and water",
+        "body": "Set a goal in the calculator: it appears as a ring on Home. Water is logged by hand, up to 3 L a day.",
+        "action": "Open the calculator"
+      }
     }
   }
 }

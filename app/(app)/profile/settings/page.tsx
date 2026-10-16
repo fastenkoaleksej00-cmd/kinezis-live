@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft, Bell, FileText, KeyRound, Languages, ShieldCheck, Type } from "lucide-react";
 import { AccessibilitySettings } from "@/components/settings/AccessibilitySettings";
+import { TipsSettings } from "@/components/onboarding/FeatureTip";
 import { AccountForms } from "@/components/settings/AccountForms";
 import { LanguageSwitcher } from "@/components/settings/LanguageSwitcher";
 import { PreferencesForm } from "@/components/settings/PreferencesForm";
@@ -80,6 +81,7 @@ export default async function SettingsPage({ searchParams }: PageProps) {
       </Reveal>
 
       <Reveal delay={0.16} as="section" id="legal" className="card divide-ink/8 divide-y overflow-hidden">
+        <TipsSettings />
         {[
           { href: "/welcome", label: t("showIntro") },
           { href: "/privacy", label: tlg("privacy") },

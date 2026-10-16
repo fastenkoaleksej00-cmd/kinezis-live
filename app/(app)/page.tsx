@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowRight, Newspaper, Play } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
@@ -62,6 +63,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <h1 className="text-[1.9rem] leading-[1.05] font-extrabold sm:text-[2.4rem]">{t("intro")}</h1>
       </Reveal>
 
+      <FeatureTip id="home" />
       <Reveal delay={0.05}>
         <QuickAccess />
       </Reveal>

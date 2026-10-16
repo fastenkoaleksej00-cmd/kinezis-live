@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowUpRight, Flag, Headphones, Monitor, Moon, NotebookPen, ScanLine, Sparkles, Wind } from "lucide-react";
@@ -28,6 +29,7 @@ export default async function MindPage() {
       <Reveal>
         <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
       </Reveal>
+      <FeatureTip id="mind" href="/mind/sounds" />
       <div className="grid gap-3 sm:grid-cols-2">
         {tiles.map(({ href, icon: Icon, title, body, tone }, i) => (
           <Reveal key={href} delay={0.04 * (i + 1)}>

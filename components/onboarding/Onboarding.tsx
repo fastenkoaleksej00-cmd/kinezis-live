@@ -21,15 +21,16 @@ interface OnboardingProps {
   intro: PlayableVideo | null;
 }
 
-const slides: Array<{ key: "welcome" | "theme" | "library" | "body" | "care"; illustration: IllustrationKind }> = [
+const slides: Array<{ key: "welcome" | "theme" | "library" | "body" | "more" | "care"; illustration: IllustrationKind }> = [
   { key: "welcome", illustration: "sessions" },
   { key: "theme", illustration: "saved" },
   { key: "library", illustration: "search" },
   { key: "body", illustration: "measurements" },
+  { key: "more", illustration: "saved" },
   { key: "care", illustration: "community" },
 ];
 
-/** Four short slides, shown once per device. Language can be switched on the first one. */
+/** Six short slides, shown once per device. Language can be switched on the first one; screen tips (FeatureTip) continue the introduction later. */
 export function Onboarding({ intro }: OnboardingProps) {
   const t = useTranslations("onboarding");
   const ts = useTranslations("settings");

@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -33,6 +34,7 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
       <Reveal>
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       </Reveal>
+      <FeatureTip id="library" href="/programs" />
 
       {filters.source === "youtube" ? (
         <Reveal delay={0.02}>

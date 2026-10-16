@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { ArrowLeft, ArrowUpRight, Calculator, HeartPulse, Scale, Watch, Wind } from "lucide-react";
 import { WaterWidget } from "@/components/home/WaterWidget";
@@ -77,6 +78,7 @@ export default async function HealthPage({ searchParams }: PageProps) {
         </Link>
         <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
       </Reveal>
+      <FeatureTip id="health" href="/health/calculator" />
 
       <Reveal delay={0.05} as="section" className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {cards.map((c) => (

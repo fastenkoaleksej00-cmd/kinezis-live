@@ -1281,6 +1281,11 @@
         "eyebrow": "Darstellung",
         "title": "Wähle deinen Look",
         "body": "Mint ist unsere Signatur. Wähle, was dir gefällt; jederzeit in den Einstellungen änderbar."
+      },
+      "more": {
+        "eyebrow": "Und mehr",
+        "title": "Programme, Atmung, Ruhe und ein Shop",
+        "body": "Schritt-für-Schritt-Programme und Trainervideos, Atempraktiken, Meditation und Klänge, ein Wohlbefinden-Tagebuch und Ausrüstung für zu Hause. Kurze Tipps erscheinen auf den Bildschirmen; du kannst sie in den Einstellungen ausschalten."
       }
     }
   },
@@ -2027,6 +2032,58 @@
       "flaggedTitle": "In Prüfung: {count}",
       "checked": "Geprüft",
       "flaggedHint": "Beiträge mit Formulierungen wie „heilt“, „garantiert“, „Medikamente absetzen“. Mitglieder sehen sie; verbirg unsichere oder markiere sie als geprüft."
+    }
+  },
+  "tips": {
+    "label": "Tipp",
+    "gotIt": "Verstanden",
+    "turnOff": "Keine Tipps zeigen",
+    "close": "Schließen",
+    "settingsTitle": "Tipps auf Bildschirmen",
+    "settingsBody": "Kurze Erklärungen beim ersten Öffnen eines Bereichs.",
+    "show": "Anzeigen",
+    "replay": "Erneut zeigen",
+    "items": {
+      "home": {
+        "title": "Home nach deinem Geschmack",
+        "body": "Tippe unter den Verknüpfungen auf „Anpassen“: Schnellaktionen wählen und Wasser oder Check-in auf Home einschalten.",
+        "action": ""
+      },
+      "library": {
+        "title": "Einheiten finden",
+        "body": "Kategorien oben, der Rest unter „Filter“: Ziel, Dauer, Trainer, Ausrüstung, Videosprache. Serien findest du unter „Programme“.",
+        "action": "Programme öffnen"
+      },
+      "mind": {
+        "title": "Wo anfangen",
+        "body": "Probiere eine Bildschirmpause oder 3 Minuten bewusstes Atmen. Klänge und Musik laufen auf jedem Bildschirm weiter.",
+        "action": "Klänge und Musik"
+      },
+      "nutrition": {
+        "title": "Einkaufsliste",
+        "body": "Öffne einen Tag der Trainerin und tippe auf „Liste erstellen“ für eine Checkliste.",
+        "action": ""
+      },
+      "community": {
+        "title": "So funktioniert es",
+        "body": "Thema wählen, nach Wörtern suchen, zwischen „Neu“ und „Hilfreich“ wechseln. Teile deine Erfahrung mit „Schreiben“.",
+        "action": ""
+      },
+      "shop": {
+        "title": "Zuerst das Lieferland",
+        "body": "Wähle ein Land, um Artikel zu sehen, die dorthin liefern. Gekauft wird auf der Seite des Shops.",
+        "action": ""
+      },
+      "profile": {
+        "title": "Alles über dich",
+        "body": "Gesundheit und Ziel, Aktivität, Gespeichertes, Chat mit der Trainerin und Einstellungen. Fachleute können sich als Trainer bewerben.",
+        "action": "Meine Gesundheit"
+      },
+      "health": {
+        "title": "Ziel und Wasser",
+        "body": "Setze ein Ziel im Rechner: es erscheint als Ring auf Home. Wasser wird von Hand erfasst, bis 3 L am Tag.",
+        "action": "Rechner öffnen"
+      }
     }
   }
 }

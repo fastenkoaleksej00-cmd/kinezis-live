@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import { getTranslations } from "next-intl/server";
 import { UtensilsCrossed } from "lucide-react";
 import { MealPlanCard } from "@/components/nutrition/MealPlanCard";
@@ -15,6 +16,7 @@ export default async function NutritionPage() {
       <Reveal>
         <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
       </Reveal>
+      <FeatureTip id="nutrition" />
       <Reveal delay={0.05}>
         <p className="card text-steel px-5 py-4 text-sm">{t("disclaimer")}</p>
       </Reveal>

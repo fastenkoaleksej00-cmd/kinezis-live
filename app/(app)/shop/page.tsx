@@ -1,3 +1,4 @@
+import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, Clock, Sparkles, Truck } from "lucide-react";
@@ -22,6 +23,7 @@ export default async function ShopPage() {
       <Reveal>
         <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
       </Reveal>
+      <FeatureTip id="shop" />
       <Reveal delay={0.03}>
         <CountryPicker />
       </Reveal>
