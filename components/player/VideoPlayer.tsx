@@ -7,6 +7,7 @@ import type { PlayableVideo } from "@/lib/content/types";
 import { formatTime } from "@/lib/format";
 import { useProgress } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
+import { YouTubeEmbed } from "./YouTubeEmbed";
 
 interface VideoPlayerProps {
   workoutId: string;
@@ -20,7 +21,13 @@ const SAVE_EVERY_SECONDS = 5;
  * HTML5 player with brand controls. Resumes from the saved position and stores
  * progress every few seconds. With no source it shows an honest "not connected" state.
  */
-export function VideoPlayer({ workoutId, source, title }: VideoPlayerProps) {
+/** Routes YouTube sources to the official embed; everything else plays in our own HTML5 player. */
+export function VideoPlayer(props: VideoPlayerProps) {
+  if (props.source?.youtubeId) return <YouTubeEmbed id={props.source.youtubeId} title={props.title} poster={props.source.poster} progressId={props.workoutId} />;
+  return <NativeVideoPlayer {...props} />;
+}
+
+function NativeVideoPlayer({ workoutId, source, title }: VideoPlayerProps) {
   const t = useTranslations("player");
   const { get, update } = useProgress();
   const videoRef = useRef<HTMLVideoElement>(null);

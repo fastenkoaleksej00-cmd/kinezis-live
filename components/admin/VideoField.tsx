@@ -63,6 +63,7 @@ export function VideoField({ name = "video", folder, value }: VideoFieldProps) {
           <option value="storage">{t("video.storage")}</option>
           <option value="file">{t("video.file")}</option>
           <option value="hls">{t("video.hls")}</option>
+          <option value="youtube">{t("video.youtube")}</option>
         </Select>
       </Field>
 
@@ -108,7 +109,13 @@ export function VideoField({ name = "video", folder, value }: VideoFieldProps) {
 
       {kind === "file" || kind === "hls" ? (
         <Field label={t("fields.videoSrc")} className="sm:col-span-2">
-          <Input name={`${name}_src`} type="url" defaultValue={value && value.kind !== "storage" ? value.src : ""} placeholder="https://" />
+          <Input name={`${name}_src`} type="url" defaultValue={value && (value.kind === "file" || value.kind === "hls") ? value.src : ""} placeholder="https://" />
+        </Field>
+      ) : null}
+
+      {kind === "youtube" ? (
+        <Field label={t("fields.youtubeLink")} hint={t("fields.youtubeHint")} className="sm:col-span-2">
+          <Input name={`${name}_src`} defaultValue={value?.kind === "youtube" ? `https://www.youtube.com/watch?v=${value.id}` : ""} placeholder="https://www.youtube.com/watch?v=…" />
         </Field>
       ) : null}
 

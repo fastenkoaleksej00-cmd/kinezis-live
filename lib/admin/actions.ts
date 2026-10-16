@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { categoryIds, equipmentIds, goals as goalList, levels, mealSlots, type Goal, type LocalizedText, type MealSlot, type PostAttachment, type VideoSource } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { regionIds } from "@/lib/body/regions";
+import { parseYouTubeId, youTubeThumb } from "@/lib/video/youtube";
 import { communityTopics, normalizeTags, postTypes, riskyText } from "@/lib/community/types";
 
 export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic" | "rateLimit" | "linksNew";
@@ -58,6 +59,11 @@ function video(fd: FormData, base = "video"): VideoSource {
   const src = str(fd, `${base}_src`);
   const path = str(fd, `${base}_path`);
   const poster = str(fd, `${base}_poster`);
+  if (kind === "youtube") {
+    const id = parseYouTubeId(src);
+    if (!id) return null;
+    return { kind, id, poster: poster || youTubeThumb(id) };
+  }
   if (kind === "storage") {
     if (!path) return null;
     return poster ? { kind, bucket: "videos", path, poster } : { kind, bucket: "videos", path };
@@ -91,6 +97,7 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
   const slug = str(fd, "slug") || (await slugify(title.en));
   if (!slug) return { error: "invalid" };
   const duration = Number.parseInt(str(fd, "duration_min"), 10);
+  const vid = video(fd);
   const row = {
     ...(id ? { id } : {}),
     slug,
@@ -100,10 +107,11 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
     duration_min: Number.isFinite(duration) && duration > 0 ? duration : 10,
     level: inList(levels, str(fd, "level"), "beginner"),
     goals: goalList.filter((g) => bool(fd, `goal_${g}`)) as Goal[],
-    access: str(fd, "access") === "premium" ? "premium" : "free",
+    // YouTube terms forbid selling access to their videos: embedded YouTube sessions are always free
+    access: vid?.kind !== "youtube" && str(fd, "access") === "premium" ? "premium" : "free",
     language: inList(["en", "uk", "de", "ru"] as const, str(fd, "language"), "uk"),
     cover_tone: inList(["deep", "mint", "light"] as const, str(fd, "cover_tone"), "deep"),
-    video: video(fd),
+    video: vid,
     author_id: authorFor(ctx.user, str(fd, "author_id")),
     equipment: equipmentIds.filter((e) => bool(fd, `equipment_${e}`)),
     body_regions: regionIds.filter((r) => bool(fd, `region_${r}`)),
@@ -115,6 +123,48 @@ export async function saveWorkout(_prev: AdminState, fd: FormData): Promise<Admi
   if (error) return { error: mapDbError(error.message) };
   revalidatePath("/", "layout");
   redirect("/admin/workouts?saved=1");
+}
+
+/**
+ * Add a YouTube video as a draft session: title and thumbnail come from YouTube oEmbed (no API key),
+ * duration, category and language are set by the trainer. The video itself stays on YouTube.
+ */
+export async function importYouTube(_prev: AdminState, fd: FormData): Promise<AdminState> {
+  const ctx = await staffClient();
+  if ("error" in ctx) return { error: ctx.error };
+  const id = parseYouTubeId(str(fd, "youtube_url"));
+  if (!id) return { error: "invalid" };
+  const minutes = Number.parseInt(str(fd, "duration_min"), 10);
+  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 240) return { error: "invalid" };
+  let title = "";
+  try {
+    const res = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}&format=json`, { cache: "no-store" });
+    if (res.ok) title = String(((await res.json()) as { title?: string }).title ?? "").slice(0, 200);
+    else return { error: "invalid" };
+  } catch {
+    return { error: "generic" };
+  }
+  const language = inList(languagesList, str(fd, "language"), "ru");
+  const row = {
+    slug: `yt-${id}`,
+    title: { en: title || id, [language]: title || id },
+    description: { en: "", [language]: "" },
+    category: inList(categoryIds, str(fd, "category"), "yoga"),
+    duration_min: minutes,
+    level: inList(levels, str(fd, "level"), "beginner"),
+    goals: [],
+    access: "free",
+    language,
+    cover_tone: "deep",
+    video: { kind: "youtube", id, poster: youTubeThumb(id) },
+    author_id: authorFor(ctx.user, str(fd, "author_id") || (ctx.user.authorId ?? "")),
+    published: false,
+    published_at: null,
+  };
+  const { data, error } = await ctx.db.from("workouts").insert(row).select("id").single();
+  if (error || !data) return { error: error ? mapDbError(error.message) : "generic" };
+  revalidatePath("/admin/workouts");
+  redirect(`/admin/workouts/${(data as { id: string }).id}?imported=1`);
 }
 
 export async function deleteWorkout(fd: FormData): Promise<void> {

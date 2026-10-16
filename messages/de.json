@@ -105,6 +105,10 @@
     "community": {
       "title": "Community",
       "body": "Erfahrungen, Fragen und Tipps von Mitgliedern nach Themen."
+    },
+    "youtube": {
+      "title": "Yuliias Videos auf YouTube",
+      "body": "Pilates, Yoga und Rücken von ihrem Kanal, auf Russisch."
     }
   },
   "library": {
@@ -131,7 +135,8 @@
       "close": "Schließen",
       "author": "Trainer",
       "equipment": "Ausrüstung",
-      "region": "Körperbereich"
+      "region": "Körperbereich",
+      "language": "Videosprache"
     },
     "durations": {
       "short": "Unter 15 Min.",
@@ -175,7 +180,17 @@
     "program": "Programm",
     "safetyTitle": "Bevor du beginnst",
     "youWillNeed": "Du brauchst",
-    "youWillNeedHint": "Tippe, um die Ausrüstung im Shop zu finden."
+    "youWillNeedHint": "Tippe, um die Ausrüstung im Shop zu finden.",
+    "youtubeTitle": "Yuliias Videos auf YouTube",
+    "youtubeBody": "Einheiten von ihrem Kanal, auf Russisch. Sie laufen im offiziellen YouTube-Player.",
+    "youtubeChannel": "Kanal",
+    "youtubeAll": "Ganze Bibliothek",
+    "videoLanguages": {
+      "ru": "Русский",
+      "uk": "Українська",
+      "en": "English",
+      "de": "Deutsch"
+    }
   },
   "saved": {
     "title": "Gespeichert",
@@ -353,7 +368,10 @@
     "unmute": "Ton an",
     "fullscreen": "Vollbild",
     "seek": "Spulen",
-    "resumedFrom": "Fortgesetzt bei {time}"
+    "resumedFrom": "Fortgesetzt bei {time}",
+    "playOnYouTube": "„{title}“ auf YouTube ansehen",
+    "resumeFrom": "Weiter bei {time}",
+    "youtubeNote": "Das Video lädt erst nach dem Tippen von YouTube. YouTube kann Werbung zeigen und nach eigenen Regeln Cookies setzen."
   },
   "feed": {
     "kinds": {
@@ -558,7 +576,8 @@
       "none": "Noch kein Video",
       "file": "Direkte Datei (mp4)",
       "hls": "Stream (HLS .m3u8)",
-      "storage": "Datei hochladen (bis 50 MB)"
+      "storage": "Datei hochladen (bis 50 MB)",
+      "youtube": "YouTube"
     },
     "attachment": {
       "none": "Keiner",
@@ -623,7 +642,9 @@
       "publishedTrainerHint": "Veröffentlichtes geht zuerst in die Prüfung; in der Bibliothek erscheint es nach Freigabe.",
       "reviewStatus": "Prüfstatus",
       "linkedSession": "Bibliothekseinheit",
-      "linkedSessionHint": "Ein Programmschritt kann eine veröffentlichte Einheit nutzen: ihr Video wird verwendet, wenn der Schritt keins hat."
+      "linkedSessionHint": "Ein Programmschritt kann eine veröffentlichte Einheit nutzen: ihr Video wird verwendet, wenn der Schritt keins hat.",
+      "youtubeLink": "YouTube-Videolink",
+      "youtubeHint": "Das Video bleibt auf YouTube und läuft im offiziellen Player. Nach den YouTube-Regeln sind diese Einheiten immer kostenlos."
     },
     "errors": {
       "forbidden": "Dafür fehlt dir die Berechtigung.",
@@ -692,6 +713,17 @@
     "kinds": {
       "course": "Kurs (Lektionen mit eigenen Videos)",
       "program": "Programm (Abfolge von Bibliothekseinheiten)"
+    },
+    "youtube": {
+      "title": "Video von YouTube hinzufügen",
+      "lead": "Link einfügen: Titel und Vorschaubild kommen von YouTube. Die Einheit wird als Entwurf gespeichert, prüfen und veröffentlichen.",
+      "newOnChannel": "Neu auf dem Kanal und noch nicht in der Bibliothek: {count}",
+      "link": "Videolink",
+      "durationHint": "Länge in Minuten, aufgerundet.",
+      "add": "Entwurf hinzufügen",
+      "invalid": "Kein YouTube-Link, das Video ist nicht einbettbar oder die Länge liegt außerhalb des Bereichs.",
+      "failed": "Konnte nicht hinzufügen. Das Video ist vielleicht schon in der Bibliothek.",
+      "note": "Nichts wird heruntergeladen: Die Bibliothek speichert nur den Link zum Video."
     }
   },
   "premium": {

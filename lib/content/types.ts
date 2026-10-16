@@ -40,12 +40,16 @@ export type VideoSource =
   | { kind: "hls"; src: string; poster?: string }
   /** Uploaded through the admin panel into Supabase Storage; played via a signed URL */
   | { kind: "storage"; bucket: "videos" | "member-videos"; path: string; poster?: string }
+  /** Public YouTube video shown in the official embedded player (never downloaded or re-uploaded) */
+  | { kind: "youtube"; id: string; poster?: string }
   | null;
 
 /** What the player actually receives after the source has been resolved to a playable URL. */
 export interface PlayableVideo {
   src: string;
   poster?: string;
+  /** Set for YouTube sources: the player renders the official embed instead of <video> */
+  youtubeId?: string;
 }
 
 export interface Author {
@@ -99,6 +103,10 @@ export interface WorkoutFilters {
   author?: string;
   equipment?: EquipmentId;
   region?: string;
+  /** Content language of the video (independent of the UI language) */
+  language?: ContentLanguage;
+  /** "youtube" = videos from the trainer's YouTube channel */
+  source?: "youtube";
 }
 
 /** Flat, already-localised shape that cards and client components can receive. */
@@ -117,6 +125,8 @@ export interface WorkoutCardData {
   poster?: string;
   authorId: string;
   authorName?: string;
+  /** Plays from YouTube */
+  youtube?: boolean;
 }
 
 /* ----------------------------------------------------------------------------

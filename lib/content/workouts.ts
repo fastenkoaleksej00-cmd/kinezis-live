@@ -317,6 +317,8 @@ export async function listWorkouts(filters: WorkoutFilters = {}): Promise<Workou
     .filter((w) => !filters.author || w.authorId === filters.author)
     .filter((w) => !filters.equipment || (filters.equipment === "none" ? (w.equipment ?? []).length === 0 || w.equipment?.includes("none") : w.equipment?.includes(filters.equipment)))
     .filter((w) => !filters.region || w.bodyRegions?.includes(filters.region))
+    .filter((w) => !filters.language || w.language === filters.language)
+    .filter((w) => !filters.source || w.video?.kind === filters.source)
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
 
@@ -352,6 +354,8 @@ export function parseFilters(params: SearchParams): WorkoutFilters {
     author: author && /^[a-z0-9-]{1,60}$/.test(author) ? author : undefined,
     equipment: inList(equipmentIds, one(params.equipment)),
     region: region && /^[a-zA-Z]{1,24}$/.test(region) ? region : undefined,
+    language: inList(["en", "uk", "de", "ru"] as const, one(params.lang)),
+    source: one(params.source) === "youtube" ? "youtube" : undefined,
   };
 }
 

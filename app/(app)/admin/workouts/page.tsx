@@ -7,6 +7,8 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { listAllWorkouts } from "@/lib/admin/queries";
+import { YouTubeImport } from "@/components/admin/YouTubeImport";
+import { latestChannelVideos } from "@/lib/video/youtubeFeed";
 import { Film } from "lucide-react";
 
 interface PageProps {
@@ -33,6 +35,7 @@ export default async function AdminWorkoutsPage({ searchParams }: PageProps) {
           </Link>
         }
       />
+      <YouTubeImport suggestions={viewer?.role === "admin" ? (await latestChannelVideos()).filter((v) => !workouts.some((w) => w.video?.kind === "youtube" && w.video.id === v.id)).map((v) => ({ id: v.id, title: v.title })) : []} />
       {params.saved ? <p className="bg-mint-soft text-mint-deep rounded-2xl px-4 py-3 text-sm font-semibold">{t("savedNotice")}</p> : null}
       {params.submitted ? <p className="bg-accent-soft text-accent rounded-2xl px-4 py-3 text-sm font-semibold">{t("submittedNotice")}</p> : null}
       {params.deleted ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm font-semibold">{t("deletedNotice")}</p> : null}

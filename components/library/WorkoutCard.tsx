@@ -25,6 +25,7 @@ export async function WorkoutCard({ workout }: WorkoutCardProps) {
           <SaveButton itemKey={workoutKey(workout.id)} look="glass" />
         </div>
         {workout.access === "premium" ? <LockBadge label={tp("badge")} /> : null}
+        {workout.youtube ? <span className="absolute bottom-3 right-3 z-20 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-white uppercase">YouTube</span> : null}
         <div className="flex h-full flex-col justify-end p-4">
           <span
             className={

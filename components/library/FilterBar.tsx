@@ -17,7 +17,7 @@ interface FilterBarProps {
   authors?: Array<{ id: string; name: string }>;
 }
 
-type Draft = Pick<WorkoutFilters, "duration" | "goal" | "level" | "author" | "equipment" | "region">;
+type Draft = Pick<WorkoutFilters, "duration" | "goal" | "level" | "author" | "equipment" | "region" | "language">;
 
 /** Category chips in a scroll row, plus a bottom sheet for duration, goal and level. Filters live in the URL. */
 export function FilterBar({ filters, authors = [] }: FilterBarProps) {
@@ -28,23 +28,25 @@ export function FilterBar({ filters, authors = [] }: FilterBarProps) {
   const params = useSearchParams();
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState<Draft>({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region });
+  const [draft, setDraft] = useState<Draft>({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region, language: filters.language });
 
-  const activeCount = [filters.duration, filters.goal, filters.level, filters.author, filters.equipment, filters.region].filter(Boolean).length;
+  const activeCount = [filters.duration, filters.goal, filters.level, filters.author, filters.equipment, filters.region, filters.language].filter(Boolean).length;
 
   function push(next: WorkoutFilters) {
     const q = new URLSearchParams(params.toString());
-    for (const key of ["category", "duration", "goal", "level", "author", "equipment", "region"] as const) {
+    for (const key of ["category", "duration", "goal", "level", "author", "equipment", "region", "source"] as const) {
       const v = next[key];
       if (v) q.set(key, v);
       else q.delete(key);
     }
+    if (next.language) q.set("lang", next.language);
+    else q.delete("lang");
     const qs = q.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
   function openSheet() {
-    setDraft({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region });
+    setDraft({ duration: filters.duration, goal: filters.goal, level: filters.level, author: filters.author, equipment: filters.equipment, region: filters.region, language: filters.language });
     setOpen(true);
   }
 
@@ -69,6 +71,7 @@ export function FilterBar({ filters, authors = [] }: FilterBarProps) {
     ...(authors.length > 1 ? [{ key: "author" as const, title: t("filters.author"), options: authors.map((a) => a.id), label: (v: string) => authors.find((a) => a.id === v)?.name ?? v }] : []),
     { key: "equipment" as const, title: t("filters.equipment"), options: equipmentIds, label: (v: string) => t(`equipment.${v as (typeof equipmentIds)[number]}`) },
     { key: "region" as const, title: t("filters.region"), options: regionIds, label: (v: string) => tb(`regions.${v as (typeof regionIds)[number]}`) },
+    { key: "language" as const, title: t("filters.language"), options: ["ru", "uk", "en", "de"] as const, label: (v: string) => t(`videoLanguages.${v as "ru"}`) },
   ];
 
   return (

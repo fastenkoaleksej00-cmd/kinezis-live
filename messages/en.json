@@ -105,6 +105,10 @@
     "community": {
       "title": "Community",
       "body": "Members' stories, questions and tips by topic."
+    },
+    "youtube": {
+      "title": "Yuliia's videos on YouTube",
+      "body": "Pilates, yoga and back care from her channel, in Russian."
     }
   },
   "library": {
@@ -131,7 +135,8 @@
       "close": "Close",
       "author": "Trainer",
       "equipment": "Equipment",
-      "region": "Body area"
+      "region": "Body area",
+      "language": "Video language"
     },
     "durations": {
       "short": "Under 15 min",
@@ -175,7 +180,17 @@
     "program": "Programme",
     "safetyTitle": "Before you start",
     "youWillNeed": "You will need",
-    "youWillNeedHint": "Tap to find the equipment in the shop."
+    "youWillNeedHint": "Tap to find the equipment in the shop.",
+    "youtubeTitle": "Yuliia's videos on YouTube",
+    "youtubeBody": "Sessions from her channel, in Russian. They play in the official YouTube player.",
+    "youtubeChannel": "Channel",
+    "youtubeAll": "Whole library",
+    "videoLanguages": {
+      "ru": "Русский",
+      "uk": "Українська",
+      "en": "English",
+      "de": "Deutsch"
+    }
   },
   "saved": {
     "title": "Saved",
@@ -353,7 +368,10 @@
     "unmute": "Unmute",
     "fullscreen": "Full screen",
     "seek": "Seek",
-    "resumedFrom": "Resumed from {time}"
+    "resumedFrom": "Resumed from {time}",
+    "playOnYouTube": "Watch \"{title}\" on YouTube",
+    "resumeFrom": "Resume at {time}",
+    "youtubeNote": "The video loads from YouTube when you tap play. YouTube may show ads and set cookies under its own rules."
   },
   "feed": {
     "kinds": {
@@ -558,7 +576,8 @@
       "none": "No video yet",
       "file": "Direct file (mp4)",
       "hls": "Stream (HLS .m3u8)",
-      "storage": "Upload a file (up to 50 MB)"
+      "storage": "Upload a file (up to 50 MB)",
+      "youtube": "YouTube"
     },
     "attachment": {
       "none": "None",
@@ -623,7 +642,9 @@
       "publishedTrainerHint": "Published items go to review first; they appear in the library after approval.",
       "reviewStatus": "Review status",
       "linkedSession": "Library session",
-      "linkedSessionHint": "A programme step can reuse a published session: its video is used when this step has none."
+      "linkedSessionHint": "A programme step can reuse a published session: its video is used when this step has none.",
+      "youtubeLink": "YouTube video link",
+      "youtubeHint": "The video stays on YouTube and plays in the official player. Under YouTube's terms these sessions are always free."
     },
     "errors": {
       "forbidden": "You do not have permission for this.",
@@ -692,6 +713,17 @@
     "kinds": {
       "course": "Course (lessons with own videos)",
       "program": "Programme (sequence of library sessions)"
+    },
+    "youtube": {
+      "title": "Add a video from YouTube",
+      "lead": "Paste a link: title and thumbnail come from YouTube. The session is saved as a draft for you to check and publish.",
+      "newOnChannel": "New on the channel and not in the library yet: {count}",
+      "link": "Video link",
+      "durationHint": "Length in minutes, rounded up.",
+      "add": "Add draft",
+      "invalid": "Not a YouTube link, the video cannot be embedded, or the length is out of range.",
+      "failed": "Could not add. The video may already be in the library.",
+      "note": "Nothing is downloaded: the library stores only the link to the video."
     }
   },
   "premium": {

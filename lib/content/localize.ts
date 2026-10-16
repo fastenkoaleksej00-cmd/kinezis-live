@@ -19,6 +19,7 @@ export function toCardData(w: Workout, locale: Locale, authorName?: string): Wor
     hasVideo: w.video !== null,
     access: w.access,
     goals: w.goals,
-    poster: w.video?.poster,
+    poster: w.video?.poster ?? (w.video?.kind === "youtube" ? `https://i.ytimg.com/vi/${w.video.id}/hqdefault.jpg` : undefined),
+    youtube: w.video?.kind === "youtube",
   };
 }

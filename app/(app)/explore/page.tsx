@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** Real covers live in public/covers/explore (owner's photos, WebP ≤ 70 kB); directions without one keep the brand gradient. */
 const directions = [
   { key: "workouts", href: "/library", tone: "deep", image: "/covers/explore/workouts.webp" },
+  { key: "youtube", href: "/library?source=youtube&lang=ru", tone: "deep", image: "https://i.ytimg.com/vi/hRvell3y2LM/hqdefault.jpg" },
   { key: "faceFitness", href: "/face-fitness", tone: "mint", image: "/covers/explore/face-fitness.webp" },
   { key: "skincare", href: "/skincare", tone: "mint", image: null },
   { key: "nutrition", href: "/nutrition", tone: "mint", image: "/covers/explore/nutrition.webp" },

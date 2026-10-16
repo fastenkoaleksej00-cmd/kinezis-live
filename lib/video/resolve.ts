@@ -1,5 +1,6 @@
 import type { PlayableVideo, VideoSource } from "@/lib/content/types";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { youTubeThumb } from "./youtube";
 
 /** Signed playback links live this long; a page reload issues a fresh one. */
 const SIGNED_URL_SECONDS = 60 * 60 * 3;
@@ -12,6 +13,7 @@ const SIGNED_URL_SECONDS = 60 * 60 * 3;
 export async function resolveVideo(source: VideoSource): Promise<PlayableVideo | null> {
   if (!source) return null;
   if (source.kind === "file" || source.kind === "hls") return { src: source.src, poster: source.poster };
+  if (source.kind === "youtube") return { src: "", poster: source.poster ?? youTubeThumb(source.id), youtubeId: source.id };
 
   const supabase = await createServerSupabase();
   if (!supabase) return null;

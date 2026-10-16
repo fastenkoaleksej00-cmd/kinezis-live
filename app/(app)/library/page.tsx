@@ -11,7 +11,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
 import { toCardData } from "@/lib/content/localize";
 import { listAuthors, listWorkouts, parseFilters } from "@/lib/content/workouts";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ExternalLink, X } from "lucide-react";
+import { YOUTUBE_CHANNEL } from "@/lib/video/youtube";
 
 interface LibraryPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -32,6 +33,29 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
       <Reveal>
         <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       </Reveal>
+
+      {filters.source === "youtube" ? (
+        <Reveal delay={0.02}>
+          <div className="card flex flex-wrap items-center gap-3 px-4 py-3">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fde8ea] text-[#c4302b]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+                <path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.8 15.1V8.9l5.6 3.1-5.6 3.1Z" />
+              </svg>
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="text-ink block text-sm font-bold">{t("youtubeTitle")}</span>
+              <span className="text-steel block text-xs">{t("youtubeBody")}</span>
+            </span>
+            <a href={YOUTUBE_CHANNEL.url} target="_blank" rel="noopener noreferrer" className="text-accent inline-flex items-center gap-1 text-xs font-semibold hover:underline">
+              {t("youtubeChannel")}
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+            </a>
+            <Link href="/library" aria-label={t("youtubeAll")} className="text-steel hover:text-ink inline-flex h-8 w-8 items-center justify-center rounded-full">
+              <X className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </Reveal>
+      ) : null}
 
       <Suspense fallback={null}>
         <FilterBar filters={filters} authors={authorOptions} />
