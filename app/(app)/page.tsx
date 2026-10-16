@@ -11,6 +11,7 @@ import { QuickAccess } from "@/components/home/QuickAccess";
 import { GoalWidget } from "@/components/home/GoalWidget";
 import { HomeCheckInSlot, HomeWaterSlot } from "@/components/home/HomeSlots";
 import { ShopWidget } from "@/components/shop/ShopWidget";
+import { StarterWeek } from "@/components/home/StarterWeek";
 import { NewSessions } from "@/components/home/NewSessions";
 import { BreathWidget } from "@/components/breath/BreathWidget";
 import { computeActivityStats } from "@/lib/health/stats";
@@ -66,6 +67,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <Reveal delay={0.05}>
         <QuickAccess />
       </Reveal>
+
+      <StarterWeek />
 
       {stats ? (
         <Reveal delay={0.06}>

@@ -170,3 +170,23 @@ export async function getAuthorStats(authorId: string): Promise<AuthorStats | nu
   if (!row) return null;
   return { completions: Number(row.completions ?? 0), likes: Number(row.likes ?? 0), published: Number(row.published ?? 0) };
 }
+
+export interface AdminOverview {
+  members: number;
+  new7d: number;
+  active7d: number;
+  posts7d: number;
+  openReports: number;
+  pendingReview: number;
+}
+
+/** Admin home numbers (migration 0026). Null when the function is missing or the caller is not an admin. */
+export async function getAdminOverview(): Promise<AdminOverview | null> {
+  const db = await createServerSupabase();
+  if (!db) return null;
+  const { data, error } = await db.rpc("admin_overview");
+  const row = (Array.isArray(data) ? data[0] : data) as Record<string, number | string> | undefined;
+  if (error || !row) return null;
+  const n = (k: string) => Number(row[k] ?? 0);
+  return { members: n("members"), new7d: n("new_7d"), active7d: n("active_7d"), posts7d: n("posts_7d"), openReports: n("open_reports"), pendingReview: n("pending_review") };
+}

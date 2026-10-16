@@ -551,7 +551,8 @@
       "reports": "Reports",
       "profile": "My card",
       "shop": "Shop",
-      "moderation": "Log"
+      "moderation": "Log",
+      "returned": "Returned for changes: {count}"
     },
     "counts": "{total, plural, =0 {No items} one {# item} other {# items}} · {published} published",
     "sampleHint": "While a section has no published items, the app shows its built-in sample content labelled as samples.",
@@ -763,6 +764,14 @@
         "dismiss_report": "Report dismissed",
         "clear_review": "Post checked"
       }
+    },
+    "overview": {
+      "members": "Members in total",
+      "new7d": "New in 7 days",
+      "active7d": "Active in 7 days",
+      "posts7d": "Posts in 7 days",
+      "openReports": "Open reports",
+      "pendingReview": "Waiting for review"
     }
   },
   "premium": {
@@ -2162,5 +2171,43 @@
     "community": "Community",
     "shop": "Shop",
     "all": "All results"
+  },
+  "starter": {
+    "eyebrow": "Your first 7 days",
+    "dayTitle": "Day {n}: {title}",
+    "progress": "{done} of {total} done",
+    "open": "Open",
+    "done": "Done",
+    "hide": "Hide",
+    "days": {
+      "breath": {
+        "title": "breathing",
+        "body": "Three minutes of calm belly breathing: the base for everything else."
+      },
+      "yoga": {
+        "title": "yoga with Yuliia",
+        "body": "Open the \"5 days of yoga\" programme and do day one, 15 minutes."
+      },
+      "body": {
+        "title": "body map",
+        "body": "Tap the area that bothers or interests you and see matching sessions."
+      },
+      "break": {
+        "title": "screen break",
+        "body": "Two and a half minutes for neck, shoulders and eyes."
+      },
+      "pilates": {
+        "title": "pilates",
+        "body": "Pick a short pilates session in the Library."
+      },
+      "community": {
+        "title": "community",
+        "body": "Introduce yourself or ask a question: members and trainers answer here."
+      },
+      "evening": {
+        "title": "evening ritual",
+        "body": "Breathing, a light stretch and one line of gratitude before sleep."
+      }
+    }
   }
 }

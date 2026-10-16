@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { ownStorageUrl, safePath } from "@/lib/security";
+import { num, str } from "@/lib/forms";
 import {
   activityLevels,
   bannerPresets,
@@ -35,13 +36,6 @@ async function me() {
   return { supabase, user };
 }
 
-const str = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
-const num = (fd: FormData, k: string): number | null => {
-  const v = str(fd, k).replace(",", ".");
-  if (!v) return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
-};
 const inList = <T extends string>(list: readonly T[], v: string): T | null => ((list as readonly string[]).includes(v) ? (v as T) : null);
 
 function revalidateProfile() {

@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, BookOpen, ClipboardCheck, Film, Flag, Newspaper, UserRoundCheck, Users } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { listAllCourses, listAllPosts, listAllWorkouts } from "@/lib/admin/queries";
-import { getAuthorStats, listApplications, listPendingContent, listReports } from "@/lib/trainers/queries";
+import { getAdminOverview, getAuthorStats, listApplications, listPendingContent, listReports } from "@/lib/trainers/queries";
 import { getSessionUser } from "@/lib/supabase/server";
 
 /** Overview: trainers see their own content and reach; admins also see the queues. */
@@ -29,11 +29,29 @@ export default async function AdminPage() {
         ]
       : []),
   ];
+  const overview = admin ? await getAdminOverview() : null;
   const pendingOwn = workouts.filter((w) => w.review_status === "pending").length + courses.filter((c) => c.review_status === "pending").length;
 
   return (
     <div className="space-y-6">
       <SectionHeading as="h1" title={admin ? t("title") : t("trainerTitle")} lead={t("lead", { name: user?.displayName ?? user?.email ?? "" })} />
+      {overview ? (
+        <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {([
+            ["members", overview.members],
+            ["new7d", overview.new7d],
+            ["active7d", overview.active7d],
+            ["posts7d", overview.posts7d],
+            ["openReports", overview.openReports],
+            ["pendingReview", overview.pendingReview],
+          ] as const).map(([k, v]) => (
+            <div key={k} className="card px-4 py-3.5">
+              <p className="text-ink text-2xl font-extrabold">{v}</p>
+              <p className="text-steel text-xs">{t(`overview.${k}`)}</p>
+            </div>
+          ))}
+        </section>
+      ) : null}
       {!admin && !user?.authorId ? <p className="bg-bone-2 text-steel rounded-2xl px-4 py-3 text-sm">{t("noAuthorCard")}</p> : null}
       {stats ? (
         <section className="grid grid-cols-3 gap-3 sm:max-w-md">

@@ -3,26 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { revalidatePublicContent } from "@/lib/content/revalidate";
 import { redirect } from "next/navigation";
-import type { LocalizedText } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { OFFER_ROWS, shopCategories, shopCollections, shopCountries, shopCurrencies, shopSources } from "./types";
+import { localized, str } from "@/lib/forms";
 
 export interface ShopState {
   error?: "forbidden" | "titleRequired" | "invalid" | "generic";
 }
 
-const str = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
-
-function localized(fd: FormData, base: string): LocalizedText | null {
-  const en = str(fd, `${base}_en`);
-  if (!en) return null;
-  const out: LocalizedText = { en };
-  for (const l of ["uk", "de", "ru"] as const) {
-    const v = str(fd, `${base}_${l}`);
-    if (v) out[l] = v;
-  }
-  return out;
-}
 
 async function adminDb() {
   const user = await getSessionUser();

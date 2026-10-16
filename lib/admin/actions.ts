@@ -10,6 +10,7 @@ import { ownStorageUrl } from "@/lib/security";
 import { logModeration } from "./moderationLog";
 import { parseYouTubeId, youTubeThumb } from "@/lib/video/youtube";
 import { communityTopics, normalizeTags, postTypes, riskyText } from "@/lib/community/types";
+import { bool, localized, str } from "@/lib/forms";
 
 export type AdminErrorCode = "forbidden" | "notConfigured" | "titleRequired" | "bodyRequired" | "slugTaken" | "invalid" | "generic" | "rateLimit" | "linksNew";
 
@@ -31,21 +32,6 @@ function authorFor(user: { role: string; authorId: string | null }, requested: s
   return user.role === "admin" ? requested || null : user.authorId;
 }
 
-const str = (fd: FormData, key: string) => String(fd.get(key) ?? "").trim();
-const bool = (fd: FormData, key: string) => fd.get(key) === "on";
-
-function localized(fd: FormData, base: string): LocalizedText | null {
-  const en = str(fd, `${base}_en`);
-  if (!en) return null;
-  const out: LocalizedText = { en };
-  const uk = str(fd, `${base}_uk`);
-  const de = str(fd, `${base}_de`);
-  const ru = str(fd, `${base}_ru`);
-  if (uk) out.uk = uk;
-  if (de) out.de = de;
-  if (ru) out.ru = ru;
-  return out;
-}
 
 export async function slugify(input: string): Promise<string> {
   return input

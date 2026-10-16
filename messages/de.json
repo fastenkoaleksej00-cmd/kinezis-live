@@ -551,7 +551,8 @@
       "reports": "Meldungen",
       "profile": "Meine Karte",
       "shop": "Shop",
-      "moderation": "Protokoll"
+      "moderation": "Protokoll",
+      "returned": "Zur Überarbeitung zurück: {count}"
     },
     "counts": "{total, plural, =0 {Keine Einträge} one {# Eintrag} other {# Einträge}} · {published} veröffentlicht",
     "sampleHint": "Solange ein Bereich keine veröffentlichten Einträge hat, zeigt die App ihre eingebauten Beispiele mit Kennzeichnung.",
@@ -763,6 +764,14 @@
         "dismiss_report": "Meldung verworfen",
         "clear_review": "Beitrag geprüft"
       }
+    },
+    "overview": {
+      "members": "Mitglieder gesamt",
+      "new7d": "Neu in 7 Tagen",
+      "active7d": "Aktiv in 7 Tagen",
+      "posts7d": "Beiträge in 7 Tagen",
+      "openReports": "Offene Meldungen",
+      "pendingReview": "Warten auf Prüfung"
     }
   },
   "premium": {
@@ -2162,5 +2171,43 @@
     "community": "Community",
     "shop": "Shop",
     "all": "Alle Ergebnisse"
+  },
+  "starter": {
+    "eyebrow": "Deine ersten 7 Tage",
+    "dayTitle": "Tag {n}: {title}",
+    "progress": "{done} von {total} erledigt",
+    "open": "Öffnen",
+    "done": "Erledigt",
+    "hide": "Ausblenden",
+    "days": {
+      "breath": {
+        "title": "Atmung",
+        "body": "Drei Minuten ruhige Bauchatmung: die Grundlage für alles Weitere."
+      },
+      "yoga": {
+        "title": "Yoga mit Yuliia",
+        "body": "Öffne das Programm „5 Tage Yoga“ und mach Tag eins, 15 Minuten."
+      },
+      "body": {
+        "title": "Körperkarte",
+        "body": "Tippe auf den Bereich, der dich beschäftigt, und sieh passende Einheiten."
+      },
+      "break": {
+        "title": "Bildschirmpause",
+        "body": "Zweieinhalb Minuten für Nacken, Schultern und Augen."
+      },
+      "pilates": {
+        "title": "Pilates",
+        "body": "Wähle eine kurze Pilates-Einheit in der Bibliothek."
+      },
+      "community": {
+        "title": "Community",
+        "body": "Stell dich vor oder stell eine Frage: hier antworten Mitglieder und Trainer."
+      },
+      "evening": {
+        "title": "Abendritual",
+        "body": "Atmung, leichtes Dehnen und eine Zeile Dankbarkeit vor dem Schlafen."
+      }
+    }
   }
 }

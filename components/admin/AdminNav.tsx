@@ -25,7 +25,7 @@ const items = [
 ] as const;
 
 /** Trainers see their own tools; admins additionally get review, applications, trainers, reports and brand sections. */
-export function AdminNav({ role }: { role: "trainer" | "admin" }) {
+export function AdminNav({ role, returned = 0 }: { role: "trainer" | "admin"; returned?: number }) {
   const pathname = usePathname();
   const t = useTranslations("admin.nav");
   return (
@@ -45,6 +45,11 @@ export function AdminNav({ role }: { role: "trainer" | "admin" }) {
               )}
             >
               {t(key)}
+              {key === "workouts" && returned > 0 ? (
+                <span className="bg-alert ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs font-bold text-white" aria-label={t("returned", { count: returned })}>
+                  {returned}
+                </span>
+              ) : null}
             </Link>
           );
         })}

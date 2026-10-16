@@ -8,6 +8,7 @@ import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
 import { ownStorageUrl } from "@/lib/security";
 import { reportReasons, type ReportReason, type ReportTarget } from "./types";
 import { logModeration } from "@/lib/admin/moderationLog";
+import { lines, str } from "@/lib/forms";
 
 export type TrainerErrorCode = "signedOut" | "notConfigured" | "forbidden" | "nameRequired" | "consentRequired" | "invalid" | "generic";
 export interface TrainerState {
@@ -15,13 +16,6 @@ export interface TrainerState {
   ok?: boolean;
 }
 
-const str = (fd: FormData, key: string) => String(fd.get(key) ?? "").trim();
-const lines = (fd: FormData, key: string) =>
-  str(fd, key)
-    .split(/\r?\n|,/)
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .slice(0, 10);
 const safeUrl = (u: string) => /^https?:\/\/[^\s]{3,200}$/.test(u);
 
 async function me() {
