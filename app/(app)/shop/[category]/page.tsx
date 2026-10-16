@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ArrowLeft, ShoppingBag } from "lucide-react";
-import { ShopItemCard } from "@/components/shop/ShopItemCard";
+import { ArrowLeft } from "lucide-react";
+import { CountryPicker, ShopCatalog } from "@/components/shop/ShopCatalog";
 import { Container } from "@/components/ui/Container";
-import { EmptyState } from "@/components/ui/EmptyState";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buttonStyles } from "@/components/ui/buttonStyles";
@@ -31,19 +30,12 @@ export default async function ShopCategoryPage({ params }: PageProps) {
         </Link>
         <SectionHeading as="h1" eyebrow={t("eyebrow")} title={t(`categories.${c}.title`)} lead={t(`categories.${c}.lead`)} />
       </Reveal>
-      {items.length === 0 ? (
-        <Reveal delay={0.05}>
-          <EmptyState icon={ShoppingBag} illustration="saved" title={t("emptyCategoryTitle")} body={t("emptyCategoryBody")} />
-        </Reveal>
-      ) : (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {items.map((i, idx) => (
-            <Reveal key={i.id} delay={Math.min(idx, 6) * 0.04}>
-              <ShopItemCard item={i} />
-            </Reveal>
-          ))}
-        </div>
-      )}
+      <Reveal delay={0.03}>
+        <CountryPicker />
+      </Reveal>
+      <Reveal delay={0.05}>
+        <ShopCatalog items={items} emptyTitle={t("soonTitle")} emptyBody={t("emptyCategoryBody")} />
+      </Reveal>
       <Reveal delay={0.1}>
         <p className="text-steel text-xs">{c === "suspension" ? t("suspensionNote") : t("howItWorks")}</p>
       </Reveal>

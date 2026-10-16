@@ -6,14 +6,14 @@ import { ImagePlus, Loader2 } from "lucide-react";
 import { Checkbox, Field, Input, LocalizedInputs, Select } from "@/components/admin/fields";
 import { SubmitRow } from "@/components/admin/SubmitRow";
 import { deleteShopItem, saveShopItem, type ShopState } from "@/lib/shop/actions";
-import type { ShopItemRow } from "@/lib/shop/queries";
-import { shopCategories, shopCurrencies } from "@/lib/shop/types";
+import type { ShopItemRow, ShopOfferRow } from "@/lib/shop/queries";
+import { OFFER_ROWS, shopCategories, shopCollections, shopCountries, shopCurrencies, shopSources } from "@/lib/shop/types";
 import { getBrowserClient } from "@/lib/supabase/client";
 
 const initial: ShopState = {};
 
 /** Admin: one product. Photo goes to the public covers bucket under shop/. Buying happens on the partner's page. */
-export function ShopItemForm({ item }: { item?: ShopItemRow | null }) {
+export function ShopItemForm({ item, offers = [] }: { item?: ShopItemRow | null; offers?: ShopOfferRow[] }) {
   const t = useTranslations("shop.admin");
   const ts = useTranslations("shop");
   const [state, action, pending] = useActionState(saveShopItem, initial);
@@ -93,7 +93,65 @@ export function ShopItemForm({ item }: { item?: ShopItemRow | null }) {
           <p className="text-steel mt-2 text-xs">{t("photoHint")}</p>
         </div>
       </section>
+      <section className="card space-y-4 p-5">
+        <div>
+          <p className="eyebrow">{t("offersTitle")}</p>
+          <p className="text-steel mt-1 text-xs">{t("offersHint", { countries: shopCountries.join(", ") })}</p>
+        </div>
+        {Array.from({ length: OFFER_ROWS }, (_, i) => {
+          const o = offers[i];
+          return (
+            <fieldset key={i} className="bg-frost/60 grid gap-3 rounded-2xl p-3 sm:grid-cols-6">
+              <legend className="text-steel px-1 text-xs font-semibold">{t("offer", { n: i + 1 })}</legend>
+              <Field label={t("source")} className="sm:col-span-2">
+                <Select name={`offer_${i}_source`} defaultValue={o?.source ?? "partner"}>
+                  {shopSources.map((src) => (
+                    <option key={src} value={src}>
+                      {ts(`sources.${src}`)}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t("storeName")} className="sm:col-span-2">
+                <Input name={`offer_${i}_store`} defaultValue={o?.store_name ?? ""} maxLength={80} placeholder="Amazon.de" />
+              </Field>
+              <Field label={t("countries")} className="sm:col-span-2">
+                <Input name={`offer_${i}_countries`} defaultValue={(o?.countries ?? []).join(", ")} placeholder="DE, AT, PL" />
+              </Field>
+              <Field label={t("url")} className="sm:col-span-6">
+                <Input name={`offer_${i}_url`} type="url" defaultValue={o?.url ?? ""} placeholder="https://" />
+              </Field>
+              <Field label={t("price")} className="sm:col-span-2">
+                <Input name={`offer_${i}_price`} inputMode="decimal" defaultValue={o?.price ?? ""} />
+              </Field>
+              <Field label={t("currency")}>
+                <Select name={`offer_${i}_currency`} defaultValue={o?.currency ?? "EUR"}>
+                  {shopCurrencies.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field label={t("deliveryMin")}>
+                <Input name={`offer_${i}_dmin`} type="number" min={0} max={120} defaultValue={o?.delivery_min_days ?? ""} />
+              </Field>
+              <Field label={t("deliveryMax")} className="sm:col-span-2">
+                <Input name={`offer_${i}_dmax`} type="number" min={0} max={120} defaultValue={o?.delivery_max_days ?? ""} />
+              </Field>
+            </fieldset>
+          );
+        })}
+        <p className="text-steel text-xs">{t("deliveryHint")}</p>
+      </section>
+
       <section className="card space-y-3 p-5">
+        <p className="eyebrow">{t("collectionsTitle")}</p>
+        <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+          {shopCollections.map((c) => (
+            <Checkbox key={c} name={`collection_${c}`} label={ts(`collections.${c}.title`)} defaultChecked={item?.collections?.includes(c) ?? false} />
+          ))}
+        </div>
         <Checkbox name="featured" label={t("featured")} defaultChecked={item?.featured ?? false} />
         <Checkbox name="published" label={t("published")} defaultChecked={item?.published ?? false} />
         {state.error ? <p className="text-sm text-[#8a2f2f]">{t(`errors.${state.error}`)}</p> : null}

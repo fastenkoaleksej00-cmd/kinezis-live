@@ -1835,6 +1835,56 @@
         "titleRequired": "The English name is required.",
         "invalid": "Check the price and the link.",
         "generic": "Could not save."
+      },
+      "offersTitle": "Where to buy",
+      "offersHint": "Up to 4 offers: different stores or countries. Country codes, comma-separated: {countries}. Empty = country not stated.",
+      "offer": "Offer {n}",
+      "source": "Source",
+      "storeName": "Store name",
+      "countries": "Ships to",
+      "deliveryMin": "Delivery from, days",
+      "deliveryMax": "to, days",
+      "deliveryHint": "Fill delivery times only from the store's own data. If unknown, leave empty: members will see \"check on the store's site\".",
+      "collectionsTitle": "Collections"
+    },
+    "deliverTo": "Deliver to",
+    "anyCountry": "Any country",
+    "emptyForCountry": "Nothing here ships to the chosen country yet. Try another country or check back later.",
+    "soonTitle": "Coming soon",
+    "soonNote": "Getting ready for sale.",
+    "notForCountry": "Does not ship to the chosen country.",
+    "noOffers": "Purchase links are coming soon.",
+    "deliveryStated": "Delivery {min}–{max} days, as stated by the store",
+    "deliveryAtStore": "Check the delivery time on the store's site",
+    "deliveryCheck": "Check delivery to your country on the store's site",
+    "fastNote": "Only offers where the store itself states delivery within 7 days to the chosen country. Actual times may differ.",
+    "sources": {
+      "amazon": "Amazon",
+      "temu": "Temu",
+      "aliexpress": "AliExpress",
+      "rozetka": "Rozetka",
+      "prom": "Prom.ua",
+      "partner": "Partner"
+    },
+    "collections": {
+      "fast": {
+        "title": "Fast delivery",
+        "hint": "Within 7 days to your country",
+        "lead": "Items where the store states delivery within 7 days to the chosen country.",
+        "empty": "Choose a delivery country: fast-delivery offers will appear here."
+      },
+      "deals": {
+        "title": "Finds and good deals",
+        "hint": "Good things at a good price",
+        "lead": "Useful equipment we consider a smart buy.",
+        "empty": "Finds will appear once we have picked them."
+      },
+      "soon": {
+        "title": "Coming soon",
+        "hint": "What we are preparing",
+        "lead": "Products we are getting ready to sell.",
+        "empty": "Announcements of new items will appear here.",
+        "badge": "Soon"
       }
     }
   },

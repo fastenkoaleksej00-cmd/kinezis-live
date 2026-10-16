@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { LocalizedText } from "@/lib/content/types";
 import { createServerSupabase, getSessionUser } from "@/lib/supabase/server";
-import { shopCategories, shopCurrencies } from "./types";
+import { OFFER_ROWS, shopCategories, shopCollections, shopCountries, shopCurrencies, shopSources } from "./types";
 
 export interface ShopState {
   error?: "forbidden" | "titleRequired" | "invalid" | "generic";
@@ -63,11 +63,46 @@ export async function saveShopItem(_prev: ShopState, fd: FormData): Promise<Shop
     purchase_url: url || null,
     partner: str(fd, "partner").slice(0, 80) || null,
     featured: fd.get("featured") === "on",
+    collections: shopCollections.filter((c) => fd.get(`collection_${c}`) === "on"),
     position: Number.isFinite(position) ? position : 0,
     published: fd.get("published") === "on",
   };
-  const { error } = await db.from("shop_items").upsert(row, { onConflict: "id" });
-  if (error) return { error: /duplicate|violates/i.test(error.message) ? "invalid" : "generic" };
+  // Offers: validate every filled row before writing anything
+  const offers: Array<Record<string, unknown>> = [];
+  for (let i = 0; i < OFFER_ROWS; i++) {
+    const offerUrl = str(fd, `offer_${i}_url`);
+    if (!offerUrl) continue;
+    if (!/^https:\/\/\S{3,800}$/.test(offerUrl)) return { error: "invalid" };
+    const source = str(fd, `offer_${i}_source`);
+    const p = str(fd, `offer_${i}_price`).replace(",", ".");
+    const op = p ? Number(p) : null;
+    if (op !== null && (!Number.isFinite(op) || op < 0)) return { error: "invalid" };
+    const dmin = Number.parseInt(str(fd, `offer_${i}_dmin`), 10);
+    const dmax = Number.parseInt(str(fd, `offer_${i}_dmax`), 10);
+    const countries = str(fd, `offer_${i}_countries`)
+      .toUpperCase()
+      .split(/[\s,;]+/)
+      .filter((c) => (shopCountries as readonly string[]).includes(c));
+    offers.push({
+      source: (shopSources as readonly string[]).includes(source) ? source : "partner",
+      store_name: str(fd, `offer_${i}_store`).slice(0, 80) || null,
+      countries,
+      url: offerUrl,
+      price: op,
+      currency: (shopCurrencies as readonly string[]).includes(str(fd, `offer_${i}_currency`)) ? str(fd, `offer_${i}_currency`) : "EUR",
+      delivery_min_days: Number.isFinite(dmin) ? Math.min(120, Math.max(0, dmin)) : null,
+      delivery_max_days: Number.isFinite(dmax) ? Math.min(120, Math.max(0, dmax)) : null,
+      position: i,
+    });
+  }
+  const { data: saved, error } = await db.from("shop_items").upsert(row, { onConflict: "id" }).select("id").single();
+  if (error || !saved) return { error: error && /duplicate|violates/i.test(error.message) ? "invalid" : "generic" };
+  const itemId = (saved as { id: string }).id;
+  const del = await db.from("shop_offers").delete().eq("item_id", itemId);
+  if (!del.error && offers.length > 0) {
+    const ins = await db.from("shop_offers").insert(offers.map((o) => ({ ...o, item_id: itemId })));
+    if (ins.error) return { error: "generic" };
+  }
   revalidatePath("/shop", "layout");
   revalidatePath("/", "layout");
   redirect("/admin/shop?saved=1");

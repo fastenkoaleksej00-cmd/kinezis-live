@@ -1835,6 +1835,56 @@
         "titleRequired": "Der englische Name ist erforderlich.",
         "invalid": "Prüfe Preis und Link.",
         "generic": "Konnte nicht speichern."
+      },
+      "offersTitle": "Wo kaufen",
+      "offersHint": "Bis zu 4 Angebote: verschiedene Shops oder Länder. Ländercodes, durch Komma getrennt: {countries}. Leer = Land nicht angegeben.",
+      "offer": "Angebot {n}",
+      "source": "Quelle",
+      "storeName": "Name des Shops",
+      "countries": "Lieferländer",
+      "deliveryMin": "Lieferung ab, Tage",
+      "deliveryMax": "bis, Tage",
+      "deliveryHint": "Lieferzeiten nur nach Angaben des Shops eintragen. Wenn unbekannt, leer lassen: Mitglieder sehen „auf der Seite des Shops prüfen“.",
+      "collectionsTitle": "Sammlungen"
+    },
+    "deliverTo": "Lieferung nach",
+    "anyCountry": "Beliebiges Land",
+    "emptyForCountry": "Für das gewählte Lieferland gibt es hier noch nichts. Versuch ein anderes Land oder schau später wieder.",
+    "soonTitle": "Bald verfügbar",
+    "soonNote": "Wird für den Verkauf vorbereitet.",
+    "notForCountry": "Keine Lieferung in das gewählte Land.",
+    "noOffers": "Kauflinks folgen bald.",
+    "deliveryStated": "Lieferung {min}–{max} Tage laut Shop",
+    "deliveryAtStore": "Lieferzeit auf der Seite des Shops prüfen",
+    "deliveryCheck": "Lieferung in dein Land auf der Seite des Shops prüfen",
+    "fastNote": "Nur Angebote, bei denen der Shop selbst eine Lieferung innerhalb von 7 Tagen ins gewählte Land angibt. Tatsächliche Zeiten können abweichen.",
+    "sources": {
+      "amazon": "Amazon",
+      "temu": "Temu",
+      "aliexpress": "AliExpress",
+      "rozetka": "Rozetka",
+      "prom": "Prom.ua",
+      "partner": "Partner"
+    },
+    "collections": {
+      "fast": {
+        "title": "Schnelle Lieferung",
+        "hint": "Innerhalb von 7 Tagen in dein Land",
+        "lead": "Artikel, bei denen der Shop eine Lieferung innerhalb von 7 Tagen ins gewählte Land angibt.",
+        "empty": "Wähle ein Lieferland: Angebote mit schneller Lieferung erscheinen hier."
+      },
+      "deals": {
+        "title": "Fundstücke und gute Angebote",
+        "hint": "Gute Dinge zum guten Preis",
+        "lead": "Nützliche Ausrüstung, die wir für einen guten Kauf halten.",
+        "empty": "Fundstücke erscheinen, sobald wir sie ausgewählt haben."
+      },
+      "soon": {
+        "title": "Bald im Shop",
+        "hint": "Was wir vorbereiten",
+        "lead": "Produkte, die wir für den Verkauf vorbereiten.",
+        "empty": "Ankündigungen neuer Artikel erscheinen hier.",
+        "badge": "Bald"
       }
     }
   },
