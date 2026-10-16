@@ -14,7 +14,7 @@ const VIDEO_MAX = 50 * 1024 * 1024;
 const PHOTO_MAX = 5 * 1024 * 1024;
 
 /** Member composer: photo or video, caption, category. Publishes to the community feed. */
-export function MemberComposer({ userId, defaultLanguage }: { userId: string; defaultLanguage: string }) {
+export function MemberComposer({ userId, defaultLanguage, initialType = "story" }: { userId: string; defaultLanguage: string; initialType?: PostType }) {
   const t = useTranslations("compose");
   const ta = useTranslations("admin");
   const [state, action, pending] = useActionState(memberPublish, initial);
@@ -24,7 +24,7 @@ export function MemberComposer({ userId, defaultLanguage }: { userId: string; de
   // Category is derived from the topic on the server; "other" is sent for older readers
   const category = "other";
   const [topic, setTopic] = useState<CommunityTopic>("general");
-  const [postType, setPostType] = useState<PostType>("story");
+  const [postType, setPostType] = useState<PostType>(initialType);
   const tc = useTranslations("community");
   const fileRef = useRef<HTMLInputElement>(null);
 

@@ -1186,10 +1186,15 @@
   },
   "quickAdd": {
     "add": "Hinzufügen",
-    "post": "Neuer Beitrag",
-    "postHint": "Foto, Video oder ein Gedanke für den Feed",
-    "workout": "Neues Workout-Video",
-    "workoutHint": "Eine Einheit in die Bibliothek laden"
+    "post": "Beitrag im Trainer-Feed",
+    "postHint": "News, Foto oder Video für alle",
+    "workout": "Trainingsvideo",
+    "workoutHint": "Einheit in die Bibliothek hochladen",
+    "share": "Erfahrung teilen",
+    "shareHint": "Geschichte oder Tipp für die Community",
+    "ask": "Frage stellen",
+    "askHint": "Frag Mitglieder und Trainer",
+    "close": "Schließen"
   },
   "workoutCompose": {
     "pageTitle": "Neues Workout",

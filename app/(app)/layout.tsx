@@ -2,6 +2,7 @@ import { UserDataSync } from "@/components/auth/UserDataSync";
 import { AppShell } from "@/components/layout/AppShell";
 import { AudioProvider } from "@/components/audio/AudioProvider";
 import { MiniPlayer } from "@/components/audio/MiniPlayer";
+import { QuickPostButton } from "@/components/feed/QuickPostButton";
 import { getSessionUser } from "@/lib/supabase/server";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -13,6 +14,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         {children}
       </AppShell>
       <MiniPlayer />
+      <QuickPostButton />
     </AudioProvider>
   );
 }

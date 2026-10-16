@@ -1186,10 +1186,15 @@
   },
   "quickAdd": {
     "add": "Add",
-    "post": "New post",
-    "postHint": "Photo, video or a thought for the feed",
-    "workout": "New workout video",
-    "workoutHint": "Upload a session to the library"
+    "post": "Trainer feed post",
+    "postHint": "News, photo or video for everyone",
+    "workout": "Workout video",
+    "workoutHint": "Upload a session to the library",
+    "share": "Share an experience",
+    "shareHint": "A story or tip for the community",
+    "ask": "Ask a question",
+    "askHint": "Ask members and trainers",
+    "close": "Close"
   },
   "workoutCompose": {
     "pageTitle": "New workout",

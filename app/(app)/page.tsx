@@ -3,7 +3,6 @@ import { FeatureTip } from "@/components/onboarding/FeatureTip";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowRight, Newspaper, Play } from "lucide-react";
 import { PostCard } from "@/components/feed/PostCard";
-import { QuickPostButton } from "@/components/feed/QuickPostButton";
 import { PremiumBanner } from "@/components/premium/PremiumBanner";
 import { ContinueCard } from "@/components/home/ContinueCard";
 import { RemindersCard } from "@/components/home/RemindersCard";
@@ -172,7 +171,6 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <Reveal>
         <HomeCheckInSlot />
       </Reveal>
-      <QuickPostButton />
     </Container>
   );
 }
